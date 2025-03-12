@@ -1,0 +1,24 @@
+.custom-navbar {
+  background: linear-gradient(to right, #001F3F, #004e92) !important;
+  /* background: #001F3F !important; */
+  /* background: rgba(0, 0, 0, 0.7) !important; */
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.3); */
+  /* background: linear-gradient(to bottom, #1a2980, #26d0ce) !important; */
+  /* border-bottom: 2px solid #ffffff33; */
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.2rem;
+  /* color: white !important; */
+}
+
+.navbar-toggler {
+  border: none;
+  color: transparent;
+  /* border-color: rgba(255, 255, 255, 0.5); */
+}
+
+.navbar-toggler-icon {
+  /* filter: invert(1); */
+  color: aliceblue;
+}
