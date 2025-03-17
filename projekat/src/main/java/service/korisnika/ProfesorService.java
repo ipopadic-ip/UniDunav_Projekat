@@ -3,7 +3,9 @@ package service.korisnika;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import model.fakultet.Fakultet;
 import model.korisnika.Profesor;
+import model.univerzitet.Univerzitet;
 import repository.korisnika.ProfesorRepository;
 
 @Service

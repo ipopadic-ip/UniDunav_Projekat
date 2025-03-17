@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import model.fakultet.Fakultet;
 import model.korisnika.Profesor;
+import model.univerzitet.Univerzitet;
 
 public interface ProfesorRepository extends JpaRepository<Profesor, Integer> {
 	List<Profesor> findByTitula(String titula);

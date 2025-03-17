@@ -1,12 +1,17 @@
 package model.korisnika;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import model.adresa.Mesto;
+import model.fakultet.Fakultet;
+import model.katedra.Katedra;
+import model.profesorPredmet.ProfesorPredmet;
+import model.univerzitet.Univerzitet;
 
 @Entity
 public class Profesor extends RegistrovaniKorisnik {

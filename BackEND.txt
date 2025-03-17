@@ -6,3 +6,10 @@
 *Uradjen dto za sve korisnike*-av
 *Uradjen repository za sve adrese*-av
 *Uradjen controller za registrovanog korisnika*-av
+
+
+*Uradjen MODEL, SERVICE, REPOSITORY, CONTROLLER, DTO za UNIVERZITET - NA 17.3
+*Uradjen MODEL, SERVICE, REPOSITORY, CONTROLLER, DTO za FAKULTET - NA
+*Uradjen MODEL, SERVICE, REPOSITORY, CONTROLLER, DTO za KATEDRA - NA
+*Uradjen MODEL, SERVICE, REPOSITORY, CONTROLLER, DTO za PREDMET - NA
+*Namesten ali ne i uradjen ProfesorPredmet - NA

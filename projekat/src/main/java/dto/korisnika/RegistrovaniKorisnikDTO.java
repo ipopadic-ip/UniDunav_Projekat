@@ -62,7 +62,7 @@ public class RegistrovaniKorisnikDTO {
             korisnik.getIme(),
             korisnik.getPrezime(),
             korisnik.getKorisnickoIme(),
-            korisnik.getDatumRodnjenja(),
+            korisnik.getDatumRodjenja(),
             korisnik.getMestoRodjenja().getNaziv(), 
             korisnik.getJmbg(),
             korisnik.getEmail()
