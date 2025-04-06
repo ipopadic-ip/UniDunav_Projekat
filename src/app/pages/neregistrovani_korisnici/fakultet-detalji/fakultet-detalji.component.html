@@ -1,0 +1,17 @@
+   <div class="container fakultetDeDiv">
+    <h1>Detalji fakulteta</h1>
+    <p *ngIf="fakultetData">Ovo je stranica sa detaljima za {{ fakultetData.naziv }}</p>
+    <!-- <app-about-us *ngIf="fakultetData" [data]="{ title: fakultetData.naziv, description: fakultetData.opis, image: fakultetData.slika }"></app-about-us> -->
+    <app-about-us *ngIf="fakultetData" [data]="{ title: fakultetData.naziv, description: fakultetData.opis, image: fakultetData.slika }"></app-about-us>
+    <app-rector
+    [ime]="'Dr. Ana Petrović'"
+    [titula]="'Direktor Instituta za Tehnologiju'"
+    [slikaSrc]="'assets/images/ana-petrovic.jpeg'"
+    [altText]="'Institut za Tehnologiju'"
+    [opis1]="'Dr. Ana Petrović vodi Institut već 10 godina, fokusirajući se na multidisciplinarna istraživanja i povezivanje industrije sa akademijom.'"
+    ></app-rector>
+
+    <app-contact *ngIf="kontaktData" [kontakt]="kontaktData"></app-contact>
+    <a href="/fakulteti" class="btn btn-secondary">Nazad na fakultete</a>
+  </div>
+  

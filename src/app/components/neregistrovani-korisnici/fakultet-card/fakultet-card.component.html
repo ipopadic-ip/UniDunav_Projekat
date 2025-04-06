@@ -1,0 +1,9 @@
+<div class="card">
+    <img *ngIf="fakultet.slika" [src]="fakultet.slika" class="card-img-top" alt="{{ fakultet.naziv }}">
+    <div class="card-body">
+      <h5 class="card-title">{{ fakultet.naziv }}</h5>
+      <!-- <p class="card-text">{{ fakultet.opis }}</p> -->
+      <a [routerLink]="['/fakulteti', fakultet.id]" class="btn btn-primary">Detalji</a>
+    </div>
+  </div>
+  

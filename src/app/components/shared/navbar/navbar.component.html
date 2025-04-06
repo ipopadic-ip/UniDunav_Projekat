@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/">Univerzitet Dunav</a>
+      <button class="navbar-toggler" type="button" (click)="isNavbarOpen = !isNavbarOpen">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" [ngbCollapse]="!isNavbarOpen">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item" *ngFor="let link of links">
+            <a class="nav-link" [routerLink]="link.path">{{ link.label }}</a>
+          </li>
+  
+          <!-- Prikazuje dropdown samo ako showDropdown = true -->
+          <!-- <li class="nav-item dropdown" *ngIf="showDropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Meni
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/profil">Profil</a></li>
+              <li><a class="dropdown-item" routerLink="/podesavanja">Podešavanja</a></li>
+            </ul>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

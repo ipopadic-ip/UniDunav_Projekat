@@ -1,0 +1,14 @@
+   <div class="container about-us">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h2 class="section-title">{{ data?.title }}</h2>
+        <p *ngFor="let paragraph of data?.description">
+          {{ paragraph }}
+        </p>
+      </div>
+      <div class="col-md-6 text-center">
+        <img [src]="data?.image" alt="{{ data?.title }}" class="about-image img-fluid rounded">
+      </div>
+    </div>
+  </div>
+  

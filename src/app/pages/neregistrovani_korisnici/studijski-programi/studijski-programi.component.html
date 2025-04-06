@@ -1,0 +1,11 @@
+<div class="container py-5">
+    <h2 class="mb-4">Studijski programi</h2>
+    <div *ngFor="let p of programi" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ p.naziv }}</h5>
+        <p class="card-text">{{ p.opis }}</p>
+        <a [routerLink]="['/studijski-programi', p.id]" class="btn btn-primary">Detalji</a>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,9 @@
+<div class="container fakultetiDiv">
+    <h1 class="py-4">Fakulteti</h1>
+    <div class="row">
+      <div *ngFor="let fakultet of fakulteti" class="col-md-4">
+        <app-fakultet-card [fakultet]="fakultet"></app-fakultet-card>
+      </div>
+    </div>
+  </div>
+  
