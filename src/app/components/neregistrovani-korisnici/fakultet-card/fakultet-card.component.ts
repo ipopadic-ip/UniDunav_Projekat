@@ -1,13 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
-interface Fakultet {
-  id: number;
-  naziv: string;
-  opis: string;
-  slika: string;
-}
+import { Fakultet } from '../../../core/model/fakultet.model';
 
 @Component({
   selector: 'app-fakultet-card',

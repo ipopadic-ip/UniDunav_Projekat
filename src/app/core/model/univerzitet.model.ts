@@ -1,11 +1,11 @@
-export interface Dekan {
+export interface Rektor {
     ime: string;
     titula: string;
     opis: string;
     slika: string;
   }
   
-  export interface Fakultet {
+  export interface Univerzitet {
     id: number;
     naziv: string;
     lokacija: string;
@@ -13,6 +13,6 @@ export interface Dekan {
     telefon: string;
     opis: string;
     slika: string;
-    dekan: Dekan;
+    rektor: Rektor;
   }
   

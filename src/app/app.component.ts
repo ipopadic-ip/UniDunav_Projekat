@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { UniverzitetService } from './core/services/univerzitet.service';
 
 @Component({
   selector: 'app-root',

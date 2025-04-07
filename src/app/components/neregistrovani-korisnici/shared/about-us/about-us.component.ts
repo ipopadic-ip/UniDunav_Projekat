@@ -1,24 +1,7 @@
-// import { Component } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-
-// @Component({
-//   selector: 'app-about-us',
-//   imports: [CommonModule],
-//   templateUrl: './about-us.component.html',
-//   styleUrl: './about-us.component.css'
-// })
-// export class AboutUsComponent {
-
-// }
-
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface AboutUsData {
-  title: string;
-  description: string;
-  image: string;
-}
+// import { Univerzitet } from '../../../../core/model/univerzitet.model';
+// import { UniverzitetService } from '../../../../core/services/univerzitet.service';
 
 @Component({
   selector: 'app-about-us',
@@ -28,6 +11,19 @@ interface AboutUsData {
   styleUrl: './about-us.component.css'
 })
 export class AboutUsComponent {
-  @Input() data!: AboutUsData;
+  @Input() title?: string;
+  @Input() description?: string;
+  @Input() image?: string;
+
+  // univerzitetService = inject(UniverzitetService);
+  // univerzitet: Univerzitet | null = null;
+
+  // ngOnInit(): void {
+  //   if (!this.title || !this.description || !this.image) {
+  //     this.univerzitetService.getUniverzitet().subscribe((data) => {
+  //       this.univerzitet = data;
+  //     });
+  //   }
+  // }
 }
 

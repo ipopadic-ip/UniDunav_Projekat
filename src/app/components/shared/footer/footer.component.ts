@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,5 +8,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-
+  @Input() nazivUniverziteta: string = '';
+  @Input() lokacija: string = '';
+  @Input() telefon: string = '';
+  @Input() email: string = '';
 }
