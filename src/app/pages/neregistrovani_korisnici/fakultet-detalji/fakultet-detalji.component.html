@@ -13,9 +13,15 @@
     ></app-rector>
   
     <app-contact *ngIf="kontaktData" [kontakt]="kontaktData"></app-contact>
+
+    <button class="text-center btn btn-primary" [routerLink]="['/studijski-programi']">
+      Studijski programi
+    </button>
+    
+    
   
     <div class="text-center mt-4">
-      <a href="/fakulteti" class="btn btn-secondary">Nazad na fakultete</a>
+      <a routerLink="/fakulteti"  class="btn btn-secondary">Nazad na fakultete</a>
     </div>
   </div>
   

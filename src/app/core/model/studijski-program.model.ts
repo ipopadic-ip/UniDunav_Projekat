@@ -15,6 +15,7 @@ export interface Rukovodilac {
     id: number;
     naziv: string;
     opis: string;
+    fakultetId: number; 
     rukovodilac: Rukovodilac;
     predmeti: Predmet[];
   }

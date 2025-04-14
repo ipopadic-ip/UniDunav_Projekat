@@ -6,12 +6,12 @@ import { RectorComponent } from '../../../components/neregistrovani-korisnici/sh
 import { FakultetService } from '../../../core/services/fakultet.service';
 import { Fakultet } from '../../../core/model/fakultet.model';
 import { AboutUsComponent } from '../../../components/neregistrovani-korisnici/shared/about-us/about-us.component';
-
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-fakultet-detalji',
   standalone: true,
-  imports: [CommonModule, ContactComponent, RectorComponent, AboutUsComponent],
+  imports: [CommonModule, ContactComponent, RectorComponent, AboutUsComponent, RouterModule],
   templateUrl: './fakultet-detalji.component.html',
   styleUrl: './fakultet-detalji.component.css'
 })
