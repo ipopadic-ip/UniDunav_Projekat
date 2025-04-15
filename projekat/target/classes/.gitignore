@@ -1,6 +1,7 @@
-/glavniPaket/
-/META-INF/
 /controller/
-/service/
+/dto/
+/glavniPaket/
 /model/
 /repository/
+/service/
+/META-INF/

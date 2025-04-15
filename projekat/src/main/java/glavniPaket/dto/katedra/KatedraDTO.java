@@ -8,7 +8,7 @@ import glavniPaket.dto.predmet.PredmetDTO;
 import glavniPaket.dto.tipStudija.TipStudijaDTO;
 
 public class KatedraDTO {
-	private Integer id;
+	private Long id;
     private String naziv;
 	private ArrayList<PredmetDTO> predmeti = new ArrayList<PredmetDTO>();
 	private String opis;
@@ -20,7 +20,7 @@ public class KatedraDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public KatedraDTO(Integer id, String naziv, ArrayList<PredmetDTO> predmeti, String opis, FakultetDTO fakultet,  ArrayList<TipStudijaDTO> tipoviStudija, ProfesorDTO sefKatedre) {
+	public KatedraDTO(Long id, String naziv, ArrayList<PredmetDTO> predmeti, String opis, FakultetDTO fakultet,  ArrayList<TipStudijaDTO> tipoviStudija, ProfesorDTO sefKatedre) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -30,10 +30,10 @@ public class KatedraDTO {
 		this.tipoviStudija = tipoviStudija;
 		this.sefKatedre = sefKatedre;
 	}
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNaziv() {

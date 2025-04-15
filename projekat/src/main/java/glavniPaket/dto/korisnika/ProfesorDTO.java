@@ -18,7 +18,8 @@ public class ProfesorDTO extends RegistrovaniKorisnikDTO {
 	private Set<Integer> predmeti;
 	private Long univerzitetId;
 	private Long fakultetId;
-	private Integer katedraId;
+	private Long katedraId;
+	private Long studijskiProgramId;
 
 	public ProfesorDTO() {
 		super();
@@ -26,7 +27,7 @@ public class ProfesorDTO extends RegistrovaniKorisnikDTO {
 
 	public ProfesorDTO(Integer id, String ime, String prezime, String korisnickoIme, Date datumRodjenja,
 			MestoDTO mestoRodjenja, String jmbg, String email, String titula, String biografija, Set<Integer> predmeti,
-			Long univerzitetId, Long fakultetId, Integer katedraId) {
+			Long univerzitetId, Long fakultetId, Long katedraId, Long studijskiProgramId) {
 		super(id, ime, prezime, korisnickoIme, datumRodjenja, mestoRodjenja, jmbg, email);
 		this.titula = titula;
 		this.biografija = biografija;
@@ -34,6 +35,7 @@ public class ProfesorDTO extends RegistrovaniKorisnikDTO {
 		this.univerzitetId = univerzitetId;
 		this.fakultetId = fakultetId;
 		this.katedraId = katedraId;
+		this.studijskiProgramId = studijskiProgramId;
 	}
 
 	public String getTitula() {
@@ -76,12 +78,20 @@ public class ProfesorDTO extends RegistrovaniKorisnikDTO {
 		this.fakultetId = fakultetId;
 	}
 
-	public Integer getKatedraId() {
+	public Long getKatedraId() {
 		return katedraId;
 	}
 
-	public void setKatedraId(Integer katedraId) {
+	public void setKatedraId(Long katedraId) {
 		this.katedraId = katedraId;
+	}
+	
+	public Long getStudijskiProgramId() {
+		return studijskiProgramId;
+	}
+
+	public void setStudijskiProgramId(Long studijskiProgramId) {
+		this.studijskiProgramId = studijskiProgramId;
 	}
 
 	public static ProfesorDTO fromEntity(Profesor profesor) {
@@ -97,7 +107,8 @@ public class ProfesorDTO extends RegistrovaniKorisnikDTO {
 						.map(pp -> pp.getPredmet().getId().intValue()).collect(Collectors.toSet()) : null,
 				profesor.getUniverzitet() != null ? profesor.getUniverzitet().getId() : null,
 				profesor.getFakultet() != null ? profesor.getFakultet().getId() : null,
-				profesor.getKatedra() != null ? profesor.getKatedra().getId() : null);
+				profesor.getKatedra() != null ? profesor.getKatedra().getId() : null,
+				profesor.getStudisjkiProgram() != null ? profesor.getStudisjkiProgram().getId() : null);
 	}
 
 	public Profesor toProfesorEntity() {

@@ -23,7 +23,7 @@ public class KatedraController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Katedra> getById(@PathVariable Integer id) {
+    public ResponseEntity<Katedra> getById(@PathVariable Long id) {
         return katedraService.findById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
@@ -42,7 +42,7 @@ public class KatedraController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Katedra> update(@PathVariable Integer id, @RequestBody Katedra katedra) {
+    public ResponseEntity<Katedra> update(@PathVariable Long id, @RequestBody Katedra katedra) {
         if (katedraService.findById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -53,7 +53,7 @@ public class KatedraController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (katedraService.findById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }

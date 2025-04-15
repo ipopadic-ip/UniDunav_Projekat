@@ -21,7 +21,7 @@ import glavniPaket.model.tipStudija.TipStudija;
 public class Katedra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     
     @Column(nullable=false)
     private String naziv;
@@ -45,11 +45,11 @@ public class Katedra {
     public Katedra() {
         super();
     }
-    public Katedra(Integer id) {
+    public Katedra(Long id) {
         this.id = id;
     }
     
-    public Katedra(Integer id, String naziv, ArrayList<Predmet> predmeti, String opis, Fakultet fakultet, ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
+    public Katedra(Long id, String naziv, ArrayList<Predmet> predmeti, String opis, Fakultet fakultet, ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
         super();
         this.id = id;
         this.naziv = naziv;
@@ -60,11 +60,11 @@ public class Katedra {
         this.sefKatedre = sefKatedre;
     }
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

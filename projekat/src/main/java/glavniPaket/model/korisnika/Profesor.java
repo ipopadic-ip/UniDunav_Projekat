@@ -6,6 +6,7 @@ import glavniPaket.model.adresa.Mesto;
 import glavniPaket.model.fakultet.Fakultet;
 import glavniPaket.model.katedra.Katedra;
 import glavniPaket.model.profesorPredmet.ProfesorPredmet;
+import glavniPaket.model.studijskiProgram.StudijskiProgram;
 import glavniPaket.model.univerzitet.Univerzitet;
 
 import java.util.Date;
@@ -43,12 +44,16 @@ public class Profesor {
     @JoinColumn(name = "katedra_id", nullable = true)
     private Katedra katedra;
     
+    @ManyToOne
+    @JoinColumn(name = "studisjkiProgram_id", nullable = true)
+    private StudijskiProgram studisjkiProgram;
+    
    
     public Profesor() {}
 
     public Profesor(RegistrovaniKorisnik korisnik, String titula, String biografija,
                     Set<ProfesorPredmet> predmeti, Univerzitet univerzitet,
-                    Fakultet fakultet, Katedra katedra) {
+                    Fakultet fakultet, Katedra katedra,StudijskiProgram studisjkiProgram) {
         this.korisnik = korisnik;
         this.titula = titula;
         this.biografija = biografija;
@@ -56,6 +61,7 @@ public class Profesor {
         this.univerzitet = univerzitet;
         this.fakultet = fakultet;
         this.katedra = katedra;
+        this.studisjkiProgram = studisjkiProgram;
     }
 
 	public Integer getId() {
@@ -120,6 +126,14 @@ public class Profesor {
 
 	public void setKatedra(Katedra katedra) {
 		this.katedra = katedra;
+	}
+
+	public StudijskiProgram getStudisjkiProgram() {
+		return studisjkiProgram;
+	}
+
+	public void setStudisjkiProgram(StudijskiProgram studisjkiProgram) {
+		this.studisjkiProgram = studisjkiProgram;
 	}
    
 }

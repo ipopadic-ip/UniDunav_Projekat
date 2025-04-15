@@ -18,7 +18,7 @@ public class KatedraService {
         return katedraRepository.findAll();
     }
 	
-	public Optional<Katedra> findById(Integer id) {
+	public Optional<Katedra> findById(Long id) {
         return katedraRepository.findById(id);
     }
 	
@@ -30,11 +30,11 @@ public class KatedraService {
         return katedraRepository.save(katedra);
     }
 	
-	public void deleteById(Integer id) {
+	public void deleteById(Long id) {
 		katedraRepository.deleteById(id);
     }
 	
-	public Katedra update(Integer id, Katedra noviPodaci) {
+	public Katedra update(Long id, Katedra noviPodaci) {
         return katedraRepository.findById(id).map(katedra -> {
         	katedra.setNaziv(katedra.getNaziv());
         	katedra.setPredmeti(katedra.getPredmeti());
