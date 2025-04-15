@@ -11,8 +11,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import glavniPaket.model.fakultet.Fakultet;
+import glavniPaket.model.korisnika.Profesor;
 import glavniPaket.model.predmet.Predmet;
+import glavniPaket.model.tipStudija.TipStudija;
 
 @Entity
 public class Katedra {
@@ -28,24 +31,33 @@ public class Katedra {
     
     private String opis;
     
-    @ManyToOne // Katedra je povezana sa fakultetom
-    @JoinColumn(name = "fakultet_id", nullable = true) // Može biti null ako katedra nije dodeljena fakultetu
+    @ManyToOne
+    @JoinColumn(name = "fakultet_id", nullable = true)
     private Fakultet fakultet;
+    
+    @OneToMany(mappedBy = "katedra", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ArrayList<TipStudija> tipoviStudija = new ArrayList<TipStudija>();
 
+    @OneToOne
+    @JoinColumn(name = "sefKatedre_id", nullable = true)
+    private Profesor sefKatedre;
+    
     public Katedra() {
         super();
     }
     public Katedra(Integer id) {
         this.id = id;
     }
-
-    public Katedra(Integer id, String naziv, ArrayList<Predmet> predmeti, String opis, Fakultet fakultet) {
+    
+    public Katedra(Integer id, String naziv, ArrayList<Predmet> predmeti, String opis, Fakultet fakultet, ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
         super();
         this.id = id;
         this.naziv = naziv;
         this.predmeti = predmeti;
         this.opis = opis;
         this.fakultet = fakultet;
+        this.tipoviStudija = tipoviStudija;
+        this.sefKatedre = sefKatedre;
     }
 
 	public Integer getId() {
@@ -86,6 +98,18 @@ public class Katedra {
 
 	public void setFakultet(Fakultet fakultet) {
 		this.fakultet = fakultet;
+	}
+	public ArrayList<TipStudija> getTipoviStudija() {
+		return tipoviStudija;
+	}
+	public void setTipoviStudija(ArrayList<TipStudija> tipoviStudija) {
+		this.tipoviStudija = tipoviStudija;
+	}
+	public Profesor getSefKatedre() {
+		return sefKatedre;
+	}
+	public void setSefKatedre(Profesor sefKatedre) {
+		this.sefKatedre = sefKatedre;
 	}
 
 	

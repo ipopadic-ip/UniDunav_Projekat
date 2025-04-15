@@ -18,27 +18,27 @@ public class Univerzitet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    
+    private Long id;
+
     @Column(nullable=false)
     private String naziv;
-    
+
     @Column(nullable=false)
     private String email;
-    
+
     @Column(nullable=false)
     private String brojTelefona;
-    
+
     private String opis;
-    
+
     @OneToMany(mappedBy = "univerzitet")
     private ArrayList<Fakultet> fakulteti;
 
-    @OneToOne // Samo jedan rektor za univerzitet
-    @JoinColumn(name = "rektor_id", nullable = true) // Može biti null ako nema rektora
+    @OneToOne
+    @JoinColumn(name = "rektor_id", nullable = true)
     private Profesor rektor;
 
-    public Univerzitet(Integer id, String naziv, String email, String brojTelefona, String opis,
+    public Univerzitet(Long id, String naziv, String email, String brojTelefona, String opis,
                         ArrayList<Fakultet> fakulteti) {
         this.id = id;
         this.naziv = naziv;
@@ -48,61 +48,66 @@ public class Univerzitet {
         this.fakulteti = fakulteti;
     }
 
-	public Univerzitet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Univerzitet(Integer id) {
-	    this.id = id;
-	}
+    public Univerzitet() {}
 
-	public Integer getId() {
-		return id;
-	}
+    public Univerzitet(Long id) {
+        this.id = id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+  
+    public Long getId() {
+        return id;
+    }
 
-	public String getNaziv() {
-		return naziv;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
-	}
+    public String getNaziv() {
+        return naziv;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getBrojTelefona() {
-		return brojTelefona;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setBrojTelefona(String brojTelefona) {
-		this.brojTelefona = brojTelefona;
-	}
+    public String getBrojTelefona() {
+        return brojTelefona;
+    }
 
-	public String getOpis() {
-		return opis;
-	}
+    public void setBrojTelefona(String brojTelefona) {
+        this.brojTelefona = brojTelefona;
+    }
 
-	public void setOpis(String opis) {
-		this.opis = opis;
-	}
+    public String getOpis() {
+        return opis;
+    }
 
-	public ArrayList<Fakultet> getFakulteti() {
-		return fakulteti;
-	}
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
 
-	public void setFakulteti(ArrayList<Fakultet> fakulteti) {
-		this.fakulteti = fakulteti;
-	}
-	
-	
+    public ArrayList<Fakultet> getFakulteti() {
+        return fakulteti;
+    }
+
+    public void setFakulteti(ArrayList<Fakultet> fakulteti) {
+        this.fakulteti = fakulteti;
+    }
+
+    public Profesor getRektor() {
+        return rektor;
+    }
+
+    public void setRektor(Profesor rektor) {
+        this.rektor = rektor;
+    }
 }

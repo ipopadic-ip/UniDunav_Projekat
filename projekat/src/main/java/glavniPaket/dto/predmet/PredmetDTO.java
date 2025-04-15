@@ -2,24 +2,27 @@ package glavniPaket.dto.predmet;
 
 import java.util.ArrayList;
 
+import glavniPaket.dto.godinaStudija.GodinaStudijaDTO;
 import glavniPaket.dto.katedra.KatedraDTO;
 import glavniPaket.dto.korisnika.ProfesorDTO;
 import glavniPaket.dto.profesorPredmet.ProfesorPredmetDTO;
 
 public class PredmetDTO {
-	private Integer id;
+	private Long id;
     private String naziv;
 	private int ests;
 	private String informacijeOPredmetu;
 	private ArrayList<ProfesorDTO> profesor = new ArrayList<ProfesorDTO>();
 	private ProfesorPredmetDTO profesorPredmet;
 	private KatedraDTO katedra;
+	private GodinaStudijaDTO godinaStudija;
 	public PredmetDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PredmetDTO(Integer id, String naziv, int ests, String informacijeOPredmetu, ArrayList<ProfesorDTO> profesor,
-			ProfesorPredmetDTO profesorPredmet, KatedraDTO katedra) {
+	
+	public PredmetDTO(Long id, String naziv, int ests, String informacijeOPredmetu, ArrayList<ProfesorDTO> profesor,
+			ProfesorPredmetDTO profesorPredmet, KatedraDTO katedra, GodinaStudijaDTO godinaStudija) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -28,11 +31,12 @@ public class PredmetDTO {
 		this.profesor = profesor;
 		this.profesorPredmet = profesorPredmet;
 		this.katedra = katedra;
+		this.godinaStudija = godinaStudija;
 	}
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNaziv() {
@@ -70,6 +74,14 @@ public class PredmetDTO {
 	}
 	public void setKatedra(KatedraDTO katedra) {
 		this.katedra = katedra;
+	}
+
+	public GodinaStudijaDTO getGodinaStudija() {
+		return godinaStudija;
+	}
+
+	public void setGodinaStudija(GodinaStudijaDTO godinaStudija) {
+		this.godinaStudija = godinaStudija;
 	}
 	
 	

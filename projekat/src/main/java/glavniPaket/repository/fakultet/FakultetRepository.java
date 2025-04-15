@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import glavniPaket.model.fakultet.Fakultet;
 import glavniPaket.model.univerzitet.Univerzitet;
 
-public interface FakultetRepository extends JpaRepository<Fakultet, Integer>{
+public interface FakultetRepository extends JpaRepository<Fakultet, Long>{
 	// Pronalazi univerzitet po nazivu
     Optional<Fakultet> findByNaziv(String naziv);
 

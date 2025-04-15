@@ -8,41 +8,41 @@ import glavniPaket.model.predmet.Predmet;
 import glavniPaket.repository.predmet.PredmetRepository;
 
 public class PredmetService {
-	private PredmetRepository predmetRepository;
-	
-	public PredmetService(PredmetRepository predmetRepository) {
-		this.predmetRepository = predmetRepository;
-	}
-	
-	public Iterable<Predmet> findAll() {
+    private PredmetRepository predmetRepository;
+
+    public PredmetService(PredmetRepository predmetRepository) {
+        this.predmetRepository = predmetRepository;
+    }
+
+    public Iterable<Predmet> findAll() {
         return predmetRepository.findAll();
     }
-	
-	public Optional<Predmet> findById(Integer id) {
+
+    public Optional<Predmet> findById(Long id) {
         return predmetRepository.findById(id);
     }
-	
-	public Optional<Predmet> findByNaziv(String naziv) {
+
+    public Optional<Predmet> findByNaziv(String naziv) {
         return predmetRepository.findByNaziv(naziv);
     }
-	
-	public Predmet save(Predmet fakultet) {
-        return predmetRepository.save(fakultet);
+
+    public Predmet save(Predmet predmet) {
+        return predmetRepository.save(predmet);
     }
-	
-	public void deleteById(Integer id) {
-		predmetRepository.deleteById(id);
+
+    public void deleteById(Long id) {
+        predmetRepository.deleteById(id);
     }
-	
-	public Predmet update(Integer id, Predmet noviPodaci) {
+
+    public Predmet update(Long id, Predmet noviPodaci) {
         return predmetRepository.findById(id).map(predmet -> {
-        	predmet.setNaziv(predmet.getNaziv());
-        	predmet.setEsts(predmet.getEsts());
-        	predmet.setInformacijeOPredmetu(predmet.getInformacijeOPredmetu());
-        	predmet.setProfesor(predmet.getProfesor());
-        	predmet.setKatedra(predmet.getKatedra());
-        	predmet.setProfesorPredmet(predmet.getProfesorPredmet());
+            predmet.setNaziv(noviPodaci.getNaziv());
+            predmet.setEsts(noviPodaci.getEsts());
+            predmet.setInformacijeOPredmetu(noviPodaci.getInformacijeOPredmetu());
+            predmet.setProfesori(noviPodaci.getProfesori());
+            predmet.setKatedra(noviPodaci.getKatedra());
+            predmet.setGodinaStudija(noviPodaci.getGodinaStudija());
             return predmetRepository.save(predmet);
-        }).orElseThrow(() -> new EntityNotFoundException("Fakultet sa ID " + id + " nije pronadjen"));
+        }).orElseThrow(() -> new EntityNotFoundException("Predmet sa ID " + id + " nije pronađen"));
     }
 }

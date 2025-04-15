@@ -13,3 +13,9 @@
 *Uradjen MODEL, SERVICE, REPOSITORY, CONTROLLER, DTO za KATEDRA - NA
 *Uradjen MODEL, SERVICE, REPOSITORY, CONTROLLER, DTO za PREDMET - NA
 *Namesten ali ne i uradjen ProfesorPredmet - NA
+
+
+*Uradjen MODEL, SERVICE, REPOSITORY, CONTROLLER, DTO za TipStudija - NA 
+*Uradjen MODEL, SERVICE, REPOSITORY, CONTROLLER, DTO za StudijskiProgram - NA
+*Uradjen MODEL, SERVICE, REPOSITORY, CONTROLLER, DTO za ProfesorPredmet (bice izmena) - NA
+*Uradjene izmene na predhodno uradjene klase

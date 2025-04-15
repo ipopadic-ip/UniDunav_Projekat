@@ -1,59 +1,54 @@
 package glavniPaket.model.profesorPredmet;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import glavniPaket.model.korisnika.Profesor;
 import glavniPaket.model.predmet.Predmet;
+
 @Entity
+@Table(name = "profesor_predmet")
 public class ProfesorPredmet {
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Integer id;
-	
-	@Column(nullable=false)
-	private Profesor profesor;
-	
-	@Column(nullable=false)
-	private Predmet predmet;
 
-	public ProfesorPredmet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public ProfesorPredmet(Integer id, Profesor profesor, Predmet predmet) {
-		super();
-		this.id = id;
-		this.profesor = profesor;
-		this.predmet = predmet;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "profesor_id", nullable = false)
+    private Profesor profesor;
 
-	public Integer getId() {
-		return id;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "predmet_id", nullable = false)
+    private Predmet predmet;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public ProfesorPredmet() {}
 
-	public Profesor getProfesor() {
-		return profesor;
-	}
+    public ProfesorPredmet(Profesor profesor, Predmet predmet) {
+        this.profesor = profesor;
+        this.predmet = predmet;
+    }
 
-	public void setProfesor(Profesor profesor) {
-		this.profesor = profesor;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Predmet getPredmet() {
-		return predmet;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setPredmet(Predmet predmet) {
-		this.predmet = predmet;
-	}
-	
-	
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public Predmet getPredmet() {
+        return predmet;
+    }
+
+    public void setPredmet(Predmet predmet) {
+        this.predmet = predmet;
+    }
 }

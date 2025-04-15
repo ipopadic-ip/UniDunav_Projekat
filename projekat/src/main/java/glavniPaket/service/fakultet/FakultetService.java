@@ -4,45 +4,45 @@ import java.util.Optional;
 
 import jakarta.persistence.EntityNotFoundException;
 import glavniPaket.model.fakultet.Fakultet;
-import glavniPaket.model.univerzitet.Univerzitet;
 import glavniPaket.repository.fakultet.FakultetRepository;
-import glavniPaket.repository.univerzitet.UniverzitetRepository;
 
 public class FakultetService {
-	private FakultetRepository fakultetRepository;
-	
-	public FakultetService(FakultetRepository fakultetRepository) {
-		this.fakultetRepository = fakultetRepository;
-	}
-	
-	public Iterable<Fakultet> findAll() {
+    private FakultetRepository fakultetRepository;
+
+    public FakultetService(FakultetRepository fakultetRepository) {
+        this.fakultetRepository = fakultetRepository;
+    }
+
+    public Iterable<Fakultet> findAll() {
         return fakultetRepository.findAll();
     }
-	
-	public Optional<Fakultet> findById(Integer id) {
+
+    public Optional<Fakultet> findById(Long id) {
         return fakultetRepository.findById(id);
     }
-	
-	public Optional<Fakultet> findByNaziv(String naziv) {
+
+    public Optional<Fakultet> findByNaziv(String naziv) {
         return fakultetRepository.findByNaziv(naziv);
     }
-	
-	public Fakultet save(Fakultet fakultet) {
+
+    public Fakultet save(Fakultet fakultet) {
         return fakultetRepository.save(fakultet);
     }
-	
-	public void deleteById(Integer id) {
-		fakultetRepository.deleteById(id);
+
+    public void deleteById(Long id) {
+        fakultetRepository.deleteById(id);
     }
-	
-	public Fakultet update(Integer id, Fakultet noviPodaci) {
+
+    public Fakultet update(Long id, Fakultet noviPodaci) {
         return fakultetRepository.findById(id).map(fakultet -> {
-            fakultet.setNaziv(fakultet.getNaziv());
-            fakultet.setEmail(fakultet.getEmail());
-            fakultet.setUniverzitet(fakultet.getUniverzitet());
-            fakultet.setKatedre(fakultet.getKatedre());
-            fakultet.setOpis(fakultet.getOpis());
+            fakultet.setNaziv(noviPodaci.getNaziv());
+            fakultet.setEmail(noviPodaci.getEmail());
+            fakultet.setAdresa(noviPodaci.getAdresa());
+            fakultet.setUniverzitet(noviPodaci.getUniverzitet());
+            fakultet.setKatedre(noviPodaci.getKatedre());
+            fakultet.setOpis(noviPodaci.getOpis());
+            fakultet.setDekan(noviPodaci.getDekan());
             return fakultetRepository.save(fakultet);
-        }).orElseThrow(() -> new EntityNotFoundException("Fakultet sa ID " + id + " nije pronadjen"));
+        }).orElseThrow(() -> new EntityNotFoundException("Fakultet sa ID " + id + " nije pronađen"));
     }
 }

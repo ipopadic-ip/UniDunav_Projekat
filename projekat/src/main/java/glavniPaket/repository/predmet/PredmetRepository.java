@@ -12,7 +12,7 @@ import glavniPaket.model.predmet.Predmet;
 
 
 
-public interface PredmetRepository extends JpaRepository<Predmet, Integer>{
+public interface PredmetRepository extends JpaRepository<Predmet, Long>{
 	// Pronalazi predemet po nazivu
     Optional<Predmet> findByNaziv(String naziv);
 

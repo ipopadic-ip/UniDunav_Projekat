@@ -29,6 +29,20 @@ public class AdresaDTO {
     public MestoDTO getMesto() { return mesto; }
     public void setMesto(MestoDTO mesto) { this.mesto = mesto; }
 
+    
+    public Adresa toEntity() {
+        Adresa adresa = new Adresa();
+        adresa.setId(this.id);
+        adresa.setBroj(this.broj);
+        adresa.setUlica(this.ulica);
+        
+        if (this.mesto != null) {
+            adresa.setMesto(this.mesto.toEntity());
+        }
+        
+        return adresa;
+    }
+    
     // Metoda za konverziju iz Adresa entiteta u AdresaDTO
     public static AdresaDTO fromEntity(Adresa adresa) {
         if (adresa == null) {

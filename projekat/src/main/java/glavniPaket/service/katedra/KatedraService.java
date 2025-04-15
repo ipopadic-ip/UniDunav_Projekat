@@ -40,6 +40,8 @@ public class KatedraService {
         	katedra.setPredmeti(katedra.getPredmeti());
         	katedra.setOpis(katedra.getOpis());
         	katedra.setFakultet(katedra.getFakultet());
+        	katedra.setTipoviStudija(katedra.getTipoviStudija());
+        	katedra.setSefKatedre(noviPodaci.getSefKatedre());
             return katedraRepository.save(katedra);
         }).orElseThrow(() -> new EntityNotFoundException("Katedra sa ID " + id + " nije pronadjen"));
     }

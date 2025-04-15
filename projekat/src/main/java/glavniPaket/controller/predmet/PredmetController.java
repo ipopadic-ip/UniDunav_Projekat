@@ -22,47 +22,52 @@ import glavniPaket.service.predmet.PredmetService;
 @RestController
 @RequestMapping("/predmet")
 public class PredmetController {
-	@Autowired
-	private PredmetService predmetService;
-	
-	public PredmetController(PredmetService predmetService) {
+    
+    @Autowired
+    private PredmetService predmetService;
+
+    public PredmetController(PredmetService predmetService) {
         this.predmetService = predmetService;
     }
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Optional<Predmet>> getById(@PathVariable Integer id) {
-        Optional<Predmet> predmet = predmetService.findById(id);
-        return predmet != null ? ResponseEntity.ok(predmet) : ResponseEntity.notFound().build();
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Predmet> getById(@PathVariable Long id) {
+        return predmetService.findById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
     }
-	
-	@GetMapping
+
+    @GetMapping
     public ResponseEntity<Iterable<Predmet>> getAll() {
-        Iterable<Predmet> predmet = predmetService.findAll();
-        return ResponseEntity.ok(predmet);
+        Iterable<Predmet> predmeti = predmetService.findAll();
+        return ResponseEntity.ok(predmeti);
     }
-	
-	@PostMapping
+
+    @PostMapping
     public ResponseEntity<Predmet> create(@RequestBody Predmet predmet) {
-		Predmet savedPredmet = predmetService.save(predmet);
+        Predmet savedPredmet = predmetService.save(predmet);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPredmet);
     }
-	
-	@PutMapping("/{id}")
-    public ResponseEntity<Predmet> update(@PathVariable Integer id, @RequestBody Predmet predmet) {
-        if (predmetService.findById(id) == null) {
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Predmet> update(@PathVariable Long id, @RequestBody Predmet predmet) {
+        if (predmetService.findById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
         predmet.setId(id);
         Predmet updatedPredmet = predmetService.save(predmet);
         return ResponseEntity.ok(updatedPredmet);
     }
-	
-	@DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        if (predmetService.findById(id) == null) {
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (predmetService.findById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
         predmetService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
+

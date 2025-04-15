@@ -16,7 +16,7 @@ import model.profesorPredmet.ProfesorPredmet;
 public class Predmet {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(nullable=false)
     private String naziv;
@@ -41,7 +41,7 @@ public class Predmet {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Predmet(Integer id, String naziv, int ests, String informacijeOPredmetu, ArrayList<Profesor> profesor,
+	public Predmet(Long id, String naziv, int ests, String informacijeOPredmetu, ArrayList<Profesor> profesor,
 			ProfesorPredmet profesorPredmet, Katedra katedra) {
 		super();
 		this.id = id;
@@ -53,11 +53,11 @@ public class Predmet {
 		this.katedra = katedra;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

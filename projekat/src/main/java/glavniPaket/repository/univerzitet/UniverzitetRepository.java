@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import glavniPaket.model.univerzitet.Univerzitet;
 
-public interface UniverzitetRepository extends JpaRepository<Univerzitet, Integer> {
+public interface UniverzitetRepository extends JpaRepository<Univerzitet, Long> {
 	  // Pronalazi univerzitet po nazivu
     Optional<Univerzitet> findByNaziv(String naziv);
 
