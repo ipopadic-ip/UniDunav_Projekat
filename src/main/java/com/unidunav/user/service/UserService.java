@@ -21,14 +21,27 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+//    public UserDTO createUser(CreateUserDTO dto) {
+//        User user = new User();
+//        user.setEmail(dto.getEmail());
+//        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+//        user.setRoles(dto.getRoles());
+//        User saved = userRepository.save(user);
+//        return mapToDTO(saved);
+//    }
+    
     public UserDTO createUser(CreateUserDTO dto) {
         User user = new User();
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRoles(dto.getRoles());
+        user.setDomainType(dto.getDomainType());
+        user.setDomainId(dto.getDomainId());
+        
         User saved = userRepository.save(user);
         return mapToDTO(saved);
     }
+
 
     public List<UserDTO> getAll() {
         return userRepository.findAll()

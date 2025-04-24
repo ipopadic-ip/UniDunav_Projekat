@@ -61,9 +61,28 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
-                        .anyRequest().authenticated()
-                )
+                	    .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
+
+                	    // Samo ADMIN može da pristupi ovim rutama
+                	    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                	    // Samo SLUZBENIK može da pristupi ovim rutama
+                	    .requestMatchers("/api/sluzbenik/**").hasRole("SLUZBENIK")
+
+                	    // Samo PROFESOR može da pristupi ovim rutama
+                	    .requestMatchers("/api/profesor/**").hasRole("PROFESOR")
+
+                	    // Samo STUDENT može da pristupi ovim rutama
+                	    .requestMatchers("/api/student/**").hasRole("STUDENT")
+
+                	    // Sve ostalo mora biti autentifikovano
+                	    .anyRequest().authenticated()
+                	)
+
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
+//                        .anyRequest().authenticated()
+//                )
                 .addFilterBefore(new JwtAuthFilter(jwtService, userRepository), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

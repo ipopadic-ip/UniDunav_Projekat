@@ -1,7 +1,7 @@
-package com.unidunav.administrator.controller;
+package com.unidunav.student.controller;
 
-import com.unidunav.administrator.dto.AdministratorDTO;
-import com.unidunav.administrator.service.AdministratorService;
+import com.unidunav.student.dto.StudentDTO;
+import com.unidunav.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -9,31 +9,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/student")
 @CrossOrigin(origins = "*")
-@PreAuthorize("hasRole('ADMIN')")
-public class AdministratorController {
+@PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+public class StudentController {
 
     @Autowired
-    private AdministratorService service;
+    private StudentService service;
 
     @PostMapping
-    public AdministratorDTO create(@RequestBody AdministratorDTO dto) {
+    public StudentDTO create(@RequestBody StudentDTO dto) {
         return service.create(dto);
     }
 
     @GetMapping
-    public List<AdministratorDTO> getAll() {
+    public List<StudentDTO> getAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public AdministratorDTO getById(@PathVariable Long id) {
+    public StudentDTO getById(@PathVariable Long id) {
         return service.findById(id);
     }
 
     @PutMapping("/{id}")
-    public AdministratorDTO update(@PathVariable Long id, @RequestBody AdministratorDTO dto) {
+    public StudentDTO update(@PathVariable Long id, @RequestBody StudentDTO dto) {
         return service.update(id, dto);
     }
 
