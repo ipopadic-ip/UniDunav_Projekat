@@ -3,6 +3,11 @@ package com.unidunav.administrator.service;
 import com.unidunav.administrator.dto.AdministratorDTO;
 import com.unidunav.administrator.model.Administrator;
 import com.unidunav.administrator.repository.AdministratorRepository;
+import com.unidunav.user.dto.UserDTO;
+import com.unidunav.user.model.Role;
+import com.unidunav.user.model.User;
+import com.unidunav.user.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +19,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Autowired
     private AdministratorRepository repository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     private AdministratorDTO toDTO(Administrator admin) {
         AdministratorDTO dto = new AdministratorDTO();
@@ -59,5 +67,31 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+    
+    private UserDTO toUserDTO(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setEmail(user.getEmail());
+        dto.setRoles(user.getRoles()); // Ako DTO ima setRoles
+        return dto;
+    }
+    
+    @Override
+    public UserDTO addRoleToUser(Long userId, Role role) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Korisnik nije pronađen"));
+        user.getRoles().add(role);
+        userRepository.save(user);
+        return toUserDTO(user);
+    }
+
+    @Override
+    public UserDTO removeRoleFromUser(Long userId, Role role) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Korisnik nije pronađen"));
+        user.getRoles().remove(role);
+        userRepository.save(user);
+        return toUserDTO(user);
     }
 }

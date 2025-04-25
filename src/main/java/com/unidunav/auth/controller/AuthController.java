@@ -21,11 +21,11 @@ public class AuthController {
     @Autowired
     private UserService userService;
     
-    @PostMapping("/register")
-    public Map<String, String> register(@RequestBody CreateUserDTO dto) {
-        userService.createUser(dto);
-        return Map.of("message", "User registered successfully");
-    }
+//    @PostMapping("/register")
+//    public Map<String, String> register(@RequestBody CreateUserDTO dto) {
+//        userService.createUser(dto);
+//        return Map.of("message", "User registered successfully");
+//    }
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
