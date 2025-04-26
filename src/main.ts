@@ -12,7 +12,7 @@ import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch  } from '@angular/common/http';
 import { appConfig } from './app/app.config';
 
 
@@ -20,7 +20,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes), // 🚀 Routing bez AppModule
     provideAnimations(), // 🚀 Angular Animations
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     ...appConfig.providers
     
   ]

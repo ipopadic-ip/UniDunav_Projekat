@@ -1,1 +1,18 @@
-<p>prijava works!</p>
+<div class="container mt-5">
+    <h2>Prijava</h2>
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email adresa</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Lozinka</label>
+        <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Prijavi se</button>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+  
