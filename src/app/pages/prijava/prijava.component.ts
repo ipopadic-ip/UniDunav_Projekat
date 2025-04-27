@@ -24,7 +24,7 @@ export class PrijavaComponent {
 
         if (roles.includes('ADMIN')) {
           this.router.navigate(['/admin']);
-        } else if (roles.includes('PROFESOR')) {
+        } else if (roles.includes('PROFESSOR')) {
           this.router.navigate(['/profesor']);
         } else if (roles.includes('STUDENT')) {
           this.router.navigate(['/student']);

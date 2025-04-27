@@ -1,5 +1,6 @@
-<div class="container mt-5">
-    <h2>Prijava</h2>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="w-100" style="max-width: 400px;">
+    <h2 class="text-center mb-4">Prijava</h2>
     <form (ngSubmit)="onLogin()" #loginForm="ngForm">
       <div class="mb-3">
         <label for="email" class="form-label">Email adresa</label>
@@ -9,10 +10,10 @@
         <label for="password" class="form-label">Lozinka</label>
         <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Prijavi se</button>
-      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      <button type="submit" class="btn btn-primary w-100" [disabled]="!loginForm.form.valid">Prijavi se</button>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
         {{ errorMessage }}
       </div>
     </form>
   </div>
-  
+</div>

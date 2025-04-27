@@ -58,4 +58,22 @@ export class AuthService {
   hasToken(): boolean {
     return !!this.storageService.getItem(this.tokenKey);
   }
+
+  isTokenExpired(token: string): boolean {
+    if (!token) {
+      return true;
+    }
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const expiryTime = payload.exp; // exp je u sekundama
+  
+    const currentTime = Math.floor(Date.now() / 1000); // sekunde
+    return expiryTime < currentTime;
+  }
+
+  hasRole(role: string): boolean {
+    const roles = this.getRoles();
+    return roles.includes(role);
+  }
+  
+  
 }
