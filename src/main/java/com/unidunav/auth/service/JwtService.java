@@ -10,6 +10,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -32,10 +33,13 @@ public class JwtService {
     
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
         claims.put("email", user.getEmail());
-        claims.put("roles", user.getRoles());
-        claims.put("domainType", user.getDomainType().name());
-        claims.put("domainId", user.getDomainId());
+//        claims.put("roles", user.getRoles());
+        claims.put("roles", user.getRoles().stream()
+        	    .map(role -> role.getNaziv())
+        	    .collect(Collectors.toList()));
+
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -56,12 +60,32 @@ public class JwtService {
                 .getSubject();
     }
 
-    public boolean isTokenValid(String token) {
+//    public boolean isTokenValid(String token) {
+//        try {
+//            Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token);
+//            return true;
+//        } catch (JwtException | IllegalArgumentException e) {
+//            return false;
+//        }
+//    }
+    public boolean isTokenValid(String token, User user) {
         try {
-            Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token);
-            return true;
+            String extractedEmail = extractEmail(token);
+            return extractedEmail.equals(user.getEmail()) &&
+                   !isTokenExpired(token);
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
+
+    private boolean isTokenExpired(String token) {
+        Date expiration = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+        return expiration.before(new Date());
+    }
+
 }

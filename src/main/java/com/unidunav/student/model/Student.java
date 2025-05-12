@@ -1,13 +1,20 @@
 package com.unidunav.student.model;
 
+import com.unidunav.user.model.User;
+
 import jakarta.persistence.*;
 
 @Entity
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
+    private User user;
 
     private String ime;
     private String prezime;
@@ -71,5 +78,12 @@ public class Student {
 
     public void setUkupnoEcts(int ukupnoEcts) {
         this.ukupnoEcts = ukupnoEcts;
+    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

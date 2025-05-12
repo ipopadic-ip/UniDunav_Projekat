@@ -35,12 +35,28 @@ public class UserService {
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRoles(dto.getRoles());
-        user.setDomainType(dto.getDomainType());
-        user.setDomainId(dto.getDomainId());
         
         User saved = userRepository.save(user);
         return mapToDTO(saved);
     }
+    
+    public User createUser1(CreateUserDTO dto) {
+        User user = new User();
+        user.setEmail(dto.getEmail());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setRoles(dto.getRoles());
+        return userRepository.save(user); // VRATI sačuvanog user-a sa ID-jem
+    }
+    
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+
 
 
     public List<UserDTO> getAll() {
@@ -61,6 +77,20 @@ public class UserService {
     public Optional<UserDTO> findByEmail(String email) {
         return userRepository.findByEmail(email)
                              .map(this::mapToDTO);
+    }
+    
+    public boolean changePassword(Long userId, String oldPassword, String newPassword) {
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (user == null) return false;
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            return false; // stara lozinka nije tačna
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        return true;
     }
 
 }

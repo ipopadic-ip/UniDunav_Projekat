@@ -24,43 +24,17 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private String password;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles = new HashSet<>();
     
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private DomainType domainType;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "user_role",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
-    private Long domainId; // ID iz odgovarajuće domenske tabele (npr. student, profesor...)
 
 
-	public User(Long id, String email, String password, Set<Role> roles, DomainType domainType, Long domainId) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.roles = roles;
-		this.domainType = domainType;
-		this.domainId = domainId;
-	}
-
-	public DomainType getDomainType() {
-		return domainType;
-	}
-
-	public void setDomainType(DomainType domainType) {
-		this.domainType = domainType;
-	}
-
-	public Long getDomainId() {
-		return domainId;
-	}
-
-	public void setDomainId(Long domainId) {
-		this.domainId = domainId;
-	}
 
 	public Long getId() {
 		return id;
@@ -107,12 +81,18 @@ public class User implements UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	 @Override
+	 	@Override
 	    public Collection<? extends GrantedAuthority> getAuthorities() {
 	        return roles.stream()
-	                .map(role -> (GrantedAuthority) role::name)
+	        		.map(role -> (GrantedAuthority) role)
 	                .collect(Collectors.toSet());
 	    }
+	 	
+//	 	@Override
+//	 	public Collection<? extends GrantedAuthority> getAuthorities() {
+//	 	    return roles;
+//	 	}
+
 
 	    @Override
 	    public String getUsername() {

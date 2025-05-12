@@ -7,6 +7,21 @@ public class CreateStudentRequest {
     private String prezime;
     private String brojIndeksa;
     private int godinaUpisa;
+    private double prosecnaOcena;
+    private int ukupnoEcts;
+    
+	public double getProsecnaOcena() {
+		return prosecnaOcena;
+	}
+	public void setProsecnaOcena(double prosecnaOcena) {
+		this.prosecnaOcena = prosecnaOcena;
+	}
+	public int getUkupnoEcts() {
+		return ukupnoEcts;
+	}
+	public void setUkupnoEcts(int ukupnoEcts) {
+		this.ukupnoEcts = ukupnoEcts;
+	}
 	public String getEmail() {
 		return email;
 	}
