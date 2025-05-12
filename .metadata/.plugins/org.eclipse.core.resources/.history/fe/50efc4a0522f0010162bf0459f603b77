@@ -1,0 +1,17 @@
+package glavniPaket.model.korisnika;
+
+import jakarta.persistence.*;
+
+@Entity
+public class PravoPristupa {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String naziv;
+
+    private String opis;
+
+   

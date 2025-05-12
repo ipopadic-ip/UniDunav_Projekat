@@ -1,0 +1,5 @@
+package glavniPaket.dto.predmet;
+
+public class EvaluacijaZnanjaDTO {
+
+}

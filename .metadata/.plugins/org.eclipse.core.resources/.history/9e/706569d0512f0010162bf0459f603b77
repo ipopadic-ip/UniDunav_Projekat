@@ -1,0 +1,5 @@
+package glavniPaket.dto.departman;
+
+public class DemartmanDTO {
+
+}

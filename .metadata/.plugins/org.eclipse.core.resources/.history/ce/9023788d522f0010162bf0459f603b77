@@ -1,0 +1,19 @@
+package glavniPaket.model.korisnika;
+import jakarta.persistence.*;
+
+@Entity
+public class DodeljenoPravoPristupa {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "korisnik_id", nullable = false)
+    private RegistrovaniKorisnik korisnik;
+
+    @ManyToOne
+    @JoinColumn(name = "pravo_pristupa_id", nullable = false)
+    private PravoPristupa pravoPristupa;
+
+   
