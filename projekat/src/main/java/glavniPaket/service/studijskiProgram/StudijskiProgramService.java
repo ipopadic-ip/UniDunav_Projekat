@@ -1,7 +1,10 @@
 package glavniPaket.service.studijskiProgram;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import glavniPaket.dto.studijskiProgram.StudijskiProgramDTO;
 import glavniPaket.model.studijskiProgram.StudijskiProgram;
 import glavniPaket.repository.studijskiProgram.StudijskiProgramRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -38,5 +41,13 @@ public class StudijskiProgramService {
             studijskiProgram.setRukovodilac(noviPodaci.getRukovodilac());
             return studijskiProgramRepository.save(studijskiProgram);
         }).orElseThrow(() -> new EntityNotFoundException("Studijski program sa ID " + id + " nije pronađen"));
+    }
+    
+    public Iterable<StudijskiProgramDTO> convertToDTOs(Iterable<StudijskiProgram> studijskiProgrami) {
+        List<StudijskiProgramDTO> studijskiProgramDTOs = new ArrayList<>();
+        for (StudijskiProgram studijskiProgram : studijskiProgrami) {
+            studijskiProgramDTOs.add(new StudijskiProgramDTO(studijskiProgram));
+        }
+        return studijskiProgramDTOs;
     }
 }

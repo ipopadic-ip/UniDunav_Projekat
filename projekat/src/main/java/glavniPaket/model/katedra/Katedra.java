@@ -1,6 +1,7 @@
 package glavniPaket.model.katedra;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -37,7 +38,7 @@ public class Katedra {
     private Departman departman;
     
     @OneToMany(mappedBy = "katedra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<TipStudija> tipoviStudija = new ArrayList<TipStudija>();
+    private List<TipStudija> tipoviStudija = new ArrayList<TipStudija>();
 
     @OneToOne
     @JoinColumn(name = "sefKatedre_id", nullable = true)
@@ -48,7 +49,7 @@ public class Katedra {
     }
 
 	public Katedra(Long id, String naziv, ArrayList<Predmet> predmeti, String opis, Departman departman,
-			ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
+			List<TipStudija> tipoviStudija, Profesor sefKatedre) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -99,11 +100,11 @@ public class Katedra {
 		this.departman = departman;
 	}
 
-	public ArrayList<TipStudija> getTipoviStudija() {
+	public List<TipStudija> getTipoviStudija() {
 		return tipoviStudija;
 	}
 
-	public void setTipoviStudija(ArrayList<TipStudija> tipoviStudija) {
+	public void setTipoviStudija(List<TipStudija> tipoviStudija) {
 		this.tipoviStudija = tipoviStudija;
 	}
 

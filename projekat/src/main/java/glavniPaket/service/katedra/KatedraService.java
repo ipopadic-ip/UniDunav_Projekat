@@ -39,7 +39,6 @@ public class KatedraService {
         	katedra.setNaziv(katedra.getNaziv());
         	katedra.setPredmeti(katedra.getPredmeti());
         	katedra.setOpis(katedra.getOpis());
-        	katedra.setFakultet(katedra.getFakultet());
         	katedra.setTipoviStudija(katedra.getTipoviStudija());
         	katedra.setSefKatedre(noviPodaci.getSefKatedre());
             return katedraRepository.save(katedra);

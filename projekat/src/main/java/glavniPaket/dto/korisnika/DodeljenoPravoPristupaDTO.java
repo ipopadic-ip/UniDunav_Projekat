@@ -1,6 +1,7 @@
 package glavniPaket.dto.korisnika;
 
 
+import glavniPaket.model.korisnika.DodeljenoPravoPristupa;
 import jakarta.persistence.*;
 
 
@@ -18,6 +19,13 @@ public class DodeljenoPravoPristupaDTO {
 		this.korisnikId = korisnikId;
 		this.pravoPristupaId = pravoPristupaId;
 	}
+	
+	public DodeljenoPravoPristupaDTO(DodeljenoPravoPristupa dodeljenoPravoPristupa) {
+        this.id = dodeljenoPravoPristupa.getId();
+//        this.korisnikId = dodeljenoPravoPristupa.getKorisnik();
+//        this.pravoPristupaId = dodeljenoPravoPristupa.getPravoPristupa();
+    }
+	
 	public Long getId() {
 		return id;
 	}

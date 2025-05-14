@@ -1,8 +1,11 @@
 package glavniPaket.dto.univerzitet;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import glavniPaket.dto.korisnika.ProfesorDTO;
+import glavniPaket.model.univerzitet.Univerzitet;
 import glavniPaket.dto.adresa.AdresaDTO;
 import glavniPaket.dto.fakultet.FakultetDTO;
 
@@ -13,11 +16,31 @@ public class UniverzitetDTO {
     private String brojTelefona;
     private String opis;
     private AdresaDTO adresa;
-    private ArrayList<FakultetDTO> fakulteti = new ArrayList<>();
+    private List<FakultetDTO> fakulteti = new ArrayList<>();
     private ProfesorDTO rektor;
     
 
     public UniverzitetDTO() {}
+    
+    public UniverzitetDTO(Univerzitet univerzitet) {
+        if (univerzitet != null) {
+            this.id = univerzitet.getId();
+            this.naziv = univerzitet.getNaziv();
+            this.email = univerzitet.getEmail();
+            this.brojTelefona = univerzitet.getBrojTelefona();
+            this.opis = univerzitet.getOpis();
+            this.adresa = univerzitet.getAdresa() != null ? new AdresaDTO(univerzitet.getAdresa()) : null;
+
+            if (univerzitet.getFakulteti() != null) {
+                for (var f : univerzitet.getFakulteti()) {
+                    this.fakulteti.add(new FakultetDTO(f));
+                }
+            }
+
+            this.rektor = univerzitet.getRektor() != null ? new ProfesorDTO(univerzitet.getRektor()) : null;
+        }
+    }
+
 
     public UniverzitetDTO(Long id, String naziv, String email, String brojTelefona, String opis,AdresaDTO adresa,
                           ArrayList<FakultetDTO> fakulteti, ProfesorDTO rektor) {
@@ -72,11 +95,11 @@ public class UniverzitetDTO {
         this.opis = opis;
     }
 
-    public ArrayList<FakultetDTO> getFakulteti() {
+    public List<FakultetDTO> getFakulteti() {
         return fakulteti;
     }
 
-    public void setFakulteti(ArrayList<FakultetDTO> fakulteti) {
+    public void setFakulteti(List<FakultetDTO> fakulteti) {
         this.fakulteti = fakulteti;
     }
 
@@ -95,4 +118,33 @@ public class UniverzitetDTO {
     public void setAdresa(AdresaDTO adresa) {
         this.adresa = adresa;
     }
+    
+    public Univerzitet toEntity() {
+        Univerzitet univerzitet = new Univerzitet();
+        univerzitet.setId(this.id);
+        univerzitet.setNaziv(this.naziv);
+        univerzitet.setEmail(this.email);
+        univerzitet.setBrojTelefona(this.brojTelefona);
+        univerzitet.setOpis(this.opis);
+
+        if (this.adresa != null) {
+            univerzitet.setAdresa(this.adresa.toEntity());
+        }
+
+        if (this.rektor != null) {
+            univerzitet.setRektor(this.rektor.toEntity());
+        }
+
+        if (this.fakulteti != null) {
+            univerzitet.setFakulteti(
+                this.fakulteti.stream()
+                    .map(FakultetDTO::toEntity)
+                    .collect(Collectors.toList())
+            );
+        }
+
+        return univerzitet;
+    }
+
+
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import glavniPaket.dto.katedra.KatedraDTO;
 import glavniPaket.model.studijskiProgram.StudijskiProgram;
+import glavniPaket.model.tipStudija.TipStudija;
 
 public class TipStudijaDTO {
 	private Long id;
@@ -21,6 +22,30 @@ public class TipStudijaDTO {
 		this.katedra = katedra;
 		this.studijskiProgrami = studijskiProgrami;
 	}
+	
+	public TipStudijaDTO(TipStudija tipStudija) {
+        this.id = tipStudija.getId();
+        this.tip = tipStudija.getTip();
+        this.katedra = tipStudija.getKatedra() != null ? new KatedraDTO(tipStudija.getKatedra()) : null;
+        this.studijskiProgrami = tipStudija.getStudijskiProgrami() != null 
+            ? new ArrayList<>(tipStudija.getStudijskiProgrami()) 
+            : new ArrayList<>();
+    }
+	
+	public TipStudija toEntity() {
+	    TipStudija tipStudija = new TipStudija();
+	    tipStudija.setId(this.id);
+	    tipStudija.setTip(this.tip);
+	    
+	    if (this.katedra != null) {
+	        tipStudija.setKatedra(this.katedra.toEntity());
+	    }
+
+	    tipStudija.setStudijskiProgrami(this.studijskiProgrami); 
+	    
+	    return tipStudija;
+	}
+	
 	public Long getId() {
 		return id;
 	}

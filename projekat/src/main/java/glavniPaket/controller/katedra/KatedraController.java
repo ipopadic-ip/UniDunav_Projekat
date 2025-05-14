@@ -64,28 +64,16 @@ public class KatedraController {
 
     @PostMapping("/dto")
     public ResponseEntity<KatedraDTO> add(@RequestBody KatedraDTO katedraDTO) {
-        Katedra katedra = new Katedra(
-            null,
-            katedraDTO.getNaziv(),
-            new ArrayList<>(), 
-            katedraDTO.getOpis(),
-            null, 
-            new ArrayList<>(), 
-            null 
-        );
-        
-        this.katedraService.save(katedra);
 
-        KatedraDTO newKatedraDTO = new KatedraDTO(
-            katedra.getId(),
-            katedra.getNaziv(),
-            new ArrayList<>(), 
-            katedra.getOpis(),
-            null, 
-            new ArrayList<>(), 
-            null
-        );
+        Katedra katedra = new Katedra();
+        katedra.setNaziv(katedraDTO.getNaziv());
+        katedra.setOpis(katedraDTO.getOpis());
 
-        return new ResponseEntity<>(newKatedraDTO, HttpStatus.CREATED);
+        Katedra saved = katedraService.save(katedra);
+
+        KatedraDTO responseDTO = new KatedraDTO(saved);
+
+        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
+
 }

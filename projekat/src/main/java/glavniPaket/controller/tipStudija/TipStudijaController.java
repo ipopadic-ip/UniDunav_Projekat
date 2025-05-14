@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import glavniPaket.dto.tipStudija.TipStudijaDTO;
 import glavniPaket.model.tipStudija.TipStudija;
 import glavniPaket.service.tipStudija.TipStudijaService;
-import model.katedra.Katedra;
+
 
 @RestController
 @RequestMapping("/tip-studija")

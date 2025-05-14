@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import glavniPaket.dto.korisnika.ProfesorDTO;
-
+import glavniPaket.dto.korisnika.RegistrovaniKorisnikDTO;
 import glavniPaket.model.adresa.Mesto;
 import glavniPaket.model.fakultet.Fakultet;
 import glavniPaket.model.katedra.Katedra;
@@ -40,20 +40,20 @@ public class ProfesorController {
     public ResponseEntity<List<ProfesorDTO>> getAll() {
         List<ProfesorDTO> result = new ArrayList<>();
         for (Profesor p : profesorService.findAll()) {
-            result.add(ProfesorDTO.fromEntity(p));
+            result.add(new ProfesorDTO(p));
         }
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProfesorDTO> getOne(@PathVariable Integer id) {
+    public ResponseEntity<ProfesorDTO> getOne(@PathVariable Long id) {
         return profesorService.findById(id)
-                .map(profesor -> ResponseEntity.ok(ProfesorDTO.fromEntity(profesor)))
+                .map(profesor -> ResponseEntity.ok(new ProfesorDTO(profesor)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         return profesorService.findById(id)
                 .map(p -> {
                     profesorService.deleteById(id);
@@ -62,35 +62,45 @@ public class ProfesorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ProfesorDTO> update(@PathVariable Integer id, @RequestBody ProfesorDTO dto) {
-//        return profesorService.findById(id)
-//                .map(profesor -> {
-//                    profesor.getKorisnik().setIme(dto.getIme());
-//                    profesor.getKorisnik().setPrezime(dto.getPrezime());
-//                    profesor.getKorisnik().setKorisnickoIme(dto.getKorisnickoIme());
-//                    profesor.getKorisnik().setDatumRodjenja(dto.getDatumRodjenja());
-//                    profesor.getKorisnik().setMestoRodjenja(dto.getMestoRodjenja().toEntity());
-//                    profesor.getKorisnik().setJmbg(dto.getJmbg());
-//                    profesor.getKorisnik().setEmail(dto.getEmail());
-//
-//                    profesor.setTitula(dto.getTitula());
-//                    profesor.setBiografija(dto.getBiografija());
-//
-//                    if (dto.getUniverzitetId() != null) profesor.setUniverzitet(new model.univerzitet.Univerzitet(dto.getUniverzitetId()));
-//                    if (dto.getFakultetId() != null) profesor.setFakultet(new model.fakultet.Fakultet(dto.getFakultetId()));
-//                    if (dto.getKatedraId() != null) profesor.setKatedra(new model.katedra.Katedra(dto.getKatedraId()));
-//
-//                    profesorService.save(profesor);
-//                    return ResponseEntity.ok(ProfesorDTO.fromEntity(profesor));
-//                })
-//                .orElse(ResponseEntity.notFound().build());
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<ProfesorDTO> update(@PathVariable Long id, @RequestBody ProfesorDTO dto) {
+        return profesorService.findById(id)
+                .map(profesor -> {
+                    RegistrovaniKorisnik korisnik = profesor.getKorisnik();
+                    RegistrovaniKorisnikDTO korisnikDTO = dto.getKorisnik();
+
+                    if (korisnikDTO != null && korisnik != null) {
+                        korisnik.setIme(korisnikDTO.getIme());
+                        korisnik.setPrezime(korisnikDTO.getPrezime());
+                        korisnik.setKorisnickoIme(korisnikDTO.getKorisnickoIme());
+                        korisnik.setDatumRodjenja(korisnikDTO.getDatumRodjenja());
+                        korisnik.setJmbg(korisnikDTO.getJmbg());
+                        korisnik.setEmail(korisnikDTO.getEmail());
+                        if (korisnikDTO.getMestoRodjenja() != null) {
+                            korisnik.setMestoRodjenja(new Mesto(korisnikDTO.getMestoRodjenja().getId()));
+                        }
+                    }
+
+                    profesor.setTitula(dto.getTitula());
+                    profesor.setBiografija(dto.getBiografija());
+
+                    if (dto.getUniverzitet() != null)
+                        profesor.setUniverzitet(new Univerzitet(dto.getUniverzitet().getId(), null, null, null, null, null, null, profesor));
+                    if (dto.getFakultet() != null)
+                        profesor.setFakultet(new Fakultet(dto.getFakultet().getId(), null, null, null, profesor, null, null));
+                    if (dto.getKatedra() != null)
+                        profesor.setKatedra(new Katedra(dto.getKatedra().getId(), null, null, null, null, null, profesor));
+
+                    profesorService.save(profesor);
+                    return ResponseEntity.ok(new ProfesorDTO(profesor));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @PostMapping
     public ResponseEntity<ProfesorDTO> create(@RequestBody ProfesorDTO dto) {
-        Profesor profesor = dto.toProfesorEntity();
-        profesor = profesorService.save(profesor);
-        return new ResponseEntity<>(ProfesorDTO.fromEntity(profesor), HttpStatus.CREATED);
+        
+        return new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
     }
 }
+

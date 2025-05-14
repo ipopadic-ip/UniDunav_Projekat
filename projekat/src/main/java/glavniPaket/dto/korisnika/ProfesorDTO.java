@@ -48,6 +48,23 @@ public class ProfesorDTO {
         this.katedra = katedra;
         this.studijskiProgram = studijskiProgram;
     }
+    
+    public ProfesorDTO(Profesor profesor) {
+        this.id = profesor.getId();
+        this.korisnik = profesor.getKorisnik() != null ? new RegistrovaniKorisnikDTO(profesor.getKorisnik()) : null;
+        this.titula = profesor.getTitula();
+        this.biografija = profesor.getBiografija();
+        this.predmeti = profesor.getPredmeti() != null
+                ? profesor.getPredmeti().stream().map(ProfesorPredmetDTO::fromEntity).collect(Collectors.toSet())
+                : new HashSet<>();
+        this.univerzitet = profesor.getUniverzitet() != null ? new UniverzitetDTO(profesor.getUniverzitet()) : null;
+        this.fakultet = profesor.getFakultet() != null ? new FakultetDTO(profesor.getFakultet()) : null;
+        this.departman = profesor.getDepartman() != null ? new DepartmanDTO(profesor.getDepartman()) : null;
+        this.katedra = profesor.getKatedra() != null ? new KatedraDTO(profesor.getKatedra()) : null;
+        this.studijskiProgram = profesor.getStudijskiProgram() != null ? new StudijskiProgramDTO(profesor.getStudijskiProgram()) : null;
+    }
+
+    
 
     public Long getId() {
         return id;
@@ -128,4 +145,54 @@ public class ProfesorDTO {
     public void setStudijskiProgram(StudijskiProgramDTO studijskiProgram) {
         this.studijskiProgram = studijskiProgram;
     }
+    
+    public Profesor toEntity() {
+        Profesor profesor = new Profesor();
+        profesor.setId(this.id);
+
+        // Pretvaramo RegistrovaniKorisnikDTO u RegistrovaniKorisnik entitet
+        if (this.korisnik != null) {
+            profesor.setKorisnik(this.korisnik.toEntity());
+        }
+
+        profesor.setTitula(this.titula);
+        profesor.setBiografija(this.biografija);
+
+        // Pretvaramo Set<ProfesorPredmetDTO> u Set<ProfesorPredmet> entitete
+        if (this.predmeti != null) {
+            profesor.setPredmeti(
+                this.predmeti.stream()
+                    .map(ProfesorPredmetDTO::toEntity)
+                    .collect(Collectors.toSet())
+            );
+        }
+
+        // Pretvaramo UniverzitetDTO u Univerzitet entitet
+        if (this.univerzitet != null) {
+            profesor.setUniverzitet(this.univerzitet.toEntity());
+        }
+
+
+        if (this.fakultet != null) {
+            profesor.setFakultet(this.fakultet.toEntity());
+        }
+
+
+        if (this.departman != null) {
+            profesor.setDepartman(this.departman.toEntity());
+        }
+
+
+        if (this.katedra != null) {
+            profesor.setKatedra(this.katedra.toEntity());
+        }
+
+
+        if (this.studijskiProgram != null) {
+            profesor.setStudijskiProgram(this.studijskiProgram.toEntity());
+        }
+
+        return profesor;
+    }
+
 }

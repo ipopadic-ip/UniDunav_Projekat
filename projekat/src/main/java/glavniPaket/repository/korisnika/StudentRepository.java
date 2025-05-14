@@ -8,7 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import glavniPaket.model.korisnika.Student;
 
-public interface StudentRepository extends JpaRepository<Student, Integer> {
+public interface StudentRepository extends JpaRepository<Student, Long> {
 	 	List<Student> findByGodinaUpisa(Date godinaUpisa);
 
 	    List<Student> findByBrojIndeksa(String brojIndeksa);

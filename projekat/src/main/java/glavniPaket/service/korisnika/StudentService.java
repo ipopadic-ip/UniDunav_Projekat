@@ -7,10 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import glavniPaket.model.korisnika.Student;
 import glavniPaket.repository.korisnika.StudentRepository;
-
 
 
 @Service
@@ -23,8 +21,7 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    
-    public Optional<Student> findById(Integer id) {
+    public Optional<Student> findById(Long id) {  // Promenjen tip sa Integer na Long
         return studentRepository.findById(id);
     }
 
@@ -44,7 +41,7 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {  // Promenjen tip sa Integer na Long
         studentRepository.deleteById(id);
     }
 }

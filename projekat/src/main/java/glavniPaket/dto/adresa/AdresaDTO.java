@@ -68,6 +68,14 @@ public class AdresaDTO {
 		this.mesto = mesto;
 	}
 
+	public AdresaDTO(Adresa adresa) {
+	    if (adresa != null) {
+	        this.id = adresa.getId();
+	        this.ulica = adresa.getUlica();
+	        this.broj = adresa.getBroj();
+	        this.mesto = adresa.getMesto() != null ? new MestoDTO(adresa.getMesto()) : null;
+	    }
+	}
 
 
 	public Adresa toEntity() {

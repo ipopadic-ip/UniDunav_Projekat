@@ -9,7 +9,7 @@ import glavniPaket.model.fakultet.Fakultet;
 import glavniPaket.model.korisnika.Profesor;
 import glavniPaket.model.univerzitet.Univerzitet;
 
-public interface ProfesorRepository extends JpaRepository<Profesor, Integer> {
+public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 	List<Profesor> findByTitula(String titula);
     
     List<Profesor> findByFakultet(Fakultet fakultet);

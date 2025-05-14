@@ -2,7 +2,6 @@ package glavniPaket.controller.korisnika;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,22 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import glavniPaket.dto.korisnika.RegistrovaniKorisnikDTO;
 import glavniPaket.model.adresa.Mesto;
-import glavniPaket.model.korisnika.*;
-
+import glavniPaket.model.korisnika.RegistrovaniKorisnik;
 import glavniPaket.service.korisnika.RegistrovaniKorisnikService;
 
 @RestController
 @RequestMapping("/api/registrovani-korisnici")
 public class RegistrovaniKorisnikController {
 
-    @Autowired
-    private RegistrovaniKorisnikService registrovaniKorisnikService;
+    private final RegistrovaniKorisnikService registrovaniKorisnikService;
 
+    @Autowired
     public RegistrovaniKorisnikController(RegistrovaniKorisnikService registrovaniKorisnikService) {
         this.registrovaniKorisnikService = registrovaniKorisnikService;
     }
@@ -64,14 +61,17 @@ public class RegistrovaniKorisnikController {
     public ResponseEntity<RegistrovaniKorisnikDTO> update(@PathVariable Integer id, @RequestBody RegistrovaniKorisnikDTO dto) {
         return registrovaniKorisnikService.findById(id)
                 .map(rk -> {
+                    // Update fields with the DTO data
                     rk.setIme(dto.getIme());
                     rk.setPrezime(dto.getPrezime());
                     rk.setKorisnickoIme(dto.getKorisnickoIme());
                     rk.setDatumRodjenja(dto.getDatumRodjenja());
                     rk.setJmbg(dto.getJmbg());
                     rk.setEmail(dto.getEmail());
-                    if (dto.getMestoRodjenja() != null)
+                    // Handle setting Mesto if needed
+                    if (dto.getMestoRodjenja() != null) {
                         rk.setMestoRodjenja(new Mesto(dto.getMestoRodjenja().getId(), dto.getMestoRodjenja().getNaziv(), null));
+                    }
                     registrovaniKorisnikService.save(rk);
                     return ResponseEntity.ok(RegistrovaniKorisnikDTO.fromEntity(rk));
                 })

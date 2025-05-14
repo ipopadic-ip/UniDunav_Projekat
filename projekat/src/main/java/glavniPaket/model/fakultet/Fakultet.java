@@ -100,11 +100,11 @@ public class Fakultet {
 		this.dekan = dekan;
 	}
 
-	public ArrayList<Katedra> getDepartmani() {
+	public ArrayList<Departman> getDepartmani() {
 		return departmani;
 	}
 
-	public void setDepartmani(ArrayList<Katedra> departmani) {
+	public void setDepartmani(ArrayList<Departman> departmani) {
 		this.departmani = departmani;
 	}
 

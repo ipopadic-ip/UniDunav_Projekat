@@ -40,7 +40,6 @@ public class PredmetService {
             predmet.setEsts(noviPodaci.getEsts());
             predmet.setInformacijeOPredmetu(noviPodaci.getInformacijeOPredmetu());
             predmet.setProfesori(noviPodaci.getProfesori());
-            predmet.setKatedra(noviPodaci.getKatedra());
             predmet.setGodinaStudija(noviPodaci.getGodinaStudija());
             return predmetRepository.save(predmet);
         }).orElseThrow(() -> new EntityNotFoundException("Predmet sa ID " + id + " nije pronađen"));

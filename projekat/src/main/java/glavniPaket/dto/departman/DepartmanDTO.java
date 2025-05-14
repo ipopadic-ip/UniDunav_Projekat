@@ -1,10 +1,13 @@
 package glavniPaket.dto.departman;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import glavniPaket.dto.fakultet.FakultetDTO;
 import glavniPaket.dto.katedra.KatedraDTO;
 import glavniPaket.dto.korisnika.ProfesorDTO;
+import glavniPaket.model.departman.Departman;
 
 public class DepartmanDTO {
     private Long id;
@@ -12,7 +15,7 @@ public class DepartmanDTO {
     private String opis;
     private FakultetDTO fakultet;
     private ProfesorDTO sefDepartmana;
-    private ArrayList<KatedraDTO> katedre = new ArrayList<>();
+    private List<KatedraDTO> katedre = new ArrayList<>();
 
     public DepartmanDTO() {}
 
@@ -25,6 +28,17 @@ public class DepartmanDTO {
         this.fakultet = fakultet;
         this.sefDepartmana = sefDepartmana;
         this.katedre = katedre;
+    }
+    
+    public DepartmanDTO(Departman departman) {
+        this.id = departman.getId();
+        this.naziv = departman.getNaziv();
+        this.opis = departman.getOpis();
+        this.fakultet = departman.getFakultet() != null ? new FakultetDTO(departman.getFakultet()) : null;
+        this.sefDepartmana = departman.getSefDepartmana() != null ? new ProfesorDTO(departman.getSefDepartmana()) : null;
+        this.katedre = departman.getKatedre() != null
+                ? departman.getKatedre().stream().map(KatedraDTO::new).collect(Collectors.toList())
+                : new ArrayList<>();
     }
 
     public Long getId() {
@@ -67,11 +81,37 @@ public class DepartmanDTO {
         this.sefDepartmana = sefDepartmana;
     }
 
-    public ArrayList<KatedraDTO> getKatedre() {
+    public List<KatedraDTO> getKatedre() {
         return katedre;
     }
 
     public void setKatedre(ArrayList<KatedraDTO> katedre) {
         this.katedre = katedre;
     }
+    
+    public Departman toEntity() {
+        Departman departman = new Departman();
+        departman.setId(this.id);
+        departman.setNaziv(this.naziv);
+        departman.setOpis(this.opis);
+
+        if (this.fakultet != null) {
+            departman.setFakultet(this.fakultet.toEntity());
+        }
+
+        if (this.sefDepartmana != null) {
+            departman.setSefDepartmana(this.sefDepartmana.toEntity());
+        }
+
+        if (this.katedre != null) {
+            departman.setKatedre(
+                this.katedre.stream()
+                    .map(KatedraDTO::toEntity)
+                    .collect(Collectors.toCollection(ArrayList::new))
+            );
+        }
+
+        return departman;
+    }
+
 }

@@ -2,6 +2,8 @@ package glavniPaket.dto.profesorPredmet;
 
 import java.time.LocalDateTime;
 
+import glavniPaket.model.profesorPredmet.TerminNastave;
+
 public class TerminNastaveDTO {
     private Long id;
     private LocalDateTime terminPocetka;
@@ -18,6 +20,16 @@ public class TerminNastaveDTO {
         this.terminZavrsetka = terminZavrsetka;
         this.profesorPredmet = profesorPredmet;
         this.ishod = ishod;
+    }
+    
+    public TerminNastaveDTO(TerminNastave terminNastave) {
+        this.id = terminNastave.getId();
+        this.terminPocetka = terminNastave.getTerminPocetka();
+        this.terminZavrsetka = terminNastave.getTerminZavrsetka();
+        this.profesorPredmet = terminNastave.getProfesorPredmet() != null 
+            ? new ProfesorPredmetDTO(terminNastave.getProfesorPredmet()) : null;
+        this.ishod = terminNastave.getIshod() != null 
+            ? new IshodDTO(terminNastave.getIshod()) : null;
     }
 
     public Long getId() {
@@ -58,5 +70,15 @@ public class TerminNastaveDTO {
 
     public void setIshod(IshodDTO ishod) {
         this.ishod = ishod;
+    }
+    
+    public TerminNastave toEntity() {
+        TerminNastave terminNastave = new TerminNastave();
+        terminNastave.setId(this.id);
+        terminNastave.setTerminPocetka(this.terminPocetka);
+        terminNastave.setTerminZavrsetka(this.terminZavrsetka);
+        terminNastave.setProfesorPredmet(this.profesorPredmet != null ? this.profesorPredmet.toEntity() : null);
+        terminNastave.setIshod(this.ishod != null ? this.ishod.toEntity() : null);
+        return terminNastave;
     }
 }

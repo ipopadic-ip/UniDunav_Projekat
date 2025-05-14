@@ -10,7 +10,7 @@ import glavniPaket.model.studijskiProgram.StudijskiProgram;
 import glavniPaket.service.studijskiProgram.StudijskiProgramService;
 
 @RestController
-@RequestMapping("/studijski-program")
+@RequestMapping("/api/studijski-programi")
 public class StudijskiProgramController {
 
     @Autowired
@@ -20,36 +20,60 @@ public class StudijskiProgramController {
         this.studijskiProgramService = studijskiProgramService;
     }
 
+    // Get a studijski program by ID
     @GetMapping("/{id}")
-    public ResponseEntity<StudijskiProgram> getById(@PathVariable Long id) {
+    public ResponseEntity<StudijskiProgramDTO> getById(@PathVariable Long id) {
         return studijskiProgramService.findById(id)
-            .map(ResponseEntity::ok)
+            .map(studijskiProgram -> ResponseEntity.ok(new StudijskiProgramDTO(studijskiProgram)))
             .orElse(ResponseEntity.notFound().build());
     }
 
+    // Get all studijski programi
     @GetMapping
-    public ResponseEntity<Iterable<StudijskiProgram>> getAll() {
+    public ResponseEntity<Iterable<StudijskiProgramDTO>> getAll() {
         Iterable<StudijskiProgram> studijskiProgrami = studijskiProgramService.findAll();
-        return ResponseEntity.ok(studijskiProgrami);
+        Iterable<StudijskiProgramDTO> studijskiProgramDTOs = studijskiProgramService.convertToDTOs(studijskiProgrami);
+        return ResponseEntity.ok(studijskiProgramDTOs);
     }
 
+    // Create a new studijski program
     @PostMapping
-    public ResponseEntity<StudijskiProgram> create(@RequestBody StudijskiProgram studijskiProgram) {
+    public ResponseEntity<StudijskiProgramDTO> create(@RequestBody StudijskiProgramDTO studijskiProgramDTO) {
+        StudijskiProgram studijskiProgram = new StudijskiProgram(
+                null, 
+                studijskiProgramDTO.getNaziv(), 
+                studijskiProgramDTO.getOpis(),
+                studijskiProgramDTO.getGodinaStudija() != null ? studijskiProgramDTO.getGodinaStudija().toEntity() : null,
+                studijskiProgramDTO.getTipStudija() != null ? studijskiProgramDTO.getTipStudija().toEntity() : null,
+                studijskiProgramDTO.getRukovodilac() != null ? studijskiProgramDTO.getRukovodilac().toEntity() : null
+        );
+
         StudijskiProgram savedStudijskiProgram = studijskiProgramService.save(studijskiProgram);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudijskiProgram);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                             .body(new StudijskiProgramDTO(savedStudijskiProgram));
     }
 
+    // Update an existing studijski program
     @PutMapping("/{id}")
-    public ResponseEntity<StudijskiProgram> update(@PathVariable Long id, @RequestBody StudijskiProgram studijskiProgram) {
+    public ResponseEntity<StudijskiProgramDTO> update(@PathVariable Long id, @RequestBody StudijskiProgramDTO studijskiProgramDTO) {
         if (studijskiProgramService.findById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        studijskiProgram.setId(id);
+        StudijskiProgram studijskiProgram = new StudijskiProgram(
+                id,
+                studijskiProgramDTO.getNaziv(),
+                studijskiProgramDTO.getOpis(),
+                studijskiProgramDTO.getGodinaStudija() != null ? studijskiProgramDTO.getGodinaStudija().toEntity() : null,
+                studijskiProgramDTO.getTipStudija() != null ? studijskiProgramDTO.getTipStudija().toEntity() : null,
+                studijskiProgramDTO.getRukovodilac() != null ? studijskiProgramDTO.getRukovodilac().toEntity() : null
+        );
+
         StudijskiProgram updatedStudijskiProgram = studijskiProgramService.save(studijskiProgram);
-        return ResponseEntity.ok(updatedStudijskiProgram);
+        return ResponseEntity.ok(new StudijskiProgramDTO(updatedStudijskiProgram));
     }
 
+    // Delete a studijski program by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (studijskiProgramService.findById(id).isEmpty()) {
@@ -58,23 +82,5 @@ public class StudijskiProgramController {
 
         studijskiProgramService.deleteById(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @RequestMapping(path = "", method = RequestMethod.POST)
-    public ResponseEntity<StudijskiProgramDTO> add(@RequestBody StudijskiProgramDTO studijskiProgramDTO) {
-        StudijskiProgram noviStudijskiProgram = new StudijskiProgram(null, studijskiProgramDTO.getNaziv(), studijskiProgramDTO.getOpis(), 
-                                                                    studijskiProgramDTO.getGodinaStudija(), studijskiProgramDTO.getTipStudija(), 
-                                                                    studijskiProgramDTO.getRukovodilac());
-        this.studijskiProgramService.save(noviStudijskiProgram);
-
-        return new ResponseEntity<StudijskiProgramDTO>(
-            new StudijskiProgramDTO(
-                noviStudijskiProgram.getId(),
-                noviStudijskiProgram.getNaziv(),
-                noviStudijskiProgram.getOpis(),
-                noviStudijskiProgram.getGodinaStudija(),
-                noviStudijskiProgram.getTipStudija(),
-                noviStudijskiProgram.getRukovodilac()
-            ), HttpStatus.CREATED);
     }
 }

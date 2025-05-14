@@ -27,6 +27,11 @@ public class DodeljenoPravoPristupa {
 		this.korisnik = korisnik;
 		this.pravoPristupa = pravoPristupa;
 	}
+	
+	public DodeljenoPravoPristupa(RegistrovaniKorisnik korisnik, PravoPristupa pravoPristupa) {
+	    this.korisnik = korisnik;
+	    this.pravoPristupa = pravoPristupa;
+	}
 
 	public Long getId() {
 		return id;

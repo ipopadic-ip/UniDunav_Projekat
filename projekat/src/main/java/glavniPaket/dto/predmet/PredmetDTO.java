@@ -6,6 +6,7 @@ import glavniPaket.dto.godinaStudija.GodinaStudijaDTO;
 import glavniPaket.dto.katedra.KatedraDTO;
 import glavniPaket.dto.korisnika.ProfesorDTO;
 import glavniPaket.dto.profesorPredmet.ProfesorPredmetDTO;
+import glavniPaket.model.predmet.Predmet;
 
 public class PredmetDTO {
     private Long id;
@@ -22,6 +23,14 @@ public class PredmetDTO {
         this.ests = ests;
         this.informacijeOPredmetu = informacijeOPredmetu;
         this.godinaStudija = godinaStudija;
+    }
+    
+    public PredmetDTO(Predmet predmet) {
+        this.id = predmet.getId();
+        this.naziv = predmet.getNaziv();
+        this.ests = predmet.getEsts();
+        this.informacijeOPredmetu = predmet.getInformacijeOPredmetu();
+        this.godinaStudija = predmet.getGodinaStudija() != null ? new GodinaStudijaDTO(predmet.getGodinaStudija()) : null;
     }
 
     public Long getId() {
@@ -63,4 +72,20 @@ public class PredmetDTO {
     public void setGodinaStudija(GodinaStudijaDTO godinaStudija) {
         this.godinaStudija = godinaStudija;
     }
+    
+    public Predmet toEntity() {
+        Predmet predmet = new Predmet();
+        predmet.setId(this.id);
+        predmet.setNaziv(this.naziv);
+        predmet.setEsts(this.ests);
+        predmet.setInformacijeOPredmetu(this.informacijeOPredmetu);
+        
+        // Convert GodinaStudijaDTO to GodinaStudija
+        if (this.godinaStudija != null) {
+            predmet.setGodinaStudija(this.godinaStudija.toEntity());  // Assuming GodinaStudijaDTO has a toEntity() method
+        }
+        
+        return predmet;
+    }
+
 }

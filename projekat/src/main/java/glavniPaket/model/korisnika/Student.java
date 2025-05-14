@@ -18,13 +18,14 @@ import jakarta.persistence.Table;
 import glavniPaket.model.adresa.Adresa;
 import glavniPaket.model.adresa.Mesto;
 import glavniPaket.model.predmet.PohadjanjePredmeta;
+
 @Entity
 @Table(name = "studenti")
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;  // Promenjen tip sa Integer na Long
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "korisnik_id", referencedColumnName = "id")
@@ -46,80 +47,75 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PohadjanjePredmeta> pohadjanja = new ArrayList<>();
 
-	public Student() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public Student() {
+        super();
+    }
 
-	public Student(Integer id, RegistrovaniKorisnik korisnik, Date godinaUpisa, Adresa adresa, String brojIndeksa,
-			int ukupanBrojECTS, List<PohadjanjePredmeta> pohadjanja) {
-		super();
-		this.id = id;
-		this.korisnik = korisnik;
-		this.godinaUpisa = godinaUpisa;
-		this.adresa = adresa;
-		this.brojIndeksa = brojIndeksa;
-		this.ukupanBrojECTS = ukupanBrojECTS;
-		this.pohadjanja = pohadjanja;
-	}
+    public Student(Long id, RegistrovaniKorisnik korisnik, Date godinaUpisa, Adresa adresa, String brojIndeksa,
+                   int ukupanBrojECTS, List<PohadjanjePredmeta> pohadjanja) {
+        super();
+        this.id = id;
+        this.korisnik = korisnik;
+        this.godinaUpisa = godinaUpisa;
+        this.adresa = adresa;
+        this.brojIndeksa = brojIndeksa;
+        this.ukupanBrojECTS = ukupanBrojECTS;
+        this.pohadjanja = pohadjanja;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Long getId() {  // Promenjen tip sa Integer na Long
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Long id) {  // Promenjen tip sa Integer na Long
+        this.id = id;
+    }
 
-	public RegistrovaniKorisnik getKorisnik() {
-		return korisnik;
-	}
+    public RegistrovaniKorisnik getKorisnik() {
+        return korisnik;
+    }
 
-	public void setKorisnik(RegistrovaniKorisnik korisnik) {
-		this.korisnik = korisnik;
-	}
+    public void setKorisnik(RegistrovaniKorisnik korisnik) {
+        this.korisnik = korisnik;
+    }
 
-	public Date getGodinaUpisa() {
-		return godinaUpisa;
-	}
+    public Date getGodinaUpisa() {
+        return godinaUpisa;
+    }
 
-	public void setGodinaUpisa(Date godinaUpisa) {
-		this.godinaUpisa = godinaUpisa;
-	}
+    public void setGodinaUpisa(Date godinaUpisa) {
+        this.godinaUpisa = godinaUpisa;
+    }
 
-	public Adresa getAdresa() {
-		return adresa;
-	}
+    public Adresa getAdresa() {
+        return adresa;
+    }
 
-	public void setAdresa(Adresa adresa) {
-		this.adresa = adresa;
-	}
+    public void setAdresa(Adresa adresa) {
+        this.adresa = adresa;
+    }
 
-	public String getBrojIndeksa() {
-		return brojIndeksa;
-	}
+    public String getBrojIndeksa() {
+        return brojIndeksa;
+    }
 
-	public void setBrojIndeksa(String brojIndeksa) {
-		this.brojIndeksa = brojIndeksa;
-	}
+    public void setBrojIndeksa(String brojIndeksa) {
+        this.brojIndeksa = brojIndeksa;
+    }
 
-	public int getUkupanBrojECTS() {
-		return ukupanBrojECTS;
-	}
+    public int getUkupanBrojECTS() {
+        return ukupanBrojECTS;
+    }
 
-	public void setUkupanBrojECTS(int ukupanBrojECTS) {
-		this.ukupanBrojECTS = ukupanBrojECTS;
-	}
+    public void setUkupanBrojECTS(int ukupanBrojECTS) {
+        this.ukupanBrojECTS = ukupanBrojECTS;
+    }
 
-	public List<PohadjanjePredmeta> getPohadjanja() {
-		return pohadjanja;
-	}
+    public List<PohadjanjePredmeta> getPohadjanja() {
+        return pohadjanja;
+    }
 
-	public void setPohadjanja(List<PohadjanjePredmeta> pohadjanja) {
-		this.pohadjanja = pohadjanja;
-	}
-
-   
-
- 
+    public void setPohadjanja(List<PohadjanjePredmeta> pohadjanja) {
+        this.pohadjanja = pohadjanja;
+    }
 }

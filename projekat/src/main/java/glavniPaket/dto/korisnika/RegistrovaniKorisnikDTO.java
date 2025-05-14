@@ -3,6 +3,7 @@ package glavniPaket.dto.korisnika;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import glavniPaket.dto.adresa.MestoDTO;
 import glavniPaket.model.adresa.Mesto;
@@ -34,7 +35,63 @@ public class RegistrovaniKorisnikDTO {
         this.email = email;
         this.pravaPristupa = pravaPristupa;
     }
+    
+    public RegistrovaniKorisnikDTO(RegistrovaniKorisnik registrovanikorisnik) {
+        this.id = registrovanikorisnik.getId();
+        this.ime = registrovanikorisnik.getIme();
+        this.prezime = registrovanikorisnik.getPrezime();
+        this.korisnickoIme = registrovanikorisnik.getKorisnickoIme();
+        this.datumRodjenja = registrovanikorisnik.getDatumRodjenja();
+        this.mestoRodjenja = registrovanikorisnik.getMestoRodjenja() != null 
+                ? new MestoDTO(registrovanikorisnik.getMestoRodjenja()) : null;
+        this.jmbg = registrovanikorisnik.getJmbg();
+        this.email = registrovanikorisnik.getEmail();
+        this.pravaPristupa = registrovanikorisnik.getPravaPristupa() != null
+                ? registrovanikorisnik.getPravaPristupa().stream()
+                    .map(DodeljenoPravoPristupaDTO::new)
+                    .collect(Collectors.toSet())
+                : new HashSet<>();
+    }
 
+    public static RegistrovaniKorisnikDTO fromEntity(RegistrovaniKorisnik registrovaniKorisnik) {
+        RegistrovaniKorisnikDTO dto = new RegistrovaniKorisnikDTO();
+        dto.setId(registrovaniKorisnik.getId());
+        dto.setIme(registrovaniKorisnik.getIme());
+        dto.setPrezime(registrovaniKorisnik.getPrezime());
+        dto.setKorisnickoIme(registrovaniKorisnik.getKorisnickoIme());
+        dto.setDatumRodjenja(registrovaniKorisnik.getDatumRodjenja());
+        dto.setMestoRodjenja(registrovaniKorisnik.getMestoRodjenja() != null 
+                ? new MestoDTO(registrovaniKorisnik.getMestoRodjenja()) : null);
+        dto.setJmbg(registrovaniKorisnik.getJmbg());
+        dto.setEmail(registrovaniKorisnik.getEmail());
+        dto.setPravaPristupa(registrovaniKorisnik.getPravaPristupa() != null
+                ? registrovaniKorisnik.getPravaPristupa().stream()
+                    .map(DodeljenoPravoPristupaDTO::new)
+                    .collect(Collectors.toSet())
+                : new HashSet<>());
+        return dto;
+    }
+    
+    public RegistrovaniKorisnik toEntity() {
+        RegistrovaniKorisnik korisnik = new RegistrovaniKorisnik();
+        korisnik.setId(this.id);
+        korisnik.setIme(this.ime);
+        korisnik.setPrezime(this.prezime);
+        korisnik.setKorisnickoIme(this.korisnickoIme);
+        korisnik.setDatumRodjenja(this.datumRodjenja);
+        korisnik.setJmbg(this.jmbg);
+        korisnik.setEmail(this.email);
+        // Optionally handle setting Mesto
+        if (this.mestoRodjenja != null) {
+            Mesto mesto = new Mesto();
+            mesto.setId(this.mestoRodjenja.getId());
+            mesto.setNaziv(this.mestoRodjenja.getNaziv());
+            korisnik.setMestoRodjenja(mesto);
+        }
+        // PravaPristupa conversion if needed
+        return korisnik;
+    }
+    
     public Integer getId() {
         return id;
     }

@@ -36,9 +36,9 @@ public class DodeljenoPravoPristupaService {
         return new DodeljenoPravoPristupaDTO(dodeljeno.getId(), korisnikId, pravoId);
     }
 
-    public List<DodeljenoPravoPristupaDTO> svaPravaZaKorisnika(Integer korisnikId) {
+    public List<DodeljenoPravoPristupaDTO> svaPravaZaKorisnika(Integer korisnikId) { /////OVDE JE PORAZAN, NMG NIKAKO NAMESTITI
         return dodeljenoRepo.findByKorisnikId(korisnikId).stream()
-                .map(p -> new DodeljenoPravoPristupaDTO(p.getId(), p.getKorisnik().getId(), p.getPravoPristupa().getId()))
+                .map(p -> new DodeljenoPravoPristupaDTO())	////////////
                 .collect(Collectors.toList());
     }
 

@@ -37,9 +37,7 @@ public class FakultetService {
         return fakultetRepository.findById(id).map(fakultet -> {
             fakultet.setNaziv(noviPodaci.getNaziv());
             fakultet.setEmail(noviPodaci.getEmail());
-            fakultet.setAdresa(noviPodaci.getAdresa());
             fakultet.setUniverzitet(noviPodaci.getUniverzitet());
-            fakultet.setKatedre(noviPodaci.getKatedre());
             fakultet.setOpis(noviPodaci.getOpis());
             fakultet.setDekan(noviPodaci.getDekan());
             return fakultetRepository.save(fakultet);

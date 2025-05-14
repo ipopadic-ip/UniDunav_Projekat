@@ -6,10 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import glavniPaket.dto.fakultet.FakultetDTO;
-import glavniPaket.model.adresa.Adresa;
+import glavniPaket.dto.korisnika.ProfesorDTO;
+import glavniPaket.dto.univerzitet.UniverzitetDTO;
+import glavniPaket.model.departman.Departman;
 import glavniPaket.model.fakultet.Fakultet;
-import glavniPaket.service.fakultet.FakultetService;
+import glavniPaket.model.korisnika.Profesor;
 import glavniPaket.model.univerzitet.Univerzitet;
+import glavniPaket.service.fakultet.FakultetService;
 
 import java.util.ArrayList;
 
@@ -27,8 +30,8 @@ public class FakultetController {
     @GetMapping("/{id}")
     public ResponseEntity<Fakultet> getById(@PathVariable Long id) {
         return fakultetService.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
@@ -67,23 +70,32 @@ public class FakultetController {
     @PostMapping("/dto")
     public ResponseEntity<FakultetDTO> add(@RequestBody FakultetDTO fakultetDTO) {
 
-        Adresa adresaEntity = fakultetDTO.getAdresa() != null ? fakultetDTO.getAdresa() : null; 
-        Univerzitet univerzitetEntity = fakultetDTO.getUniverzitet() != null ? fakultetDTO.getUniverzitet() : null;
+        // Konverzija Univerziteta
+        Univerzitet univerzitetEntity = null;
+        if (fakultetDTO.getUniverzitet() != null) {
+            univerzitetEntity = new Univerzitet();
+            univerzitetEntity.setId(fakultetDTO.getUniverzitet().getId());
+        }
 
+        // Konverzija Dekana
+        Profesor dekanEntity = null;
+        if (fakultetDTO.getDekan() != null) {
+            dekanEntity = new Profesor();
+            dekanEntity.setId(fakultetDTO.getDekan().getId());
+        }
+
+        // Kreiranje Fakultet entiteta
         Fakultet fakultetEntity = new Fakultet(
-            null, 
+            null,
             fakultetDTO.getNaziv(),
             fakultetDTO.getEmail(),
-            adresaEntity,
-            univerzitetEntity, 
-            new ArrayList<>(), 
-            fakultetDTO.getOpis(),
-            fakultetDTO.getDekan()
+            univerzitetEntity,
+            dekanEntity,
+            new ArrayList<>(),
+            fakultetDTO.getOpis()
         );
 
-        
         Fakultet savedFakultet = fakultetService.save(fakultetEntity);
-
 
         FakultetDTO savedFakultetDTO = FakultetDTO.fromEntity(savedFakultet);
 

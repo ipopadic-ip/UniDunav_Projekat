@@ -14,7 +14,7 @@ public class Adresa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String ulica;
     private String broj;
@@ -25,7 +25,7 @@ public class Adresa {
 
     public Adresa() {}
 
-    public Adresa(Integer id, String ulica, String broj, Mesto mesto) {
+    public Adresa(Long id, String ulica, String broj, Mesto mesto) {
         this.id = id;
         this.ulica = ulica;
         this.broj = broj;
@@ -33,11 +33,11 @@ public class Adresa {
     }
 
     // Getteri i setteri
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

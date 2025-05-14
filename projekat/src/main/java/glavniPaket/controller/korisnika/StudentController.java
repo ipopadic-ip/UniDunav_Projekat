@@ -2,7 +2,6 @@ package glavniPaket.controller.korisnika;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,14 +44,14 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentDTO> getOne(@PathVariable Integer id) {
+    public ResponseEntity<StudentDTO> getOne(@PathVariable Long id) { 
         return studentService.findById(id)
                 .map(student -> ResponseEntity.ok(StudentDTO.fromEntity(student)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) { 
         return studentService.findById(id)
                 .map(s -> {
                     studentService.deleteById(id);
@@ -62,7 +61,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudentDTO> update(@PathVariable Integer id, @RequestBody StudentDTO dto) {
+    public ResponseEntity<StudentDTO> update(@PathVariable Long id, @RequestBody StudentDTO dto) { 
         return studentService.findById(id)
                 .map(student -> {
                     RegistrovaniKorisnik k = student.getKorisnik();
@@ -104,4 +103,3 @@ public class StudentController {
         return new ResponseEntity<>(StudentDTO.fromEntity(student), HttpStatus.CREATED);
     }
 }
-

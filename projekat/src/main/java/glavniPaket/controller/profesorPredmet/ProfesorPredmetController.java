@@ -37,7 +37,7 @@ public class ProfesorPredmetController {
             profesorPredmetiDTO.add(new ProfesorPredmetDTO(
                 pp.getId(),
                 null, 
-                null  
+                null, null  
             ));
         }
 
@@ -50,7 +50,7 @@ public class ProfesorPredmetController {
         if (pp == null) {
             return new ResponseEntity<ProfesorPredmetDTO>(HttpStatus.NOT_FOUND);
         }
-        ProfesorPredmetDTO ppDTO = new ProfesorPredmetDTO(pp.getId(), null, null);
+        ProfesorPredmetDTO ppDTO = new ProfesorPredmetDTO(pp.getId(), null, null, null);
         return new ResponseEntity<ProfesorPredmetDTO>(ppDTO, HttpStatus.OK);
     }
 
@@ -88,20 +88,20 @@ public class ProfesorPredmetController {
         this.profesorPredmetService.save(pp);
         
         return new ResponseEntity<>(
-            new ProfesorPredmetDTO(pp.getId(), null, null), 
+            new ProfesorPredmetDTO(pp.getId(), null, null, null), 
             HttpStatus.OK
         );
     }
     
     @RequestMapping(path = "", method = RequestMethod.POST)
     public ResponseEntity<ProfesorPredmetDTO> add(@RequestBody ProfesorPredmetDTO profesorPredmetDTO) {
-    	ProfesorPredmet novProfesorPredmet = new ProfesorPredmet(null, null);
+    	ProfesorPredmet novProfesorPredmet = new ProfesorPredmet(null, null, null, null);
         this.profesorPredmetService.save(novProfesorPredmet);
         
         return new ResponseEntity<ProfesorPredmetDTO>(
             new ProfesorPredmetDTO(
             	novProfesorPredmet.getId(),
-                null,null
+                null,null, null
             ), HttpStatus.CREATED);
     }
 

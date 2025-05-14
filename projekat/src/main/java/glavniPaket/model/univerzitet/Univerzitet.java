@@ -1,6 +1,7 @@
 package glavniPaket.model.univerzitet;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,7 +39,7 @@ public class Univerzitet {
     private Adresa adresa;
 
     @OneToMany(mappedBy = "univerzitet")
-    private ArrayList<Fakultet> fakulteti;
+    private List<Fakultet> fakulteti;
 
     @OneToOne
     @JoinColumn(name = "rektor_id", nullable = true)
@@ -50,7 +51,7 @@ public class Univerzitet {
 	}
 
 	public Univerzitet(Long id, String naziv, String email, String brojTelefona, String opis, Adresa adresa,
-			ArrayList<Fakultet> fakulteti, Profesor rektor) {
+			List<Fakultet> fakulteti, Profesor rektor) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -110,12 +111,12 @@ public class Univerzitet {
 		this.adresa = adresa;
 	}
 
-	public ArrayList<Fakultet> getFakulteti() {
+	public List<Fakultet> getFakulteti() {
 		return fakulteti;
 	}
 
-	public void setFakulteti(ArrayList<Fakultet> fakulteti) {
-		this.fakulteti = fakulteti;
+	public void setFakulteti(List<Fakultet> list) {
+		this.fakulteti = list;
 	}
 
 	public Profesor getRektor() {

@@ -24,7 +24,7 @@ public class ProfesorService {
         return profesorRepository.findAll();
     }
 
-    public Optional<Profesor> findById(Integer id) {
+    public Optional<Profesor> findById(Long id) {
         return profesorRepository.findById(id);
     }
 
@@ -32,7 +32,7 @@ public class ProfesorService {
         return profesorRepository.save(profesor);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         profesorRepository.deleteById(id);
     }
 }
