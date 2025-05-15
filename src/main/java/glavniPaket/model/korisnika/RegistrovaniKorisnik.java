@@ -26,8 +26,11 @@ public  class RegistrovaniKorisnik {
 	private String korisnickoIme;
 	@Column(nullable=false)
 	private Date datumRodjenja;
-	@Column(nullable=false)
+	
+	@ManyToOne
+	@JoinColumn(name = "mesto_rodjenja_id", nullable = false)
 	private Mesto mestoRodjenja;
+	
 	@Column(nullable=false)
 	private String jmbg;
 	@Column(nullable=false)
