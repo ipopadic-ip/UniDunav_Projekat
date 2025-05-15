@@ -13,6 +13,11 @@ public class Drzava {
     private Integer id;
     @Column(nullable=false)
     private String naziv;
+    
+//    @ManyToOne
+//    @JoinColumn(name = "mesto_id", nullable = false)
+//    private Mesto mesto;
+
 
     @OneToMany(mappedBy = "drzava", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mesto> mesta = new ArrayList<>();

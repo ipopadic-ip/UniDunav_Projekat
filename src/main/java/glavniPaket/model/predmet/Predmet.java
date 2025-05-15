@@ -35,9 +35,23 @@ public class Predmet {
     @ManyToOne
     @JoinColumn(name = "godinaStudija_id", nullable = false)
     private GodinaStudija godinaStudija;
+    
+    @ManyToOne
+    @JoinColumn(name = "katedra_id", nullable = true)
+    private Katedra katedra;
 
-	public Predmet(Long id, String naziv, int ests, String informacijeOPredmetu, List<ProfesorPredmet> profesori,
-			List<PohadjanjePredmeta> pohadjanja, GodinaStudija godinaStudija) {
+    
+
+    public Katedra getKatedra() {
+		return katedra;
+	}
+
+	public void setKatedra(Katedra katedra) {
+		this.katedra = katedra;
+	}
+
+public Predmet(Long id, String naziv, int ests, String informacijeOPredmetu, List<ProfesorPredmet> profesori,
+			List<PohadjanjePredmeta> pohadjanja, GodinaStudija godinaStudija, Katedra katedra) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -46,7 +60,20 @@ public class Predmet {
 		this.profesori = profesori;
 		this.pohadjanja = pohadjanja;
 		this.godinaStudija = godinaStudija;
+		this.katedra = katedra;
 	}
+
+//	public Predmet(Long id, String naziv, int ests, String informacijeOPredmetu, List<ProfesorPredmet> profesori,
+//			List<PohadjanjePredmeta> pohadjanja, GodinaStudija godinaStudija) {
+//		super();
+//		this.id = id;
+//		this.naziv = naziv;
+//		this.ests = ests;
+//		this.informacijeOPredmetu = informacijeOPredmetu;
+//		this.profesori = profesori;
+//		this.pohadjanja = pohadjanja;
+//		this.godinaStudija = godinaStudija;
+//	}
 
 	public Predmet() {
 		super();

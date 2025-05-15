@@ -18,6 +18,7 @@ import glavniPaket.model.katedra.Katedra;
 import glavniPaket.model.korisnika.Profesor;
 import glavniPaket.model.univerzitet.Univerzitet;
 
+@Entity 
 public class Fakultet {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

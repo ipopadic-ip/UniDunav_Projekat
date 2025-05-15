@@ -1,6 +1,7 @@
 package glavniPaket.dto.adresa;
 
 import glavniPaket.model.adresa.Adresa;
+import glavniPaket.model.adresa.Mesto;
 
 public class AdresaDTO {
     private Long id;
@@ -78,18 +79,32 @@ public class AdresaDTO {
 	}
 
 
+//	public Adresa toEntity() {
+//        Adresa adresa = new Adresa();
+//        adresa.setId(this.id);
+//        adresa.setBroj(this.broj);
+//        adresa.setUlica(this.ulica);
+//        
+//        if (this.mesto != null) {
+//            adresa.setMesto(this.mesto.toEntity());
+//        }
+//        
+//        return adresa;
+//    }
+	
 	public Adresa toEntity() {
-        Adresa adresa = new Adresa();
-        adresa.setId(this.id);
-        adresa.setBroj(this.broj);
-        adresa.setUlica(this.ulica);
-        
-        if (this.mesto != null) {
-            adresa.setMesto(this.mesto.toEntity());
-        }
-        
-        return adresa;
-    }
+	    Adresa adresa = new Adresa();
+	    adresa.setId(this.id);
+	    adresa.setBroj(this.broj);
+	    adresa.setUlica(this.ulica);
+
+	    if (this.mesto != null && this.mesto.getId() != null) {
+	        adresa.setMesto(new Mesto(this.mesto.getId()));
+	    }
+
+	    return adresa;
+	}
+
     
     // Metoda za konverziju iz Adresa entiteta u AdresaDTO
     public static AdresaDTO fromEntity(Adresa adresa) {

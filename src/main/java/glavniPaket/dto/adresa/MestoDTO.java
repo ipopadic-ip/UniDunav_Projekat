@@ -23,7 +23,32 @@ public class MestoDTO {
 
     public String getNaziv() { return naziv; }
     public void setNaziv(String naziv) { this.naziv = naziv; }
+//    public Mesto toEntity() {
+//        return new Mesto(this.id, this.naziv, null);
+//    }
+//    public Mesto toEntity() {
+//        return this.id != null ? new Mesto(this.id) : null;
+//    }
+
     public Mesto toEntity() {
-        return new Mesto(this.id, this.naziv, null);
+//        Mesto mesto = new Mesto();
+//        mesto.setId(this.id);
+//        mesto.setNaziv(this.naziv);
+//        // NE postavljaj drzava na null
+//        return mesto;
+    	
+//    	 if (this.id == null) return null;
+
+	    // samo postavi ID, Hibernate će to povezati
+//	    return new Mesto(this.id);
+    	
+    	 if (this.id == null) return null;
+
+	    Mesto mesto = new Mesto();
+	    mesto.setId(this.id);
+	    // OVO JE BITNO: da ne ostane `drzava == null` ako je to zabranjeno u entitetu
+	    mesto.setDrzava(new Drzava()); // Dummy objekat, samo da izbegne null
+	    return mesto;
     }
+
 }

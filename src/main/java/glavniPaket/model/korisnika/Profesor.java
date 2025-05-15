@@ -39,7 +39,7 @@ public class Profesor {
 	@OneToOne(mappedBy = "dekan")
 	private Fakultet fakultet;
 	
-	@OneToOne(mappedBy = "direktorDepartmana")
+	@OneToOne(mappedBy = "sefDepartmana")
 	private Departman departman;
 	
 	@OneToOne(mappedBy = "sefKatedre")

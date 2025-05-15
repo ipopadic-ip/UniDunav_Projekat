@@ -21,7 +21,11 @@ public class StudijskiProgram {
 	
 	private String opis;
 	
+//	private GodinaStudija godinaStudija;
+	@ManyToOne
+	@JoinColumn(name = "godina_studija_id")
 	private GodinaStudija godinaStudija;
+
 	
 	@ManyToOne
     @JoinColumn(name = "tipStudija_id")

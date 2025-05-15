@@ -15,7 +15,7 @@ public class Mesto {
     private String naziv;
 
     @ManyToOne
-    @JoinColumn(name = "drzava_id", nullable = false)
+    @JoinColumn(name = "drzava_id", nullable = true)
     private Drzava drzava;
 
     @OneToMany(mappedBy = "mesto", cascade = CascadeType.ALL, orphanRemoval = true)
