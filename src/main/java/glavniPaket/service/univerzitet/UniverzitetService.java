@@ -2,11 +2,14 @@ package glavniPaket.service.univerzitet;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import jakarta.persistence.EntityNotFoundException;
 
 import glavniPaket.model.univerzitet.Univerzitet;
 import glavniPaket.repository.univerzitet.UniverzitetRepository;
 
+@Service
 public class UniverzitetService {
 
     private final UniverzitetRepository univerzitetRepository;

@@ -2,9 +2,12 @@ package glavniPaket.service.profesorPredmet;
 
 import jakarta.persistence.EntityNotFoundException;
 
+import org.springframework.stereotype.Service;
+
 import glavniPaket.model.profesorPredmet.ProfesorPredmet;
 import glavniPaket.repository.profesorPredmet.ProfesorPredmetRepository;
 
+@Service
 public class ProfesorPredmetService {
 
     private final ProfesorPredmetRepository profesorPredmetRepository;

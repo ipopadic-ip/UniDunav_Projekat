@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import glavniPaket.dto.studijskiProgram.StudijskiProgramDTO;
 import glavniPaket.model.studijskiProgram.StudijskiProgram;
 import glavniPaket.repository.studijskiProgram.StudijskiProgramRepository;
 import jakarta.persistence.EntityNotFoundException;
 
+@Service
 public class StudijskiProgramService {
     private StudijskiProgramRepository studijskiProgramRepository;
 

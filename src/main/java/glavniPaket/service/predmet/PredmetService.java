@@ -2,11 +2,14 @@ package glavniPaket.service.predmet;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import jakarta.persistence.EntityNotFoundException;
 
 import glavniPaket.model.predmet.Predmet;
 import glavniPaket.repository.predmet.PredmetRepository;
 
+@Service
 public class PredmetService {
     private PredmetRepository predmetRepository;
 

@@ -2,10 +2,13 @@ package glavniPaket.service.tipStudija;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import glavniPaket.model.tipStudija.TipStudija;
 import glavniPaket.repository.tipStudija.TipStudijaRepository;
 import jakarta.persistence.EntityNotFoundException;
 
+@Service
 public class TipStudijaService {
 	private TipStudijaRepository tipStudijaRepository;
 

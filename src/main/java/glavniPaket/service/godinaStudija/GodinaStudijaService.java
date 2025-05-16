@@ -2,10 +2,13 @@ package glavniPaket.service.godinaStudija;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import glavniPaket.model.godinaStudija.GodinaStudija;
 import glavniPaket.repository.godinaStudija.GodinaStudijaRepository;
 import jakarta.persistence.EntityNotFoundException;
 
+@Service
 public class GodinaStudijaService {
     private GodinaStudijaRepository godinaStudijaRepository;
 

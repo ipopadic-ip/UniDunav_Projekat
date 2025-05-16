@@ -44,6 +44,10 @@ public class Katedra {
     @JoinColumn(name = "sefKatedre_id", nullable = true)
     private Profesor sefKatedre;
     
+    @ManyToOne
+    @JoinColumn(name = "fakultet_id")
+    private Fakultet fakultet;
+    
     public Katedra() {
         super();
     }
