@@ -1,5 +1,7 @@
 package glavniPaket.dto.studijskiProgram;
 
+import java.util.List;
+
 import glavniPaket.dto.godinaStudija.GodinaStudijaDTO;
 import glavniPaket.dto.korisnika.ProfesorDTO;
 import glavniPaket.dto.tipStudija.TipStudijaDTO;
@@ -9,52 +11,31 @@ import glavniPaket.model.studijskiProgram.StudijskiProgram;
 import glavniPaket.model.tipStudija.TipStudija;
 
 public class StudijskiProgramDTO {
+
     private Long id;
     private String naziv;
     private String opis;
-    private GodinaStudijaDTO godinaStudija;
-    private TipStudijaDTO tipStudija;
-    private ProfesorDTO rukovodilac;
 
-    public StudijskiProgramDTO() {
-        super();
-    }
+    private Long tipStudijaId;
+    private Long rukovodilacId;
 
-    public StudijskiProgramDTO(Long id, String naziv, String opis, GodinaStudijaDTO godinaStudija, TipStudijaDTO tipStudija, ProfesorDTO rukovodilac) {
-        super();
+    private List<Long> godineStudijaIds;
+
+    public StudijskiProgramDTO() {}
+
+    public StudijskiProgramDTO(Long id, String naziv, String opis,
+                               Long tipStudijaId, Long rukovodilacId,
+                               List<Long> godineStudijaIds) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
-        this.godinaStudija = godinaStudija;
-        this.tipStudija = tipStudija;
-        this.rukovodilac = rukovodilac;
+        this.tipStudijaId = tipStudijaId;
+        this.rukovodilacId = rukovodilacId;
+        this.godineStudijaIds = godineStudijaIds;
     }
 
-    public StudijskiProgramDTO(StudijskiProgram studijskiProgram) {
-        this.id = studijskiProgram.getId();
-        this.naziv = studijskiProgram.getNaziv();
-        this.opis = studijskiProgram.getOpis();
-        this.godinaStudija = studijskiProgram.getGodinaStudija() != null 
-            ? new GodinaStudijaDTO(studijskiProgram.getGodinaStudija()) : null;
-        this.tipStudija = studijskiProgram.getTipStudija() != null 
-            ? new TipStudijaDTO(studijskiProgram.getTipStudija()) : null;
-        this.rukovodilac = studijskiProgram.getRukovodilac() != null 
-            ? new ProfesorDTO(studijskiProgram.getRukovodilac()) : null;
-    }
+    // === GETTERI I SETTERI ===
 
-    public StudijskiProgram toEntity() {
-        StudijskiProgram sp = new StudijskiProgram();
-        sp.setId(this.id);
-        sp.setNaziv(this.naziv);
-        sp.setOpis(this.opis);
-
-        sp.setTipStudija(this.tipStudija != null ? this.tipStudija.toEntity() : null);
-        
-        sp.setRukovodilac(this.rukovodilac != null ? this.rukovodilac.toEntity() : null);
-        
-        return sp;
-    }
-    
     public Long getId() {
         return id;
     }
@@ -79,27 +60,27 @@ public class StudijskiProgramDTO {
         this.opis = opis;
     }
 
-    public GodinaStudijaDTO getGodinaStudija() {
-        return godinaStudija;
+    public Long getTipStudijaId() {
+        return tipStudijaId;
     }
 
-    public void setGodinaStudija(GodinaStudijaDTO godinaStudija) {
-        this.godinaStudija = godinaStudija;
+    public void setTipStudijaId(Long tipStudijaId) {
+        this.tipStudijaId = tipStudijaId;
     }
 
-    public TipStudijaDTO getTipStudija() {
-        return tipStudija;
+    public Long getRukovodilacId() {
+        return rukovodilacId;
     }
 
-    public void setTipStudija(TipStudijaDTO tipStudija) {
-        this.tipStudija = tipStudija;
+    public void setRukovodilacId(Long rukovodilacId) {
+        this.rukovodilacId = rukovodilacId;
     }
 
-    public ProfesorDTO getRukovodilac() {
-        return rukovodilac;
+    public List<Long> getGodineStudijaIds() {
+        return godineStudijaIds;
     }
 
-    public void setRukovodilac(ProfesorDTO rukovodilac) {
-        this.rukovodilac = rukovodilac;
+    public void setGodineStudijaIds(List<Long> godineStudijaIds) {
+        this.godineStudijaIds = godineStudijaIds;
     }
 }

@@ -10,93 +10,46 @@ import glavniPaket.model.adresa.Mesto;
 import glavniPaket.model.korisnika.RegistrovaniKorisnik;
 
 public class RegistrovaniKorisnikDTO {
-    private Integer id;
+
+    private Long id;
     private String ime;
     private String prezime;
     private String korisnickoIme;
     private Date datumRodjenja;
-    private MestoDTO mestoRodjenja;
     private String jmbg;
+    private String lozinka;
     private String email;
-    private Set<DodeljenoPravoPristupaDTO> pravaPristupa = new HashSet<>();
+
+    private Long mestoRodjenjaId;
+
+    private Long studentId;
+    private Long profesorId;
 
     public RegistrovaniKorisnikDTO() {}
 
-    public RegistrovaniKorisnikDTO(Integer id, String ime, String prezime, String korisnickoIme,
-                                   Date datumRodjenja, MestoDTO mestoRodjenja, String jmbg,
-                                   String email, Set<DodeljenoPravoPristupaDTO> pravaPristupa) {
+    public RegistrovaniKorisnikDTO(Long id, String ime, String prezime, String korisnickoIme,
+                                   Date datumRodjenja, String jmbg, String lozinka, String email,
+                                   Long mestoRodjenjaId, Long studentId, Long profesorId) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
         this.datumRodjenja = datumRodjenja;
-        this.mestoRodjenja = mestoRodjenja;
         this.jmbg = jmbg;
+        this.lozinka = lozinka;
         this.email = email;
-        this.pravaPristupa = pravaPristupa;
-    }
-    
-    public RegistrovaniKorisnikDTO(RegistrovaniKorisnik registrovanikorisnik) {
-        this.id = registrovanikorisnik.getId();
-        this.ime = registrovanikorisnik.getIme();
-        this.prezime = registrovanikorisnik.getPrezime();
-        this.korisnickoIme = registrovanikorisnik.getKorisnickoIme();
-        this.datumRodjenja = registrovanikorisnik.getDatumRodjenja();
-        this.mestoRodjenja = registrovanikorisnik.getMestoRodjenja() != null 
-                ? new MestoDTO(registrovanikorisnik.getMestoRodjenja()) : null;
-        this.jmbg = registrovanikorisnik.getJmbg();
-        this.email = registrovanikorisnik.getEmail();
-        this.pravaPristupa = registrovanikorisnik.getPravaPristupa() != null
-                ? registrovanikorisnik.getPravaPristupa().stream()
-                    .map(DodeljenoPravoPristupaDTO::new)
-                    .collect(Collectors.toSet())
-                : new HashSet<>();
+        this.mestoRodjenjaId = mestoRodjenjaId;
+        this.studentId = studentId;
+        this.profesorId = profesorId;
     }
 
-    public static RegistrovaniKorisnikDTO fromEntity(RegistrovaniKorisnik registrovaniKorisnik) {
-        RegistrovaniKorisnikDTO dto = new RegistrovaniKorisnikDTO();
-        dto.setId(registrovaniKorisnik.getId());
-        dto.setIme(registrovaniKorisnik.getIme());
-        dto.setPrezime(registrovaniKorisnik.getPrezime());
-        dto.setKorisnickoIme(registrovaniKorisnik.getKorisnickoIme());
-        dto.setDatumRodjenja(registrovaniKorisnik.getDatumRodjenja());
-        dto.setMestoRodjenja(registrovaniKorisnik.getMestoRodjenja() != null 
-                ? new MestoDTO(registrovaniKorisnik.getMestoRodjenja()) : null);
-        dto.setJmbg(registrovaniKorisnik.getJmbg());
-        dto.setEmail(registrovaniKorisnik.getEmail());
-        dto.setPravaPristupa(registrovaniKorisnik.getPravaPristupa() != null
-                ? registrovaniKorisnik.getPravaPristupa().stream()
-                    .map(DodeljenoPravoPristupaDTO::new)
-                    .collect(Collectors.toSet())
-                : new HashSet<>());
-        return dto;
-    }
-    
-    public RegistrovaniKorisnik toEntity() {
-        RegistrovaniKorisnik korisnik = new RegistrovaniKorisnik();
-        korisnik.setId(this.id);
-        korisnik.setIme(this.ime);
-        korisnik.setPrezime(this.prezime);
-        korisnik.setKorisnickoIme(this.korisnickoIme);
-        korisnik.setDatumRodjenja(this.datumRodjenja);
-        korisnik.setJmbg(this.jmbg);
-        korisnik.setEmail(this.email);
-        // Optionally handle setting Mesto
-        if (this.mestoRodjenja != null) {
-            Mesto mesto = new Mesto();
-            mesto.setId(this.mestoRodjenja.getId());
-            mesto.setNaziv(this.mestoRodjenja.getNaziv());
-            korisnik.setMestoRodjenja(mesto);
-        }
-        // PravaPristupa conversion if needed
-        return korisnik;
-    }
-    
-    public Integer getId() {
+    // === GETTERI I SETTERI ===
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -132,20 +85,20 @@ public class RegistrovaniKorisnikDTO {
         this.datumRodjenja = datumRodjenja;
     }
 
-    public MestoDTO getMestoRodjenja() {
-        return mestoRodjenja;
-    }
-
-    public void setMestoRodjenja(MestoDTO mestoRodjenja) {
-        this.mestoRodjenja = mestoRodjenja;
-    }
-
     public String getJmbg() {
         return jmbg;
     }
 
     public void setJmbg(String jmbg) {
         this.jmbg = jmbg;
+    }
+
+    public String getLozinka() {
+        return lozinka;
+    }
+
+    public void setLozinka(String lozinka) {
+        this.lozinka = lozinka;
     }
 
     public String getEmail() {
@@ -156,11 +109,27 @@ public class RegistrovaniKorisnikDTO {
         this.email = email;
     }
 
-    public Set<DodeljenoPravoPristupaDTO> getPravaPristupa() {
-        return pravaPristupa;
+    public Long getMestoRodjenjaId() {
+        return mestoRodjenjaId;
     }
 
-    public void setPravaPristupa(Set<DodeljenoPravoPristupaDTO> pravaPristupa) {
-        this.pravaPristupa = pravaPristupa;
+    public void setMestoRodjenjaId(Long mestoRodjenjaId) {
+        this.mestoRodjenjaId = mestoRodjenjaId;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public Long getProfesorId() {
+        return profesorId;
+    }
+
+    public void setProfesorId(Long profesorId) {
+        this.profesorId = profesorId;
     }
 }

@@ -10,13 +10,12 @@ public class Drzava {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(nullable=false)
     private String naziv;
-    
-//    @ManyToOne
-//    @JoinColumn(name = "mesto_id", nullable = false)
-//    private Mesto mesto;
+    @ManyToOne
+    @JoinColumn(name = "mesto_id", nullable = false)
+    private Mesto mesto;
 
 
     @OneToMany(mappedBy = "drzava", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,23 +27,23 @@ public class Drzava {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Drzava(Integer id, String naziv, List<Mesto> mesta) {
+	public Drzava(Long id, String naziv, List<Mesto> mesta) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.mesta = mesta;
 	}
-	public Drzava(Integer id, String naziv) {
+	public Drzava(Long id, String naziv) {
 	    this.id = id;
 	    this.naziv = naziv;
 	    this.mesta = new ArrayList<>(); // Prazna lista inicijalno
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

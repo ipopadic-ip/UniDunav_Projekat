@@ -21,7 +21,7 @@ public class GodinaStudija {
 	
 	private int godina;
 	
-//	private StudijskiProgram studijskiProgram;
+
 	
 	@ManyToOne
 	@JoinColumn(name = "studijski_program_id")

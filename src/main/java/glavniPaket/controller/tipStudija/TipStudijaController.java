@@ -1,6 +1,7 @@
 package glavniPaket.controller.tipStudija;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,71 +22,54 @@ import glavniPaket.service.tipStudija.TipStudijaService;
 
 
 @RestController
-@RequestMapping("/tip-studija")
+@RequestMapping("/api/tipovi-studija")
 public class TipStudijaController {
 
-    @Autowired
-    private TipStudijaService tipStudijaService;
+    private final TipStudijaService tipStudijaService;
 
+    @Autowired
     public TipStudijaController(TipStudijaService tipStudijaService) {
         this.tipStudijaService = tipStudijaService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<TipStudija> getById(@PathVariable Long id) {
-        return tipStudijaService.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+    @GetMapping
+    public ResponseEntity<List<TipStudijaDTO>> getAll() {
+        return ResponseEntity.ok(tipStudijaService.findAll());
     }
 
-    @GetMapping
-    public ResponseEntity<Iterable<TipStudija>> getAll() {
-        Iterable<TipStudija> tipoviStudija = tipStudijaService.findAll();
-        return ResponseEntity.ok(tipoviStudija);
+    @GetMapping("/{id}")
+    public ResponseEntity<TipStudijaDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(tipStudijaService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<TipStudija> create(@RequestBody TipStudija tipStudija) {
-        TipStudija savedTipStudija = tipStudijaService.save(tipStudija);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedTipStudija);
+    public ResponseEntity<TipStudijaDTO> create(@RequestBody TipStudijaDTO dto) {
+        return new ResponseEntity<>(tipStudijaService.save(dto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TipStudija> update(@PathVariable Long id, @RequestBody TipStudija tipStudija) {
-        if (tipStudijaService.findById(id).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        tipStudija.setId(id);
-        TipStudija updatedTipStudija = tipStudijaService.save(tipStudija);
-        return ResponseEntity.ok(updatedTipStudija);
+    public ResponseEntity<TipStudijaDTO> update(@PathVariable Long id, @RequestBody TipStudijaDTO dto) {
+        return ResponseEntity.ok(tipStudijaService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (tipStudijaService.findById(id).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        tipStudijaService.deleteById(id);
+        tipStudijaService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(path = "", method = RequestMethod.POST)
-    public ResponseEntity<TipStudijaDTO> add(@RequestBody TipStudijaDTO tipStudijaDTO) {
-        TipStudija noviTipStudija = new TipStudija(null, tipStudijaDTO.getTip(), null, null);
-        this.tipStudijaService.save(noviTipStudija);
-
-        return new ResponseEntity<TipStudijaDTO>(
-            new TipStudijaDTO(
-                noviTipStudija.getId(),
-                noviTipStudija.getTip(),
-                null,
-                null
-            ), HttpStatus.CREATED);
+    @GetMapping("/tip/{tip}")
+    public ResponseEntity<TipStudijaDTO> getByTip(@PathVariable String tip) {
+        return ResponseEntity.ok(tipStudijaService.findByTip(tip));
     }
 
+    @GetMapping("/pretraga/pocetak/{prefix}")
+    public ResponseEntity<List<TipStudijaDTO>> searchByPrefix(@PathVariable String prefix) {
+        return ResponseEntity.ok(tipStudijaService.findByTipStartingWith(prefix));
+    }
 
-
+    @GetMapping("/pretraga/{keyword}")
+    public ResponseEntity<List<TipStudijaDTO>> searchByKeyword(@PathVariable String keyword) {
+        return ResponseEntity.ok(tipStudijaService.pretraziPoTipu(keyword));
+    }
 }
-

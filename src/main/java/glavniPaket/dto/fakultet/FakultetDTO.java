@@ -1,6 +1,7 @@
 package glavniPaket.dto.fakultet;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import glavniPaket.dto.departman.DepartmanDTO;
@@ -13,43 +14,30 @@ import glavniPaket.model.korisnika.Profesor;
 import glavniPaket.model.univerzitet.Univerzitet;
 
 public class FakultetDTO {
+
     private Long id;
     private String naziv;
     private String email;
     private String opis;
-    private UniverzitetDTO univerzitet;
-    private ProfesorDTO dekan;
-    private ArrayList<DepartmanDTO> departmani = new ArrayList<>();
+
+    private Long univerzitetId;
+    private Long dekanId;
+    private List<Long> departmanIds;
 
     public FakultetDTO() {}
 
     public FakultetDTO(Long id, String naziv, String email, String opis,
-                       UniverzitetDTO univerzitet, ProfesorDTO dekan,
-                       ArrayList<DepartmanDTO> departmani) {
+                       Long univerzitetId, Long dekanId, List<Long> departmanIds) {
         this.id = id;
         this.naziv = naziv;
         this.email = email;
         this.opis = opis;
-        this.univerzitet = univerzitet;
-        this.dekan = dekan;
-        this.departmani = departmani;
-    }
-    
-    public FakultetDTO(Fakultet fakultet) {
-        if (fakultet != null) {
-            this.id = fakultet.getId();
-            this.naziv = fakultet.getNaziv();
-            this.email = fakultet.getEmail();
-            this.opis = fakultet.getOpis();
-            this.univerzitet = fakultet.getUniverzitet() != null ? new UniverzitetDTO(fakultet.getUniverzitet()) : null;
-            this.dekan = fakultet.getDekan() != null ? new ProfesorDTO(fakultet.getDekan()) : null;
-            this.departmani = new ArrayList<>();
-            if (fakultet.getDepartmani() != null) {
-                fakultet.getDepartmani().forEach(dep -> this.departmani.add(new DepartmanDTO(dep)));
-            }
-        }
+        this.univerzitetId = univerzitetId;
+        this.dekanId = dekanId;
+        this.departmanIds = departmanIds;
     }
 
+    // === Getteri i setteri ===
 
     public Long getId() {
         return id;
@@ -83,81 +71,27 @@ public class FakultetDTO {
         this.opis = opis;
     }
 
-    public UniverzitetDTO getUniverzitet() {
-        return univerzitet;
+    public Long getUniverzitetId() {
+        return univerzitetId;
     }
 
-    public void setUniverzitet(UniverzitetDTO univerzitet) {
-        this.univerzitet = univerzitet;
+    public void setUniverzitetId(Long univerzitetId) {
+        this.univerzitetId = univerzitetId;
     }
 
-    public ProfesorDTO getDekan() {
-        return dekan;
+    public Long getDekanId() {
+        return dekanId;
     }
 
-    public void setDekan(ProfesorDTO dekan) {
-        this.dekan = dekan;
+    public void setDekanId(Long dekanId) {
+        this.dekanId = dekanId;
     }
 
-    public ArrayList<DepartmanDTO> getDepartmani() {
-        return departmani;
+    public List<Long> getDepartmanIds() {
+        return departmanIds;
     }
 
-    public void setDepartmani(ArrayList<DepartmanDTO> departmani) {
-        this.departmani = departmani;
+    public void setDepartmanIds(List<Long> departmanIds) {
+        this.departmanIds = departmanIds;
     }
-    
-    public static FakultetDTO fromEntity(Fakultet fakultet) {
-        if (fakultet == null) return null;
-
-        UniverzitetDTO univerzitetDTO = fakultet.getUniverzitet() != null
-            ? new UniverzitetDTO(fakultet.getUniverzitet())
-            : null;
-
-        ProfesorDTO dekanDTO = fakultet.getDekan() != null
-            ? new ProfesorDTO(fakultet.getDekan())
-            : null;
-
-        ArrayList<DepartmanDTO> departmaniDTO = new ArrayList<>();
-        if (fakultet.getDepartmani() != null) {
-            fakultet.getDepartmani().forEach(dep -> departmaniDTO.add(new DepartmanDTO(dep)));
-        }
-
-        return new FakultetDTO(
-            fakultet.getId(),
-            fakultet.getNaziv(),
-            fakultet.getEmail(),
-            fakultet.getOpis(),
-            univerzitetDTO,
-            dekanDTO,
-            departmaniDTO
-        );
-    }
-
-    public Fakultet toEntity() {
-        Fakultet fakultet = new Fakultet();
-        fakultet.setId(this.id);
-        fakultet.setNaziv(this.naziv);
-        fakultet.setEmail(this.email);
-        fakultet.setOpis(this.opis);
-
-        if (this.univerzitet != null) {
-            fakultet.setUniverzitet(this.univerzitet.toEntity());
-        }
-
-        if (this.dekan != null) {
-            fakultet.setDekan(this.dekan.toEntity());
-        }
-
-        if (this.departmani != null) {
-            fakultet.setDepartmani(
-                this.departmani.stream()
-                    .map(DepartmanDTO::toEntity)
-                    .collect(Collectors.toCollection(ArrayList::new))
-            );
-        }
-
-        return fakultet;
-    }
-
 }

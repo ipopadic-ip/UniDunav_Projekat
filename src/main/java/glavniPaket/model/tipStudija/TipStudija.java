@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import glavniPaket.model.katedra.Katedra;
 import glavniPaket.model.studijskiProgram.StudijskiProgram;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,8 @@ public class TipStudija {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String tip;
+	@Column(nullable=false)
+    private String tip;
 	
 	@ManyToOne
     @JoinColumn(name = "katedra_id", nullable = true)

@@ -21,7 +21,7 @@ public class Predmet {
     private String naziv;
 
     @Column(nullable = false)
-    private int ests;
+    private int ects;
 
     @Column(name = "informacije_o_predmetu")
     private String informacijeOPredmetu;
@@ -36,49 +36,11 @@ public class Predmet {
     @JoinColumn(name = "godinaStudija_id", nullable = false)
     private GodinaStudija godinaStudija;
     
-    @ManyToOne
-    @JoinColumn(name = "katedra_id", nullable = true)
-    private Katedra katedra;
-
+    @OneToOne(mappedBy = "predmet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Silabus silabus;
     
-
-    public Katedra getKatedra() {
-		return katedra;
-	}
-
-	public void setKatedra(Katedra katedra) {
-		this.katedra = katedra;
-	}
-
-public Predmet(Long id, String naziv, int ests, String informacijeOPredmetu, List<ProfesorPredmet> profesori,
-			List<PohadjanjePredmeta> pohadjanja, GodinaStudija godinaStudija, Katedra katedra) {
-		super();
-		this.id = id;
-		this.naziv = naziv;
-		this.ests = ests;
-		this.informacijeOPredmetu = informacijeOPredmetu;
-		this.profesori = profesori;
-		this.pohadjanja = pohadjanja;
-		this.godinaStudija = godinaStudija;
-		this.katedra = katedra;
-	}
-
-//	public Predmet(Long id, String naziv, int ests, String informacijeOPredmetu, List<ProfesorPredmet> profesori,
-//			List<PohadjanjePredmeta> pohadjanja, GodinaStudija godinaStudija) {
-//		super();
-//		this.id = id;
-//		this.naziv = naziv;
-//		this.ests = ests;
-//		this.informacijeOPredmetu = informacijeOPredmetu;
-//		this.profesori = profesori;
-//		this.pohadjanja = pohadjanja;
-//		this.godinaStudija = godinaStudija;
-//	}
-
-	public Predmet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Obavestenje> obavestenja = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -96,12 +58,12 @@ public Predmet(Long id, String naziv, int ests, String informacijeOPredmetu, Lis
 		this.naziv = naziv;
 	}
 
-	public int getEsts() {
-		return ests;
+	public int getEcts() {
+		return ects;
 	}
 
-	public void setEsts(int ests) {
-		this.ests = ests;
+	public void setEcts(int ects) {
+		this.ects = ects;
 	}
 
 	public String getInformacijeOPredmetu() {
@@ -135,5 +97,47 @@ public Predmet(Long id, String naziv, int ests, String informacijeOPredmetu, Lis
 	public void setGodinaStudija(GodinaStudija godinaStudija) {
 		this.godinaStudija = godinaStudija;
 	}
+
+	public Silabus getSilabus() {
+		return silabus;
+	}
+
+	public void setSilabus(Silabus silabus) {
+		this.silabus = silabus;
+	}
+
+	public List<Obavestenje> getObavestenja() {
+		return obavestenja;
+	}
+
+	public void setObavestenja(List<Obavestenje> obavestenja) {
+		this.obavestenja = obavestenja;
+	}
+
+	public Predmet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Predmet(Long id, String naziv, int ects, String informacijeOPredmetu, List<ProfesorPredmet> profesori,
+			List<PohadjanjePredmeta> pohadjanja, GodinaStudija godinaStudija, Silabus silabus,
+			List<Obavestenje> obavestenja) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.ects = ects;
+		this.informacijeOPredmetu = informacijeOPredmetu;
+		this.profesori = profesori;
+		this.pohadjanja = pohadjanja;
+		this.godinaStudija = godinaStudija;
+		this.silabus = silabus;
+		this.obavestenja = obavestenja;
+	}
+    
+    
+
+    
+
+
 
 }

@@ -7,113 +7,76 @@ import java.util.List;
 import glavniPaket.dto.korisnika.StudentDTO;
 
 public class PohadjanjePredmetaDTO {
+
     private Long id;
+
     private int ocena;
     private int brojPolaganja;
     private boolean aktivan;
+
     private LocalDateTime datumPocetka;
     private LocalDateTime datumZavrsetka;
-    private StudentDTO student;
-    private PredmetDTO predmet;
-    private List<PrijavaPrestupaDTO> prijave = new ArrayList<>();
-    private List<EvaluacijaZnanjaDTO> evaluacije = new ArrayList<>();
+
+    private Long studentId;
+    private Long predmetId;
+
+    private List<Long> prijavePrestupaIds;
+    private List<Long> prijaveIspitaIds;
+    private List<Long> evaluacijeIds;
 
     public PohadjanjePredmetaDTO() {}
 
     public PohadjanjePredmetaDTO(Long id, int ocena, int brojPolaganja, boolean aktivan,
                                   LocalDateTime datumPocetka, LocalDateTime datumZavrsetka,
-                                  StudentDTO student, PredmetDTO predmet,
-                                  List<PrijavaPrestupaDTO> prijave, List<EvaluacijaZnanjaDTO> evaluacije) {
+                                  Long studentId, Long predmetId,
+                                  List<Long> prijavePrestupaIds,
+                                  List<Long> prijaveIspitaIds,
+                                  List<Long> evaluacijeIds) {
         this.id = id;
         this.ocena = ocena;
         this.brojPolaganja = brojPolaganja;
         this.aktivan = aktivan;
         this.datumPocetka = datumPocetka;
         this.datumZavrsetka = datumZavrsetka;
-        this.student = student;
-        this.predmet = predmet;
-        this.prijave = prijave;
-        this.evaluacije = evaluacije;
+        this.studentId = studentId;
+        this.predmetId = predmetId;
+        this.prijavePrestupaIds = prijavePrestupaIds;
+        this.prijaveIspitaIds = prijaveIspitaIds;
+        this.evaluacijeIds = evaluacijeIds;
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getteri i setteri
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public int getOcena() {
-        return ocena;
-    }
+    public int getOcena() { return ocena; }
+    public void setOcena(int ocena) { this.ocena = ocena; }
 
-    public void setOcena(int ocena) {
-        this.ocena = ocena;
-    }
+    public int getBrojPolaganja() { return brojPolaganja; }
+    public void setBrojPolaganja(int brojPolaganja) { this.brojPolaganja = brojPolaganja; }
 
-    public int getBrojPolaganja() {
-        return brojPolaganja;
-    }
+    public boolean isAktivan() { return aktivan; }
+    public void setAktivan(boolean aktivan) { this.aktivan = aktivan; }
 
-    public void setBrojPolaganja(int brojPolaganja) {
-        this.brojPolaganja = brojPolaganja;
-    }
+    public LocalDateTime getDatumPocetka() { return datumPocetka; }
+    public void setDatumPocetka(LocalDateTime datumPocetka) { this.datumPocetka = datumPocetka; }
 
-    public boolean isAktivan() {
-        return aktivan;
-    }
+    public LocalDateTime getDatumZavrsetka() { return datumZavrsetka; }
+    public void setDatumZavrsetka(LocalDateTime datumZavrsetka) { this.datumZavrsetka = datumZavrsetka; }
 
-    public void setAktivan(boolean aktivan) {
-        this.aktivan = aktivan;
-    }
+    public Long getStudentId() { return studentId; }
+    public void setStudentId(Long studentId) { this.studentId = studentId; }
 
-    public LocalDateTime getDatumPocetka() {
-        return datumPocetka;
-    }
+    public Long getPredmetId() { return predmetId; }
+    public void setPredmetId(Long predmetId) { this.predmetId = predmetId; }
 
-    public void setDatumPocetka(LocalDateTime datumPocetka) {
-        this.datumPocetka = datumPocetka;
-    }
+    public List<Long> getPrijavePrestupaIds() { return prijavePrestupaIds; }
+    public void setPrijavePrestupaIds(List<Long> prijavePrestupaIds) { this.prijavePrestupaIds = prijavePrestupaIds; }
 
-    public LocalDateTime getDatumZavrsetka() {
-        return datumZavrsetka;
-    }
+    public List<Long> getPrijaveIspitaIds() { return prijaveIspitaIds; }
+    public void setPrijaveIspitaIds(List<Long> prijaveIspitaIds) { this.prijaveIspitaIds = prijaveIspitaIds; }
 
-    public void setDatumZavrsetka(LocalDateTime datumZavrsetka) {
-        this.datumZavrsetka = datumZavrsetka;
-    }
-
-    public StudentDTO getStudent() {
-        return student;
-    }
-
-    public void setStudent(StudentDTO student) {
-        this.student = student;
-    }
-
-    public PredmetDTO getPredmet() {
-        return predmet;
-    }
-
-    public void setPredmet(PredmetDTO predmet) {
-        this.predmet = predmet;
-    }
-
-    public List<PrijavaPrestupaDTO> getPrijave() {
-        return prijave;
-    }
-
-    public void setPrijave(List<PrijavaPrestupaDTO> prijave) {
-        this.prijave = prijave;
-    }
-
-    public List<EvaluacijaZnanjaDTO> getEvaluacije() {
-        return evaluacije;
-    }
-
-    public void setEvaluacije(List<EvaluacijaZnanjaDTO> evaluacije) {
-        this.evaluacije = evaluacije;
-    }
+    public List<Long> getEvaluacijeIds() { return evaluacijeIds; }
+    public void setEvaluacijeIds(List<Long> evaluacijeIds) { this.evaluacijeIds = evaluacijeIds; }
 }
-

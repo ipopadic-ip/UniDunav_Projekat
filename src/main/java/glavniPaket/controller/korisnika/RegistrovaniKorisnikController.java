@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import glavniPaket.dto.korisnika.RegistrovaniKorisnikDTO;
@@ -21,67 +22,89 @@ import glavniPaket.model.korisnika.RegistrovaniKorisnik;
 import glavniPaket.service.korisnika.RegistrovaniKorisnikService;
 
 @RestController
-@RequestMapping("/api/registrovani-korisnici")
+@RequestMapping("/api/korisnici")
 public class RegistrovaniKorisnikController {
 
-    private final RegistrovaniKorisnikService registrovaniKorisnikService;
+    private final RegistrovaniKorisnikService korisnikService;
 
     @Autowired
-    public RegistrovaniKorisnikController(RegistrovaniKorisnikService registrovaniKorisnikService) {
-        this.registrovaniKorisnikService = registrovaniKorisnikService;
+    public RegistrovaniKorisnikController(RegistrovaniKorisnikService korisnikService) {
+        this.korisnikService = korisnikService;
     }
 
+    // === GET ALL ===
     @GetMapping
     public ResponseEntity<List<RegistrovaniKorisnikDTO>> getAll() {
-        List<RegistrovaniKorisnikDTO> result = new ArrayList<>();
-        for (RegistrovaniKorisnik rk : registrovaniKorisnikService.findAll()) {
-            result.add(RegistrovaniKorisnikDTO.fromEntity(rk));
-        }
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(korisnikService.findAll());
     }
 
+    // === GET BY ID ===
     @GetMapping("/{id}")
-    public ResponseEntity<RegistrovaniKorisnikDTO> getOne(@PathVariable Integer id) {
-        return registrovaniKorisnikService.findById(id)
-                .map(k -> ResponseEntity.ok(RegistrovaniKorisnikDTO.fromEntity(k)))
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<RegistrovaniKorisnikDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(korisnikService.findById(id));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        return registrovaniKorisnikService.findById(id)
-                .map(k -> {
-                    registrovaniKorisnikService.deleteById(id);
-                    return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<RegistrovaniKorisnikDTO> update(@PathVariable Integer id, @RequestBody RegistrovaniKorisnikDTO dto) {
-        return registrovaniKorisnikService.findById(id)
-                .map(rk -> {
-                    // Update fields with the DTO data
-                    rk.setIme(dto.getIme());
-                    rk.setPrezime(dto.getPrezime());
-                    rk.setKorisnickoIme(dto.getKorisnickoIme());
-                    rk.setDatumRodjenja(dto.getDatumRodjenja());
-                    rk.setJmbg(dto.getJmbg());
-                    rk.setEmail(dto.getEmail());
-                    // Handle setting Mesto if needed
-                    if (dto.getMestoRodjenja() != null) {
-                        rk.setMestoRodjenja(new Mesto(dto.getMestoRodjenja().getId(), dto.getMestoRodjenja().getNaziv(), null));
-                    }
-                    registrovaniKorisnikService.save(rk);
-                    return ResponseEntity.ok(RegistrovaniKorisnikDTO.fromEntity(rk));
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
+    // === CREATE ===
     @PostMapping
     public ResponseEntity<RegistrovaniKorisnikDTO> create(@RequestBody RegistrovaniKorisnikDTO dto) {
-        RegistrovaniKorisnik korisnik = dto.toEntity();
-        korisnik = registrovaniKorisnikService.save(korisnik);
-        return new ResponseEntity<>(RegistrovaniKorisnikDTO.fromEntity(korisnik), HttpStatus.CREATED);
+        RegistrovaniKorisnikDTO created = korisnikService.save(dto);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    }
+
+    // === UPDATE ===
+    @PutMapping("/{id}")
+    public ResponseEntity<RegistrovaniKorisnikDTO> update(@PathVariable Long id, @RequestBody RegistrovaniKorisnikDTO dto) {
+        return ResponseEntity.ok(korisnikService.update(id, dto));
+    }
+
+    // === DELETE ===
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        korisnikService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // === GET BY KORISNICKO IME ===
+    @GetMapping("/korisnicko-ime/{korisnickoIme}")
+    public ResponseEntity<RegistrovaniKorisnikDTO> getByKorisnickoIme(@PathVariable String korisnickoIme) {
+        return ResponseEntity.ok(korisnikService.findByKorisnickoIme(korisnickoIme));
+    }
+
+    // === GET BY EMAIL ===
+    @GetMapping("/email/{email}")
+    public ResponseEntity<RegistrovaniKorisnikDTO> getByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(korisnikService.findByEmail(email));
+    }
+
+    // === SEARCH: ime + prezime ===
+    @GetMapping("/pretraga")
+    public ResponseEntity<List<RegistrovaniKorisnikDTO>> searchByImeIPrezime(
+            @RequestParam String ime,
+            @RequestParam String prezime) {
+        return ResponseEntity.ok(korisnikService.findByImeAndPrezime(ime, prezime));
+    }
+
+    // === SEARCH: ime počinje sa... ===
+    @GetMapping("/ime-pocetak/{prefix}")
+    public ResponseEntity<List<RegistrovaniKorisnikDTO>> searchByImePrefix(@PathVariable String prefix) {
+        return ResponseEntity.ok(korisnikService.findByImeStartingWith(prefix));
+    }
+
+    // === SEARCH: delimično ime ili prezime ===
+    @GetMapping("/pretraga-kljucna-rec")
+    public ResponseEntity<List<RegistrovaniKorisnikDTO>> searchByKeyword(@RequestParam String keyword) {
+        return ResponseEntity.ok(korisnikService.pretraziPoImenuIliPrezimenu(keyword));
+    }
+
+    // === PROVERA EMAIL ===
+    @GetMapping("/postoji-email")
+    public ResponseEntity<Boolean> checkEmailExists(@RequestParam String email) {
+        return ResponseEntity.ok(korisnikService.existsByEmail(email));
+    }
+
+    // === PROVERA JMBG ===
+    @GetMapping("/postoji-jmbg")
+    public ResponseEntity<Boolean> checkJmbgExists(@RequestParam String jmbg) {
+        return ResponseEntity.ok(korisnikService.existsByJmbg(jmbg));
     }
 }

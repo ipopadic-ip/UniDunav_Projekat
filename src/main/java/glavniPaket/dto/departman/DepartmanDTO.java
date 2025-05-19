@@ -10,36 +10,29 @@ import glavniPaket.dto.korisnika.ProfesorDTO;
 import glavniPaket.model.departman.Departman;
 
 public class DepartmanDTO {
+
     private Long id;
     private String naziv;
     private String opis;
-    private FakultetDTO fakultet;
-    private ProfesorDTO sefDepartmana;
-    private List<KatedraDTO> katedre = new ArrayList<>();
+
+    private Long fakultetId;
+    private Long sefDepartmanaId;
+    private List<Long> katedraIds;
 
     public DepartmanDTO() {}
 
     public DepartmanDTO(Long id, String naziv, String opis,
-                        FakultetDTO fakultet, ProfesorDTO sefDepartmana,
-                        ArrayList<KatedraDTO> katedre) {
+                        Long fakultetId, Long sefDepartmanaId,
+                        List<Long> katedraIds) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
-        this.fakultet = fakultet;
-        this.sefDepartmana = sefDepartmana;
-        this.katedre = katedre;
+        this.fakultetId = fakultetId;
+        this.sefDepartmanaId = sefDepartmanaId;
+        this.katedraIds = katedraIds;
     }
-    
-    public DepartmanDTO(Departman departman) {
-        this.id = departman.getId();
-        this.naziv = departman.getNaziv();
-        this.opis = departman.getOpis();
-        this.fakultet = departman.getFakultet() != null ? new FakultetDTO(departman.getFakultet()) : null;
-        this.sefDepartmana = departman.getSefDepartmana() != null ? new ProfesorDTO(departman.getSefDepartmana()) : null;
-        this.katedre = departman.getKatedre() != null
-                ? departman.getKatedre().stream().map(KatedraDTO::new).collect(Collectors.toList())
-                : new ArrayList<>();
-    }
+
+    // === Getteri i setteri ===
 
     public Long getId() {
         return id;
@@ -65,53 +58,27 @@ public class DepartmanDTO {
         this.opis = opis;
     }
 
-    public FakultetDTO getFakultet() {
-        return fakultet;
+    public Long getFakultetId() {
+        return fakultetId;
     }
 
-    public void setFakultet(FakultetDTO fakultet) {
-        this.fakultet = fakultet;
+    public void setFakultetId(Long fakultetId) {
+        this.fakultetId = fakultetId;
     }
 
-    public ProfesorDTO getSefDepartmana() {
-        return sefDepartmana;
+    public Long getSefDepartmanaId() {
+        return sefDepartmanaId;
     }
 
-    public void setSefDepartmana(ProfesorDTO sefDepartmana) {
-        this.sefDepartmana = sefDepartmana;
+    public void setSefDepartmanaId(Long sefDepartmanaId) {
+        this.sefDepartmanaId = sefDepartmanaId;
     }
 
-    public List<KatedraDTO> getKatedre() {
-        return katedre;
+    public List<Long> getKatedraIds() {
+        return katedraIds;
     }
 
-    public void setKatedre(ArrayList<KatedraDTO> katedre) {
-        this.katedre = katedre;
+    public void setKatedraIds(List<Long> katedraIds) {
+        this.katedraIds = katedraIds;
     }
-    
-    public Departman toEntity() {
-        Departman departman = new Departman();
-        departman.setId(this.id);
-        departman.setNaziv(this.naziv);
-        departman.setOpis(this.opis);
-
-        if (this.fakultet != null) {
-            departman.setFakultet(this.fakultet.toEntity());
-        }
-
-        if (this.sefDepartmana != null) {
-            departman.setSefDepartmana(this.sefDepartmana.toEntity());
-        }
-
-        if (this.katedre != null) {
-            departman.setKatedre(
-                this.katedre.stream()
-                    .map(KatedraDTO::toEntity)
-                    .collect(Collectors.toCollection(ArrayList::new))
-            );
-        }
-
-        return departman;
-    }
-
 }

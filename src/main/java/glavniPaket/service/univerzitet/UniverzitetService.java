@@ -1,7 +1,9 @@
 package glavniPaket.service.univerzitet;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -14,38 +16,67 @@ public class UniverzitetService {
 
     private final UniverzitetRepository univerzitetRepository;
 
+    @Autowired
     public UniverzitetService(UniverzitetRepository univerzitetRepository) {
         this.univerzitetRepository = univerzitetRepository;
     }
 
-    public Iterable<Univerzitet> findAll() {
+    // === Standardne CRUD operacije ===
+
+    public List<Univerzitet> findAll() {
         return univerzitetRepository.findAll();
     }
 
-    public Optional<Univerzitet> findById(Long id) {
-        return univerzitetRepository.findById(id);
-    }
-
-    public Optional<Univerzitet> findByNaziv(String naziv) {
-        return univerzitetRepository.findByNaziv(naziv);
+    public Univerzitet findById(Long id) {
+        return univerzitetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Univerzitet sa ID " + id + " nije pronađen."));
     }
 
     public Univerzitet save(Univerzitet univerzitet) {
         return univerzitetRepository.save(univerzitet);
     }
 
-    public void deleteById(Long id) {
+    public Univerzitet update(Long id, Univerzitet updated) {
+        Univerzitet existing = findById(id);
+
+        existing.setNaziv(updated.getNaziv());
+        existing.setEmail(updated.getEmail());
+        existing.setBrojTelefona(updated.getBrojTelefona());
+        existing.setOpis(updated.getOpis());
+
+        // Ažuriranje kompleksnih povezanih entiteta
+        existing.setAdresa(updated.getAdresa());
+        existing.setRektor(updated.getRektor());
+
+        // Fakulteti se obično ne ažuriraju direktno kroz univerzitet jer je to @OneToMany (složenije)
+        // Ako želiš, možemo implementirati logiku za dodavanje/brisanje fakulteta posebno
+
+        return univerzitetRepository.save(existing);
+    }
+
+    public void delete(Long id) {
+        if (!univerzitetRepository.existsById(id)) {
+            throw new RuntimeException("Ne postoji univerzitet sa ID " + id);
+        }
         univerzitetRepository.deleteById(id);
     }
 
-    public Univerzitet update(Long id, Univerzitet noviPodaci) {
-        return univerzitetRepository.findById(id).map(univerzitet -> {
-            univerzitet.setNaziv(noviPodaci.getNaziv());
-            univerzitet.setBrojTelefona(noviPodaci.getBrojTelefona());
-            univerzitet.setEmail(noviPodaci.getEmail());
-            univerzitet.setOpis(noviPodaci.getOpis());
-            univerzitet.setFakulteti(noviPodaci.getFakulteti());
-            return univerzitetRepository.save(univerzitet);
-        }).orElseThrow(() -> new EntityNotFoundException("Univerzitet sa ID " + id + " nije pronađen"));
+    // === Dodatne metode iz tvojeg custom repository-ja ===
+
+    public Optional<Univerzitet> findByNaziv(String naziv) {
+        return univerzitetRepository.findByNaziv(naziv);
     }
+
+    public List<Univerzitet> findByNazivStartingWith(String prefix) {
+        return univerzitetRepository.findByNazivStartingWith(prefix);
+    }
+
+    public boolean existsByEmail(String email) {
+        return univerzitetRepository.existsByEmail(email);
+    }
+
+    public List<Univerzitet> pretraziPoNazivu(String keyword) {
+        return univerzitetRepository.pretraziPoNazivu(keyword);
+    }
+
 }

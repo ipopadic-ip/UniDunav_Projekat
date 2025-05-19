@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import glavniPaket.model.adresa.*;
 
 @Entity
@@ -19,7 +20,7 @@ public  class RegistrovaniKorisnik {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(nullable=false)
 	private String ime;
 	@Column(nullable=false)
@@ -37,32 +38,24 @@ public  class RegistrovaniKorisnik {
 	private String jmbg;
 	@Column(nullable=false)
 	private String lozinka;
-	@Column(nullable=false)
+	@Column(nullable = false, unique = true)
+	
 	private String email;
 	@OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<DodeljenoPravoPristupa> pravaPristupa;
+	@OneToOne(mappedBy = "korisnik", cascade = CascadeType.ALL)
+	private Student student;
+
+	@OneToOne(mappedBy = "korisnik", cascade = CascadeType.ALL)
+	private Profesor profesor;
 	public RegistrovaniKorisnik() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public RegistrovaniKorisnik(Integer id, String ime, String prezime, String korisnickoIme, Date datumRodjenja,
-			Mesto mestoRodjenja, String jmbg, String lozinka, String email, Set<DodeljenoPravoPristupa> pravaPristupa) {
-		super();
-		this.id = id;
-		this.ime = ime;
-		this.prezime = prezime;
-		this.korisnickoIme = korisnickoIme;
-		this.datumRodjenja = datumRodjenja;
-		this.mestoRodjenja = mestoRodjenja;
-		this.jmbg = jmbg;
-		this.lozinka = lozinka;
-		this.email = email;
-		this.pravaPristupa = pravaPristupa;
-	}
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getIme() {
@@ -119,9 +112,34 @@ public  class RegistrovaniKorisnik {
 	public void setPravaPristupa(Set<DodeljenoPravoPristupa> pravaPristupa) {
 		this.pravaPristupa = pravaPristupa;
 	}
-
+	public Student getStudent() {
+		return student;
+	}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	public Profesor getProfesor() {
+		return profesor;
+	}
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
+	public RegistrovaniKorisnik(Long id, String ime, String prezime, String korisnickoIme, Date datumRodjenja,
+			Mesto mestoRodjenja, String jmbg, String lozinka, String email, Set<DodeljenoPravoPristupa> pravaPristupa,
+			Student student, Profesor profesor) {
+		super();
+		this.id = id;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.korisnickoIme = korisnickoIme;
+		this.datumRodjenja = datumRodjenja;
+		this.mestoRodjenja = mestoRodjenja;
+		this.jmbg = jmbg;
+		this.lozinka = lozinka;
+		this.email = email;
+		this.pravaPristupa = pravaPristupa;
+		this.student = student;
+		this.profesor = profesor;
+	}
 	
-	
-	
-
 }

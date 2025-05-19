@@ -10,44 +10,28 @@ public class PravoPristupa {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String naziv;
+    private String naziv; // npr. "ADMINISTRATOR", "STUDENTSKA_SLUZBA"
 
-    private String opis;
+    public PravoPristupa() {}
 
-	public Long getId() {
-		return id;
-	}
+    public PravoPristupa(Long id,String naziv) {
+        this.id=id;
+    	this.naziv = naziv;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getNaziv() {
-		return naziv;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
-	}
+    public String getNaziv() {
+        return naziv;
+    }
 
-	public String getOpis() {
-		return opis;
-	}
-
-	public void setOpis(String opis) {
-		this.opis = opis;
-	}
-
-	public PravoPristupa(Long id, String naziv, String opis) {
-		super();
-		this.id = id;
-		this.naziv = naziv;
-		this.opis = opis;
-	}
-
-	public PravoPristupa() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
 }

@@ -1,49 +1,120 @@
 package glavniPaket.service.tipStudija;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import glavniPaket.dto.tipStudija.TipStudijaDTO;
+import glavniPaket.model.studijskiProgram.StudijskiProgram;
 import glavniPaket.model.tipStudija.TipStudija;
+import glavniPaket.repository.katedra.KatedraRepository;
+import glavniPaket.repository.studijskiProgram.StudijskiProgramRepository;
 import glavniPaket.repository.tipStudija.TipStudijaRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class TipStudijaService {
-	private TipStudijaRepository tipStudijaRepository;
 
-    public TipStudijaService(TipStudijaRepository tipStudijaRepository) {
+    private final TipStudijaRepository tipStudijaRepository;
+    private final KatedraRepository katedraRepository;
+    private final StudijskiProgramRepository studijskiProgramRepository;
+
+    @Autowired
+    public TipStudijaService(
+            TipStudijaRepository tipStudijaRepository,
+            KatedraRepository katedraRepository,
+            StudijskiProgramRepository studijskiProgramRepository) {
         this.tipStudijaRepository = tipStudijaRepository;
+        this.katedraRepository = katedraRepository;
+        this.studijskiProgramRepository = studijskiProgramRepository;
     }
 
-    public Iterable<TipStudija> findAll() {
-        return tipStudijaRepository.findAll();
+    public List<TipStudijaDTO> findAll() {
+        return tipStudijaRepository.findAll().stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
-    public Optional<TipStudija> findById(Long id) {
-        return tipStudijaRepository.findById(id);
+    public TipStudijaDTO findById(Long id) {
+        TipStudija tip = tipStudijaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tip studija sa ID " + id + " nije pronađen."));
+        return mapToDTO(tip);
     }
 
-//    public Optional<TipStudija> findByNaziv(String naziv) {
-//        return tipStudijaRepository.findByNaziv(naziv);
-//    }
-
-    public TipStudija save(TipStudija tipStudija) {
-        return tipStudijaRepository.save(tipStudija);
+    public TipStudijaDTO save(TipStudijaDTO dto) {
+        TipStudija tip = tipStudijaRepository.save(mapToEntity(dto));
+        return mapToDTO(tip);
     }
 
-    public void deleteById(Long id) {
-    	tipStudijaRepository.deleteById(id);
+    public TipStudijaDTO update(Long id, TipStudijaDTO dto) {
+        TipStudija existing = tipStudijaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tip studija sa ID " + id + " nije pronađen."));
+        TipStudija updated = mapToEntity(dto);
+        updated.setId(existing.getId());
+        return mapToDTO(tipStudijaRepository.save(updated));
     }
 
-    public TipStudija update(Long id, TipStudija noviPodaci) {
-        return tipStudijaRepository.findById(id).map(tipStudija -> {
-        	tipStudija.setTip(noviPodaci.getTip());
-        	tipStudija.setKatedra(noviPodaci.getKatedra());
-        	tipStudija.setStudijskiProgrami(noviPodaci.getStudijskiProgrami());
-        	return tipStudijaRepository.save(tipStudija);
-        }).orElseThrow(() -> new EntityNotFoundException("Predmet sa ID " + id + " nije pronađen"));
+    public void delete(Long id) {
+        if (!tipStudijaRepository.existsById(id)) {
+            throw new RuntimeException("Tip studija sa ID " + id + " ne postoji.");
+        }
+        tipStudijaRepository.deleteById(id);
     }
-    
-    
+
+    public TipStudijaDTO findByTip(String tip) {
+        return mapToDTO(tipStudijaRepository.findByTip(tip)
+                .orElseThrow(() -> new RuntimeException("Tip studija '" + tip + "' nije pronađen.")));
+    }
+
+    public List<TipStudijaDTO> findByTipStartingWith(String prefix) {
+        return tipStudijaRepository.findByTipStartingWith(prefix).stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<TipStudijaDTO> pretraziPoTipu(String keyword) {
+        return tipStudijaRepository.pretraziPoTipu(keyword).stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    // === MAPIRANJE ===
+
+    private TipStudija mapToEntity(TipStudijaDTO dto) {
+        TipStudija tip = new TipStudija();
+        tip.setId(dto.getId());
+        tip.setTip(dto.getTip());
+
+        if (dto.getKatedraId() != null) {
+            tip.setKatedra(katedraRepository.findById(dto.getKatedraId())
+                    .orElseThrow(() -> new RuntimeException("Katedra sa ID " + dto.getKatedraId() + " nije pronađena.")));
+        }
+
+        if (dto.getStudijskiProgramiIds() != null) {
+            List<StudijskiProgram> programi = dto.getStudijskiProgramiIds().stream()
+                    .map(id -> studijskiProgramRepository.findById(id)
+                            .orElseThrow(() -> new RuntimeException("Studijski program sa ID " + id + " nije pronađen.")))
+                    .collect(Collectors.toList());
+            tip.setStudijskiProgrami(new ArrayList<>(programi));
+        }
+
+        return tip;
+    }
+
+    private TipStudijaDTO mapToDTO(TipStudija tip) {
+        List<Long> programIds = tip.getStudijskiProgrami() != null
+                ? tip.getStudijskiProgrami().stream().map(StudijskiProgram::getId).collect(Collectors.toList())
+                : new ArrayList<>();
+
+        return new TipStudijaDTO(
+                tip.getId(),
+                tip.getTip(),
+                tip.getKatedra() != null ? tip.getKatedra().getId() : null,
+                programIds
+        );
+    }
 }

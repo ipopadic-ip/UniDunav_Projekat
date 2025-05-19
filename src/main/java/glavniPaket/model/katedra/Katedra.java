@@ -38,22 +38,18 @@ public class Katedra {
     private Departman departman;
     
     @OneToMany(mappedBy = "katedra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TipStudija> tipoviStudija = new ArrayList<TipStudija>();
+    private ArrayList<TipStudija> tipoviStudija = new ArrayList<TipStudija>();
 
     @OneToOne
     @JoinColumn(name = "sefKatedre_id", nullable = true)
     private Profesor sefKatedre;
-    
-    @ManyToOne
-    @JoinColumn(name = "fakultet_id")
-    private Fakultet fakultet;
     
     public Katedra() {
         super();
     }
 
 	public Katedra(Long id, String naziv, ArrayList<Predmet> predmeti, String opis, Departman departman,
-			List<TipStudija> tipoviStudija, Profesor sefKatedre) {
+			ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -104,11 +100,11 @@ public class Katedra {
 		this.departman = departman;
 	}
 
-	public List<TipStudija> getTipoviStudija() {
+	public ArrayList<TipStudija> getTipoviStudija() {
 		return tipoviStudija;
 	}
 
-	public void setTipoviStudija(List<TipStudija> tipoviStudija) {
+	public void setTipoviStudija(ArrayList<TipStudija> tipoviStudija) {
 		this.tipoviStudija = tipoviStudija;
 	}
 

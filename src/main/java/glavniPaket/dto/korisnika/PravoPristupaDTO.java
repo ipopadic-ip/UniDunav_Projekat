@@ -3,16 +3,16 @@ package glavniPaket.dto.korisnika;
 public class PravoPristupaDTO {
     private Long id;
     private String naziv;
-    private String opis;
+    
 	public PravoPristupaDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PravoPristupaDTO(Long id, String naziv, String opis) {
+	public PravoPristupaDTO(Long id, String naziv) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
-		this.opis = opis;
+		
 	}
 	public Long getId() {
 		return id;
@@ -26,11 +26,5 @@ public class PravoPristupaDTO {
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
-	public String getOpis() {
-		return opis;
-	}
-	public void setOpis(String opis) {
-		this.opis = opis;
-	}
-
+	
 }

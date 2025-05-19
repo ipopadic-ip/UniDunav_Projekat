@@ -11,35 +11,24 @@ import glavniPaket.model.predmet.Predmet;
 import glavniPaket.model.studijskiProgram.StudijskiProgram;
 
 public class GodinaStudijaDTO {
+
     private Long id;
     private int godina;
-    private StudijskiProgramDTO studijskiProgram;
-    private List<PredmetDTO> predmeti = new ArrayList<>();
 
-    // Default constructor
-    public GodinaStudijaDTO() {
-        super();
-    }
+    private Long studijskiProgramId;
+    private List<Long> predmetIds;
 
-    // Constructor with parameters
-    public GodinaStudijaDTO(Long id, int godina, StudijskiProgramDTO studijskiProgram, List<PredmetDTO> predmeti) {
+    public GodinaStudijaDTO() {}
+
+    public GodinaStudijaDTO(Long id, int godina, Long studijskiProgramId, List<Long> predmetIds) {
         this.id = id;
         this.godina = godina;
-        this.studijskiProgram = studijskiProgram;
-        this.predmeti = predmeti;
+        this.studijskiProgramId = studijskiProgramId;
+        this.predmetIds = predmetIds;
     }
 
-    // Constructor that takes an entity and converts it to DTO
-    public GodinaStudijaDTO(GodinaStudija godinaStudija) {
-        this.id = godinaStudija.getId();
-        this.godina = godinaStudija.getGodina();
-        this.studijskiProgram = godinaStudija.getStudijskiProgram() != null ? new StudijskiProgramDTO(godinaStudija.getStudijskiProgram()) : null;
-        this.predmeti = godinaStudija.getPredmeti() != null
-                ? godinaStudija.getPredmeti().stream().map(PredmetDTO::new).collect(Collectors.toList())
-                : new ArrayList<>();
-    }
+    // === GETTERI I SETTERI ===
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -56,38 +45,19 @@ public class GodinaStudijaDTO {
         this.godina = godina;
     }
 
-    public StudijskiProgramDTO getStudijskiProgram() {
-        return studijskiProgram;
+    public Long getStudijskiProgramId() {
+        return studijskiProgramId;
     }
 
-    public void setStudijskiProgram(StudijskiProgramDTO studijskiProgram) {
-        this.studijskiProgram = studijskiProgram;
+    public void setStudijskiProgramId(Long studijskiProgramId) {
+        this.studijskiProgramId = studijskiProgramId;
     }
 
-    public List<PredmetDTO> getPredmeti() {
-        return predmeti;
+    public List<Long> getPredmetIds() {
+        return predmetIds;
     }
 
-    public void setPredmeti(List<PredmetDTO> predmeti) {
-        this.predmeti = predmeti;
-    }
-
-    public GodinaStudija toEntity() {
-        List<Predmet> predmetiEntities = this.predmeti.stream()
-                .map(PredmetDTO::toEntity)
-                .collect(Collectors.toList());
-
-        StudijskiProgram studijskiProgramEntity = this.studijskiProgram != null
-                ? this.studijskiProgram.toEntity()
-                : null;
-
-        return new GodinaStudija(this.id, this.godina, studijskiProgramEntity, (ArrayList<Predmet>) predmetiEntities);
-    }
-
-    // Override toString for better representation
-    @Override
-    public String toString() {
-        return "GodinaStudijaDTO [id=" + id + ", godina=" + godina + ", studijskiProgram=" + studijskiProgram
-                + ", predmeti=" + predmeti + "]";
+    public void setPredmetIds(List<Long> predmetIds) {
+        this.predmetIds = predmetIds;
     }
 }

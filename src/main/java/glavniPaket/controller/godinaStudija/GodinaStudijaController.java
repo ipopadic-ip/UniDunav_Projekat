@@ -1,5 +1,7 @@
 package glavniPaket.controller.godinaStudija;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,67 +12,42 @@ import glavniPaket.model.godinaStudija.GodinaStudija;
 import glavniPaket.service.godinaStudija.GodinaStudijaService;
 
 @RestController
-@RequestMapping("/godina-studija")
+@RequestMapping("/api/godine-studija")
 public class GodinaStudijaController {
 
-    @Autowired
-    private GodinaStudijaService godinaStudijaService;
+    private final GodinaStudijaService godinaStudijaService;
 
+    @Autowired
     public GodinaStudijaController(GodinaStudijaService godinaStudijaService) {
         this.godinaStudijaService = godinaStudijaService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GodinaStudija> getById(@PathVariable Long id) {
-        return godinaStudijaService.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+    @GetMapping
+    public ResponseEntity<List<GodinaStudijaDTO>> getAll() {
+        return ResponseEntity.ok(godinaStudijaService.findAll());
     }
 
-    @GetMapping
-    public ResponseEntity<Iterable<GodinaStudija>> getAll() {
-        Iterable<GodinaStudija> godineStudija = godinaStudijaService.findAll();
-        return ResponseEntity.ok(godineStudija);
+    @GetMapping("/{id}")
+    public ResponseEntity<GodinaStudijaDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(godinaStudijaService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<GodinaStudija> create(@RequestBody GodinaStudija godinaStudija) {
-        GodinaStudija savedGodinaStudija = godinaStudijaService.save(godinaStudija);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedGodinaStudija);
+    public ResponseEntity<GodinaStudijaDTO> create(@RequestBody GodinaStudijaDTO dto) {
+        GodinaStudijaDTO saved = godinaStudijaService.save(dto);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GodinaStudija> update(@PathVariable Long id, @RequestBody GodinaStudija godinaStudija) {
-        if (godinaStudijaService.findById(id).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        godinaStudija.setId(id);
-        GodinaStudija updatedGodinaStudija = godinaStudijaService.save(godinaStudija);
-        return ResponseEntity.ok(updatedGodinaStudija);
+    public ResponseEntity<GodinaStudijaDTO> update(@PathVariable Long id, @RequestBody GodinaStudijaDTO dto) {
+        return ResponseEntity.ok(godinaStudijaService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (godinaStudijaService.findById(id).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        godinaStudijaService.deleteById(id);
+        godinaStudijaService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<GodinaStudijaDTO> add(@RequestBody GodinaStudijaDTO godinaStudijaDTO) {
-        GodinaStudija novaGodinaStudija = new GodinaStudija(null, godinaStudijaDTO.getGodina(), null, null);
-        this.godinaStudijaService.save(novaGodinaStudija);
-
-        return new ResponseEntity<GodinaStudijaDTO>(
-            new GodinaStudijaDTO(
-                novaGodinaStudija.getId(),
-                novaGodinaStudija.getGodina(),
-                null,
-                null
-            ), HttpStatus.CREATED);
-    }
+   
 }

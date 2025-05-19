@@ -1,5 +1,6 @@
 package glavniPaket.model.korisnika;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,14 +26,14 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // Promenjen tip sa Integer na Long
+    private Long id;  
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "korisnik_id", referencedColumnName = "id")
     private RegistrovaniKorisnik korisnik;
 
     @Column(nullable = false)
-    private Date godinaUpisa;
+    private LocalDate godinaUpisa;
 
     @ManyToOne
     @JoinColumn(name = "adresa_id", nullable = false)
@@ -41,7 +42,7 @@ public class Student {
     @Column(nullable = false, unique = true)
     private String brojIndeksa;
     
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private int ukupanBrojECTS;
     
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -51,7 +52,7 @@ public class Student {
         super();
     }
 
-    public Student(Long id, RegistrovaniKorisnik korisnik, Date godinaUpisa, Adresa adresa, String brojIndeksa,
+    public Student(Long id, RegistrovaniKorisnik korisnik, LocalDate godinaUpisa, Adresa adresa, String brojIndeksa,
                    int ukupanBrojECTS, List<PohadjanjePredmeta> pohadjanja) {
         super();
         this.id = id;
@@ -63,11 +64,11 @@ public class Student {
         this.pohadjanja = pohadjanja;
     }
 
-    public Long getId() {  // Promenjen tip sa Integer na Long
+    public Long getId() { 
         return id;
     }
 
-    public void setId(Long id) {  // Promenjen tip sa Integer na Long
+    public void setId(Long id) {  
         this.id = id;
     }
 
@@ -79,11 +80,11 @@ public class Student {
         this.korisnik = korisnik;
     }
 
-    public Date getGodinaUpisa() {
+    public LocalDate getGodinaUpisa() {
         return godinaUpisa;
     }
 
-    public void setGodinaUpisa(Date godinaUpisa) {
+    public void setGodinaUpisa(LocalDate godinaUpisa) {
         this.godinaUpisa = godinaUpisa;
     }
 

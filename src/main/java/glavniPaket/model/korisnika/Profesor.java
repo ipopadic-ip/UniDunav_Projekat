@@ -28,7 +28,7 @@ public class Profesor {
     @Column(nullable = false)
     private String titula;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT")
     private String biografija;
 
     @OneToMany(mappedBy = "profesor")

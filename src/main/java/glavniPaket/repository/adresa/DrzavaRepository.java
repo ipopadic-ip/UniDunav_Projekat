@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import glavniPaket.model.adresa.Drzava;
 @Repository
-public interface DrzavaRepository extends JpaRepository<Drzava, Integer>{
+public interface DrzavaRepository extends JpaRepository<Drzava, Long>{
 
 }

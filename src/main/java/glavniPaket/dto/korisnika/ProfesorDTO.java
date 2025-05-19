@@ -20,51 +20,39 @@ import glavniPaket.model.korisnika.RegistrovaniKorisnik;
 import glavniPaket.model.univerzitet.Univerzitet;
 
 public class ProfesorDTO {
+
     private Long id;
-    private RegistrovaniKorisnikDTO korisnik;
     private String titula;
     private String biografija;
-    private Set<ProfesorPredmetDTO> predmeti = new HashSet<>();
-    private UniverzitetDTO univerzitet;
-    private FakultetDTO fakultet;
-    private DepartmanDTO departman;
-    private KatedraDTO katedra;
-    private StudijskiProgramDTO studijskiProgram;
+
+    private Long korisnikId;  // kompozicija
+    private Set<Long> profesorPredmetIds; // povezani predmeti
+
+    private Long univerzitetId;        // ako je rektor
+    private Long fakultetId;           // ako je dekan
+    private Long departmanId;          // ako je šef departmana
+    private Long katedraId;            // ako je šef katedre
+    private Long studijskiProgramId;   // ako je rukovodilac
 
     public ProfesorDTO() {}
 
-    public ProfesorDTO(Long id, RegistrovaniKorisnikDTO korisnik, String titula, String biografija,
-                       Set<ProfesorPredmetDTO> predmeti, UniverzitetDTO univerzitet,
-                       FakultetDTO fakultet, DepartmanDTO departman,
-                       KatedraDTO katedra, StudijskiProgramDTO studijskiProgram) {
+    public ProfesorDTO(Long id, String titula, String biografija,
+                       Long korisnikId, Set<Long> profesorPredmetIds,
+                       Long univerzitetId, Long fakultetId, Long departmanId,
+                       Long katedraId, Long studijskiProgramId) {
         this.id = id;
-        this.korisnik = korisnik;
         this.titula = titula;
         this.biografija = biografija;
-        this.predmeti = predmeti;
-        this.univerzitet = univerzitet;
-        this.fakultet = fakultet;
-        this.departman = departman;
-        this.katedra = katedra;
-        this.studijskiProgram = studijskiProgram;
-    }
-    
-    public ProfesorDTO(Profesor profesor) {
-        this.id = profesor.getId();
-        this.korisnik = profesor.getKorisnik() != null ? new RegistrovaniKorisnikDTO(profesor.getKorisnik()) : null;
-        this.titula = profesor.getTitula();
-        this.biografija = profesor.getBiografija();
-        this.predmeti = profesor.getPredmeti() != null
-                ? profesor.getPredmeti().stream().map(ProfesorPredmetDTO::fromEntity).collect(Collectors.toSet())
-                : new HashSet<>();
-        this.univerzitet = profesor.getUniverzitet() != null ? new UniverzitetDTO(profesor.getUniverzitet()) : null;
-        this.fakultet = profesor.getFakultet() != null ? new FakultetDTO(profesor.getFakultet()) : null;
-        this.departman = profesor.getDepartman() != null ? new DepartmanDTO(profesor.getDepartman()) : null;
-        this.katedra = profesor.getKatedra() != null ? new KatedraDTO(profesor.getKatedra()) : null;
-        this.studijskiProgram = profesor.getStudijskiProgram() != null ? new StudijskiProgramDTO(profesor.getStudijskiProgram()) : null;
+        this.korisnikId = korisnikId;
+        this.profesorPredmetIds = profesorPredmetIds;
+        this.univerzitetId = univerzitetId;
+        this.fakultetId = fakultetId;
+        this.departmanId = departmanId;
+        this.katedraId = katedraId;
+        this.studijskiProgramId = studijskiProgramId;
     }
 
-    
+    // === GETTERI I SETTERI ===
 
     public Long getId() {
         return id;
@@ -72,14 +60,6 @@ public class ProfesorDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public RegistrovaniKorisnikDTO getKorisnik() {
-        return korisnik;
-    }
-
-    public void setKorisnik(RegistrovaniKorisnikDTO korisnik) {
-        this.korisnik = korisnik;
     }
 
     public String getTitula() {
@@ -98,101 +78,59 @@ public class ProfesorDTO {
         this.biografija = biografija;
     }
 
-    public Set<ProfesorPredmetDTO> getPredmeti() {
-        return predmeti;
+    public Long getKorisnikId() {
+        return korisnikId;
     }
 
-    public void setPredmeti(Set<ProfesorPredmetDTO> predmeti) {
-        this.predmeti = predmeti;
+    public void setKorisnikId(Long korisnikId) {
+        this.korisnikId = korisnikId;
     }
 
-    public UniverzitetDTO getUniverzitet() {
-        return univerzitet;
+    public Set<Long> getProfesorPredmetIds() {
+        return profesorPredmetIds;
     }
 
-    public void setUniverzitet(UniverzitetDTO univerzitet) {
-        this.univerzitet = univerzitet;
+    public void setProfesorPredmetIds(Set<Long> profesorPredmetIds) {
+        this.profesorPredmetIds = profesorPredmetIds;
     }
 
-    public FakultetDTO getFakultet() {
-        return fakultet;
+    public Long getUniverzitetId() {
+        return univerzitetId;
     }
 
-    public void setFakultet(FakultetDTO fakultet) {
-        this.fakultet = fakultet;
+    public void setUniverzitetId(Long univerzitetId) {
+        this.univerzitetId = univerzitetId;
     }
 
-    public DepartmanDTO getDepartman() {
-        return departman;
+    public Long getFakultetId() {
+        return fakultetId;
     }
 
-    public void setDepartman(DepartmanDTO departman) {
-        this.departman = departman;
+    public void setFakultetId(Long fakultetId) {
+        this.fakultetId = fakultetId;
     }
 
-    public KatedraDTO getKatedra() {
-        return katedra;
+    public Long getDepartmanId() {
+        return departmanId;
     }
 
-    public void setKatedra(KatedraDTO katedra) {
-        this.katedra = katedra;
+    public void setDepartmanId(Long departmanId) {
+        this.departmanId = departmanId;
     }
 
-    public StudijskiProgramDTO getStudijskiProgram() {
-        return studijskiProgram;
+    public Long getKatedraId() {
+        return katedraId;
     }
 
-    public void setStudijskiProgram(StudijskiProgramDTO studijskiProgram) {
-        this.studijskiProgram = studijskiProgram;
-    }
-    
-    public Profesor toEntity() {
-        Profesor profesor = new Profesor();
-        profesor.setId(this.id);
-
-        // Pretvaramo RegistrovaniKorisnikDTO u RegistrovaniKorisnik entitet
-        if (this.korisnik != null) {
-            profesor.setKorisnik(this.korisnik.toEntity());
-        }
-
-        profesor.setTitula(this.titula);
-        profesor.setBiografija(this.biografija);
-
-        // Pretvaramo Set<ProfesorPredmetDTO> u Set<ProfesorPredmet> entitete
-        if (this.predmeti != null) {
-            profesor.setPredmeti(
-                this.predmeti.stream()
-                    .map(ProfesorPredmetDTO::toEntity)
-                    .collect(Collectors.toSet())
-            );
-        }
-
-        // Pretvaramo UniverzitetDTO u Univerzitet entitet
-        if (this.univerzitet != null) {
-            profesor.setUniverzitet(this.univerzitet.toEntity());
-        }
-
-
-        if (this.fakultet != null) {
-            profesor.setFakultet(this.fakultet.toEntity());
-        }
-
-
-        if (this.departman != null) {
-            profesor.setDepartman(this.departman.toEntity());
-        }
-
-
-        if (this.katedra != null) {
-            profesor.setKatedra(this.katedra.toEntity());
-        }
-
-
-        if (this.studijskiProgram != null) {
-            profesor.setStudijskiProgram(this.studijskiProgram.toEntity());
-        }
-
-        return profesor;
+    public void setKatedraId(Long katedraId) {
+        this.katedraId = katedraId;
     }
 
+    public Long getStudijskiProgramId() {
+        return studijskiProgramId;
+    }
+
+    public void setStudijskiProgramId(Long studijskiProgramId) {
+        this.studijskiProgramId = studijskiProgramId;
+    }
 }

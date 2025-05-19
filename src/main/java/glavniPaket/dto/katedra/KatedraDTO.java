@@ -14,35 +14,32 @@ import glavniPaket.model.katedra.Katedra;
 import java.util.ArrayList;
 
 public class KatedraDTO {
+
     private Long id;
     private String naziv;
     private String opis;
-    private DepartmanDTO departman;
-    private ProfesorDTO sefKatedre;
-    private ArrayList<PredmetDTO> predmeti = new ArrayList<>();
-    private List<TipStudijaDTO> tipoviStudija = new ArrayList<>();
+
+    private Long departmanId;
+    private Long sefKatedreId;
+
+    private List<Long> predmetIds;
+    private List<Long> tipoviStudijaIds;
 
     public KatedraDTO() {}
 
-    public KatedraDTO(Long id, String naziv, String opis, DepartmanDTO departman,
-                      ProfesorDTO sefKatedre, ArrayList<PredmetDTO> predmeti,
-                      ArrayList<TipStudijaDTO> tipoviStudija) {
+    public KatedraDTO(Long id, String naziv, String opis,
+                      Long departmanId, Long sefKatedreId,
+                      List<Long> predmetIds, List<Long> tipoviStudijaIds) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
-        this.departman = departman;
-        this.sefKatedre = sefKatedre;
-        this.predmeti = predmeti;
-        this.tipoviStudija = tipoviStudija;
+        this.departmanId = departmanId;
+        this.sefKatedreId = sefKatedreId;
+        this.predmetIds = predmetIds;
+        this.tipoviStudijaIds = tipoviStudijaIds;
     }
-    
-    public KatedraDTO(Katedra katedra) {
-        if (katedra != null) {
-            this.id = katedra.getId();
-            this.naziv = katedra.getNaziv();
-            this.opis = katedra.getOpis();
-        }
-    }
+
+    // === GETTERI I SETTERI ===
 
     public Long getId() {
         return id;
@@ -68,62 +65,35 @@ public class KatedraDTO {
         this.opis = opis;
     }
 
-    public DepartmanDTO getDepartman() {
-        return departman;
+    public Long getDepartmanId() {
+        return departmanId;
     }
 
-    public void setDepartman(DepartmanDTO departman) {
-        this.departman = departman;
+    public void setDepartmanId(Long departmanId) {
+        this.departmanId = departmanId;
     }
 
-    public ProfesorDTO getSefKatedre() {
-        return sefKatedre;
+    public Long getSefKatedreId() {
+        return sefKatedreId;
     }
 
-    public void setSefKatedre(ProfesorDTO sefKatedre) {
-        this.sefKatedre = sefKatedre;
+    public void setSefKatedreId(Long sefKatedreId) {
+        this.sefKatedreId = sefKatedreId;
     }
 
-    public ArrayList<PredmetDTO> getPredmeti() {
-        return predmeti;
+    public List<Long> getPredmetIds() {
+        return predmetIds;
     }
 
-    public void setPredmeti(ArrayList<PredmetDTO> predmeti) {
-        this.predmeti = predmeti;
+    public void setPredmetIds(List<Long> predmetIds) {
+        this.predmetIds = predmetIds;
     }
 
-    public List<TipStudijaDTO> getTipoviStudija() {
-        return tipoviStudija;
+    public List<Long> getTipoviStudijaIds() {
+        return tipoviStudijaIds;
     }
 
-    public void setTipoviStudija(ArrayList<TipStudijaDTO> tipoviStudija) {
-        this.tipoviStudija = tipoviStudija;
+    public void setTipoviStudijaIds(List<Long> tipoviStudijaIds) {
+        this.tipoviStudijaIds = tipoviStudijaIds;
     }
-    
-    public Katedra toEntity() {
-        Katedra katedra = new Katedra();
-        katedra.setId(this.id);
-        katedra.setNaziv(this.naziv);
-        katedra.setOpis(this.opis);
-
-        if (this.departman != null) {
-            katedra.setDepartman(this.departman.toEntity());
-        }
-
-        if (this.sefKatedre != null) {
-            katedra.setSefKatedre(this.sefKatedre.toEntity());
-        }
-
-        if (this.tipoviStudija != null) {
-            katedra.setTipoviStudija(
-                this.tipoviStudija.stream()
-                    .map(TipStudijaDTO::toEntity)
-                    .collect(Collectors.toCollection(ArrayList::new))
-            );
-        }
-
-        return katedra;
-    }
-
-    
 }

@@ -1,6 +1,7 @@
 package glavniPaket.controller.katedra;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,68 +13,64 @@ import glavniPaket.model.katedra.Katedra;
 import glavniPaket.service.katedra.KatedraService;
 
 @RestController
-@RequestMapping("/katedra")
+@RequestMapping("/api/katedre")
 public class KatedraController {
 
-    @Autowired
-    private KatedraService katedraService;
+    private final KatedraService katedraService;
 
+    @Autowired
     public KatedraController(KatedraService katedraService) {
         this.katedraService = katedraService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Katedra> getById(@PathVariable Long id) {
-        return katedraService.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
-    }
-
+    // === GET ALL ===
     @GetMapping
-    public ResponseEntity<Iterable<Katedra>> getAll() {
-        Iterable<Katedra> katedre = katedraService.findAll();
-        return ResponseEntity.ok(katedre);
+    public ResponseEntity<List<KatedraDTO>> getAll() {
+        return ResponseEntity.ok(katedraService.findAll());
     }
 
+    // === GET BY ID ===
+    @GetMapping("/{id}")
+    public ResponseEntity<KatedraDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(katedraService.findById(id));
+    }
+
+    // === CREATE ===
     @PostMapping
-    public ResponseEntity<Katedra> create(@RequestBody Katedra katedra) {
-        Katedra savedKatedra = katedraService.save(katedra);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedKatedra);
+    public ResponseEntity<KatedraDTO> create(@RequestBody KatedraDTO dto) {
+        KatedraDTO saved = katedraService.save(dto);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
+    // === UPDATE ===
     @PutMapping("/{id}")
-    public ResponseEntity<Katedra> update(@PathVariable Long id, @RequestBody Katedra katedra) {
-        if (katedraService.findById(id).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        katedra.setId(id);
-        Katedra updatedKatedra = katedraService.save(katedra);
-        return ResponseEntity.ok(updatedKatedra);
+    public ResponseEntity<KatedraDTO> update(@PathVariable Long id, @RequestBody KatedraDTO dto) {
+        KatedraDTO updated = katedraService.update(id, dto);
+        return ResponseEntity.ok(updated);
     }
 
+    // === DELETE ===
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (katedraService.findById(id).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        katedraService.deleteById(id);
+        katedraService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/dto")
-    public ResponseEntity<KatedraDTO> add(@RequestBody KatedraDTO katedraDTO) {
-
-        Katedra katedra = new Katedra();
-        katedra.setNaziv(katedraDTO.getNaziv());
-        katedra.setOpis(katedraDTO.getOpis());
-
-        Katedra saved = katedraService.save(katedra);
-
-        KatedraDTO responseDTO = new KatedraDTO(saved);
-
-        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
+    // === GET BY NAZIV ===
+    @GetMapping("/naziv/{naziv}")
+    public ResponseEntity<KatedraDTO> getByNaziv(@PathVariable String naziv) {
+        return ResponseEntity.ok(katedraService.findByNaziv(naziv));
     }
 
+    // === SEARCH BY PREFIX ===
+    @GetMapping("/pretraga/pocetak/{prefix}")
+    public ResponseEntity<List<KatedraDTO>> searchByPrefix(@PathVariable String prefix) {
+        return ResponseEntity.ok(katedraService.findByNazivStartingWith(prefix));
+    }
+
+    // === SEARCH BY KEYWORD ===
+    @GetMapping("/pretraga/{keyword}")
+    public ResponseEntity<List<KatedraDTO>> searchByKeyword(@PathVariable String keyword) {
+        return ResponseEntity.ok(katedraService.pretraziPoNazivu(keyword));
+    }
 }

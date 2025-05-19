@@ -13,24 +13,40 @@ import java.util.List;
 @RequestMapping("/api/dodeljena-prava")
 public class DodeljenoPravoPristupaController {
 
+    private final DodeljenoPravoPristupaService service;
+
     @Autowired
-    private DodeljenoPravoPristupaService dodeljenoService;
-
-    @PostMapping
-    public ResponseEntity<DodeljenoPravoPristupaDTO> dodeliPravo(
-            @RequestParam Integer korisnikId,
-            @RequestParam Integer pravoPristupaId) {
-        return ResponseEntity.ok(dodeljenoService.dodeliPravo(korisnikId, pravoPristupaId));
+    public DodeljenoPravoPristupaController(DodeljenoPravoPristupaService service) {
+        this.service = service;
     }
 
+    // Vrati sve
+    @GetMapping
+    public List<DodeljenoPravoPristupaDTO> findAll() {
+        return service.findAll();
+    }
+
+    // Vrati po ID
+    @GetMapping("/{id}")
+    public DodeljenoPravoPristupaDTO findById(@PathVariable Long id) {
+        return service.findById(id);
+    }
+
+    // Vrati sva prava za određenog korisnika
     @GetMapping("/korisnik/{korisnikId}")
-    public ResponseEntity<List<DodeljenoPravoPristupaDTO>> pravaZaKorisnika(@PathVariable Integer korisnikId) {
-        return ResponseEntity.ok(dodeljenoService.svaPravaZaKorisnika(korisnikId));
+    public List<DodeljenoPravoPristupaDTO> findByKorisnikId(@PathVariable Long korisnikId) {
+        return service.findByKorisnikId(korisnikId);
     }
 
+    // Dodaj novo pravo
+    @PostMapping
+    public DodeljenoPravoPristupaDTO create(@RequestBody DodeljenoPravoPristupaDTO dto) {
+        return service.save(dto);
+    }
+
+    // Obriši po ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> obrisi(@PathVariable Integer id) {
-        dodeljenoService.obrisiPravo(id);
-        return ResponseEntity.noContent().build();
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

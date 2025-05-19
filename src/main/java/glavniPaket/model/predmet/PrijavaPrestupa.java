@@ -18,25 +18,24 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+
 @Entity
-@Table(name = "prijavePrestupa")
+@Table(name = "prijave_prestupa")
 public class PrijavaPrestupa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType .IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String opis;
 
     @Column(nullable = false)
     private LocalDateTime datum;
 
-    
     @ManyToOne
     @JoinColumn(name = "pohadjanje_id", nullable = false)
     private PohadjanjePredmeta pohadjanje;
-
 
 	public PrijavaPrestupa() {
 		super();

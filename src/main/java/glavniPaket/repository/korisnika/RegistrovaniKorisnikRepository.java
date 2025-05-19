@@ -6,10 +6,12 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import glavniPaket.model.korisnika.RegistrovaniKorisnik;
 
-public interface RegistrovaniKorisnikRepository extends JpaRepository<RegistrovaniKorisnik, Integer> {
+@Repository
+public interface RegistrovaniKorisnikRepository extends JpaRepository<RegistrovaniKorisnik, Long> {
 	  // Pronalazi korisnika po korisničkom imenu
     Optional<RegistrovaniKorisnik> findByKorisnickoIme(String korisnickoIme);
 
@@ -19,8 +21,15 @@ public interface RegistrovaniKorisnikRepository extends JpaRepository<Registrova
     // Pronalazi korisnike čije ime počinje određenim slovima
     List<RegistrovaniKorisnik> findByImeStartingWith(String prefix);
 
-    // Provera da li korisnik postoji na osnovu email-a
+    
+    Optional<RegistrovaniKorisnik> findByEmail(String email);
+
+   
+
+    boolean existsByJmbg(String jmbg);
+
     boolean existsByEmail(String email);
+    
 
     // Custom JPQL upit za pronalazak korisnika prema delu imena ili prezimena
     @Query("SELECT k FROM RegistrovaniKorisnik k WHERE k.ime LIKE %:keyword% OR k.prezime LIKE %:keyword%")

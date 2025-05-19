@@ -27,79 +27,52 @@ import glavniPaket.service.korisnika.StudentService;
 @RequestMapping("/api/studenti")
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
 
+    @Autowired
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
     @GetMapping
     public ResponseEntity<List<StudentDTO>> getAll() {
-        List<StudentDTO> result = new ArrayList<>();
-        for (Student s : studentService.findAll()) {
-            result.add(StudentDTO.fromEntity(s));
-        }
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(studentService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentDTO> getOne(@PathVariable Long id) { 
-        return studentService.findById(id)
-                .map(student -> ResponseEntity.ok(StudentDTO.fromEntity(student)))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) { 
-        return studentService.findById(id)
-                .map(s -> {
-                    studentService.deleteById(id);
-                    return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<StudentDTO> update(@PathVariable Long id, @RequestBody StudentDTO dto) { 
-        return studentService.findById(id)
-                .map(student -> {
-                    RegistrovaniKorisnik k = student.getKorisnik();
-                    k.setIme(dto.getIme());
-                    k.setPrezime(dto.getPrezime());
-                    k.setKorisnickoIme(dto.getKorisnickoIme());
-                    k.setDatumRodjenja(dto.getDatumRodjenja());
-                    if (dto.getMestoRodjenja() != null)
-                        k.setMestoRodjenja(new Mesto(dto.getMestoRodjenja().getId(), dto.getMestoRodjenja().getNaziv(), null));
-                    k.setJmbg(dto.getJmbg());
-                    k.setEmail(dto.getEmail());
-
-                    student.setGodinaUpisa(dto.getGodinaUpisa());
-                    student.setBrojIndeksa(dto.getBrojIndeksa());
-
-                    if (dto.getAdresa() != null) {
-                        student.setAdresa(new Adresa(
-                                dto.getAdresa().getId(),
-                                dto.getAdresa().getUlica(),
-                                dto.getAdresa().getBroj(),
-                                dto.getAdresa().getMesto() != null
-                                        ? new Mesto(dto.getAdresa().getMesto().getId(), dto.getAdresa().getMesto().getNaziv(), null)
-                                        : null
-                        ));
-                    } else {
-                        student.setAdresa(null);
-                    }
-
-                    studentService.save(student);
-                    return ResponseEntity.ok(StudentDTO.fromEntity(student));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<StudentDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(studentService.findById(id));
     }
 
     @PostMapping
     public ResponseEntity<StudentDTO> create(@RequestBody StudentDTO dto) {
-        Student student = dto.toStudentEntity();
-        student = studentService.save(student);
-        return new ResponseEntity<>(StudentDTO.fromEntity(student), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.save(dto));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentDTO> update(@PathVariable Long id, @RequestBody StudentDTO dto) {
+        return ResponseEntity.ok(studentService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        studentService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // === Dodatne opcione rute ===
+
+    @GetMapping("/korisnik/{korisnikId}")
+    public ResponseEntity<StudentDTO> getByKorisnikId(@PathVariable Long korisnikId) {
+        return studentService.findByKorisnikId(korisnikId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/indeks/{brojIndeksa}")
+    public ResponseEntity<StudentDTO> getByBrojIndeksa(@PathVariable String brojIndeksa) {
+        return studentService.findByBrojIndeksa(brojIndeksa)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

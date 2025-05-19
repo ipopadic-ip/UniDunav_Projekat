@@ -19,14 +19,13 @@ public interface PredmetRepository extends JpaRepository<Predmet, Long>{
     // Pronalazi predemet čiji naziv počinje određenim slovima
     List<Predmet> findByNazivStartingWith(String prefix);
 
- // Pronalazi predemet po katedri
-    Optional<Predmet> findByKatedra(Katedra katedra);
+
     
     // Pronalazi predemet po profesoru
-    Optional<Predmet> findByProfesoru(Profesor profesor);
+    Optional<Predmet> findByProfesor(Profesor profesor);
     
- // Pronalazi predemet po ests
-    Optional<Predmet> findByEsts(int ests);
+ // Pronalazi predemet po ects
+    Optional<Predmet> findByEcts(int ects);
     
     // Custom JPQL upit za pronalazak univerziteta prema delu naziva
     @Query("SELECT p FROM Predmet p WHERE p.naziv LIKE %:keyword% ")
