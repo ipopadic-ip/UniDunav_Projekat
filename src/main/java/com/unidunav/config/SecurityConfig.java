@@ -63,22 +63,23 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                	    .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
+                		.anyRequest().permitAll()
+//                	    .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
 
                 	    // Samo ADMIN može da pristupi ovim rutama
-                	    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+//                	    .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                 	    // Samo SLUZBENIK može da pristupi ovim rutama
-                	    .requestMatchers("/api/sluzbenik/**").hasRole("SLUZBENIK")
+//                	    .requestMatchers("/api/sluzbenik/**").hasRole("SLUZBENIK")
 
                 	    // Samo PROFESOR može da pristupi ovim rutama
-                	    .requestMatchers("/api/profesor/**").hasRole("PROFESOR")
+//                	    .requestMatchers("/api/profesor/**").hasRole("PROFESOR")
 
                 	    // Samo STUDENT može da pristupi ovim rutama
-                	    .requestMatchers("/api/student/**").hasRole("STUDENT")
+//                	    .requestMatchers("/api/student/**").hasRole("STUDENT")
 
                 	    // Sve ostalo mora biti autentifikovano
-                	    .anyRequest().authenticated()
+//                	    .anyRequest().authenticated()
                 	)
 
 //                .authorizeHttpRequests(auth -> auth

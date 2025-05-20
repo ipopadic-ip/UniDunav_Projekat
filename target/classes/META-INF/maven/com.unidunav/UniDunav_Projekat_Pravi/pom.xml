@@ -60,12 +60,5 @@
 	    <scope>runtime</scope>
 	</dependency>
 
-
-
-	<dependency>
-		<groupId>com.ilija</groupId>
-		<artifactId>K2_2022270688_ISA</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
   </dependencies>
 </project>

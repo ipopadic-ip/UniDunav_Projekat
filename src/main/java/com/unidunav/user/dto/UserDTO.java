@@ -7,6 +7,10 @@ import java.util.Set;
 public class UserDTO {
 	private Long id;
     private String email;
+    private String ime;
+    private String prezime;
+    private String adresa;
+    private String jmbg;
     private Set<Role> roles;
     
     
@@ -22,6 +26,39 @@ public class UserDTO {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	public String getIme() {
+		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+	public String getPrezime() {
+		return prezime;
+	}
+
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
+	}
+
+	public String getAdresa() {
+		return adresa;
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+
+	public String getJmbg() {
+		return jmbg;
+	}
+
+	public void setJmbg(String jmbg) {
+		this.jmbg = jmbg;
+	}
+
 	public Long getId() {
 		return id;
 	}

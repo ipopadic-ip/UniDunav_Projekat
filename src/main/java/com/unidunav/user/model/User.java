@@ -25,6 +25,21 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
     
+    @Column(nullable=false)
+	private String ime;
+    
+	@Column(nullable=false)
+	private String prezime;
+	
+	@Column(nullable=false)
+	private String adresa;
+	
+	@Column(nullable=false)
+	private String jmbg;
+	
+	@Column(nullable = false)
+	private boolean deleted = false;
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_role",
@@ -34,7 +49,60 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
 
+    
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+	public User(Long id, String email, String password, String ime, String prezime, String adresa, String jmbg,
+			Set<Role> roles) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.adresa = adresa;
+		this.jmbg = jmbg;
+		this.roles = roles;
+	}
+
+	public String getIme() {
+		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+	public String getPrezime() {
+		return prezime;
+	}
+
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
+	}
+
+	public String getAdresa() {
+		return adresa;
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+
+	public String getJmbg() {
+		return jmbg;
+	}
+
+	public void setJmbg(String jmbg) {
+		this.jmbg = jmbg;
+	}
 
 	public Long getId() {
 		return id;
