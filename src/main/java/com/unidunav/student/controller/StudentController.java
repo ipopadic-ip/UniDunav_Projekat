@@ -3,8 +3,10 @@ package com.unidunav.student.controller;
 import com.unidunav.student.dto.StudentDTO;
 import com.unidunav.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -40,5 +42,16 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
+    }
+    
+    @PostMapping("/{id}/slika")
+    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
+    public ResponseEntity<String> uploadSlika(@PathVariable Long id, @RequestParam("slika") MultipartFile slika) {
+        try {
+            String putanja = service.uploadSlika(id, slika);
+            return ResponseEntity.ok("Slika uspešno sačuvana: " + putanja);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Greška: " + e.getMessage());
+        }
     }
 }

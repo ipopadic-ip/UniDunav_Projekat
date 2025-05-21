@@ -22,6 +22,17 @@ public class Student {
     private int godinaUpisa;
     private double prosecnaOcena = 0.0;
     private int ukupnoEcts = 0;
+    
+    private String slikaPath;
+
+    public String getSlikaPath() {
+        return slikaPath;
+    }
+
+    public void setSlikaPath(String slikaPath) {
+        this.slikaPath = slikaPath;
+    }
+
 
     // Getteri i setteri
     public Long getId() {

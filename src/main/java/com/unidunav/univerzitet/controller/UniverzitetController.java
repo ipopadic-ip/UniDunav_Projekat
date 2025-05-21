@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.unidunav.univerzitet.dto.UniverzitetDTO;
 import com.unidunav.univerzitet.service.UniverzitetService;
@@ -52,4 +53,16 @@ public class UniverzitetController {
         univerzitetService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    
+    @PostMapping("/{id}/slika")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> uploadSlika(@PathVariable Long id, @RequestParam("slika") MultipartFile slika) {
+        try {
+            String path = univerzitetService.uploadSlika(id, slika);
+            return ResponseEntity.ok("Slika sačuvana: " + path);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Greška: " + e.getMessage());
+        }
+    }
+
 }

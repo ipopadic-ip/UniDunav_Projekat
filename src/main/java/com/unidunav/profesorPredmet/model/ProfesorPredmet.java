@@ -1,0 +1,72 @@
+package com.unidunav.profesorPredmet.model;
+
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.unidunav.predmet.model.Predmet;
+import com.unidunav.profesor.model.Profesor;
+
+@Entity
+@Table(name = "profesor_predmet")
+public class ProfesorPredmet {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "profesor_id", nullable = false)
+    private Profesor profesor;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "predmet_id", nullable = false)
+    private Predmet predmet;
+
+    @OneToMany(mappedBy = "profesorPredmet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TerminNastave> terminiNastave = new ArrayList<>();
+
+    public ProfesorPredmet() {}
+
+	public ProfesorPredmet(Long id, Profesor profesor, Predmet predmet, List<TerminNastave> terminiNastave) {
+		super();
+		this.id = id;
+		this.profesor = profesor;
+		this.predmet = predmet;
+		this.terminiNastave = terminiNastave;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Profesor getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
+
+	public Predmet getPredmet() {
+		return predmet;
+	}
+
+	public void setPredmet(Predmet predmet) {
+		this.predmet = predmet;
+	}
+
+	public List<TerminNastave> getTerminiNastave() {
+		return terminiNastave;
+	}
+
+	public void setTerminiNastave(List<TerminNastave> terminiNastave) {
+		this.terminiNastave = terminiNastave;
+	}
+
+}

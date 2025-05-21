@@ -5,6 +5,13 @@ import com.unidunav.profesor.model.Profesor;
 import com.unidunav.profesor.repository.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +28,8 @@ public class ProfesorServiceImpl implements ProfesorService {
         dto.setIme(profesor.getIme());
         dto.setPrezime(profesor.getPrezime());
         dto.setBiografija(profesor.getBiografija());
+     // U toDTO
+        dto.setSlikaPath(profesor.getSlikaPath());
         return dto;
     }
 
@@ -30,6 +39,8 @@ public class ProfesorServiceImpl implements ProfesorService {
         profesor.setIme(dto.getIme());
         profesor.setPrezime(dto.getPrezime());
         profesor.setBiografija(dto.getBiografija());
+     // U toEntity
+        profesor.setSlikaPath(dto.getSlikaPath());
         return profesor;
     }
 
@@ -61,5 +72,28 @@ public class ProfesorServiceImpl implements ProfesorService {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+    
+    @Override
+    public String uploadSlika(Long profesorId, MultipartFile slika) throws IOException {
+        Profesor profesor = repository.findById(profesorId)
+                .orElseThrow(() -> new RuntimeException("Profesor nije pronađen"));
+
+        String folder = "uploads/profesori/";
+        File dir = new File(folder);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        String originalFilename = slika.getOriginalFilename();
+        String filename = "profesor_" + profesorId + "_" + System.currentTimeMillis() + "_" + originalFilename;
+        Path filePath = Paths.get(folder + filename);
+
+        Files.write(filePath, slika.getBytes());
+
+        profesor.setSlikaPath(filePath.toString());
+        repository.save(profesor);
+
+        return filePath.toString();
     }
 }

@@ -6,19 +6,30 @@ public class ProfesorDTO {
     private String ime;
     private String prezime;
     private String biografija;
+    
+    private String slikaPath;
+
+    public String getSlikaPath() {
+        return slikaPath;
+    }
+
+    public void setSlikaPath(String slikaPath) {
+        this.slikaPath = slikaPath;
+    }
 
     
-    public ProfesorDTO(Long id, String ime, String prezime, String biografija) {
+
+    public ProfesorDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public ProfesorDTO(Long id, String ime, String prezime, String biografija) {
 		super();
 		this.id = id;
 		this.ime = ime;
 		this.prezime = prezime;
 		this.biografija = biografija;
-	}
-
-	public ProfesorDTO() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	// Getteri i setteri

@@ -31,6 +31,8 @@ public class Univerzitet {
     private String brojTelefona;
 
     private String opis;
+    
+    private String slikaPath;
 
     @OneToMany(mappedBy = "univerzitet")
     private List<Fakultet> fakulteti;
@@ -55,6 +57,15 @@ public class Univerzitet {
 		this.fakulteti = fakulteti;
 		this.rektor = rektor;
 	}
+	
+	public String getSlikaPath() {
+	    return slikaPath;
+	}
+
+	public void setSlikaPath(String slikaPath) {
+	    this.slikaPath = slikaPath;
+	}
+
 
 	public Long getId() {
 		return id;

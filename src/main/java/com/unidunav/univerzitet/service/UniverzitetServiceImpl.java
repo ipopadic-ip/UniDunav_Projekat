@@ -3,7 +3,14 @@ package com.unidunav.univerzitet.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.unidunav.fakultet.dto.FakultetDTO;
 import com.unidunav.fakultet.model.Fakultet;
@@ -126,6 +133,33 @@ public class UniverzitetServiceImpl implements UniverzitetService {
                 fakulteti,
                 rektor
         );
+    }
+    
+    @Override
+    public String uploadSlika(Long univerzitetId, MultipartFile slika) throws IOException {
+        Univerzitet univerzitet = univerzitetRepository.findById(univerzitetId)
+                .orElseThrow(() -> new RuntimeException("Univerzitet nije pronađen"));
+
+        // Kreiranje foldera ako ne postoji
+        String folder = "uploads/univerziteti/";
+        File dir = new File(folder);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        // Ime fajla
+        String originalFilename = slika.getOriginalFilename();
+        String filename = "univerzitet_" + univerzitetId + "_" + System.currentTimeMillis() + "_" + originalFilename;
+        Path filePath = Paths.get(folder + filename);
+
+        // Snimanje slike na disk
+        Files.write(filePath, slika.getBytes());
+
+        // Snimanje putanje u bazu
+        univerzitet.setSlikaPath(filePath.toString());
+        univerzitetRepository.save(univerzitet);
+
+        return filePath.toString();
     }
 
     @Override

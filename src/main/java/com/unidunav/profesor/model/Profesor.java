@@ -21,6 +21,17 @@ public class Profesor {
 
     @Column(length = 3000)
     private String biografija;
+    
+    private String slikaPath;
+
+    public String getSlikaPath() {
+        return slikaPath;
+    }
+
+    public void setSlikaPath(String slikaPath) {
+        this.slikaPath = slikaPath;
+    }
+
 
     // Getteri i setteri
     public Long getId() {

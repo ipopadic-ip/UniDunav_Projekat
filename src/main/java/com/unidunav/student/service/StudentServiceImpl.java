@@ -1,6 +1,12 @@
 package com.unidunav.student.service;
 
 import com.unidunav.student.dto.StudentDTO;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.springframework.web.multipart.MultipartFile;
 import com.unidunav.student.model.Student;
 import com.unidunav.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +30,9 @@ public class StudentServiceImpl implements StudentService {
         dto.setGodinaUpisa(student.getGodinaUpisa());
         dto.setProsecnaOcena(student.getProsecnaOcena());
         dto.setUkupnoEcts(student.getUkupnoEcts());
+        
+     // u toDTO
+        dto.setSlikaPath(student.getSlikaPath());
         return dto;
     }
 
@@ -36,6 +45,9 @@ public class StudentServiceImpl implements StudentService {
         student.setGodinaUpisa(dto.getGodinaUpisa());
         student.setProsecnaOcena(dto.getProsecnaOcena());
         student.setUkupnoEcts(dto.getUkupnoEcts());
+        
+     // u toEntity
+        student.setSlikaPath(dto.getSlikaPath());
         return student;
     }
 
@@ -70,5 +82,28 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+    
+    @Override
+    public String uploadSlika(Long studentId, MultipartFile slika) throws IOException {
+        Student student = repository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student nije pronađen"));
+
+        String folder = "uploads/studenti/";
+        File dir = new File(folder);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        String originalFilename = slika.getOriginalFilename();
+        String filename = "student_" + studentId + "_" + System.currentTimeMillis() + "_" + originalFilename;
+        Path filePath = Paths.get(folder + filename);
+
+        Files.write(filePath, slika.getBytes());
+
+        student.setSlikaPath(filePath.toString());
+        repository.save(student);
+
+        return filePath.toString();
     }
 }
