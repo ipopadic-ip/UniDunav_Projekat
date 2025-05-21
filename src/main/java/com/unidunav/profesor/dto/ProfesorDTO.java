@@ -7,7 +7,21 @@ public class ProfesorDTO {
     private String prezime;
     private String biografija;
 
-    // Getteri i setteri
+    
+    public ProfesorDTO(Long id, String ime, String prezime, String biografija) {
+		super();
+		this.id = id;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.biografija = biografija;
+	}
+
+	public ProfesorDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	// Getteri i setteri
     public Long getId() {
         return id;
     }

@@ -15,7 +15,7 @@ public class ProfesorServiceImpl implements ProfesorService {
     @Autowired
     private ProfesorRepository repository;
 
-    private ProfesorDTO toDTO(Profesor profesor) {
+    public ProfesorDTO toDTO(Profesor profesor) {
         ProfesorDTO dto = new ProfesorDTO();
         dto.setId(profesor.getId());
         dto.setIme(profesor.getIme());
@@ -24,7 +24,7 @@ public class ProfesorServiceImpl implements ProfesorService {
         return dto;
     }
 
-    private Profesor toEntity(ProfesorDTO dto) {
+    public Profesor toEntity(ProfesorDTO dto) {
         Profesor profesor = new Profesor();
         profesor.setId(dto.getId());
         profesor.setIme(dto.getIme());
