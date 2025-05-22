@@ -26,9 +26,11 @@ public class GodinaStudija {
 	@JoinColumn(name = "studijski_program_id")
 	private StudijskiProgram studijskiProgram;
 
-	
-	@OneToMany(mappedBy = "godinaStudija", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "godinaStudija")
 	private ArrayList<Predmet> predmeti = new ArrayList<Predmet>();
+	
+//	@OneToMany(mappedBy = "godinaStudija", cascade = CascadeType.ALL, orphanRemoval = true)
+//	private ArrayList<Predmet> predmeti = new ArrayList<Predmet>();
 
 	public GodinaStudija() {
 		super();

@@ -12,23 +12,49 @@ public class UniverzitetDTO {
     private String email;
     private String brojTelefona;
     private String opis;
+    private String podnaslov;
     private List<FakultetDTO> fakulteti;
     private ProfesorDTO rektor;
 
     public UniverzitetDTO() {
     }
 
-    public UniverzitetDTO(Long id, String naziv, String email, String brojTelefona, String opis, List<FakultetDTO> fakulteti, ProfesorDTO rektor) {
-        this.id = id;
-        this.naziv = naziv;
-        this.email = email;
-        this.brojTelefona = brojTelefona;
-        this.opis = opis;
-        this.fakulteti = fakulteti;
-        this.rektor = rektor;
-    }
+//    public UniverzitetDTO(Long id, String naziv, String email, String brojTelefona, String opis, List<FakultetDTO> fakulteti, ProfesorDTO rektor) {
+//        this.id = id;
+//        this.naziv = naziv;
+//        this.email = email;
+//        this.brojTelefona = brojTelefona;
+//        this.opis = opis;
+//        this.fakulteti = fakulteti;
+//        this.rektor = rektor;
+//    }
+    
+    
+    
+    
 
-    public Long getId() {
+    public String getPodnaslov() {
+		return podnaslov;
+	}
+
+	public UniverzitetDTO(Long id, String naziv, String email, String brojTelefona, String opis, String podnaslov,
+			List<FakultetDTO> fakulteti, ProfesorDTO rektor) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.email = email;
+		this.brojTelefona = brojTelefona;
+		this.opis = opis;
+		this.podnaslov = podnaslov;
+		this.fakulteti = fakulteti;
+		this.rektor = rektor;
+	}
+
+	public void setPodnaslov(String podnaslov) {
+		this.podnaslov = podnaslov;
+	}
+
+	public Long getId() {
         return id;
     }
 

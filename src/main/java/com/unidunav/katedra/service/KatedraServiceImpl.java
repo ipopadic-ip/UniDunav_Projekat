@@ -97,15 +97,15 @@ public class KatedraServiceImpl implements KatedraService {
         }
 
         // Update predmeta (ako treba da ih menjaš pri update-u)
-        if (dto.getPredmeti() != null) {
-            entity.getPredmeti().clear();
-            for (var predmetDto : dto.getPredmeti()) {
-                Predmet predmet = predmetService.toEntity(predmetDto);
-                entity.getPredmeti().add(predmet);
-            }
-        } else {
-            entity.getPredmeti().clear();
-        }
+//        if (dto.getPredmeti() != null) {
+//            entity.getPredmeti().clear();
+//            for (var predmetDto : dto.getPredmeti()) {
+//                Predmet predmet = predmetService.toEntity(predmetDto);
+//                entity.getPredmeti().add(predmet);
+//            }
+//        } else {
+//            entity.getPredmeti().clear();
+//        }
 
         entity = katedraRepository.save(entity);
         return toDTO(entity);
@@ -158,12 +158,12 @@ public class KatedraServiceImpl implements KatedraService {
         }
 
         // Predmeti
-        if (entity.getPredmeti() != null) {
-            List<com.unidunav.predmet.dto.PredmetDTO> predmetiDto = entity.getPredmeti().stream()
-                    .map(predmetService::toDTO)
-                    .collect(Collectors.toList());
-            dto.setPredmeti(predmetiDto);
-        }
+//        if (entity.getPredmeti() != null) {
+//            List<com.unidunav.predmet.dto.PredmetDTO> predmetiDto = entity.getPredmeti().stream()
+//                    .map(predmetService::toDTO)
+//                    .collect(Collectors.toList());
+//            dto.setPredmeti(predmetiDto);
+//        }
 
         return dto;
     }
@@ -196,13 +196,13 @@ public class KatedraServiceImpl implements KatedraService {
             entity.setSefKatedre(sef);
         }
 
-        if (dto.getPredmeti() != null) {
-            entity.getPredmeti().clear();
-            for (var predmetDto : dto.getPredmeti()) {
-                Predmet predmet = predmetService.toEntity(predmetDto);
-                entity.getPredmeti().add(predmet);
-            }
-        }
+//        if (dto.getPredmeti() != null) {
+//            entity.getPredmeti().clear();
+//            for (var predmetDto : dto.getPredmeti()) {
+//                Predmet predmet = predmetService.toEntity(predmetDto);
+//                entity.getPredmeti().add(predmet);
+//            }
+//        }
 
         return entity;
     }

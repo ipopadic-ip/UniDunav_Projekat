@@ -68,6 +68,7 @@ public class UniverzitetServiceImpl implements UniverzitetService {
         existing.setEmail(dto.getEmail());
         existing.setBrojTelefona(dto.getBrojTelefona());
         existing.setOpis(dto.getOpis());
+        existing.setPodnaslov(dto.getPodnaslov());
 
         if (dto.getRektor() != null && dto.getRektor().getId() != null) {
             Profesor rektor = profesorRepository.findById(dto.getRektor().getId())
@@ -130,11 +131,38 @@ public class UniverzitetServiceImpl implements UniverzitetService {
                 entity.getEmail(),
                 entity.getBrojTelefona(),
                 entity.getOpis(),
+                entity.getPodnaslov(),
                 fakulteti,
                 rektor
         );
     }
     
+//    @Override
+//    public String uploadSlika(Long univerzitetId, MultipartFile slika) throws IOException {
+//        Univerzitet univerzitet = univerzitetRepository.findById(univerzitetId)
+//                .orElseThrow(() -> new RuntimeException("Univerzitet nije pronađen"));
+//
+//        // Kreiranje foldera ako ne postoji
+//        String folder = "uploads/univerziteti/";
+//        File dir = new File(folder);
+//        if (!dir.exists()) {
+//            dir.mkdirs();
+//        }
+//
+//        // Ime fajla
+//        String originalFilename = slika.getOriginalFilename();
+//        String filename = "univerzitet_" + univerzitetId + "_" + System.currentTimeMillis() + "_" + originalFilename;
+//        Path filePath = Paths.get(folder + filename);
+//
+//        // Snimanje slike na disk
+//        Files.write(filePath, slika.getBytes());
+//
+//        // Snimanje putanje u bazu
+//        univerzitet.setSlikaPath(filePath.toString());
+//        univerzitetRepository.save(univerzitet);
+//
+//        return filePath.toString();
+//    }
     @Override
     public String uploadSlika(Long univerzitetId, MultipartFile slika) throws IOException {
         Univerzitet univerzitet = univerzitetRepository.findById(univerzitetId)
@@ -147,20 +175,27 @@ public class UniverzitetServiceImpl implements UniverzitetService {
             dir.mkdirs();
         }
 
-        // Ime fajla
+        // Generisanje imena fajla
         String originalFilename = slika.getOriginalFilename();
         String filename = "univerzitet_" + univerzitetId + "_" + System.currentTimeMillis() + "_" + originalFilename;
         Path filePath = Paths.get(folder + filename);
 
-        // Snimanje slike na disk
+        // Snimanje slike
         Files.write(filePath, slika.getBytes());
 
-        // Snimanje putanje u bazu
-        univerzitet.setSlikaPath(filePath.toString());
-        univerzitetRepository.save(univerzitet);
+        // Postavljanje slike (ako je prva prazna, koristi nju; ako nije, koristi drugu)
+        if (univerzitet.getSlika1Path() == null || univerzitet.getSlika1Path().isEmpty()) {
+            univerzitet.setSlika1Path(filePath.toString());
+        } else if (univerzitet.getSlika2Path() == null || univerzitet.getSlika2Path().isEmpty()) {
+            univerzitet.setSlika2Path(filePath.toString());
+        } else {
+            throw new RuntimeException("Univerzitet već ima dve slike.");
+        }
 
+        univerzitetRepository.save(univerzitet);
         return filePath.toString();
     }
+
 
     @Override
     public Univerzitet toEntity(UniverzitetDTO dto) {
@@ -184,6 +219,7 @@ public class UniverzitetServiceImpl implements UniverzitetService {
                 dto.getEmail(),
                 dto.getBrojTelefona(),
                 dto.getOpis(),
+                dto.getPodnaslov(),
                 fakulteti,
                 rektor
         );

@@ -30,9 +30,18 @@ public class Univerzitet {
     @Column(nullable=false)
     private String brojTelefona;
 
+    @Column(length = 3000)
     private String opis;
     
-    private String slikaPath;
+    @Column(nullable=false)
+    private String podnaslov;
+    
+//    private String slikaPath;
+    @Column(name = "slika1_path")
+    private String slika1Path;
+
+    @Column(name = "slika2_path")
+    private String slika2Path;
 
     @OneToMany(mappedBy = "univerzitet")
     private List<Fakultet> fakulteti;
@@ -46,7 +55,7 @@ public class Univerzitet {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Univerzitet(Long id, String naziv, String email, String brojTelefona, String opis,
+	public Univerzitet(Long id, String naziv, String email, String brojTelefona, String opis, String podnaslov,
 			List<Fakultet> fakulteti, Profesor rektor) {
 		super();
 		this.id = id;
@@ -54,17 +63,43 @@ public class Univerzitet {
 		this.email = email;
 		this.brojTelefona = brojTelefona;
 		this.opis = opis;
+		this.podnaslov = podnaslov;
 		this.fakulteti = fakulteti;
 		this.rektor = rektor;
 	}
 	
-	public String getSlikaPath() {
-	    return slikaPath;
+	
+	public String getPodnaslov() {
+		return podnaslov;
 	}
 
-	public void setSlikaPath(String slikaPath) {
-	    this.slikaPath = slikaPath;
+	public void setPodnaslov(String podnaslov) {
+		this.podnaslov = podnaslov;
 	}
+
+	public String getSlika1Path() {
+	    return slika1Path;
+	}
+
+	public void setSlika1Path(String slika1Path) {
+	    this.slika1Path = slika1Path;
+	}
+
+	public String getSlika2Path() {
+	    return slika2Path;
+	}
+
+	public void setSlika2Path(String slika2Path) {
+	    this.slika2Path = slika2Path;
+	}
+	
+//	public String getSlikaPath() {
+//	    return slikaPath;
+//	}
+//
+//	public void setSlikaPath(String slikaPath) {
+//	    this.slikaPath = slikaPath;
+//	}
 
 
 	public Long getId() {

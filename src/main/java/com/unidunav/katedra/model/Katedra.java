@@ -27,8 +27,8 @@ public class Katedra {
     @Column(nullable=false)
     private String naziv;
     
-    @OneToMany(mappedBy = "katedra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<Predmet> predmeti = new ArrayList<Predmet>();
+//    @OneToMany(mappedBy = "katedra", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private ArrayList<Predmet> predmeti = new ArrayList<Predmet>();
     
     private String opis;
     
@@ -46,18 +46,29 @@ public class Katedra {
     public Katedra() {
         super();
     }
-
-	public Katedra(Long id, String naziv, ArrayList<Predmet> predmeti, String opis, Departman departman,
+    
+    public Katedra(Long id, String naziv, String opis, Departman departman,
 			ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
-		this.predmeti = predmeti;
 		this.opis = opis;
 		this.departman = departman;
 		this.tipoviStudija = tipoviStudija;
 		this.sefKatedre = sefKatedre;
 	}
+
+//	public Katedra(Long id, String naziv, ArrayList<Predmet> predmeti, String opis, Departman departman,
+//			ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
+//		super();
+//		this.id = id;
+//		this.naziv = naziv;
+//		this.predmeti = predmeti;
+//		this.opis = opis;
+//		this.departman = departman;
+//		this.tipoviStudija = tipoviStudija;
+//		this.sefKatedre = sefKatedre;
+//	}
 
 	public Long getId() {
 		return id;
@@ -75,13 +86,13 @@ public class Katedra {
 		this.naziv = naziv;
 	}
 
-	public ArrayList<Predmet> getPredmeti() {
-		return predmeti;
-	}
-
-	public void setPredmeti(ArrayList<Predmet> predmeti) {
-		this.predmeti = predmeti;
-	}
+//	public ArrayList<Predmet> getPredmeti() {
+//		return predmeti;
+//	}
+//
+//	public void setPredmeti(ArrayList<Predmet> predmeti) {
+//		this.predmeti = predmeti;
+//	}
 
 	public String getOpis() {
 		return opis;

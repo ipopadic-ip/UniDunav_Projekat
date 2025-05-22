@@ -3,8 +3,11 @@ package com.unidunav.predmet.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.unidunav.godinaStudija.model.GodinaStudija;
+import com.unidunav.godinaStudija.repository.GodinaStudijaRepository;
 import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.predmet.model.Predmet;
 import com.unidunav.predmet.repository.PredmetRepository;
@@ -14,80 +17,62 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class PredmetServiceImpl implements PredmetService {
 
-    private final PredmetRepository predmetRepository;
+    @Autowired
+    private PredmetRepository predmetRepository;
 
-    public PredmetServiceImpl(PredmetRepository predmetRepository) {
-        this.predmetRepository = predmetRepository;
+    @Autowired
+    private GodinaStudijaRepository godinaStudijaRepository;
+
+    private PredmetDTO toDTO(Predmet p) {
+        PredmetDTO dto = new PredmetDTO();
+        dto.setId(p.getId());
+        dto.setNaziv(p.getNaziv());
+        dto.setEcts(p.getEcts());
+        dto.setInformacijeOPredmetu(p.getInformacijeOPredmetu());
+        dto.setGodinaStudijaId(p.getGodinaStudija().getId());
+        return dto;
+    }
+
+    private Predmet toEntity(PredmetDTO dto) {
+        Predmet p = new Predmet();
+        p.setId(dto.getId());
+        p.setNaziv(dto.getNaziv());
+        p.setEcts(dto.getEcts());
+        p.setInformacijeOPredmetu(dto.getInformacijeOPredmetu());
+        GodinaStudija gs = godinaStudijaRepository.findById(dto.getGodinaStudijaId()).orElseThrow();
+        p.setGodinaStudija(gs);
+        return p;
     }
 
     @Override
     public PredmetDTO create(PredmetDTO dto) {
-        Predmet entity = toEntity(dto);
-        entity = predmetRepository.save(entity);
-        return toDTO(entity);
+        return toDTO(predmetRepository.save(toEntity(dto)));
     }
 
     @Override
     public List<PredmetDTO> findAll() {
-        return predmetRepository.findAll()
-                .stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
+        return predmetRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     @Override
     public PredmetDTO findById(Long id) {
-        Predmet entity = predmetRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Predmet sa ID " + id + " nije pronađen."));
-        return toDTO(entity);
+        return predmetRepository.findById(id).map(this::toDTO).orElse(null);
     }
 
     @Override
     public PredmetDTO update(Long id, PredmetDTO dto) {
-        Predmet entity = predmetRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Predmet sa ID " + id + " nije pronađen."));
-
-        entity.setNaziv(dto.getNaziv());
-        entity.setEcts(dto.getEcts());
-        entity.setInformacijeOPredmetu(dto.getInformacijeOPredmetu());
-
-        return toDTO(predmetRepository.save(entity));
+        return predmetRepository.findById(id).map(existing -> {
+            existing.setNaziv(dto.getNaziv());
+            existing.setEcts(dto.getEcts());
+            existing.setInformacijeOPredmetu(dto.getInformacijeOPredmetu());
+            GodinaStudija gs = godinaStudijaRepository.findById(dto.getGodinaStudijaId()).orElseThrow();
+            existing.setGodinaStudija(gs);
+            return toDTO(predmetRepository.save(existing));
+        }).orElse(null);
     }
 
     @Override
     public void delete(Long id) {
-        if (!predmetRepository.existsById(id)) {
-            throw new EntityNotFoundException("Predmet sa ID " + id + " ne postoji.");
-        }
         predmetRepository.deleteById(id);
-    }
-
-    @Override
-    public PredmetDTO toDTO(Predmet entity) {
-        PredmetDTO dto = new PredmetDTO();
-        dto.setId(entity.getId());
-        dto.setNaziv(entity.getNaziv());
-        dto.setEcts(entity.getEcts());
-        dto.setInformacijeOPredmetu(entity.getInformacijeOPredmetu());
-
-        if (entity.getGodinaStudija() != null) {
-            dto.setGodinaStudijaId(entity.getGodinaStudija().getId());
-        }
-        if (entity.getKatedra() != null) {
-            dto.setKatedraId(entity.getKatedra().getId());
-        }
-
-        return dto;
-    }
-
-    @Override
-    public Predmet toEntity(PredmetDTO dto) {
-        Predmet entity = new Predmet();
-        entity.setId(dto.getId());
-        entity.setNaziv(dto.getNaziv());
-        entity.setEcts(dto.getEcts());
-        entity.setInformacijeOPredmetu(dto.getInformacijeOPredmetu());
-
-        return entity;
     }
 }

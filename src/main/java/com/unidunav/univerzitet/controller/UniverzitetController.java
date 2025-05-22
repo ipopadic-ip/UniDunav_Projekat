@@ -54,6 +54,16 @@ public class UniverzitetController {
         return ResponseEntity.noContent().build();
     }
     
+//    @PostMapping("/{id}/slika")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<String> uploadSlika(@PathVariable Long id, @RequestParam("slika") MultipartFile slika) {
+//        try {
+//            String path = univerzitetService.uploadSlika(id, slika);
+//            return ResponseEntity.ok("Slika sačuvana: " + path);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Greška: " + e.getMessage());
+//        }
+//    }
     @PostMapping("/{id}/slika")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> uploadSlika(@PathVariable Long id, @RequestParam("slika") MultipartFile slika) {
@@ -64,5 +74,6 @@ public class UniverzitetController {
             return ResponseEntity.badRequest().body("Greška: " + e.getMessage());
         }
     }
+
 
 }
