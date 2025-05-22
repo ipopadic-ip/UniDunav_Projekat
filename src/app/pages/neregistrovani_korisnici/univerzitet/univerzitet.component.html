@@ -1,4 +1,10 @@
-<app-hero></app-hero>
+<app-hero
+  *ngIf="heroData"
+  [title]="heroData.title"
+  [subtitle]="heroData.subtitle"
+  [image]="heroData.image">
+</app-hero>
+
 <app-why-choose-us></app-why-choose-us>
 <app-about-us
 [title]="aboutData?.title"
@@ -12,8 +18,9 @@
   [titula]="rektorData.titula"
   [slikaSrc]="rektorData.slikaSrc"
   [altText]="rektorData.altText"
-  [opis1]="rektorData.opis1"
-></app-rector>
+  [opis1]="rektorData.opis1">
+</app-rector>
+
 
 <!-- <app-location></app-location> -->
 <app-contact *ngIf="kontaktData" [kontakt]="kontaktData"></app-contact>

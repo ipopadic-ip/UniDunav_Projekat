@@ -1,18 +1,22 @@
 export interface Rektor {
+    id: number;
     ime: string;
-    titula: string;
-    opis: string;
-    slika: string;
+    prezime: string;
+    biografija: string;
+    slikaPath: string;
   }
+  
   
   export interface Univerzitet {
-    id: number;
-    naziv: string;
-    lokacija: string;
-    kontakt: string;
-    telefon: string;
-    opis: string;
-    slika: string;
-    rektor: Rektor;
-  }
-  
+  id: number;
+  naziv: string;
+  podnaslov: string;
+  email: string;
+  brojTelefona: string;
+  lokacija: string;
+  opis: string;
+  slika1Path: string;
+  slika2Path: string;
+  rektor: Rektor;
+}
+

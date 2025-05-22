@@ -12,8 +12,6 @@ export class RectorComponent {
   @Input() ime!: string;
   @Input() titula!: string;
   @Input() opis1!: string;
-  @Input() opis2?: string;
-  @Input() opis3?: string;
-  @Input() slikaSrc: string = 'assets/images/default.jpg';
-  @Input() altText: string = 'Profilna slika';
+  @Input() slikaSrc?: string;
+  @Input() altText?: string;
 }

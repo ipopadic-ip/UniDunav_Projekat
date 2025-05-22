@@ -29,37 +29,50 @@ export class UniverzitetComponent implements OnInit {
     });
   }
 
-  // Pristup podacima o kontaktu
-  get kontaktData(): { email: string; telefon: string; lokacija: string } | null {
-    if (!this.univerzitetData) return null;
-    return {
-      email: this.univerzitetData.kontakt,
-      telefon: this.univerzitetData.telefon,
-      lokacija: this.univerzitetData.lokacija,
-    };
-  }
-  
-  
 
-  // Pristup podacima o "About Us"
   get aboutData() {
-    if (!this.univerzitetData) return undefined;
-    return {
-      title: this.univerzitetData.naziv,
-      description: this.univerzitetData.opis,
-      image: this.univerzitetData.slika,
-    };
-  }
+  if (!this.univerzitetData) return undefined;
+  return {
+    title: this.univerzitetData.naziv,
+    description: this.univerzitetData.opis,
+    image: `http://localhost:8080/${this.univerzitetData.slika1Path}`
+    // image: this.univerzitetData.slika2Path,
+  };
+}
+
+get kontaktData() {
+  if (!this.univerzitetData) return null;
+  return {
+    email: this.univerzitetData.email,
+    telefon: this.univerzitetData.brojTelefona,
+    lokacija: this.univerzitetData.lokacija,
+  };
+}
+
+get heroData() {
+  if (!this.univerzitetData) return undefined;
+  return {
+    title: this.univerzitetData.naziv,
+    subtitle: this.univerzitetData.podnaslov,
+    image: `http://localhost:8080/${this.univerzitetData.slika2Path}` // napravi punu URL putanju
+    // image: this.univerzitetData.slika1Path 
+  };
+}
+
+
+  
+  
 
   // Pristup podacima o rektoru
-  get rektorData() {
-    if (!this.univerzitetData) return undefined;
-    return {
-      ime: this.univerzitetData.rektor.ime,
-      titula: this.univerzitetData.rektor.titula,
-      slikaSrc: this.univerzitetData.rektor.slika,
-      altText: this.univerzitetData.rektor.ime,
-      opis1: this.univerzitetData.rektor.opis,
-    };
-  }
+ get rektorData() {
+  if (!this.univerzitetData || !this.univerzitetData.rektor) return undefined;
+  return {
+    ime: `${this.univerzitetData.rektor.ime} ${this.univerzitetData.rektor.prezime}`,
+    titula: 'Rektor Univerziteta', // Ako želiš dinamičku titulu, dodaj je u backend i model
+    slikaSrc: `http://localhost:8080/${this.univerzitetData.rektor.slikaPath}`,
+    altText: 'Slika rektora',
+    opis1: this.univerzitetData.rektor.biografija,
+  };
+}
+
 }
