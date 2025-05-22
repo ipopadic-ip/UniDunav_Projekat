@@ -121,10 +121,22 @@ public class UniverzitetServiceImpl implements UniverzitetService {
             Profesor p = entity.getRektor();
             rektor = new ProfesorDTO();
             rektor.setId(p.getId());
-            rektor.setIme(p.getIme());
-            rektor.setPrezime(p.getPrezime());
             rektor.setBiografija(p.getBiografija());
+            rektor.setSlikaPath(p.getSlikaPath());
+
+            if (p.getUser() != null) {
+                rektor.setIme(p.getUser().getIme());
+                rektor.setPrezime(p.getUser().getPrezime());
+            }
         }
+//        if (entity.getRektor() != null) {
+//            Profesor p = entity.getRektor();
+//            rektor = new ProfesorDTO();
+//            rektor.setId(p.getId());
+//            rektor.setIme(p.getIme());
+//            rektor.setPrezime(p.getPrezime());
+//            rektor.setBiografija(p.getBiografija());
+//        }
 
         return new UniverzitetDTO(
                 entity.getId(),
@@ -134,6 +146,8 @@ public class UniverzitetServiceImpl implements UniverzitetService {
                 entity.getOpis(),
                 entity.getPodnaslov(),
                 entity.getLokacija(),
+                entity.getSlika1Path(),
+                entity.getSlika2Path(),
                 fakulteti,
                 rektor
         );
@@ -260,6 +274,8 @@ public class UniverzitetServiceImpl implements UniverzitetService {
                 dto.getOpis(),
                 dto.getPodnaslov(),
                 dto.getLokacija(),
+                dto.getSlika1Path(),
+                dto.getSlika2Path(),
                 fakulteti,
                 rektor
         );

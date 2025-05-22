@@ -60,6 +60,24 @@ public class Univerzitet {
 	
 
 public Univerzitet(Long id, String naziv, String email, String brojTelefona, String opis, String podnaslov,
+			String lokacija, String slika1Path, String slika2Path, List<Fakultet> fakulteti, Profesor rektor) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.email = email;
+		this.brojTelefona = brojTelefona;
+		this.opis = opis;
+		this.podnaslov = podnaslov;
+		this.lokacija = lokacija;
+		this.slika1Path = slika1Path;
+		this.slika2Path = slika2Path;
+		this.fakulteti = fakulteti;
+		this.rektor = rektor;
+	}
+
+
+
+public Univerzitet(Long id, String naziv, String email, String brojTelefona, String opis, String podnaslov,
 			String lokacija, List<Fakultet> fakulteti, Profesor rektor) {
 		super();
 		this.id = id;

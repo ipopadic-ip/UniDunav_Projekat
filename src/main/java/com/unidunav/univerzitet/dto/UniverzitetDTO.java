@@ -14,12 +14,31 @@ public class UniverzitetDTO {
     private String opis;
     private String podnaslov;
     private String lokacija;
+    private String slika1Path;
+    private String slika2Path;
     private List<FakultetDTO> fakulteti;
     private ProfesorDTO rektor;
 
     public UniverzitetDTO() {
     }
     
+
+public UniverzitetDTO(Long id, String naziv, String email, String brojTelefona, String opis, String podnaslov,
+			String lokacija, String slika1Path, String slika2Path, List<FakultetDTO> fakulteti, ProfesorDTO rektor) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.email = email;
+		this.brojTelefona = brojTelefona;
+		this.opis = opis;
+		this.podnaslov = podnaslov;
+		this.lokacija = lokacija;
+		this.slika1Path = slika1Path;
+		this.slika2Path = slika2Path;
+		this.fakulteti = fakulteti;
+		this.rektor = rektor;
+	}
+
 
 //    public UniverzitetDTO(Long id, String naziv, String email, String brojTelefona, String opis, List<FakultetDTO> fakulteti, ProfesorDTO rektor) {
 //        this.id = id;
@@ -35,7 +54,27 @@ public class UniverzitetDTO {
     
     
 
-    public String getLokacija() {
+    public String getSlika1Path() {
+		return slika1Path;
+	}
+
+
+	public void setSlika1Path(String slika1Path) {
+		this.slika1Path = slika1Path;
+	}
+
+
+	public String getSlika2Path() {
+		return slika2Path;
+	}
+
+
+	public void setSlika2Path(String slika2Path) {
+		this.slika2Path = slika2Path;
+	}
+
+
+	public String getLokacija() {
 		return lokacija;
 	}
 
