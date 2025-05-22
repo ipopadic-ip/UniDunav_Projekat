@@ -36,6 +36,8 @@ public class Univerzitet {
     @Column(nullable=false)
     private String podnaslov;
     
+    private String lokacija;
+    
 //    private String slikaPath;
     @Column(name = "slika1_path")
     private String slika1Path;
@@ -54,9 +56,11 @@ public class Univerzitet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
-	public Univerzitet(Long id, String naziv, String email, String brojTelefona, String opis, String podnaslov,
-			List<Fakultet> fakulteti, Profesor rektor) {
+public Univerzitet(Long id, String naziv, String email, String brojTelefona, String opis, String podnaslov,
+			String lokacija, List<Fakultet> fakulteti, Profesor rektor) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -64,11 +68,37 @@ public class Univerzitet {
 		this.brojTelefona = brojTelefona;
 		this.opis = opis;
 		this.podnaslov = podnaslov;
+		this.lokacija = lokacija;
 		this.fakulteti = fakulteti;
 		this.rektor = rektor;
 	}
+
+
+
+//	public Univerzitet(Long id, String naziv, String email, String brojTelefona, String opis, String podnaslov,
+//			List<Fakultet> fakulteti, Profesor rektor) {
+//		super();
+//		this.id = id;
+//		this.naziv = naziv;
+//		this.email = email;
+//		this.brojTelefona = brojTelefona;
+//		this.opis = opis;
+//		this.podnaslov = podnaslov;
+//		this.fakulteti = fakulteti;
+//		this.rektor = rektor;
+//	}
 	
 	
+	
+	
+	public String getLokacija() {
+		return lokacija;
+	}
+
+	public void setLokacija(String lokacija) {
+		this.lokacija = lokacija;
+	}
+
 	public String getPodnaslov() {
 		return podnaslov;
 	}

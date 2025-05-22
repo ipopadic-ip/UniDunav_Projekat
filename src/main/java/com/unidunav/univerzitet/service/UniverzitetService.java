@@ -18,5 +18,6 @@ public interface UniverzitetService {
 	
 	UniverzitetDTO toDTO(Univerzitet entity);
 	Univerzitet toEntity(UniverzitetDTO dto);
-	String uploadSlika(Long univerzitetId, MultipartFile slika) throws IOException;
+	String uploadSlike(Long univerzitetId, List<MultipartFile> slike) throws IOException;
+//	String uploadSlika(Long univerzitetId, MultipartFile slika) throws IOException;
 }

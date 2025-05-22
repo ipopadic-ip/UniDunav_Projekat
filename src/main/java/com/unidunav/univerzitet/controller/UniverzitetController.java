@@ -64,16 +64,27 @@ public class UniverzitetController {
 //            return ResponseEntity.badRequest().body("Greška: " + e.getMessage());
 //        }
 //    }
-    @PostMapping("/{id}/slika")
+//    @PostMapping("/{id}/slika")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<String> uploadSlika(@PathVariable Long id, @RequestParam("slika") MultipartFile slika) {
+//        try {
+//            String path = univerzitetService.uploadSlika(id, slika);
+//            return ResponseEntity.ok("Slika sačuvana: " + path);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Greška: " + e.getMessage());
+//        }
+//    }
+    @PostMapping("/{id}/slike")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> uploadSlika(@PathVariable Long id, @RequestParam("slika") MultipartFile slika) {
+    public ResponseEntity<String> uploadSlike(@PathVariable Long id, @RequestParam("slike") List<MultipartFile> slike) {
         try {
-            String path = univerzitetService.uploadSlika(id, slika);
-            return ResponseEntity.ok("Slika sačuvana: " + path);
+            String poruka = univerzitetService.uploadSlike(id, slike);
+            return ResponseEntity.ok(poruka);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Greška: " + e.getMessage());
         }
     }
+
 
 
 }
