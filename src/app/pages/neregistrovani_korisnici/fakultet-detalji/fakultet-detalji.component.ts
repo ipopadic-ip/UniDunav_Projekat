@@ -34,8 +34,8 @@ export class FakultetDetaljiComponent {
   get kontaktData() {
     if (!this.fakultetData) return null;
     return {
-      email: this.fakultetData.kontakt,
-      telefon: this.fakultetData.telefon,
+      email: this.fakultetData.email,
+      telefon: this.fakultetData.brojTelefona,
       lokacija: this.fakultetData.lokacija
     };
   }
@@ -45,19 +45,18 @@ export class FakultetDetaljiComponent {
     return {
       title: this.fakultetData.naziv,
       description: this.fakultetData.opis,
-      image: this.fakultetData.slika
+      // image: '' 
     };
   }
 
   get dekanData() {
     if (!this.fakultetData) return null;
     return {
-      ime: this.fakultetData.dekan.ime,
-      titula: this.fakultetData.dekan.titula,
-      opis1: this.fakultetData.dekan.opis,
-      slikaSrc: this.fakultetData.dekan.slika,
-      altText: this.fakultetData.dekan.ime
+      ime: `${this.fakultetData.dekanIme} ${this.fakultetData.dekanPrezime}`,
+      // titula: this.fakultetData.dekanTitula ?? '',
+      opis1: this.fakultetData.dekanOpis,
+      // slikaSrc: this.fakultetData.dekanSlika ?? '',
+      altText: `${this.fakultetData.dekanIme} ${this.fakultetData.dekanPrezime}`
     };
   }
 }
-

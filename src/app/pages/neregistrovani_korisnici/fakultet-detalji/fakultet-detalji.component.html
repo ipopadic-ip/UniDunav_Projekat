@@ -1,13 +1,11 @@
    <div class="container fakultetDeDiv py-5">
     <!-- <h1 class="text-center text-primary mb-5">{{ fakultetData?.naziv }}</h1> -->
   
-    <app-about-us *ngIf="aboutData" [title]="aboutData.title" [description]="aboutData.description" [image]="aboutData.image"></app-about-us>
+    <!-- <app-about-us *ngIf="aboutData" [title]="aboutData.title" [description]="aboutData.description"></app-about-us> -->
   
     <app-rector
       *ngIf="dekanData"
       [ime]="dekanData.ime"
-      [titula]="dekanData.titula"
-      [slikaSrc]="dekanData.slikaSrc"
       [altText]="dekanData.altText"
       [opis1]="dekanData.opis1"
     ></app-rector>

@@ -1,9 +1,36 @@
-<div class="card">
-    <img *ngIf="fakultet.slika" [src]="fakultet.slika" class="card-img-top" alt="{{ fakultet.naziv }}">
-    <div class="card-body">
-      <h5 class="card-title">{{ fakultet.naziv }}</h5>
-      <p class="card-text">{{ fakultet.opis }}</p>
-      <a [routerLink]="['/fakulteti', fakultet.id]" class="btn btn-primary">Detalji</a>
+
+
+  <!-- <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ fakultet.naziv }}</h5>
+    <p class="card-text">{{ fakultet.opis }}</p>
+
+    <div *ngIf="fakultet.dekanIme">
+      <strong>Dekan:</strong> {{ fakultet.dekanIme }} {{ fakultet.dekanPrezime }}
+      <br>
+      <small>{{ fakultet.dekanOpis }}</small>
+    </div>
+
+    <a [routerLink]="['/fakulteti', fakultet.id]" class="btn btn-primary mt-2">Detalji</a>
+  </div>
+</div> -->
+
+<div class="card h-100 shadow-sm border-0">
+  <div class="card-body d-flex flex-column">
+    <h5 class="card-title text-primary fw-bold">{{ fakultet.naziv }}</h5>
+    <p class="card-text text-muted">{{ fakultet.opis }}</p>
+
+    <div *ngIf="fakultet.dekanIme" class="mt-3">
+      <p class="mb-1"><strong>Dekan:</strong> {{ fakultet.dekanIme }} {{ fakultet.dekanPrezime }}</p>
+    </div>
+
+    <div class="mt-auto pt-3">
+      <a [routerLink]="['/fakulteti', fakultet.id]" class="btn btn-outline-primary w-100">
+        Detalji
+      </a>
     </div>
   </div>
+</div>
+
+
   
