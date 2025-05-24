@@ -27,5 +27,5 @@ export interface Fakultet {
   dekanIme: string;
   dekanPrezime: string;
   dekanOpis: string;
-
+  dekanSlika: string;
 }

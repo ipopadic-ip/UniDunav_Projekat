@@ -45,6 +45,7 @@ export class FakultetDetaljiComponent {
     return {
       title: this.fakultetData.naziv,
       description: this.fakultetData.opis,
+      image: null
       // image: '' 
     };
   }
@@ -53,9 +54,10 @@ export class FakultetDetaljiComponent {
     if (!this.fakultetData) return null;
     return {
       ime: `${this.fakultetData.dekanIme} ${this.fakultetData.dekanPrezime}`,
-      // titula: this.fakultetData.dekanTitula ?? '',
+      titula: 'Dekan Fakulteta',
       opis1: this.fakultetData.dekanOpis,
-      // slikaSrc: this.fakultetData.dekanSlika ?? '',
+      slikaSrc: `http://localhost:8080/${this.fakultetData.dekanSlika}`,
+
       altText: `${this.fakultetData.dekanIme} ${this.fakultetData.dekanPrezime}`
     };
   }
