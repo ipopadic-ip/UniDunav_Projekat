@@ -13,9 +13,12 @@ public class DepartmanDTO {
     private String opis;
     private List<KatedraDTO> katedre;
     private FakultetDTO fakultet;
+//    private Long fakultetId; 
     private ProfesorDTO sefDepartmana;
 
     public DepartmanDTO() {}
+    
+    
 
     public DepartmanDTO(Long id, String naziv, String opis, List<KatedraDTO> katedre,
                         FakultetDTO fakultet, ProfesorDTO sefDepartmana) {
@@ -26,8 +29,48 @@ public class DepartmanDTO {
         this.fakultet = fakultet;
         this.sefDepartmana = sefDepartmana;
     }
+    
+    
+    
 
-    public Long getId() {
+//    public Long getFakultetId() {
+//		return fakultetId;
+//	}
+//
+//
+//
+//	public void setFakultetId(Long fakultetId) {
+//		this.fakultetId = fakultetId;
+//	}
+//
+//
+//
+//	public DepartmanDTO(Long id, String naziv, String opis, List<KatedraDTO> katedre, Long fakultetId,
+//			ProfesorDTO sefDepartmana) {
+//		super();
+//		this.id = id;
+//		this.naziv = naziv;
+//		this.opis = opis;
+//		this.katedre = katedre;
+//		this.fakultetId = fakultetId;
+//		this.sefDepartmana = sefDepartmana;
+//	}
+
+
+
+	public FakultetDTO getFakultet() {
+		return fakultet;
+	}
+
+
+
+	public void setFakultet(FakultetDTO fakultet) {
+		this.fakultet = fakultet;
+	}
+
+
+
+	public Long getId() {
         return id;
     }
 
@@ -59,13 +102,13 @@ public class DepartmanDTO {
         this.katedre = katedre;
     }
 
-    public FakultetDTO getFakultet() {
-        return fakultet;
-    }
-
-    public void setFakultet(FakultetDTO fakultet) {
-        this.fakultet = fakultet;
-    }
+//    public FakultetDTO getFakultet() {
+//        return fakultet;
+//    }
+//
+//    public void setFakultet(FakultetDTO fakultet) {
+//        this.fakultet = fakultet;
+//    }
 
     public ProfesorDTO getSefDepartmana() {
         return sefDepartmana;

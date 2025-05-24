@@ -15,25 +15,72 @@ public class FakultetDTO {
     private ProfesorDTO dekan;
     private List<DepartmanDTO> departmani;
     private String opis;
+    private String lokacija;
+    private String brojTelefona;
 
     public FakultetDTO() {}
 
-    public FakultetDTO(Long id, String naziv, String email, UniverzitetDTO univerzitet,
-                       ProfesorDTO dekan, List<DepartmanDTO> departmani, String opis) {
-        this.id = id;
-        this.naziv = naziv;
-        this.email = email;
-        this.univerzitet = univerzitet;
-        this.dekan = dekan;
-        this.departmani = departmani;
-        this.opis = opis;
-    }
+//    public FakultetDTO(Long id, String naziv, String email, UniverzitetDTO univerzitet,
+//                       ProfesorDTO dekan, List<DepartmanDTO> departmani, String opis) {
+//        this.id = id;
+//        this.naziv = naziv;
+//        this.email = email;
+//        this.univerzitet = univerzitet;
+//        this.dekan = dekan;
+//        this.departmani = departmani;
+//        this.opis = opis;
+//    }
+    
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    
+//    public FakultetDTO(Long id, String naziv, String email, UniverzitetDTO univerzitet, ProfesorDTO dekan,
+//			List<DepartmanDTO> departmani, String opis, String lokacija) {
+//		super();
+//		this.id = id;
+//		this.naziv = naziv;
+//		this.email = email;
+//		this.univerzitet = univerzitet;
+//		this.dekan = dekan;
+//		this.departmani = departmani;
+//		this.opis = opis;
+//		this.lokacija = lokacija;
+//	}
+
+	public FakultetDTO(Long id, String naziv, String email, UniverzitetDTO univerzitet, ProfesorDTO dekan,
+			List<DepartmanDTO> departmani, String opis, String lokacija, String brojTelefona) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.email = email;
+		this.univerzitet = univerzitet;
+		this.dekan = dekan;
+		this.departmani = departmani;
+		this.opis = opis;
+		this.lokacija = lokacija;
+		this.brojTelefona = brojTelefona;
+	}
+
+	public String getBrojTelefona() {
+		return brojTelefona;
+	}
+
+	public void setBrojTelefona(String brojTelefona) {
+		this.brojTelefona = brojTelefona;
+	}
+
+	public String getLokacija() {
+		return lokacija;
+	}
+
+	public void setLokacija(String lokacija) {
+		this.lokacija = lokacija;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 

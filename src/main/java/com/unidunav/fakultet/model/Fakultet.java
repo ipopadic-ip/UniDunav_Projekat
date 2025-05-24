@@ -1,6 +1,7 @@
 package com.unidunav.fakultet.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.unidunav.dapartman.model.Departman;
 import com.unidunav.profesor.model.Profesor;
@@ -29,6 +30,10 @@ public class Fakultet {
 	@Column(nullable=false)
 	private String email;
 	
+	private String lokacija;
+	
+	private String brojTelefona;
+	
 	@ManyToOne 
     @JoinColumn(name = "univerzitet_id", nullable = false)
     private Univerzitet univerzitet;
@@ -39,7 +44,9 @@ public class Fakultet {
 	
 	
 	@OneToMany(mappedBy = "fakultet", cascade = CascadeType.ALL, orphanRemoval = true)
-	private ArrayList<Departman> departmani = new ArrayList<Departman>();
+//	private ArrayList<Departman> departmani = new ArrayList<Departman>();
+	private List<Departman> departmani = new ArrayList<>();
+
 	
 	private String opis;
 
@@ -47,22 +54,107 @@ public class Fakultet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
-	public Fakultet(Long id, String naziv, String email, Univerzitet univerzitet, Profesor dekan,
-			ArrayList<Departman> departmani, String opis) {
+public Fakultet(Long id, String naziv, String email, String lokacija, String brojTelefona, Univerzitet univerzitet,
+			Profesor dekan, List<Departman> departmani, String opis) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.email = email;
+		this.lokacija = lokacija;
+		this.brojTelefona = brojTelefona;
 		this.univerzitet = univerzitet;
 		this.dekan = dekan;
 		this.departmani = departmani;
 		this.opis = opis;
 	}
 
+
+
+public String getBrojTelefona() {
+		return brojTelefona;
+	}
+
+
+
+	public void setBrojTelefona(String brojTelefona) {
+		this.brojTelefona = brojTelefona;
+	}
+
+
+
+public String getLokacija() {
+		return lokacija;
+	}
+
+
+
+	public void setLokacija(String lokacija) {
+		this.lokacija = lokacija;
+	}
+
+
+
+//public Fakultet(Long id, String naziv, String email, String lokacija, Univerzitet univerzitet, Profesor dekan,
+//			List<Departman> departmani, String opis) {
+//		super();
+//		this.id = id;
+//		this.naziv = naziv;
+//		this.email = email;
+//		this.lokacija = lokacija;
+//		this.univerzitet = univerzitet;
+//		this.dekan = dekan;
+//		this.departmani = departmani;
+//		this.opis = opis;
+//	}
+
+
+
+//public Fakultet(Long id, String naziv, String email, Univerzitet univerzitet, Profesor dekan,
+//			List<Departman> departmani, String opis) {
+//		super();
+//		this.id = id;
+//		this.naziv = naziv;
+//		this.email = email;
+//		this.univerzitet = univerzitet;
+//		this.dekan = dekan;
+//		this.departmani = departmani;
+//		this.opis = opis;
+//	}
+
+
+
+//	public Fakultet(Long id, String naziv, String email, Univerzitet univerzitet, Profesor dekan,
+//			ArrayList<Departman> departmani, String opis) {
+//		super();
+//		this.id = id;
+//		this.naziv = naziv;
+//		this.email = email;
+//		this.univerzitet = univerzitet;
+//		this.dekan = dekan;
+//		this.departmani = departmani;
+//		this.opis = opis;
+//	}
+
+
+
 	public Long getId() {
 		return id;
 	}
+
+	public List<Departman> getDepartmani() {
+		return departmani;
+	}
+
+
+
+	public void setDepartmani(List<Departman> departmani) {
+		this.departmani = departmani;
+	}
+
+
 
 	public void setId(Long id) {
 		this.id = id;
@@ -100,13 +192,13 @@ public class Fakultet {
 		this.dekan = dekan;
 	}
 
-	public ArrayList<Departman> getDepartmani() {
-		return departmani;
-	}
+//	public ArrayList<Departman> getDepartmani() {
+//		return departmani;
+//	}
 
-	public void setDepartmani(ArrayList<Departman> departmani) {
-		this.departmani = departmani;
-	}
+//	public void setDepartmani(ArrayList<Departman> departmani) {
+//		this.departmani = departmani;
+//	}
 
 	public String getOpis() {
 		return opis;

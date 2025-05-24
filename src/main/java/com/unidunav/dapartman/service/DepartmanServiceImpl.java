@@ -89,6 +89,10 @@ public class DepartmanServiceImpl implements DepartmanService {
         if (dto.getFakultet() != null && dto.getFakultet().getId() != null) {
             fakultetRepository.findById(dto.getFakultet().getId()).ifPresent(departman::setFakultet);
         }
+//        if (dto.getFakultetId() != null) {
+//            fakultetRepository.findById(dto.getFakultetId()).ifPresent(departman::setFakultet);
+//        }
+
 
         if (dto.getSefDepartmana() != null && dto.getSefDepartmana().getId() != null) {
             profesorRepository.findById(dto.getSefDepartmana().getId()).ifPresent(departman::setSefDepartmana);
@@ -114,13 +118,19 @@ public class DepartmanServiceImpl implements DepartmanService {
             dto.setFakultet(new FakultetDTO(
                     entity.getFakultet().getId(),
                     entity.getFakultet().getNaziv(),
+                    entity.getFakultet().getEmail(),
+                    null,
+                    null,
+                    null,
                     entity.getFakultet().getOpis(),
-                    null,
-                    null,
-                    null,
-                    null
+                    entity.getFakultet().getLokacija(),
+                    entity.getFakultet().getBrojTelefona()
             ));
         }
+//        if (entity.getFakultet() != null) {
+//            dto.setFakultetId(entity.getFakultet().getId());
+//        }
+
 
         if (entity.getSefDepartmana() != null) {
             dto.setSefDepartmana(new ProfesorDTO(

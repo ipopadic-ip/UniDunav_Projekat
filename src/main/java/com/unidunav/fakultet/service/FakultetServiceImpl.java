@@ -11,6 +11,7 @@ import com.unidunav.dapartman.dto.DepartmanDTO;
 import com.unidunav.dapartman.model.Departman;
 import com.unidunav.dapartman.service.DepartmanService;
 import com.unidunav.fakultet.dto.FakultetDTO;
+import com.unidunav.fakultet.dto.FakultetSimpleDTO;
 import com.unidunav.fakultet.model.Fakultet;
 import com.unidunav.fakultet.repository.FakultetRepository;
 import com.unidunav.profesor.service.ProfesorService;
@@ -67,6 +68,8 @@ public class FakultetServiceImpl implements FakultetService {
         entity.setNaziv(dto.getNaziv());
         entity.setEmail(dto.getEmail());
         entity.setOpis(dto.getOpis());
+        entity.setLokacija(dto.getLokacija());
+        entity.setBrojTelefona(dto.getBrojTelefona());
 
         if (dto.getUniverzitet() != null && dto.getUniverzitet().getId() != null) {
             entity.setUniverzitet(univerzitetService.toEntity(dto.getUniverzitet()));
@@ -108,6 +111,8 @@ public class FakultetServiceImpl implements FakultetService {
         dto.setNaziv(entity.getNaziv());
         dto.setEmail(entity.getEmail());
         dto.setOpis(entity.getOpis());
+        dto.setLokacija(entity.getLokacija());
+        dto.setBrojTelefona(entity.getBrojTelefona());
 
         if (entity.getUniverzitet() != null) {
             dto.setUniverzitet(univerzitetService.toDTO(entity.getUniverzitet()));
@@ -135,6 +140,8 @@ public class FakultetServiceImpl implements FakultetService {
         entity.setNaziv(dto.getNaziv());
         entity.setEmail(dto.getEmail());
         entity.setOpis(dto.getOpis());
+        entity.setLokacija(dto.getLokacija());
+        entity.setBrojTelefona(dto.getBrojTelefona());
 
         if (dto.getUniverzitet() != null && dto.getUniverzitet().getId() != null) {
             entity.setUniverzitet(univerzitetService.toEntity(dto.getUniverzitet()));
@@ -154,4 +161,41 @@ public class FakultetServiceImpl implements FakultetService {
 
         return entity;
     }
+    @Override
+    public List<FakultetSimpleDTO> findAllSimple() {
+        return fakultetRepository.findAll()
+                .stream()
+                .map(this::toSimpleDTO)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public FakultetSimpleDTO findSimpleById(Long id) {
+        Fakultet fakultet = fakultetRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Fakultet nije pronađen sa ID: " + id));
+        return toSimpleDTO(fakultet);
+    }
+
+
+    @Override
+    public FakultetSimpleDTO toSimpleDTO(Fakultet entity) {
+        FakultetSimpleDTO dto = new FakultetSimpleDTO();
+        dto.setId(entity.getId());
+        dto.setNaziv(entity.getNaziv());
+        dto.setEmail(entity.getEmail());
+        dto.setOpis(entity.getOpis());
+        dto.setLokacija(entity.getLokacija());
+        dto.setBrojTelefona(entity.getBrojTelefona());
+
+        if (entity.getDekan() != null) {
+        	dto.setDekanIme(entity.getDekan().getUser().getIme());
+        	dto.setDekanPrezime(entity.getDekan().getUser().getPrezime());
+        	
+        	dto.setDekanSlika(entity.getDekan().getSlikaPath());
+            dto.setDekanOpis(entity.getDekan().getBiografija());
+        }
+
+        return dto;
+    }
+
 }

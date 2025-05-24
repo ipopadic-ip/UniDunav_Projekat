@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unidunav.fakultet.dto.FakultetDTO;
+import com.unidunav.fakultet.dto.FakultetSimpleDTO;
 import com.unidunav.fakultet.service.FakultetService;
 
 @RestController
@@ -28,12 +29,29 @@ public class FakultetController {
         this.fakultetService = fakultetService;
     }
 
-    @GetMapping
+    @GetMapping("/original")
     public ResponseEntity<List<FakultetDTO>> findAll() {
         return ResponseEntity.ok(fakultetService.findAll());
     }
-
+    
+    // NOVI ENDPOINT za jednostavan prikaz fakulteta
+    @GetMapping
+    public ResponseEntity<List<FakultetSimpleDTO>> findAllSimple() {
+        return ResponseEntity.ok(fakultetService.findAllSimple());
+    }
+    
     @GetMapping("/{id}")
+    public ResponseEntity<FakultetSimpleDTO> findSimpleById(@PathVariable Long id) {
+        return ResponseEntity.ok(fakultetService.findSimpleById(id));
+    }
+
+    
+//    @GetMapping("/{id}")
+//    public ResponseEntity<FakultetSimpleDTO> findById(@PathVariable Long id) {
+//        return ResponseEntity.ok(fakultetService.findById(id));
+//    }
+
+    @GetMapping("/{id}/original")
     public ResponseEntity<FakultetDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(fakultetService.findById(id));
     }
