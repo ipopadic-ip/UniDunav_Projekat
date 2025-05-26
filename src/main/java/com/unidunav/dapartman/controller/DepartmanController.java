@@ -24,6 +24,12 @@ public class DepartmanController {
     public ResponseEntity<List<DepartmanDTO>> getAll() {
         return ResponseEntity.ok(departmanService.findAll());
     }
+    
+    @GetMapping("/fakultet/{fakultetId}")
+    public ResponseEntity<List<DepartmanDTO>> getByFakultetId(@PathVariable Long fakultetId) {
+        return ResponseEntity.ok(departmanService.findByFakultetId(fakultetId));
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<DepartmanDTO> getById(@PathVariable Long id) {

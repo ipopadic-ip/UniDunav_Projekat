@@ -102,8 +102,8 @@ public class UniverzitetServiceImpl implements UniverzitetService {
                             if (f.getDekan() != null) {
                                 ProfesorDTO dekanDTO = new ProfesorDTO();
                                 dekanDTO.setId(f.getDekan().getId());
-                                dekanDTO.setIme(f.getDekan().getIme());
-                                dekanDTO.setPrezime(f.getDekan().getPrezime());
+//                                dekanDTO.setIme(f.getDekan().getIme());
+//                                dekanDTO.setPrezime(f.getDekan().getPrezime());
                                 dekanDTO.setBiografija(f.getDekan().getBiografija());
                                 dto.setDekan(dekanDTO);
                             }

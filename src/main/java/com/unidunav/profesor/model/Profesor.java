@@ -16,8 +16,8 @@ public class Profesor {
     @JoinColumn(name = "id")
     private User user;
 
-    private String ime;
-    private String prezime;
+//    private String ime;
+//    private String prezime;
 
     @Column(length = 3000)
     private String biografija;
@@ -42,21 +42,21 @@ public class Profesor {
         this.id = id;
     }
 
-    public String getIme() {
-        return ime;
-    }
-
-    public void setIme(String ime) {
-        this.ime = ime;
-    }
-
-    public String getPrezime() {
-        return prezime;
-    }
-
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
-    }
+//    public String getIme() {
+//        return ime;
+//    }
+//
+//    public void setIme(String ime) {
+//        this.ime = ime;
+//    }
+//
+//    public String getPrezime() {
+//        return prezime;
+//    }
+//
+//    public void setPrezime(String prezime) {
+//        this.prezime = prezime;
+//    }
 
     public String getBiografija() {
         return biografija;

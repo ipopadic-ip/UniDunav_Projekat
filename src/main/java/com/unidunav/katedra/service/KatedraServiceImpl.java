@@ -152,8 +152,8 @@ public class KatedraServiceImpl implements KatedraService {
             var sef = entity.getSefKatedre();
             var sefDto = new com.unidunav.profesor.dto.ProfesorDTO();
             sefDto.setId(sef.getId());
-            sefDto.setIme(sef.getIme());
-            sefDto.setPrezime(sef.getPrezime());
+//            sefDto.setIme(sef.getIme());
+//            sefDto.setPrezime(sef.getPrezime());
             dto.setSefKatedre(sefDto);
         }
 

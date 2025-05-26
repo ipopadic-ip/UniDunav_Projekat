@@ -41,7 +41,7 @@ public class ProfesorPredmetService {
         ProfesorPredmetResponseDTO res = new ProfesorPredmetResponseDTO();
         res.setId(sacuvan.getId());
         res.setProfesorId(profesor.getId());
-        res.setProfesorIme(profesor.getIme() + " " + profesor.getPrezime());
+//        res.setProfesorIme(profesor.getIme() + " " + profesor.getPrezime());
         res.setPredmetId(predmet.getId());
         res.setPredmetNaziv(predmet.getNaziv());
 
@@ -53,7 +53,7 @@ public class ProfesorPredmetService {
             ProfesorPredmetResponseDTO dto = new ProfesorPredmetResponseDTO();
             dto.setId(pp.getId());
             dto.setProfesorId(pp.getProfesor().getId());
-            dto.setProfesorIme(pp.getProfesor().getIme() + " " + pp.getProfesor().getPrezime());
+//            dto.setProfesorIme(pp.getProfesor().getIme() + " " + pp.getProfesor().getPrezime());
             dto.setPredmetId(pp.getPredmet().getId());
             dto.setPredmetNaziv(pp.getPredmet().getNaziv());
             return dto;
@@ -78,7 +78,7 @@ public class ProfesorPredmetService {
         ProfesorPredmetResponseDTO res = new ProfesorPredmetResponseDTO();
         res.setId(sacuvan.getId());
         res.setProfesorId(profesor.getId());
-        res.setProfesorIme(profesor.getIme() + " " + profesor.getPrezime());
+//        res.setProfesorIme(profesor.getIme() + " " + profesor.getPrezime());
         res.setPredmetId(predmet.getId());
         res.setPredmetNaziv(predmet.getNaziv());
 

@@ -24,20 +24,31 @@ public class ProfesorDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProfesorDTO(Long id, String ime, String prezime, String biografija) {
-		super();
-		this.id = id;
-		this.ime = ime;
-		this.prezime = prezime;
-		this.biografija = biografija;
-	}
+//	public ProfesorDTO(Long id, String ime, String prezime, String biografija) {
+//		super();
+//		this.id = id;
+//		this.ime = ime;
+//		this.prezime = prezime;
+//		this.biografija = biografija;
+//	}
+    
+    
 
 	// Getteri i setteri
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public ProfesorDTO(Long id, String ime, String prezime, String biografija, String slikaPath) {
+		super();
+		this.id = id;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.biografija = biografija;
+		this.slikaPath = slikaPath;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 

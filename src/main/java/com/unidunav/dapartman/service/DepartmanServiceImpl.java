@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.unidunav.dapartman.dto.DepartmanDTO;
@@ -16,6 +17,7 @@ import com.unidunav.katedra.dto.KatedraDTO;
 import com.unidunav.katedra.model.Katedra;
 import com.unidunav.profesor.dto.ProfesorDTO;
 import com.unidunav.profesor.repository.ProfesorRepository;
+import com.unidunav.profesor.service.ProfesorService;
 
 @Service
 public class DepartmanServiceImpl implements DepartmanService {
@@ -24,6 +26,9 @@ public class DepartmanServiceImpl implements DepartmanService {
     private final KatedraRepository katedraRepository;
     private final FakultetRepository fakultetRepository;
     private final ProfesorRepository profesorRepository;
+    
+    @Autowired
+    private ProfesorService profesorService;
 
     public DepartmanServiceImpl(DepartmanRepository departmanRepository,
                                  KatedraRepository katedraRepository,
@@ -54,6 +59,15 @@ public class DepartmanServiceImpl implements DepartmanService {
         Optional<Departman> optional = departmanRepository.findById(id);
         return optional.map(this::toDTO).orElse(null);
     }
+    
+    @Override
+    public List<DepartmanDTO> findByFakultetId(Long fakultetId) {
+        return departmanRepository.findByFakultetId(fakultetId)
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
 
     @Override
     public DepartmanDTO update(Long id, DepartmanDTO dto) {
@@ -133,12 +147,15 @@ public class DepartmanServiceImpl implements DepartmanService {
 
 
         if (entity.getSefDepartmana() != null) {
-            dto.setSefDepartmana(new ProfesorDTO(
-                    entity.getSefDepartmana().getId(),
-                    entity.getSefDepartmana().getIme(),
-                    entity.getSefDepartmana().getPrezime(),
-                    entity.getSefDepartmana().getBiografija()
-            ));
+        	 dto.setSefDepartmana(profesorService.toDTO(entity.getSefDepartmana()));
+//            dto.setSefDepartmana(new ProfesorDTO(
+//                    entity.getSefDepartmana().getId(),
+//                    entity.getSefDepartmana().getIme(),
+//                    entity.getSefDepartmana().getPrezime(),
+//                    entity.getSefDepartmana().getBiografija(),
+////                    novo
+//                    entity.getSefDepartmana().getSlikaPath()
+//            ));
         }
 
         return dto;

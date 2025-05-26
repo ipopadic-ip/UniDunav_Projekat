@@ -1,6 +1,7 @@
 package com.unidunav.dapartman.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.unidunav.fakultet.model.Fakultet;
 import com.unidunav.katedra.model.Katedra;
@@ -30,7 +31,7 @@ public class Departman {
     private String opis;
 
     @OneToMany(mappedBy = "departman", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<Katedra> katedre = new ArrayList<>();
+    private List<Katedra> katedre = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "fakultet_id", nullable = true)
@@ -46,14 +47,16 @@ public class Departman {
         this.id = id;
     }
 
-    public Departman(Long id, String naziv, String opis, ArrayList<Katedra> katedre, Fakultet fakultet, Profesor sefDepartmana) {
-        this.id = id;
-        this.naziv = naziv;
-        this.opis = opis;
-        this.katedre = katedre;
-        this.fakultet = fakultet;
-        this.sefDepartmana = sefDepartmana;
-    }
+//    public Departman(Long id, String naziv, String opis, ArrayList<Katedra> katedre, Fakultet fakultet, Profesor sefDepartmana) {
+//        this.id = id;
+//        this.naziv = naziv;
+//        this.opis = opis;
+//        this.katedre = katedre;
+//        this.fakultet = fakultet;
+//        this.sefDepartmana = sefDepartmana;
+//    }
+    
+    
 
     // Getteri i setteri
 
@@ -61,7 +64,28 @@ public class Departman {
         return id;
     }
 
-    public void setId(Long id) {
+    public Departman(Long id, String naziv, String opis, List<Katedra> katedre, Fakultet fakultet,
+			Profesor sefDepartmana) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.opis = opis;
+		this.katedre = katedre;
+		this.fakultet = fakultet;
+		this.sefDepartmana = sefDepartmana;
+	}
+    
+    
+
+	public List<Katedra> getKatedre() {
+		return katedre;
+	}
+
+	public void setKatedre(List<Katedra> katedre) {
+		this.katedre = katedre;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
@@ -81,13 +105,13 @@ public class Departman {
         this.opis = opis;
     }
 
-    public ArrayList<Katedra> getKatedre() {
-        return katedre;
-    }
-
-    public void setKatedre(ArrayList<Katedra> katedre) {
-        this.katedre = katedre;
-    }
+//    public ArrayList<Katedra> getKatedre() {
+//        return katedre;
+//    }
+//
+//    public void setKatedre(ArrayList<Katedra> katedre) {
+//        this.katedre = katedre;
+//    }
 
     public Fakultet getFakultet() {
         return fakultet;

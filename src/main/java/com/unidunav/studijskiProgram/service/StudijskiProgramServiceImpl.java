@@ -101,8 +101,8 @@ public class StudijskiProgramServiceImpl implements StudijskiProgramService {
         if (entity.getRukovodilac() != null) {
             ProfesorDTO profDto = new ProfesorDTO();
             profDto.setId(entity.getRukovodilac().getId());
-            profDto.setIme(entity.getRukovodilac().getIme());
-            profDto.setPrezime(entity.getRukovodilac().getPrezime());
+//            profDto.setIme(entity.getRukovodilac().getIme());
+//            profDto.setPrezime(entity.getRukovodilac().getPrezime());
             dto.setRukovodilac(profDto);
         }
 

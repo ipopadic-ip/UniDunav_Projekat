@@ -3,6 +3,8 @@ package com.unidunav.profesor.service;
 import com.unidunav.profesor.dto.ProfesorDTO;
 import com.unidunav.profesor.model.Profesor;
 import com.unidunav.profesor.repository.ProfesorRepository;
+import com.unidunav.user.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,12 +23,20 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     @Autowired
     private ProfesorRepository repository;
+    
+
 
     public ProfesorDTO toDTO(Profesor profesor) {
         ProfesorDTO dto = new ProfesorDTO();
         dto.setId(profesor.getId());
-        dto.setIme(profesor.getIme());
-        dto.setPrezime(profesor.getPrezime());
+        
+        if (profesor.getUser() != null) {
+            dto.setIme(profesor.getUser().getIme());
+            dto.setPrezime(profesor.getUser().getPrezime());
+        }
+
+//        dto.setIme(profesor.getIme());
+//        dto.setPrezime(profesor.getPrezime());
         dto.setBiografija(profesor.getBiografija());
      // U toDTO
         dto.setSlikaPath(profesor.getSlikaPath());
@@ -36,8 +46,8 @@ public class ProfesorServiceImpl implements ProfesorService {
     public Profesor toEntity(ProfesorDTO dto) {
         Profesor profesor = new Profesor();
         profesor.setId(dto.getId());
-        profesor.setIme(dto.getIme());
-        profesor.setPrezime(dto.getPrezime());
+//        profesor.setIme(dto.getIme());
+//        profesor.setPrezime(dto.getPrezime());
         profesor.setBiografija(dto.getBiografija());
      // U toEntity
         profesor.setSlikaPath(dto.getSlikaPath());
@@ -62,8 +72,8 @@ public class ProfesorServiceImpl implements ProfesorService {
     @Override
     public ProfesorDTO update(Long id, ProfesorDTO dto) {
         return repository.findById(id).map(existing -> {
-            existing.setIme(dto.getIme());
-            existing.setPrezime(dto.getPrezime());
+//            existing.setIme(dto.getIme());
+//            existing.setPrezime(dto.getPrezime());
             existing.setBiografija(dto.getBiografija());
             return toDTO(repository.save(existing));
         }).orElse(null);

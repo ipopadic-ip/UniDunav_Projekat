@@ -12,6 +12,9 @@ public interface DepartmanService {
 	DepartmanDTO update(Long id, DepartmanDTO dto);
 	void delete(Long id);
 	
+	List<DepartmanDTO> findByFakultetId(Long fakultetId);
+
+	
 	DepartmanDTO toDTO(Departman entity);
 	Departman toEntity(DepartmanDTO dto);
 }
