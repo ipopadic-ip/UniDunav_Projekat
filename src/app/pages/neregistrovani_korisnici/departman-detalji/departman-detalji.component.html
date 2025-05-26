@@ -1,0 +1,26 @@
+<div class="container py-5" *ngIf="departman">
+  <h1 class="text-center text-primary mb-4 py-5">{{ departman.naziv }}</h1>
+  <p class="lead text-center mb-5">{{ departman.opis }}</p>
+
+  <app-rector
+    *ngIf="sefDepartmanaData"
+    [ime]="sefDepartmanaData.ime"
+    [titula]="sefDepartmanaData.titula"
+    [altText]="sefDepartmanaData.altText"
+    [opis1]="sefDepartmanaData.opis1"
+    [slikaSrc]="sefDepartmanaData.slikaSrc"
+  ></app-rector>
+
+  <!-- <div class="card shadow border-0">
+    <div class="card-body">
+      <h3 class="card-title text-secondary">Šef departmana</h3>
+      <p class="card-text">
+        {{ departman.sefDepartmana?.ime }}
+      </p>
+    </div>
+  </div> -->
+
+  <!-- <div class="mt-4 text-center">
+    <a routerLink="/fakulteti/{{ departman.fakultet?.id }}" class="btn btn-outline-secondary">Nazad na fakultet</a>
+  </div> -->
+</div>

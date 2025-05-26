@@ -6,4 +6,7 @@ export const neregistrovaniKorisniciRoutes: Routes = [
   { path: 'fakulteti/:id', loadComponent: () => import('./fakultet-detalji/fakultet-detalji.component').then(m => m.FakultetDetaljiComponent) },
   { path: 'studijski-programi', loadComponent: () => import('./studijski-programi/studijski-programi.component').then(m => m.StudijskiProgramiComponent) }, 
   { path: 'studijski-programi/:id', loadComponent: () => import('./studijski-program-detalji/studijski-program-detalji.component').then(m => m.StudijskiProgramDetaljiComponent) },
+  {
+  path: 'departmani/:id', loadComponent: () => import('./departman-detalji/departman-detalji.component').then(m => m.DepartmanDetaljiComponent)}
+
 ];

@@ -8,6 +8,9 @@ import { Fakultet } from '../../../core/model/fakultet.model';
 import { AboutUsComponent } from '../../../components/neregistrovani-korisnici/shared/about-us/about-us.component';
 import { RouterModule } from '@angular/router';
 
+import { DepartmanService } from '../../../core/services/departman.service';
+import { Departman } from '../../../core/model/departman.model';
+
 @Component({
   selector: 'app-fakultet-detalji',
   standalone: true,
@@ -18,15 +21,34 @@ import { RouterModule } from '@angular/router';
 export class FakultetDetaljiComponent {
   fakultetId!: number;
   fakultetData?: Fakultet;
+  departmani: Departman[] = [];
+
+  // constructor(
+  //   private route: ActivatedRoute,
+  //   private fakultetService: FakultetService
+  // ) {
+  //   this.route.paramMap.subscribe(params => {
+  //     this.fakultetId = Number(params.get('id'));
+  //     this.fakultetService.getFakultetById(this.fakultetId).subscribe(fakultet => {
+  //       this.fakultetData = fakultet;
+  //     });
+  //   });
+  // }
 
   constructor(
     private route: ActivatedRoute,
-    private fakultetService: FakultetService
+    private fakultetService: FakultetService,
+    private departmanService: DepartmanService
   ) {
     this.route.paramMap.subscribe(params => {
       this.fakultetId = Number(params.get('id'));
+
       this.fakultetService.getFakultetById(this.fakultetId).subscribe(fakultet => {
         this.fakultetData = fakultet;
+      });
+
+      this.departmanService.getDepartmaniByFakultetId(this.fakultetId).subscribe(data => {
+        this.departmani = data;
       });
     });
   }
