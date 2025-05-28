@@ -1,0 +1,41 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <h2 class="text-primary">Katedre</h2>
+    </div>
+
+    <div class="col-12 d-flex justify-content-center mb-4" *ngFor="let k of katedre">
+      <div class="card katedra-card shadow rounded-3">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-primary">{{ k.naziv }}</h5>
+          <p class="card-text">{{ k.opis }}</p>
+          <div class="mt-auto text-end">
+            <a [routerLink]="['/katedre', k.id]" class="btn btn-outline-primary mt-3">Vidite više</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="container my-5">
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <h2 class="text-primary">Katedre</h2>
+    </div>
+
+    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let k of katedre">
+      <div class="card h-100 shadow rounded-3">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-primary">{{ k.naziv }}</h5>
+          <p class="card-text">{{ k.opis }}</p>
+           <div class="mt-auto text-end">
+            <a [routerLink]="['/katedre', k.id]" class="btn btn-outline-primary mt-3">Vidite više</a>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

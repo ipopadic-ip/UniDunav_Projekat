@@ -1,0 +1,31 @@
+<div class="container py-5" *ngIf="katedra">
+  <h1 class="text-center text-primary mb-4 py-5">{{ katedra.naziv }}</h1>
+  <p class="lead text-center mb-5">{{ katedra.opis }}</p>
+
+  <app-rector
+    *ngIf="sefKatedreData"
+    [ime]="sefKatedreData.ime"
+    [titula]="sefKatedreData.titula"
+    [altText]="sefKatedreData.altText"
+    [opis1]="sefKatedreData.opis1"
+    [slikaSrc]="sefKatedreData.slikaSrc"
+  ></app-rector>
+
+  <div class="row" *ngFor="let tip of studijskiProgramiPoTipu | keyvalue">
+  <div class="col-12 mb-4">
+    <div class="card shadow-sm rounded-4">
+      <div class="card-body">
+        <h3 class="card-title text-primary">{{ tip.key }}</h3>
+        <ul class="list-unstyled mt-3">
+          <li *ngFor="let program of tip.value">
+            <a [routerLink]="['/studijskiprogram', program.id]" class="text-decoration-none">
+              • {{ program.naziv }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

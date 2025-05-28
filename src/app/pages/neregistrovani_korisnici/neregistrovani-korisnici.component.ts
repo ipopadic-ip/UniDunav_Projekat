@@ -16,7 +16,6 @@ export class NeregistrovaniKorisniciComponent {
     navLinks = [
         { label: 'Početna', path: '/' },
         { label: 'Fakulteti', path: '/fakulteti' },
-        { label: 'Studijski programi', path: '/studijski-programi' },
         { label: 'Prijava', path: '/prijava' }
       ];
 }

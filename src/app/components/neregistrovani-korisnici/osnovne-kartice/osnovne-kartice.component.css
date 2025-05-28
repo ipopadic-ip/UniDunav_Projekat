@@ -1,0 +1,4 @@
+.katedra-card {
+  width: 80%; /* šira kartica */
+  max-width: 900px; /* da ne bude preširoko na velikim ekranima */
+}

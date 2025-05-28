@@ -1,0 +1,42 @@
+<div *ngIf="predmet" class="container py-5 my-5">
+  <div class="card shadow-lg border-0 mt-5 rounded-4">
+    <div class="card-header bg-primary text-white rounded-top-4">
+      <h2 class="mb-0">
+        <i class="bi bi-journal-bookmark-fill me-2"></i> <!-- Bootstrap icon -->
+        {{ predmet.naziv }}
+      </h2>
+    </div>
+    <div class="card-body p-4">
+      <p class="mb-3">
+        <i class="bi bi-award-fill text-success me-2"></i>
+        <strong>ECTS:</strong> {{ predmet.ects }}
+      </p>
+      <p class="mb-3">
+        <i class="bi bi-info-circle-fill text-info me-2"></i>
+        <strong>Informacije:</strong> {{ predmet.informacijeOPredmetu }}
+      </p>
+
+        <div *ngIf="silabus">
+            <hr />
+            <h5>Silabus</h5>
+            <button class="btn btn-outline-primary" (click)="downloadSilabus()">
+                Preuzmi silabus (PDF)
+            </button>
+        </div>
+
+        <div *ngIf="nastavniMaterijali.length > 0">
+            <hr />
+            <h5>Nastavni materijali</h5>
+            <ul>
+                <li *ngFor="let mat of nastavniMaterijali">
+                {{ mat.naziv }}
+                <button class="btn btn-outline-primary btn-sm ms-2" (click)="downloadMaterijal(mat.id, mat.naziv + '.pdf')">
+                    Preuzmi
+                </button>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+  </div>
+</div>

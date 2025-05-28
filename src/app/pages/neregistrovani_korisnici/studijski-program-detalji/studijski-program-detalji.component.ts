@@ -1,42 +1,51 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { StudijskiProgramService } from '../../../core/services/studijski-program.service';
+import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
 import { StudijskiProgram } from '../../../core/model/studijski-program.model';
-import { RukovodilacComponent } from '../../../components/neregistrovani-korisnici/rukovodilac/rukovodilac.component';
-import { PredmetComponent } from '../../../components/neregistrovani-korisnici/predmet/predmet.component';
+import { StudijskiProgramService } from '../../../core/services/studijski-program.service';
+import { RectorComponent } from '../../../components/neregistrovani-korisnici/shared/rector/rector.component';
 
 @Component({
   selector: 'app-studijski-program-detalji',
   standalone: true,
-  imports: [CommonModule, RukovodilacComponent, PredmetComponent],
-  template: `
-    <div *ngIf="program" class="container py-5 my-5">
-      <h2 class="mb-3">{{ program.naziv }}</h2>
-      <p>{{ program.opis }}</p>
-
-      <hr />
-      <h4>Rukovodilac smera</h4>
-      <app-rukovodilac [rukovodilac]="program.rukovodilac"></app-rukovodilac>
-
-      <hr />
-      <h4>Predmeti</h4>
-      <app-predmet *ngFor="let p of program.predmeti" [predmet]="p"></app-predmet>
-    </div>
-  `,
+  imports: [CommonModule, RouterModule, RectorComponent],
+  templateUrl: './studijski-program-detalji.component.html',
+  styleUrl: './studijski-program-detalji.component.css'
 })
 export class StudijskiProgramDetaljiComponent implements OnInit {
-  program!: StudijskiProgram;
+  studijskiProgram?: StudijskiProgram;
+  predmetiPoGodinama: Record<number, { id: number; naziv: string; ects: number }[]> = {};
+
 
   constructor(
     private route: ActivatedRoute,
-    private service: StudijskiProgramService
+    private studijskiProgramService: StudijskiProgramService
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.service.getById(id).subscribe((data) => {
-      this.program = data;
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      const id = Number(params.get('id'));
+      if (!id) return;
+
+      this.studijskiProgramService.getStudijskiProgramById(id).subscribe(p => {
+        this.studijskiProgram = p;
+      });
+
+       this.studijskiProgramService.getPredmetiPoGodinama(id).subscribe(data => {
+        this.predmetiPoGodinama = data;
+      });
     });
+  }
+
+  get rukovodilacData() {
+    if (!this.studijskiProgram || !this.studijskiProgram.rukovodilac) return null;
+    const r = this.studijskiProgram.rukovodilac;
+    return {
+      ime: `${r.ime} ${r.prezime}`,
+      titula: 'Rukovodilac programa',
+      opis1: r.biografija,
+      slikaSrc: `http://localhost:8080/${r.slikaPath}`,
+      altText: `${r.ime} ${r.prezime}`
+    };
   }
 }

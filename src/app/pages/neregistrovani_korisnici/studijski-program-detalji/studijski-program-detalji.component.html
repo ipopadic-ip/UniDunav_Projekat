@@ -1,1 +1,35 @@
-<p>studijski-program-detalji works!</p>
+<div class="container py-5" *ngIf="studijskiProgram">
+  <h1 class="text-center text-primary mb-4 py-5">{{ studijskiProgram.naziv }}</h1>
+  <p class="lead text-center mb-4">{{ studijskiProgram.opis }}</p>
+  <!-- <p class="text-center">Trajanje: {{ studijskiProgram.godineStudija }} godine</p> -->
+  <p class="text-center">Tip studija: {{ studijskiProgram.tipStudija.tip }}</p>
+
+  <app-rector
+    *ngIf="rukovodilacData"
+    [ime]="rukovodilacData.ime"
+    [titula]="rukovodilacData.titula"
+    [altText]="rukovodilacData.altText"
+    [opis1]="rukovodilacData.opis1"
+    [slikaSrc]="rukovodilacData.slikaSrc"
+  ></app-rector>
+
+  <div class="container mt-5" *ngIf="predmetiPoGodinama">
+  <h3 class="text-primary mb-4">Predmeti po godinama</h3>
+
+  <div *ngFor="let godina of predmetiPoGodinama | keyvalue">
+    <div class="card mb-3 shadow-sm rounded-4">
+      <div class="card-body">
+        <h5 class="card-title">Godina: {{ godina.key }}</h5>
+        <ul class="list-unstyled mt-2">
+          <li *ngFor="let predmet of godina.value">
+            <a [routerLink]="['/predmeti', predmet.id]" class="text-decoration-none">
+              • {{ predmet.naziv }} ({{ predmet.ects }} ECTS)
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
