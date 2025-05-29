@@ -1,5 +1,6 @@
 package com.unidunav.student.controller;
 
+import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.student.dto.StudentDTO;
 import com.unidunav.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,13 @@ public class StudentController {
 
     @Autowired
     private StudentService service;
+    
+    
+    @GetMapping("/{studentId}/predmeti")
+    public ResponseEntity<List<PredmetDTO>> getPredmetiKojeStudentSlusa(@PathVariable Long studentId) {
+        List<PredmetDTO> predmeti = service.getPredmetiKojeStudentSlusa(studentId);
+        return ResponseEntity.ok(predmeti);
+    }
 
     @PostMapping
     public StudentDTO create(@RequestBody StudentDTO dto) {

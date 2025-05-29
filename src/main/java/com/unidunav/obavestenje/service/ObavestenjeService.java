@@ -4,15 +4,19 @@ import com.unidunav.obavestenje.dto.ObavestenjeDTO;
 import com.unidunav.obavestenje.dto.ObavestenjeResponseDTO;
 import com.unidunav.obavestenje.model.Obavestenje;
 import com.unidunav.obavestenje.repository.ObavestenjeRepository;
+import com.unidunav.predmet.model.PohadjanjePredmeta;
 import com.unidunav.predmet.model.Predmet;
+import com.unidunav.predmet.repository.PohadjanjePredmetaRepository;
 import com.unidunav.predmet.repository.PredmetRepository;
 import com.unidunav.user.model.User;
 import com.unidunav.user.repository.UserRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ObavestenjeService {
@@ -128,7 +132,30 @@ public class ObavestenjeService {
 //
 //        return response;
 //    }
+    
+    @Autowired
+    private PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
 
+    @Autowired
+    private ObavestenjeRepository obavestenjeRepository;
+
+    public List<ObavestenjeResponseDTO> findObavestenjaZaStudenta(Long studentId) {
+        List<PohadjanjePredmeta> pohadjanja = pohadjanjePredmetaRepository.findByStudentId(studentId);
+
+        return pohadjanja.stream()
+                .filter(PohadjanjePredmeta::isAktivan)
+                .flatMap(p -> p.getPredmet().getObavestenja().stream())
+                .map(obavestenje -> new ObavestenjeResponseDTO(
+                        obavestenje.getId(),
+                        obavestenje.getTekst(),
+                        obavestenje.getDatum(),
+                        obavestenje.getPredmet().getId(),
+                        obavestenje.getPredmet().getNaziv(),
+                        obavestenje.getAutor().getId(),
+                        obavestenje.getAutor().getIme() + " " + obavestenje.getAutor().getPrezime()
+                ))
+                .collect(Collectors.toList());
+    }
 
     public List<Obavestenje> svaObavestenja() {
         return obavestenjeRepo.findAll();
