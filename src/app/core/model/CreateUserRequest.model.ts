@@ -1,8 +1,10 @@
-import { Role } from './role.model';
+export interface Role {
+  naziv: string;
+}
 
-export interface User {
-  id: number;
+export interface CreateUserRequest {
   email: string;
+  password: string;
   ime: string;
   prezime: string;
   adresa: string;

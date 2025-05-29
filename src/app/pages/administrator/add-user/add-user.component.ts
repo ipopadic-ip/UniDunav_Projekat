@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
-import { CreateUserRequest, Role } from '../../../core/model/user.model';
+import { CreateUserRequest, Role } from '../../../core/model/CreateUserRequest.model';
 
 @Component({
   selector: 'app-add-user',

@@ -22,11 +22,13 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/nastavnici/nastavnik-dashboard/nastavnik-dashboard.component').then(m => m.NastavnikDashboardComponent),
     canActivate: [RoleGuard(['PROFESOR'])],
   },
-  {
-    path: 'student',
-    loadComponent: () => import('./pages/studenti/student-dashboard/student-dashboard.component').then(m => m.StudentDashboardComponent),
-    canActivate: [RoleGuard(['STUDENT'])],
-  },
+ {
+  path: 'student',
+  loadChildren: () =>
+    import('./pages/studenti/student-dashboard/student.routes')
+      .then(m => m.STUDENT_ROUTES),
+  canActivate: [RoleGuard(['STUDENT'])],
+},
   {
     path: 'sluzbenik',
     loadComponent: () => import('./pages/studentska_sluzba/sluzba-dashboard/sluzba-dashboard.component').then(m => m.SluzbaDashboardComponent),

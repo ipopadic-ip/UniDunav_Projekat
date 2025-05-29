@@ -1,0 +1,8 @@
+<div class="predmeti-container">
+  <h2>Predmeti koje slušate</h2>
+  <div *ngFor="let predmet of predmeti" class="predmet-card">
+    <h3>{{ predmet.naziv }}</h3>
+    <p><strong>ECTS:</strong> {{ predmet.ects }}</p>
+    <p>{{ predmet.informacijeOPredmetu }}</p>
+  </div>
+</div>

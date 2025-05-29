@@ -1,1 +1,12 @@
-<p>student-dashboard works!</p>
+<div class="dashboard-container">
+  <h2>Dobrodošli na studentski panel</h2>
+
+  <div class="dugmad">
+    <button routerLink="predmeti">Pregled predmeta</button>
+    <button routerLink="obavestenja">Obaveštenja</button>
+    <button routerLink="prijava">Prijava predmeta</button>
+  </div>
+
+  <!-- Ovde se prikazuju child komponente -->
+  <router-outlet></router-outlet>
+</div>
