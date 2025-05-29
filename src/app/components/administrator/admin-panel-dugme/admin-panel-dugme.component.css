@@ -1,0 +1,18 @@
+.admin-dugme {
+  width: 60%;
+  font-size: 1.25rem;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  border: none;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.admin-dugme:hover {
+  transform: scale(1.03);
+  text-decoration: none;
+  color: white;
+}

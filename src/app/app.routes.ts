@@ -13,13 +13,14 @@ export const routes: Routes = [
   { path: 'prijava', component: PrijavaComponent },
   {
     path: 'admin',
-    loadComponent: () => import('./pages/administrator/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent),
+    loadChildren: () => import('./pages/administrator/administrator.routes')
+      .then(m => m.administratorRoutes),
     canActivate: [RoleGuard(['ADMIN'])],
   },
   {
     path: 'profesor',
     loadComponent: () => import('./pages/nastavnici/nastavnik-dashboard/nastavnik-dashboard.component').then(m => m.NastavnikDashboardComponent),
-    canActivate: [RoleGuard(['PROFESSOR'])],
+    canActivate: [RoleGuard(['PROFESOR'])],
   },
   {
     path: 'student',
