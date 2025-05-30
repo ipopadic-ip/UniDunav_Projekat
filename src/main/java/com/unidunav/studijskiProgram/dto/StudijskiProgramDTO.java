@@ -15,6 +15,9 @@ public class StudijskiProgramDTO {
     private List<GodinaStudijaDTO> godineStudija;
     private TipStudijaDTO tipStudija;
     private ProfesorDTO rukovodilac;
+    
+    private Long katedraId;
+
 
     public StudijskiProgramDTO() {}
 
@@ -31,6 +34,14 @@ public class StudijskiProgramDTO {
     }
 
     // === Getteri i setteri ===
+
+    public Long getKatedraId() {
+        return katedraId;
+    }
+
+    public void setKatedraId(Long katedraId) {
+        this.katedraId = katedraId;
+    }
 
     public Long getId() {
         return id;

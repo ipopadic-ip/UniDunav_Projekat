@@ -1,6 +1,7 @@
 package com.unidunav.tipStudija.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.unidunav.katedra.model.Katedra;
 import com.unidunav.studijskiProgram.model.StudijskiProgram;
@@ -29,20 +30,32 @@ public class TipStudija {
 	private Katedra katedra;
 	
 	@OneToMany(mappedBy = "tipStudija", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<StudijskiProgram> studijskiProgrami = new ArrayList<StudijskiProgram>();
+    private List<StudijskiProgram> studijskiProgrami = new ArrayList<StudijskiProgram>();
 
 	public TipStudija() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
-	public TipStudija(Long id, String tip, Katedra katedra, ArrayList<StudijskiProgram> studijskiProgrami) {
+public TipStudija(Long id, String tip, Katedra katedra, List<StudijskiProgram> studijskiProgrami) {
 		super();
 		this.id = id;
 		this.tip = tip;
 		this.katedra = katedra;
 		this.studijskiProgrami = studijskiProgrami;
 	}
+
+
+
+//	public TipStudija(Long id, String tip, Katedra katedra, ArrayList<StudijskiProgram> studijskiProgrami) {
+//		super();
+//		this.id = id;
+//		this.tip = tip;
+//		this.katedra = katedra;
+//		this.studijskiProgrami = studijskiProgrami;
+//	}
 
 	public Long getId() {
 		return id;
@@ -68,13 +81,22 @@ public class TipStudija {
 		this.katedra = katedra;
 	}
 
-	public ArrayList<StudijskiProgram> getStudijskiProgrami() {
+	public List<StudijskiProgram> getStudijskiProgrami() {
 		return studijskiProgrami;
 	}
 
-	public void setStudijskiProgrami(ArrayList<StudijskiProgram> studijskiProgrami) {
+	public void setStudijskiProgrami(List<StudijskiProgram> studijskiProgrami) {
 		this.studijskiProgrami = studijskiProgrami;
 	}
+	
+
+//	public ArrayList<StudijskiProgram> getStudijskiProgrami() {
+//		return studijskiProgrami;
+//	}
+//
+//	public void setStudijskiProgrami(ArrayList<StudijskiProgram> studijskiProgrami) {
+//		this.studijskiProgrami = studijskiProgrami;
+//	}
 	
 	
 	

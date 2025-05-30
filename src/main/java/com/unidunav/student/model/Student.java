@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class Student {
 
     @Id
-
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @OneToOne
@@ -16,7 +16,8 @@ public class Student {
     @JoinColumn(name = "id")
     private User user;
 
-
+//    private String ime;
+//    private String prezime;
     private String brojIndeksa;
     private int godinaUpisa;
     private double prosecnaOcena = 0.0;
@@ -42,7 +43,21 @@ public class Student {
         this.id = id;
     }
 
-
+//    public String getIme() {
+//        return ime;
+//    }
+//
+//    public void setIme(String ime) {
+//        this.ime = ime;
+//    }
+//
+//    public String getPrezime() {
+//        return prezime;
+//    }
+//
+//    public void setPrezime(String prezime) {
+//        this.prezime = prezime;
+//    }
 
     public String getBrojIndeksa() {
         return brojIndeksa;

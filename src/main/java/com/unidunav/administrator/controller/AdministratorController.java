@@ -17,8 +17,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdministratorController {
-	
-	//cao ilija
 
     @Autowired
     private AdministratorService service;

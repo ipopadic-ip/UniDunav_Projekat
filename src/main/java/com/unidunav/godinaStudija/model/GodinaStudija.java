@@ -1,6 +1,7 @@
 package com.unidunav.godinaStudija.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.unidunav.predmet.model.Predmet;
 import com.unidunav.studijskiProgram.model.StudijskiProgram;
@@ -27,7 +28,7 @@ public class GodinaStudija {
 	private StudijskiProgram studijskiProgram;
 
 	@OneToMany(mappedBy = "godinaStudija")
-	private ArrayList<Predmet> predmeti = new ArrayList<Predmet>();
+	private List<Predmet> predmeti = new ArrayList<Predmet>();
 	
 //	@OneToMany(mappedBy = "godinaStudija", cascade = CascadeType.ALL, orphanRemoval = true)
 //	private ArrayList<Predmet> predmeti = new ArrayList<Predmet>();
@@ -36,14 +37,26 @@ public class GodinaStudija {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
-	public GodinaStudija(Long id, int godina, StudijskiProgram studijskiProgram, ArrayList<Predmet> predmeti) {
-		super();
-		this.id = id;
-		this.godina = godina;
-		this.studijskiProgram = studijskiProgram;
-		this.predmeti = predmeti;
-	}
+public GodinaStudija(Long id, int godina, StudijskiProgram studijskiProgram, List<Predmet> predmeti) {
+	super();
+	this.id = id;
+	this.godina = godina;
+	this.studijskiProgram = studijskiProgram;
+	this.predmeti = predmeti;
+}
+
+
+
+//	public GodinaStudija(Long id, int godina, StudijskiProgram studijskiProgram, ArrayList<Predmet> predmeti) {
+//		super();
+//		this.id = id;
+//		this.godina = godina;
+//		this.studijskiProgram = studijskiProgram;
+//		this.predmeti = predmeti;
+//	}
 
 	public Long getId() {
 		return id;
@@ -69,13 +82,27 @@ public class GodinaStudija {
 		this.studijskiProgram = studijskiProgram;
 	}
 
-	public ArrayList<Predmet> getPredmeti() {
+
+
+	public List<Predmet> getPredmeti() {
 		return predmeti;
 	}
 
-	public void setPredmeti(ArrayList<Predmet> predmeti) {
+
+
+	public void setPredmeti(List<Predmet> predmeti) {
 		this.predmeti = predmeti;
 	}
+
+//	public ArrayList<Predmet> getPredmeti() {
+//		return predmeti;
+//	}
+//
+//	public void setPredmeti(ArrayList<Predmet> predmeti) {
+//		this.predmeti = predmeti;
+//	}
+	
+	
 	
 	
 	

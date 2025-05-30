@@ -16,6 +16,8 @@ public class Profesor {
     @JoinColumn(name = "id")
     private User user;
 
+//    private String ime;
+//    private String prezime;
 
     @Column(length = 3000)
     private String biografija;

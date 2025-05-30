@@ -3,6 +3,7 @@ package com.unidunav.katedra.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.unidunav.katedra.dto.KatedraDTO;
@@ -16,6 +17,7 @@ import com.unidunav.tipStudija.model.TipStudija;
 import com.unidunav.tipStudija.repository.TipStudijaRepository;
 import com.unidunav.profesor.model.Profesor;
 import com.unidunav.profesor.repository.ProfesorRepository;
+import com.unidunav.profesor.service.ProfesorService;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -27,6 +29,9 @@ public class KatedraServiceImpl implements KatedraService {
     private final TipStudijaRepository tipStudijaRepository;
     private final ProfesorRepository profesorRepository;
     private final PredmetService predmetService;
+    
+    @Autowired
+    private ProfesorService profesorService;
 
     public KatedraServiceImpl(KatedraRepository katedraRepository,
                               DepartmanRepository departmanRepository,
@@ -60,6 +65,15 @@ public class KatedraServiceImpl implements KatedraService {
                 .orElseThrow(() -> new EntityNotFoundException("Katedra sa ID " + id + " nije pronađena."));
         return toDTO(entity);
     }
+    
+    @Override
+    public List<KatedraDTO> findByDepartmanId(Long departmanId) {
+        return katedraRepository.findByDepartmanId(departmanId)
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
 
     @Override
     public KatedraDTO update(Long id, KatedraDTO dto) {
@@ -149,13 +163,14 @@ public class KatedraServiceImpl implements KatedraService {
 
         // Šef katedre
         if (entity.getSefKatedre() != null) {
-            var sef = entity.getSefKatedre();
-            var sefDto = new com.unidunav.profesor.dto.ProfesorDTO();
-            sefDto.setId(sef.getId());
-//            sefDto.setIme(sef.getIme());
-//            sefDto.setPrezime(sef.getPrezime());
-            dto.setSefKatedre(sefDto);
-        }
+       	 dto.setSefKatedre(profesorService.toDTO(entity.getSefKatedre()));
+       }
+//        if (entity.getSefKatedre() != null) {
+//            var sef = entity.getSefKatedre();
+//            var sefDto = new com.unidunav.profesor.dto.ProfesorDTO();
+//            sefDto.setId(sef.getId());
+//            dto.setSefKatedre(sefDto);
+//        }
 
         // Predmeti
 //        if (entity.getPredmeti() != null) {

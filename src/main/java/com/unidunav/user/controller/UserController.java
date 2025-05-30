@@ -38,19 +38,28 @@ public class UserController {
     private ProfesorRepository profesorRepository;
     
     
-    
     @Autowired
     private StudentRepository studentRepository;
     
     @Autowired
     private RoleRepository roleRepository;
     
-    
+//    @GetMapping
+//    public List<UserDTO> getAllUsers() {
+//        return userService.getAllUsers();
+//    }
 
     @GetMapping
     public List<UserDTO> getAll() {
         return userService.getAll();
     }
+    
+    @GetMapping("/admin")
+    public List<UserDTO> getAllAdmin() {
+        return userService.getAllAdmin();
+    }
+
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SLUZBENIK')")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {

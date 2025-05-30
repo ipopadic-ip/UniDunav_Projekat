@@ -3,7 +3,8 @@ package com.unidunav.student.dto;
 public class StudentDTO {
 
     private Long id;
-
+//    private String ime;
+//    private String prezime;
     private String brojIndeksa;
     private int godinaUpisa;
     private double prosecnaOcena;

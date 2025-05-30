@@ -16,12 +16,7 @@ public class ObavestenjeDTO {
 
     public Long getPredmetId() { return predmetId; }
     public void setPredmetId(Long predmetId) { this.predmetId = predmetId; }
-	public ObavestenjeDTO(String tekst, LocalDate datum, Long predmetId) {
-		super();
-		this.tekst = tekst;
-		this.datum = datum;
-		this.predmetId = predmetId;
-	}
 
-    
+//    public Long getAutorId() { return autorId; }
+//    public void setAutorId(Long autorId) { this.autorId = autorId; }
 }

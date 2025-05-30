@@ -1,15 +1,18 @@
 package com.unidunav.studijskiProgram.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.studijskiProgram.dto.StudijskiProgramDTO;
 import com.unidunav.studijskiProgram.service.StudijskiProgramService;
 
 @RestController
 @RequestMapping("/api/studijskiprogrami")
+@CrossOrigin(origins = "*")
 public class StudijskiProgramController {
 
     private final StudijskiProgramService studijskiProgramService;
@@ -17,6 +20,17 @@ public class StudijskiProgramController {
     public StudijskiProgramController(StudijskiProgramService studijskiProgramService) {
         this.studijskiProgramService = studijskiProgramService;
     }
+    
+    @GetMapping("/{id}/predmeti-po-godinama")
+    public Map<Integer, List<PredmetDTO>> getPredmetiPoGodinama(@PathVariable Long id) {
+        return studijskiProgramService.getPredmetiPoGodinama(id);
+    }
+    
+    @GetMapping("/katedra/{katedraId}/grupisani-po-tipu")
+    public Map<String, List<StudijskiProgramDTO>> getByKatedraGrouped(@PathVariable Long katedraId) {
+        return studijskiProgramService.findByKatedraGroupedByTipStudija(katedraId);
+    }
+
 
     @GetMapping
     public List<StudijskiProgramDTO> getAll() {

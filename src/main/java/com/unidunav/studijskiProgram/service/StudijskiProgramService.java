@@ -1,7 +1,9 @@
 package com.unidunav.studijskiProgram.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.studijskiProgram.dto.StudijskiProgramDTO;
 
 public interface StudijskiProgramService {
@@ -10,4 +12,7 @@ public interface StudijskiProgramService {
 	StudijskiProgramDTO findById(Long id);
 	StudijskiProgramDTO update(Long id, StudijskiProgramDTO dto);
 	void delete(Long id);
+	Map<String, List<StudijskiProgramDTO>> findByKatedraGroupedByTipStudija(Long katedraId);
+	Map<Integer, List<PredmetDTO>> getPredmetiPoGodinama(Long studijskiProgramId);
+
 }

@@ -1,6 +1,5 @@
 package com.unidunav.student.service;
 
-import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.student.dto.StudentDTO;
 
 import java.io.IOException;
@@ -17,6 +16,5 @@ public interface StudentService {
     void delete(Long id);
     
     String uploadSlika(Long studentId, MultipartFile slika) throws IOException;
-    List<PredmetDTO> getPredmetiKojeStudentSlusa(Long studentId);
 
 }

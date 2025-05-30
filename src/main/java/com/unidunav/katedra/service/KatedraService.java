@@ -10,4 +10,6 @@ public interface KatedraService {
 	KatedraDTO findById(Long id);
 	KatedraDTO update(Long id, KatedraDTO dto);
 	void delete(Long id);
+	List<KatedraDTO> findByDepartmanId(Long departmanId);
+
 }

@@ -33,6 +33,12 @@ public class KatedraController {
         }
         return ResponseEntity.ok(dto);
     }
+    
+    @GetMapping("/departman/{departmanId}")
+    public ResponseEntity<List<KatedraDTO>> getByDepartmanId(@PathVariable Long departmanId) {
+        return ResponseEntity.ok(katedraService.findByDepartmanId(departmanId));
+    }
+
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")

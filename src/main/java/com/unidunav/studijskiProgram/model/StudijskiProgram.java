@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.unidunav.godinaStudija.model.GodinaStudija;
+import com.unidunav.katedra.model.Katedra;
 import com.unidunav.profesor.model.Profesor;
 import com.unidunav.tipStudija.model.TipStudija;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class StudijskiProgram {
 
     private String naziv;
 
+    @Column(length=3000)
     private String opis;
 
     @OneToMany(mappedBy = "studijskiProgram", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -38,26 +41,56 @@ public class StudijskiProgram {
     @OneToOne
     @JoinColumn(name = "rukovodilac_id", nullable = true)
     private Profesor rukovodilac;
+    
+    @ManyToOne
+    @JoinColumn(name = "katedra_id")
+    private Katedra katedra;
+
 
     public StudijskiProgram() {}
+    
+    
 
-    public StudijskiProgram(Long id, String naziv, String opis, List<GodinaStudija> godineStudija,
-                            TipStudija tipStudija, Profesor rukovodilac) {
-        this.id = id;
-        this.naziv = naziv;
-        this.opis = opis;
-        this.godineStudija = godineStudija;
-        this.tipStudija = tipStudija;
-        this.rukovodilac = rukovodilac;
-    }
+//    public StudijskiProgram(Long id, String naziv, String opis, List<GodinaStudija> godineStudija,
+//                            TipStudija tipStudija, Profesor rukovodilac) {
+//        this.id = id;
+//        this.naziv = naziv;
+//        this.opis = opis;
+//        this.godineStudija = godineStudija;
+//        this.tipStudija = tipStudija;
+//        this.rukovodilac = rukovodilac;
+//    }
 
     // === Getteri i setteri ===
+    
 
-    public Long getId() {
+    public StudijskiProgram(Long id, String naziv, String opis, List<GodinaStudija> godineStudija,
+			TipStudija tipStudija, Profesor rukovodilac, Katedra katedra) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.opis = opis;
+		this.godineStudija = godineStudija;
+		this.tipStudija = tipStudija;
+		this.rukovodilac = rukovodilac;
+		this.katedra = katedra;
+	}
+
+
+
+	public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public Katedra getKatedra() {
+		return katedra;
+	}
+
+	public void setKatedra(Katedra katedra) {
+		this.katedra = katedra;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 

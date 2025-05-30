@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     
     @Query("SELECT u FROM User u WHERE u.deleted = true")
     List<User> findAllDeleted();
-
+    
+    @Query("SELECT u FROM User u ORDER BY u.deleted ASC, u.prezime ASC, u.ime ASC")
+    List<User> findAllOrderedByStatusAndName();
 
 }

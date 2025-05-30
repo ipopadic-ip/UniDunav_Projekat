@@ -12,8 +12,20 @@ public class UserDTO {
     private String adresa;
     private String jmbg;
     private Set<Role> roles;
+    private boolean deleted;
     
     
+    
+    
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	public UserDTO(Long id, String email, Set<Role> roles) {
 		super();
 		this.id = id;

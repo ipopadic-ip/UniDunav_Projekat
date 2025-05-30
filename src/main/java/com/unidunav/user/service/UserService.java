@@ -142,40 +142,49 @@ public class UserService {
         user = userRepository.save(user);
 
         // 4. Dodaj u odgovarajuću tabelu po ulozi
+        
         for (Role role : persistedRoles) {
             switch (role.getNaziv().toUpperCase()) {
-                case "STUDENT":
+                case "STUDENT" -> {
                     Student s = new Student();
                     s.setUser(user);
-//                    if (request instanceof CreateStudentRequest) {
-//                        CreateStudentRequest studentData = (CreateStudentRequest) request;
-//                        s.setBrojIndeksa(studentData.getBrojIndeksa());
-//                        s.setGodinaUpisa(studentData.getGodinaUpisa());
-//                        s.setProsecnaOcena(studentData.getProsecnaOcena());
-//                        s.setUkupnoEcts(studentData.getUkupnoEcts());
-//                    }
-
                     studentRepository.save(s);
-                    break;
-                case "PROFESOR":
+                }
+                case "PROFESOR" -> {
                     Profesor p = new Profesor();
                     p.setUser(user);
                     profesorRepository.save(p);
-                    break;
-//                case "SLUZBENIK":
-//                    Sluzbenik sl = new Sluzbenik();
-//                    sl.setUser(user);
-//                    sluzbenikRepository.save(sl);
-//                    break;
-//                case "ADMIN":
-//                    Administrator a = new Administrator();
-//                    a.setUser(user);
-//                    administratorRepository.save(a);
-//                    break;
-                default:
-                    throw new IllegalArgumentException("Nepoznata rola: " + role.getNaziv());
+                }
+                // ADMIN i SLUZBENIK nemaju posebne entitete, ništa dodatno se ne radi
+                case "ADMIN", "SLUZBENIK" -> {
+                    // Nema entiteta, samo se dodaje rola u User
+                }
+                default -> throw new IllegalArgumentException("Nepoznata rola: " + role.getNaziv());
             }
         }
+        
+//        for (Role role : persistedRoles) {
+//            switch (role.getNaziv().toUpperCase()) {
+//                case "STUDENT":
+//                    Student s = new Student();
+//                    s.setUser(user);
+//
+//                    studentRepository.save(s);
+//                    break;
+//                case "PROFESOR":
+//                    Profesor p = new Profesor();
+//                    p.setUser(user);
+//                    profesorRepository.save(p);
+//                    break;
+//                case "SLUZBENIK":
+//                	break;
+//                case "ADMIN":
+//                    break;
+//                default:
+//                    throw new IllegalArgumentException("Nepoznata rola: " + role.getNaziv());
+//            }
+//        }
+        
     }
 
     
@@ -227,6 +236,11 @@ public class UserService {
 //                .map(this::mapToDTO)
 //                .collect(Collectors.toList());
 //    }
+//    public List<UserDTO> getAllUsers() {
+//        return userRepository.findAll().stream()
+//            .map(this::mapToDTO)
+//            .collect(Collectors.toList());
+//    }
     
     private UserDTO mapToDTO(User user) {
         UserDTO dto = new UserDTO();
@@ -237,17 +251,18 @@ public class UserService {
         dto.setAdresa(user.getAdresa());
         dto.setJmbg(user.getJmbg());
         dto.setRoles(user.getRoles());
+        dto.setDeleted(user.isDeleted());
         return dto;
     }
 
+    
+    public List<UserDTO> getAllAdmin() {
+        return userRepository.findAllOrderedByStatusAndName()
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
 
-//    private UserDTO mapToDTO(User user) {
-//        UserDTO dto = new UserDTO();
-//        dto.setId(user.getId());
-//        dto.setEmail(user.getEmail());
-//        dto.setRoles(user.getRoles());
-//        return dto;
-//    }
     
     public Optional<UserDTO> findByEmail(String email) {
         return userRepository.findByEmail(email)

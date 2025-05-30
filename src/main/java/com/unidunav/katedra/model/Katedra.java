@@ -1,6 +1,7 @@
 package com.unidunav.katedra.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.unidunav.dapartman.model.Departman;
 import com.unidunav.predmet.model.Predmet;
@@ -37,7 +38,7 @@ public class Katedra {
     private Departman departman;
     
     @OneToMany(mappedBy = "katedra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<TipStudija> tipoviStudija = new ArrayList<TipStudija>();
+    private List<TipStudija> tipoviStudija = new ArrayList<TipStudija>();
 
     @OneToOne
     @JoinColumn(name = "sefKatedre_id", nullable = true)
@@ -47,8 +48,10 @@ public class Katedra {
         super();
     }
     
-    public Katedra(Long id, String naziv, String opis, Departman departman,
-			ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
+    
+    
+public Katedra(Long id, String naziv, String opis, Departman departman, List<TipStudija> tipoviStudija,
+			Profesor sefKatedre) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -57,6 +60,19 @@ public class Katedra {
 		this.tipoviStudija = tipoviStudija;
 		this.sefKatedre = sefKatedre;
 	}
+
+
+
+//    public Katedra(Long id, String naziv, String opis, Departman departman,
+//			ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
+//		super();
+//		this.id = id;
+//		this.naziv = naziv;
+//		this.opis = opis;
+//		this.departman = departman;
+//		this.tipoviStudija = tipoviStudija;
+//		this.sefKatedre = sefKatedre;
+//	}
 
 //	public Katedra(Long id, String naziv, ArrayList<Predmet> predmeti, String opis, Departman departman,
 //			ArrayList<TipStudija> tipoviStudija, Profesor sefKatedre) {
@@ -94,9 +110,22 @@ public class Katedra {
 //		this.predmeti = predmeti;
 //	}
 
+	
 	public String getOpis() {
 		return opis;
 	}
+
+	public List<TipStudija> getTipoviStudija() {
+		return tipoviStudija;
+	}
+
+
+
+	public void setTipoviStudija(List<TipStudija> tipoviStudija) {
+		this.tipoviStudija = tipoviStudija;
+	}
+
+
 
 	public void setOpis(String opis) {
 		this.opis = opis;
@@ -110,13 +139,13 @@ public class Katedra {
 		this.departman = departman;
 	}
 
-	public ArrayList<TipStudija> getTipoviStudija() {
-		return tipoviStudija;
-	}
-
-	public void setTipoviStudija(ArrayList<TipStudija> tipoviStudija) {
-		this.tipoviStudija = tipoviStudija;
-	}
+//	public ArrayList<TipStudija> getTipoviStudija() {
+//		return tipoviStudija;
+//	}
+//
+//	public void setTipoviStudija(ArrayList<TipStudija> tipoviStudija) {
+//		this.tipoviStudija = tipoviStudija;
+//	}
 
 	public Profesor getSefKatedre() {
 		return sefKatedre;
