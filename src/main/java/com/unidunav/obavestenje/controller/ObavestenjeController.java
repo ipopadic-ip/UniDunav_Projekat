@@ -49,5 +49,11 @@ public class ObavestenjeController {
         obavestenjeService.obrisiObavestenje(id);
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/student/{id}/obavestenja")
+    public ResponseEntity<List<ObavestenjeResponseDTO>> getObavestenjaZaStudenta(@PathVariable Long id) {
+        List<ObavestenjeResponseDTO> obavestenja = obavestenjeService.findObavestenjaZaStudenta(id);
+        return ResponseEntity.ok(obavestenja);
+    }
 
 }

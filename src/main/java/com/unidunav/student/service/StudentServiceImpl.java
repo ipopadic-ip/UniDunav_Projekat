@@ -1,5 +1,10 @@
 package com.unidunav.student.service;
 
+import com.unidunav.obavestenje.dto.ObavestenjeStudentuDTO;
+import com.unidunav.predmet.dto.PredmetDTO;
+import com.unidunav.predmet.model.PohadjanjePredmeta;
+import com.unidunav.predmet.model.Predmet;
+import com.unidunav.predmet.repository.PohadjanjePredmetaRepository;
 import com.unidunav.student.dto.StudentDTO;
 import java.io.File;
 import java.io.IOException;
@@ -11,15 +16,31 @@ import com.unidunav.student.model.Student;
 import com.unidunav.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Transactional(readOnly = true)
 @Service
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository repository;
+    
+    
+    @Autowired
+    private PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
+
+    public List<PredmetDTO> getPredmetiKojeStudentSlusa(Long studentId) {
+        List<PohadjanjePredmeta> pohadjanja = pohadjanjePredmetaRepository.findByStudentId(studentId);
+
+        return pohadjanja.stream()
+            .map(pp -> {
+                Predmet predmet = pp.getPredmet();
+                return new PredmetDTO(predmet.getId(), predmet.getNaziv(), predmet.getEcts(), predmet.getInformacijeOPredmetu());
+            })
+            .collect(Collectors.toList());
+    }
 
     private StudentDTO toDTO(Student student) {
         StudentDTO dto = new StudentDTO();
@@ -50,6 +71,29 @@ public class StudentServiceImpl implements StudentService {
         student.setSlikaPath(dto.getSlikaPath());
         return student;
     }
+    
+    @Autowired
+    private PohadjanjePredmetaRepository pohadjanjePredmetaRepo;
+
+    @Override
+    public List<ObavestenjeStudentuDTO> getObavestenjaZaStudenta(Long studentId) {
+        List<PohadjanjePredmeta> pohadjanja = pohadjanjePredmetaRepo.findByStudentId(studentId);
+
+        return pohadjanja.stream()
+            .filter(PohadjanjePredmeta::isAktivan)
+            .map(PohadjanjePredmeta::getPredmet)
+            .filter(predmet -> predmet.getObavestenja() != null && !predmet.getObavestenja().isEmpty())
+            .flatMap(predmet ->
+                predmet.getObavestenja().stream()
+                    .map(obavestenje -> new ObavestenjeStudentuDTO(
+                        predmet.getNaziv(),
+                        obavestenje.getTekst(),
+                        obavestenje.getDatum()
+                    ))
+            )
+            .collect(Collectors.toList());
+    }
+    
 
     @Override
     public StudentDTO create(StudentDTO dto) {
