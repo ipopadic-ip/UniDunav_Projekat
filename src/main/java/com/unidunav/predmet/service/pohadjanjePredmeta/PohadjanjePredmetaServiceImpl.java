@@ -3,7 +3,9 @@ package com.unidunav.predmet.service.pohadjanjePredmeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.unidunav.predmet.dto.IstorijaStudiranjaDTO;
 import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
+import com.unidunav.predmet.dto.StudentIstorijaStudiranjaResponseDTO;
 import com.unidunav.predmet.model.PohadjanjePredmeta;
 import com.unidunav.predmet.model.Predmet;
 import com.unidunav.predmet.repository.PohadjanjePredmetaRepository;
@@ -88,4 +90,35 @@ public class PohadjanjePredmetaServiceImpl implements PohadjanjePredmetaService 
     public void delete(Long id) {
         repository.deleteById(id);
     }
+    
+
+    public StudentIstorijaStudiranjaResponseDTO getIstorijaStudiranjaZaStudenta(Long studentId) {
+        List<PohadjanjePredmeta> pohadjanja = repository.findByStudentId(studentId);
+
+        List<IstorijaStudiranjaDTO> predmetiDTO = pohadjanja.stream()
+            .map(p -> new IstorijaStudiranjaDTO(
+                    p.getPredmet().getNaziv(),
+                    p.getBrojPolaganja(),
+                    p.getOcena(), 
+                    p.getPredmet().getEcts()
+            ))
+            .collect(Collectors.toList());
+
+        // Računanje prosečne ocene i ECTS
+        List<Integer> ocene = pohadjanja.stream()
+            .map(PohadjanjePredmeta::getOcena)
+            .filter(o -> o != null)
+            .collect(Collectors.toList());
+
+        double prosecnaOcena = ocene.isEmpty() ? 0.0 :
+            ocene.stream().mapToInt(o -> o).average().orElse(0.0);
+
+        int ukupnoECTS = pohadjanja.stream()
+            .filter(p -> p.getOcena() != null) 
+            .mapToInt(p -> p.getPredmet().getEcts())
+            .sum();
+
+        return new StudentIstorijaStudiranjaResponseDTO(predmetiDTO, prosecnaOcena, ukupnoECTS);
+    }
 }
+

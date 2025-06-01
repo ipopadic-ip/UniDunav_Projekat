@@ -24,7 +24,7 @@ public class PohadjanjePredmeta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int ocena;
+    private Integer ocena;
     private int brojPolaganja;
     private boolean aktivan;
 
@@ -53,7 +53,7 @@ public class PohadjanjePredmeta {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PohadjanjePredmeta(Long id, int ocena, int brojPolaganja, boolean aktivan, LocalDateTime datumPocetka,
+	public PohadjanjePredmeta(Long id, Integer ocena, int brojPolaganja, boolean aktivan, LocalDateTime datumPocetka,
 			LocalDateTime datumZavrsetka, Student student, Predmet predmet, List<PrijavaPrestupa> prijavePrestupa,
 			List<PrijavaIspita> prijaveIspita, List<EvaluacijaZnanja> evaluacije) {
 		super();
@@ -78,11 +78,13 @@ public class PohadjanjePredmeta {
 		this.id = id;
 	}
 
-	public int getOcena() {
+	
+
+	public Integer getOcena() {
 		return ocena;
 	}
 
-	public void setOcena(int ocena) {
+	public void setOcena(Integer ocena) {
 		this.ocena = ocena;
 	}
 

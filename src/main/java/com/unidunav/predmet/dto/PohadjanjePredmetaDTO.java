@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class PohadjanjePredmetaDTO {
 	private Long id;
-    private int ocena;
+    private Integer ocena;
     private int brojPolaganja;
     private boolean aktivan;
     private LocalDateTime datumPocetka;
@@ -17,10 +17,10 @@ public class PohadjanjePredmetaDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getOcena() {
+	public Integer getOcena() {
 		return ocena;
 	}
-	public void setOcena(int ocena) {
+	public void setOcena(Integer ocena) {
 		this.ocena = ocena;
 	}
 	public int getBrojPolaganja() {

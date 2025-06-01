@@ -2,6 +2,9 @@ package com.unidunav.student.controller;
 
 import com.unidunav.obavestenje.dto.ObavestenjeStudentuDTO;
 import com.unidunav.predmet.dto.PredmetDTO;
+import com.unidunav.predmet.dto.StudentIstorijaStudiranjaResponseDTO;
+import com.unidunav.predmet.service.pohadjanjePredmeta.PohadjanjePredmetaService;
+import com.unidunav.predmet.service.pohadjanjePredmeta.PohadjanjePredmetaServiceImpl;
 import com.unidunav.student.dto.StudentDTO;
 import com.unidunav.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,20 @@ public class StudentController {
     public List<StudentDTO> getAll() {
         return service.findAll();
     }
+    
+  
+        private final PohadjanjePredmetaServiceImpl pohadjanjeService;
+
+        public StudentController(PohadjanjePredmetaServiceImpl pohadjanjeService) {
+            this.pohadjanjeService = pohadjanjeService;
+        }
+
+        @GetMapping("/{studentId}/istorija")
+        public ResponseEntity<StudentIstorijaStudiranjaResponseDTO> getIstorijaStudiranja(@PathVariable Long studentId) {
+            StudentIstorijaStudiranjaResponseDTO dto = pohadjanjeService.getIstorijaStudiranjaZaStudenta(studentId);
+            return ResponseEntity.ok(dto);
+        }
+    
 
     @GetMapping("/{id}")
     public StudentDTO getById(@PathVariable Long id) {
