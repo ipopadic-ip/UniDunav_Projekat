@@ -17,3 +17,24 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
+
+/* ✅ Novo za logout dugme */
+.logout-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px 0 20px;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+}

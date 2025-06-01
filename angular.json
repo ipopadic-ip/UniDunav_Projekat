@@ -41,6 +41,7 @@
               "entry": "src/server.ts"
             }
           },
+          
           "configurations": {
             "production": {
               "budgets": [
@@ -72,8 +73,9 @@
               "buildTarget": "UniDunav:build:production"
             },
             "development": {
-              "buildTarget": "UniDunav:build:development"
-            }
+              "buildTarget": "UniDunav:build:development",
+              "proxyConfig": "proxy.conf.json"
+                  }
           },
           "defaultConfiguration": "development"
         },

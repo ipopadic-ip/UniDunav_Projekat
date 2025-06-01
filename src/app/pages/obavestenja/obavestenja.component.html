@@ -1,0 +1,17 @@
+<div class="obavestenja-container">
+  <h2>Obaveštenja za predmete koje slušate</h2>
+
+  <div *ngIf="obavestenja.length === 0">
+    <p>Trenutno nema obaveštenja.</p>
+  </div>
+
+  <div *ngFor="let predmet of (grupisana | keyvalue)">
+    <div class="predmet-card">
+      <h3>{{ predmet.key }}</h3>
+      <div *ngFor="let o of predmet.value" class="obavestenje-entry">
+        <p><strong>{{ o.datum }}</strong></p>
+        <p>{{ o.tekst }}</p>
+      </div>
+    </div>
+  </div>
+</div>

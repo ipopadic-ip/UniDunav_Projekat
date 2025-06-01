@@ -15,8 +15,8 @@ export const STUDENT_ROUTES: Routes = [
       },
       {
         path: 'prijava',
-        loadComponent: () => import('../../prijava_predmeta/prijava-predmeta.component')
-          .then(m => m.PrijavaPredmetaComponent)
+        loadComponent: () => import('../../prijava_ispita/prijava-ispita.component')
+          .then(m => m.PrijavaIspitaComponent)
       }
     ]
   }

@@ -1,0 +1,15 @@
+<div class="pregled-container">
+  <h2>Dostupne prijave ispita</h2>
+
+  <div *ngIf="prijave.length === 0">
+    <p>Trenutno nema dostupnih prijava.</p>
+  </div>
+
+  <div *ngFor="let prijava of prijave" class="predmet-card">
+    <p><strong>Predmet:</strong> {{ prijava.predmetNaziv }}</p>
+    <p><strong>Datum ispita:</strong> {{ prijava.datumIspita | date:'dd.MM.yyyy' }}</p>
+
+    <button *ngIf="!prijava.status" (click)="prijavi(prijava.id)">Prijavi</button>
+    <span *ngIf="prijava.status">✅ Prijavljeno {{ prijava.datumPrijave | date:'dd.MM.yyyy HH:mm' }}</span>
+  </div>
+</div>
