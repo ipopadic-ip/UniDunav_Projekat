@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
 import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.predmet.dto.PrijavaIspitaDTO;
 import com.unidunav.predmet.service.prijavaIspita.PrijavaIspitaService;
@@ -17,6 +18,13 @@ import java.util.List;
 @RequestMapping("/api/prijave-ispita")
 @CrossOrigin(origins = "*")
 public class PrijavaIspitaController {
+	
+	   private final PrijavaIspitaService prijavaIspitaService;
+
+	    @Autowired
+	    public PrijavaIspitaController(PrijavaIspitaService prijavaIspitaService) {
+	        this.prijavaIspitaService = prijavaIspitaService;
+	    }
 
     @Autowired
     private PrijavaIspitaService service;
@@ -56,17 +64,14 @@ public class PrijavaIspitaController {
 
     // Custom funkcionalnosti za studenta
 
-    // 1. Vrati sve predmete koje student može da prijavi
-    @GetMapping("/moguce/{studentId}")
-    public ResponseEntity<List<PredmetDTO>> getMogucePrijave(@PathVariable Long studentId) {
-        List<PredmetDTO> predmeti = prijavaService.getPredmetiZaPrijavu(studentId);
-        return ResponseEntity.ok(predmeti);
+    // 🔹 Vraća predmete koje student može da prijavi
+    @GetMapping("/dostupne/{studentId}")
+    public ResponseEntity<List<PrijavaIspitaDTO>> getDostupnePrijave(@PathVariable Long studentId) {
+        return ResponseEntity.ok(prijavaIspitaService.getDostupnePrijave(studentId));
     }
 
-    // 2. Prijavi ispit za jedan predmet
-    @PostMapping("/prijavi")
-    public ResponseEntity<String> prijaviIspit(@RequestBody PrijavaIspitaDTO dto) {
-        prijavaService.prijavi(dto);
-        return ResponseEntity.ok("Ispit uspesno prijavljen.");
+    @PostMapping("/prijavi/{prijavaId}")
+    public ResponseEntity<PrijavaIspitaDTO> prijavi(@PathVariable Long prijavaId) {
+        return ResponseEntity.ok(prijavaIspitaService.prijaviIspit(prijavaId));
     }
 }

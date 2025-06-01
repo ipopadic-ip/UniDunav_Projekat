@@ -10,6 +10,8 @@ public class PredmetDTO {
     private String naziv;
     private int ects;
     private String informacijeOPredmetu;
+    
+    
 
     private Long godinaStudijaId;
 

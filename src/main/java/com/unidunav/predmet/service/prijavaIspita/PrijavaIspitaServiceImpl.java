@@ -3,6 +3,7 @@ package com.unidunav.predmet.service.prijavaIspita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
 import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.predmet.dto.PrijavaIspitaDTO;
 import com.unidunav.predmet.model.PohadjanjePredmeta;
@@ -17,6 +18,7 @@ import com.unidunav.student.repository.StudentRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,16 +30,10 @@ public class PrijavaIspitaServiceImpl implements PrijavaIspitaService {
     @Autowired
     private PohadjanjePredmetaRepository pohadjanjeRepo;
 
-    @Autowired
-    private StudentRepository studentRepo;
-
-    @Autowired
-    private PredmetRepository predmetRepo;
-
     @Override
     public PrijavaIspitaDTO create(PrijavaIspitaDTO dto) {
         PrijavaIspita entity = new PrijavaIspita();
-        entity.setDatumPrijave(dto.getDatumPrijave());
+        entity.setDatumPrijave(LocalDateTime.now());
         entity.setDatumIspita(dto.getDatumIspita());
         entity.setStatus(dto.isStatus());
 
@@ -67,7 +63,6 @@ public class PrijavaIspitaServiceImpl implements PrijavaIspitaService {
         PrijavaIspita entity = prijavaRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Prijava ne postoji"));
 
-        entity.setDatumPrijave(dto.getDatumPrijave());
         entity.setDatumIspita(dto.getDatumIspita());
         entity.setStatus(dto.isStatus());
 
@@ -78,56 +73,31 @@ public class PrijavaIspitaServiceImpl implements PrijavaIspitaService {
     public void delete(Long id) {
         prijavaRepo.deleteById(id);
     }
-
-    private boolean prijavaAktivna() {
-        LocalDate danas = LocalDate.now();
-        LocalDate pocetak = LocalDate.of(danas.getYear(), 6, 1);
-        LocalDate kraj = LocalDate.of(danas.getYear(), 6, 15);
-        return !danas.isBefore(pocetak) && !danas.isAfter(kraj);
+    @Override
+    public List<PrijavaIspitaDTO> getDostupnePrijave(Long studentId) {
+        List<PrijavaIspita> prijave = prijavaRepo.findNeprijavljeneZaStudenta(studentId);
+        return prijave.stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public List<PredmetDTO> getPredmetiZaPrijavu(Long studentId) {
-        if (!prijavaAktivna()) return List.of();
+    
 
-        List<PohadjanjePredmeta> pohadjanja = pohadjanjeRepo.findByStudentId(studentId);
+    @Override
+    public PrijavaIspitaDTO prijaviIspit(Long prijavaId) {
+        PrijavaIspita prijava = prijavaRepo.findById(prijavaId)
+            .orElseThrow(() -> new RuntimeException("Prijava ne postoji."));
 
-        return pohadjanja.stream()
-            .filter(PohadjanjePredmeta::isAktivan) // uzmi samo aktivna pohadjanja
-            .map(p -> {
-                Predmet predmet = p.getPredmet();
-                PredmetDTO dto = new PredmetDTO();
-                dto.setId(predmet.getId());
-                dto.setNaziv(predmet.getNaziv());
-                dto.setEcts(predmet.getEcts()); // ako je polje u entitetu 'espb'
-                dto.setInformacijeOPredmetu(predmet.getInformacijeOPredmetu()); // ako postoji getInformacije()
-                dto.setGodinaStudijaId(predmet.getGodinaStudija().getId()); // ako je entitet povezan
-                return dto;
-            })
-            .collect(Collectors.toList());
-    }
+        if (prijava.isStatus()) {
+            throw new RuntimeException("Ispit je već prijavljen.");
+        }
 
-    public void prijavi(PrijavaIspitaDTO dto) {
-        if (!prijavaAktivna())
-            throw new RuntimeException("Prijava nije aktivna (dozvoljena od 1. do 15. juna).");
-
-        PohadjanjePredmeta pohadjanje = pohadjanjeRepo.findById(dto.getPohadjanjeId())
-                .orElseThrow(() -> new RuntimeException("Pohadjanje predmeta nije pronadjeno."));
-
-        boolean vecPrijavljen = pohadjanje.getPrijaveIspita().stream()
-                .anyMatch(p -> p.getDatumIspita().equals(dto.getDatumIspita()));
-
-        if (vecPrijavljen)
-            throw new RuntimeException("Ispit je već prijavljen za taj datum.");
-
-        PrijavaIspita prijava = new PrijavaIspita();
-        prijava.setDatumPrijave(LocalDateTime.now());
-        prijava.setDatumIspita(dto.getDatumIspita());
         prijava.setStatus(true);
-        prijava.setPohadjanje(pohadjanje);
+        prijava.setDatumPrijave(LocalDateTime.now());
 
-        prijavaRepo.save(prijava);
+        prijava = prijavaRepo.save(prijava);
+        return toDto(prijava);
     }
 
+    // 🔁 Mapiranje entiteta u DTO
     private PrijavaIspitaDTO toDto(PrijavaIspita entity) {
         PrijavaIspitaDTO dto = new PrijavaIspitaDTO();
         dto.setId(entity.getId());
@@ -135,6 +105,7 @@ public class PrijavaIspitaServiceImpl implements PrijavaIspitaService {
         dto.setDatumIspita(entity.getDatumIspita());
         dto.setStatus(entity.isStatus());
         dto.setPohadjanjeId(entity.getPohadjanje().getId());
+        dto.setPredmetNaziv(entity.getPohadjanje().getPredmet().getNaziv());
         return dto;
     }
 }

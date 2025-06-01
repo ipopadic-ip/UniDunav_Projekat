@@ -2,8 +2,10 @@ package com.unidunav.predmet.service.prijavaIspita;
 
 import java.util.List;
 
+import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
 import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.predmet.dto.PrijavaIspitaDTO;
+import com.unidunav.predmet.model.PohadjanjePredmeta;
 
 public interface PrijavaIspitaService {
     PrijavaIspitaDTO create(PrijavaIspitaDTO dto);
@@ -13,6 +15,8 @@ public interface PrijavaIspitaService {
     void delete(Long id);
     
    
-    void prijavi(PrijavaIspitaDTO dto);
-    List<PredmetDTO> getPredmetiZaPrijavu(Long studentId);
+    
+    List<PrijavaIspitaDTO> getDostupnePrijave(Long studentId);
+    PrijavaIspitaDTO prijaviIspit(Long prijavaId);
+
 }
