@@ -1,0 +1,31 @@
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto 30px auto;
+  max-width: 800px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.rezime {
+  text-align: center;
+  font-size: 18px;
+}
+
+.rezime p {
+  margin: 5px 0;
+}

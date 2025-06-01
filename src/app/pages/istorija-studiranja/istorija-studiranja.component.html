@@ -1,0 +1,25 @@
+<h3>Istorija studiranja</h3>
+
+<table *ngIf="predmeti.length > 0" border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Naziv predmeta</th>
+      <th>Broj polaganja</th>
+      <th>Ocena</th>
+      <th>ECTS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of predmeti">
+      <td>{{ p.nazivPredmeta }}</td>
+      <td>{{ p.brojPolaganja }}</td>
+      <td>{{ p.ocena !== null ? p.ocena : 'N/A' }}</td>
+      <td>{{ p.brojECTS }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="predmeti.length > 0" class="rezime">
+  <p><strong>Prosečna ocena:</strong> {{ prosecnaOcena.toFixed(2) }}</p>
+  <p><strong>Ukupno ECTS bodova:</strong> {{ ukupnoECTS }}</p>
+</div>

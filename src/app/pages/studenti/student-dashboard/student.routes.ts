@@ -17,7 +17,12 @@ export const STUDENT_ROUTES: Routes = [
         path: 'prijava',
         loadComponent: () => import('../../prijava_ispita/prijava-ispita.component')
           .then(m => m.PrijavaIspitaComponent)
-      }
+      },
+      {
+    path: 'istorija',
+    loadComponent: () => import('../../istorija-studiranja/istorija-studiranja.component')
+    .then(m => m.IstorijaStudiranjaComponent)
+    }
     ]
   }
 ];
