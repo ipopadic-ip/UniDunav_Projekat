@@ -33,6 +33,11 @@ public class SilabusController {
     public SilabusDTO getById(@PathVariable Long id) {
         return service.findById(id);
     }
+    
+    @GetMapping("/predmet/{predmetId}")
+    public SilabusDTO getByPredmetId(@PathVariable Long predmetId) {
+        return service.findByPredmetId(predmetId);
+    }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'PROFESOR', 'SLUZBENIK')")

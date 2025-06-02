@@ -14,7 +14,7 @@ public class PrijavaIspita {
     private LocalDateTime datumPrijave;
     private LocalDateTime datumIspita;
 
-    private boolean status; 
+    private boolean status; // npr. true = položio, false = nije položio
 
     @ManyToOne
     @JoinColumn(name = "pohadjanje_id", nullable = false)

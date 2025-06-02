@@ -10,4 +10,5 @@ public interface SilabusService {
     SilabusDTO findById(Long id);
     SilabusDTO update(Long id, SilabusDTO dto);
     void delete(Long id);
+    SilabusDTO findByPredmetId(Long predmetId);
 }

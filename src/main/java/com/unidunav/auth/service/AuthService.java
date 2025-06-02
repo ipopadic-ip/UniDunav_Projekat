@@ -19,18 +19,35 @@ public class AuthService {
     @Autowired private JwtService jwtService;
     @Autowired private AuthenticationManager authManager;
 
+//    public LoginResponse login(LoginRequest loginRequest) {
+//        Authentication auth = authManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        loginRequest.getEmail(),
+//                        loginRequest.getPassword()
+//                )
+//        );
+//        User user = userRepository.findByEmail(loginRequest.getEmail())
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        String jwt = jwtService.generateToken(user);
+//        return new LoginResponse(jwt);
+//    }
     public LoginResponse login(LoginRequest loginRequest) {
+        // Prvo proveri da li postoji korisnik koji ispunjava uslove
+        User user = userRepository.findActiveUserWithActiveRolesByEmail(loginRequest.getEmail())
+                .orElseThrow(() -> new RuntimeException("Ne postoji aktivan korisnik sa datim emailom"));
+
+        // Autentifikacija (proverava lozinku)
         Authentication auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(),
                         loginRequest.getPassword()
                 )
         );
-        User user = userRepository.findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
 
-//        String jwt = jwtService.generateToken(user.getEmail());
+        // Generisanje tokena
         String jwt = jwtService.generateToken(user);
         return new LoginResponse(jwt);
     }
+
 }

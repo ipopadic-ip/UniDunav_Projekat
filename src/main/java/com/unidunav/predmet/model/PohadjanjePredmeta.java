@@ -24,6 +24,7 @@ public class PohadjanjePredmeta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+//    private int ocena;
     private Integer ocena;
     private int brojPolaganja;
     private boolean aktivan;
@@ -77,8 +78,6 @@ public class PohadjanjePredmeta {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	
 
 	public Integer getOcena() {
 		return ocena;

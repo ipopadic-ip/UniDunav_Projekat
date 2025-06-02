@@ -72,6 +72,17 @@ public class UserService {
             user.setPrezime(updatedData.getPrezime());
             user.setAdresa(updatedData.getAdresa());
             user.setJmbg(updatedData.getJmbg());
+            
+            if (updatedData.getRoles() != null && isAdmin) {
+                Set<Role> noveRole = updatedData.getRoles().stream()
+                    .map(role -> roleRepository.findById(role.getId())
+                        .orElseThrow(() -> new RuntimeException("Rola nije pronađena: " + role.getId())))
+                    .collect(Collectors.toSet());
+
+                user.setRoles(noveRole);
+            }
+
+            
             userRepository.save(user);
             return true;
         }

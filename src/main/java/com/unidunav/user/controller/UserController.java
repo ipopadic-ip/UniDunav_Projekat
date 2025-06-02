@@ -55,6 +55,7 @@ public class UserController {
     }
     
     @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserDTO> getAllAdmin() {
         return userService.getAllAdmin();
     }

@@ -15,11 +15,18 @@ public class Role implements GrantedAuthority {
 
     private String naziv; // npr. "ADMIN", "PROFESOR", "STUDENT"
     
-    public Role() {}
+    private boolean aktivna = true; // logičko brisanje
 
     public Role(String naziv) {
         this.naziv = naziv;
+        this.aktivna = true;
     }
+    
+    public Role() {}
+
+//    public Role(String naziv) {
+//        this.naziv = naziv;
+//    }
 
     public Long getId() {
         return id;
@@ -28,6 +35,9 @@ public class Role implements GrantedAuthority {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public boolean isAktivna() { return aktivna; }
+    public void setAktivna(boolean aktivna) { this.aktivna = aktivna; }
 
     public String getNaziv() {
         return naziv;

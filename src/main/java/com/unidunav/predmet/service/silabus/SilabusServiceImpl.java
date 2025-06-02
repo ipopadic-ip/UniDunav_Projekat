@@ -42,6 +42,14 @@ public class SilabusServiceImpl implements SilabusService {
     public SilabusDTO create(SilabusDTO dto) {
         return toDTO(silabusRepository.save(toEntity(dto)));
     }
+    
+    @Override
+    public SilabusDTO findByPredmetId(Long predmetId) {
+        Silabus silabus = silabusRepository.findByPredmetId(predmetId)
+            .orElseThrow(() -> new RuntimeException("Silabus nije pronađen za dati predmet ID"));
+        return toDTO(silabus);
+    }
+
 
     @Override
     public List<SilabusDTO> findAll() {

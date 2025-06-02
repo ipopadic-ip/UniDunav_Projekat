@@ -8,14 +8,12 @@ import jakarta.persistence.*;
 public class Student {
 
     @Id
-
     private Long id;
     
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
     private User user;
-
 
     private String brojIndeksa;
     private int godinaUpisa;
@@ -41,7 +39,6 @@ public class Student {
     public void setId(Long id) {
         this.id = id;
     }
-
 
 
     public String getBrojIndeksa() {
