@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PregledPredmetaComponent } from './pregled-predmeta.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { PredmetService } from '../../core/services/predmet.service';
+import { PredmetService } from '../../../core/services/predmet.service';
 
 describe('PregledPredmetaComponent', () => {
   let component: PregledPredmetaComponent;

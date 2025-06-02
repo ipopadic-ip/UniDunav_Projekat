@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Predmet } from '../../core/model/predmet.model';
+import { Predmet } from '../../../core/model/predmet.model';
 import { CommonModule } from '@angular/common'; // ⬅️ dodaj ovo
-import { PredmetService } from '../../core/services/predmet.service';
-import { AuthService } from '../../core/services/auth.service';
+import { PredmetService } from '../../../core/services/predmet.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-pregled-predmeta',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrijavaIspitaService } from '../../core/services/prijava-ispita.service';
-import { PrijavaIspitaDTO } from '../../core/model/prijava-ispita.model';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { PrijavaIspitaDTO } from '../../../core/model/prijava-ispita.model';
+import { PrijavaIspitaService } from '../../../core/services/prijava-ispita.service';
 
 @Component({
   selector: 'app-prijava-ispita',

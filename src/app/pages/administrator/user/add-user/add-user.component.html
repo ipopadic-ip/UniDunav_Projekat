@@ -1,6 +1,12 @@
 <div class="p-4 max-w-md mx-auto bg-white rounded shadow">
+   <button
+    (click)="goBack()"
+    class="btn btn-primary mb-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
  <h2 class="text-2xl font-bold text-center text-gray-800 mb-6 tracking-wide py-5">
-    Kreiranje novog korisnika
+    {{ isEditMode ? 'Izmena postojećeg korisnika' : 'Kreiranje novog korisnika' }}
   </h2>      
   <form (ngSubmit)="submit()" #form="ngForm" class="space-y-3">
         <!-- <input class="input px-4 py-3 my-2" name="email" [(ngModel)]="user.email" placeholder="Email" required /> -->
@@ -17,7 +23,17 @@
           Email mora biti validan.
         </div>
 
-        <input class="input px-4 py-3 my-2" name="password" [(ngModel)]="user.password" placeholder="Lozinka" required type="password" />
+        <!-- <input class="input px-4 py-3 my-2" name="password" [(ngModel)]="user.password" placeholder="Lozinka" required type="password" /> -->
+         <input
+            *ngIf="!isEditMode"
+            class="input px-4 py-3 my-2"
+            name="password"
+            [(ngModel)]="user.password"
+            placeholder="Lozinka"
+            required
+            type="password"
+          />
+
         <input class="input px-4 py-3 my-2" name="ime" [(ngModel)]="user.ime" placeholder="Ime" required />
         <input class="input px-4 py-3 my-2" name="prezime" [(ngModel)]="user.prezime" placeholder="Prezime" required />
         <input class="input px-4 py-3 my-2" name="adresa" [(ngModel)]="user.adresa" placeholder="Adresa" required />
@@ -46,11 +62,19 @@
 
         <div class="my-5">
           <label class="block font-semibold text-gray-700 mb-2">Uloge korisnika:</label>
-          <div class="space-y-2 pl-2">
-            <label *ngFor="let role of availableRoles" class="flex items-center space-x-2">
-              <input type="checkbox" [value]="role" (change)="toggleRole($event)" class="accent-blue-600" />
-              <span class="text-gray-800">{{ role }}</span>
-            </label>
+          <div *ngFor="let role of availableRoles">
+            <ng-container *ngIf="isEditMode || role.naziv !== 'STUDENT'">
+              <label class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  [value]="role.naziv"
+                  (change)="toggleRole($event)"
+                  [checked]="hasRole(role.naziv)"
+                  class="accent-blue-600"
+                />
+                {{ role.naziv }}
+              </label>
+            </ng-container>
           </div>
         </div>
 
@@ -61,7 +85,7 @@
             class="btn btn-primary w-100"
             [ngClass]="form.invalid ? 'bg-bg-blue-600-200 text-black-500 border-black-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 border-blue-600'"
           >
-            ➕ Dodaj korisnika
+             {{ isEditMode ? '💾 Sačuvaj izmene' : '➕ Dodaj korisnika' }}
           </button>
         </div>
         <!-- <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded" [disabled]="form.invalid">Dodaj</button> -->

@@ -8,4 +8,5 @@ export interface User {
   adresa: string;
   jmbg: string;
   roles: Role[];
+  deleted:boolean;
 }

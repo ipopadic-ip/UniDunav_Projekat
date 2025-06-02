@@ -16,4 +16,3 @@ export class StudentDashboardComponent {
     this.authService.logout();
   }
 }
-

@@ -18,10 +18,17 @@ export class AdminDashboardComponent {
   }
 
   dugmad = [
-    { label: 'Upravljanje Postojećim korisnicima', route: '/admin/korisnici' },
-    { label: 'Dodaj novog korisnika', route: '/admin/add-user' },
-    { label: 'Dodaj fakultet', route: '/admin/fakultet-novi' },
-    { label: 'Obaveštenja', route: '/admin/obavestenja' },
+    { label: 'Upravljanje Postojećim korisnicima', route: '/admin/get-user' },
+    { label: 'Upravljanje Ulogama', route: '/admin/uloge' },
+    { label: 'Univerzitet', route: '/admin/univerzitet' },
+    { label: 'Fakultet', route: '/admin/fakultet' },
+    { label: 'Departman', route: '/admin/departman' },
+    { label: 'Katedra', route: '/admin/katedra' },
+    { label: 'Tip Studija', route: '/admin/tip-studija' },
+    { label: 'Studijski Program', route: '/admin/studijski-program' },
+    { label: 'Godina Studija', route: '/admin/godina-studija' },
+    { label: 'Predmet', route: '/admin/predmet' },
+
     // Dodaj dalje po potrebi...
   ];
 }

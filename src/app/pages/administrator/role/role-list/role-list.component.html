@@ -1,0 +1,48 @@
+<div class="p-4 container mt-5">
+     <button
+    (click)="goBack()"
+    class="btn btn-primary mb-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+  <h2 class="text-xl font-bold mb-4 text-center">Lista Rola</h2>
+
+  <button class="btn btn-success mb-3" [routerLink]="['/admin/roles/add']">Dodaj novu rolu</button>
+
+  <table class="table table-bordered table-hover text-center w-full border">
+    <thead class="table-light">
+      <tr class="bg-gray-200">
+        <th class="p-2 text-left">Naziv</th>
+        <th class="p-2 text-left">Aktivna</th>
+        <th class="p-2">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of roles">
+        <td class="p-2">{{ role.naziv }}</td>
+        <td class="p-2">
+          <span [class.text-green-600]="role.aktivna" [class.text-red-600]="!role.aktivna">
+            {{ role.aktivna ? 'DA' : 'NE' }}
+          </span>
+        </td>
+        <td class="p-2 text-center space-x-2">
+          <button (click)="editRole(role)" class="btn btn-primary btn-sm rounded hover:bg-blue-600">Izmeni</button>
+             
+          <button *ngIf="role.aktivna"
+                  (click)="deactivateRole(role)"
+                  class="btn btn-warning btn-sm"
+                  [disabled]="role.naziv === 'ADMIN'">
+            Deaktiviraj
+          </button>
+
+          <button *ngIf="!role.aktivna"
+                  (click)="activateRole(role)"
+                  class="btn btn-success btn-sm">
+            Aktiviraj
+          </button>
+          <!-- <button (click)="deactivateRole(role)" class="btn btn-warning btn-sm rounded hover:bg-red-600">Deaktiviraj</button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

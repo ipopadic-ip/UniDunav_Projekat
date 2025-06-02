@@ -25,7 +25,7 @@ export const routes: Routes = [
  {
   path: 'student',
   loadChildren: () =>
-    import('./pages/studenti/student-dashboard/student.routes')
+    import('./pages/studenti/student.routes')
       .then(m => m.STUDENT_ROUTES),
   canActivate: [RoleGuard(['STUDENT'])],
 },

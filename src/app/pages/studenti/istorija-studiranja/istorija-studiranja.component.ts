@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import { StudentService } from '../../core/services/student.service';
-import { AuthService } from '../../core/services/auth.service';
+import { StudentService } from '../../../core/services/student.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   standalone: true,

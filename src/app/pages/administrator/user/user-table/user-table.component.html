@@ -1,0 +1,64 @@
+<div class="container">
+  <button
+    (click)="goBack()"
+    class="btn btn-primary mb-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+  <h2>Lista korisnika</h2>
+  <div class="d-flex justify-content-end p-3">
+    <button class="btn btn-success" (click)="onAdd()">+ Dodaj novog korisnika</button>
+  </div>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Email</th>
+        <th>Adresa</th>
+        <th>JMBG</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.ime }}</td>
+        <td>{{ user.prezime }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.adresa }}</td>
+        <td>{{ user.jmbg }}</td>
+        <td>
+          <span *ngFor="let role of user.roles; let last = last">
+            {{ role.naziv }}<span *ngIf="!last">, </span>
+          </span>
+        </td>
+        <td>
+          <span [ngClass]="user.deleted ? 'text-danger' : 'text-succes'">
+            {{ user.deleted ? 'Neaktivan' : 'Aktivan' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm me-2" (click)="onEdit(user.id)">Izmeni</button>
+
+          <button *ngIf="!user.deleted"
+            class="btn btn-warning btn-sm"
+            (click)="onDeactivate(user.id)">
+                Deaktiviraj
+            </button>
+
+            <button *ngIf="user.deleted"
+                    class="btn btn-success btn-sm"
+                    (click)="onReactivate(user.id)">
+                Reaktiviraj
+            </button>
+          <!-- <button class="btn btn-warning btn-sm" (click)="onDeactivate(user.id)" [disabled]="user.deleted">
+            Deaktiviraj
+          </button> -->
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

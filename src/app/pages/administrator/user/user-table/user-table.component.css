@@ -1,0 +1,9 @@
+.container {
+  margin: 2rem;
+}
+.text-success {
+  color: green;
+}
+.text-danger {
+  color: red;
+}
