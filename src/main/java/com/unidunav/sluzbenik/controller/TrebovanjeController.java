@@ -1,5 +1,6 @@
 package com.unidunav.sluzbenik.controller;
 
+import com.unidunav.auth.service.JwtService;
 import com.unidunav.sluzbenik.dto.TrebovanjeDTO;
 import com.unidunav.sluzbenik.service.TrebovanjeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,21 +12,36 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/trebovanja")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class TrebovanjeController {
 
     @Autowired
-    private TrebovanjeService trebovanjeService;
+    private TrebovanjeService service;
+
+    @Autowired
+    private JwtService jwtService;
 
     @PostMapping
-    @PreAuthorize("hasRole('SLUZBENIK')")
-    public ResponseEntity<TrebovanjeDTO> create(@RequestBody TrebovanjeDTO dto) {
-        return ResponseEntity.ok(trebovanjeService.create(dto));
+    public ResponseEntity<TrebovanjeDTO> create(@RequestBody TrebovanjeDTO dto,
+                                                @RequestHeader("Authorization") String token) {
+        String jwt = token.substring(7);
+        String email = jwtService.extractEmail(jwt);
+        TrebovanjeDTO saved = service.saveTrebovanje(dto, email);
+        return ResponseEntity.ok(saved);
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('SLUZBENIK')")
     public ResponseEntity<List<TrebovanjeDTO>> getAll() {
-        return ResponseEntity.ok(trebovanjeService.getAll());
+        return ResponseEntity.ok(service.getAll());
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TrebovanjeDTO> update(@PathVariable Long id, @RequestBody TrebovanjeDTO dto) {
+        return ResponseEntity.ok(service.update(id, dto));
     }
 }

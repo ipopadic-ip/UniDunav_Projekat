@@ -20,5 +20,6 @@ public interface StudentService {
     String uploadSlika(Long studentId, MultipartFile slika) throws IOException;
     List<PredmetDTO> getPredmetiKojeStudentSlusa(Long studentId);
     List<ObavestenjeStudentuDTO> getObavestenjaZaStudenta(Long studentId);
+    List<StudentDTO> findByBrojIndeksa(String indeks);
 
 }

@@ -8,7 +8,37 @@ public class PotvrdaDTO {
     private String tip;
     private String tekst;
     private LocalDate datumIzdavanja;
-    private Long studentId;     // samo ID studenta
+    private Long studentId;  
+    private String studentIme; // za prikaz u tabeli na frontu
+    private String brojIndeksa;// samo ID studenta
+    
+	public String getStudentIme() {
+		return studentIme;
+	}
+	public void setStudentIme(String studentIme) {
+		this.studentIme = studentIme;
+	}
+	public String getBrojIndeksa() {
+		return brojIndeksa;
+	}
+	public void setBrojIndeksa(String brojIndeksa) {
+		this.brojIndeksa = brojIndeksa;
+	}
+	public PotvrdaDTO(Long id, String tip, String tekst, LocalDate datumIzdavanja, Long studentId, String studentIme,
+			String brojIndeksa) {
+		super();
+		this.id = id;
+		this.tip = tip;
+		this.tekst = tekst;
+		this.datumIzdavanja = datumIzdavanja;
+		this.studentId = studentId;
+		this.studentIme = studentIme;
+		this.brojIndeksa = brojIndeksa;
+	}
+	public PotvrdaDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Long getId() {
 		return id;
 	}

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.unidunav.predmet.dto.IstorijaStudiranjaDTO;
-import com.unidunav.predmet.dto.StudentIstorijaStudiranjaResponseDTO;
 import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
+import com.unidunav.predmet.dto.StudentIstorijaStudiranjaResponseDTO;
 import com.unidunav.predmet.model.PohadjanjePredmeta;
 import com.unidunav.predmet.model.Predmet;
 import com.unidunav.predmet.repository.PohadjanjePredmetaRepository;
@@ -91,6 +91,7 @@ public class PohadjanjePredmetaServiceImpl implements PohadjanjePredmetaService 
         repository.deleteById(id);
     }
     
+
     public StudentIstorijaStudiranjaResponseDTO getIstorijaStudiranjaZaStudenta(Long studentId) {
         List<PohadjanjePredmeta> pohadjanja = repository.findByStudentId(studentId);
 
@@ -120,3 +121,4 @@ public class PohadjanjePredmetaServiceImpl implements PohadjanjePredmetaService 
         return new StudentIstorijaStudiranjaResponseDTO(predmetiDTO, prosecnaOcena, ukupnoECTS);
     }
 }
+

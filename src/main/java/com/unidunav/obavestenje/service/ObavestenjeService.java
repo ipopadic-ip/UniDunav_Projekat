@@ -1,8 +1,6 @@
 package com.unidunav.obavestenje.service;
 
 import com.unidunav.obavestenje.dto.ObavestenjeDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.unidunav.obavestenje.dto.ObavestenjeResponseDTO;
 import com.unidunav.obavestenje.model.Obavestenje;
 import com.unidunav.obavestenje.repository.ObavestenjeRepository;
@@ -12,11 +10,13 @@ import com.unidunav.predmet.repository.PohadjanjePredmetaRepository;
 import com.unidunav.predmet.repository.PredmetRepository;
 import com.unidunav.user.model.User;
 import com.unidunav.user.repository.UserRepository;
-import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ObavestenjeService {
@@ -110,6 +110,29 @@ public class ObavestenjeService {
     }
 
 
+//    public ObavestenjeResponseDTO kreirajObavestenje(ObavestenjeDTO dto) {
+//        Predmet predmet = predmetRepo.findById(dto.getPredmetId())
+//            .orElseThrow(() -> new RuntimeException("Predmet nije pronađen"));
+//
+//        User autor = userRepo.findById(dto.getAutorId())
+//            .orElseThrow(() -> new RuntimeException("Autor nije pronađen"));
+//
+//        Obavestenje obavestenje = new Obavestenje(dto.getTekst(), dto.getDatum(), predmet, autor);
+//        Obavestenje sacuvano = obavestenjeRepo.save(obavestenje);
+//
+//        // Mapiranje u response DTO
+//        ObavestenjeResponseDTO response = new ObavestenjeResponseDTO();
+//        response.setId(sacuvano.getId());
+//        response.setTekst(sacuvano.getTekst());
+//        response.setDatum(sacuvano.getDatum());
+//        response.setPredmetId(predmet.getId());
+//        response.setPredmetNaziv(predmet.getNaziv());
+//        response.setAutorId(autor.getId());
+//        response.setAutorIme(autor.getIme() + " " + autor.getPrezime());
+//
+//        return response;
+//    }
+    
     @Autowired
     private PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
 

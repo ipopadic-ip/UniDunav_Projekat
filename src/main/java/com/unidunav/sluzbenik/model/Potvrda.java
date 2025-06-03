@@ -1,5 +1,6 @@
 package com.unidunav.sluzbenik.model;
 
+import com.unidunav.student.model.Student;
 import com.unidunav.user.model.User;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -11,20 +12,38 @@ public class Potvrda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // npr. “Uverenje o statusu studenta”, “Potvrda o redovnom studiranju” …
     @Column(nullable = false)
     private String tip;
 
-    // Dodatni opis ili tekst potvrde (max 1000)
     @Column(nullable = false, length = 1000)
     private String tekst;
 
     @Column(nullable = false)
     private LocalDate datumIzdavanja;
 
-    // Student kome se izdaje potvrda
     @ManyToOne(optional = false)
-    private User student;
+    private Student student;
+
+    @PrePersist
+    public void prePersist() {
+        if (datumIzdavanja == null) {
+            datumIzdavanja = LocalDate.now();
+        }
+    }
+
+	public Potvrda() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Potvrda(Long id, String tip, String tekst, LocalDate datumIzdavanja, Student student) {
+		super();
+		this.id = id;
+		this.tip = tip;
+		this.tekst = tekst;
+		this.datumIzdavanja = datumIzdavanja;
+		this.student = student;
+	}
 
 	public Long getId() {
 		return id;
@@ -58,14 +77,12 @@ public class Potvrda {
 		this.datumIzdavanja = datumIzdavanja;
 	}
 
-	public User getStudent() {
+	public Student getStudent() {
 		return student;
 	}
 
-	public void setStudent(User student) {
+	public void setStudent(Student student) {
 		this.student = student;
 	}
-
-    // ===== getters / setters =====
     
 }

@@ -6,16 +6,38 @@ public class TrebovanjeDTO {
     private Long id;
     private String nazivStavke;
     private int kolicina;
-    private LocalDate datum;
+    private LocalDate datumTrebovanja;
+    private Long sluzbenikId;
+    private String sluzbenikIme;
 
-    public TrebovanjeDTO() {}
+    public String getSluzbenikIme() {
+		return sluzbenikIme;
+	}
 
-    public TrebovanjeDTO(Long id, String nazivStavke, int kolicina, LocalDate datum) {
-        this.id = id;
-        this.nazivStavke = nazivStavke;
-        this.kolicina = kolicina;
-        this.datum = datum;
-    }
+	public void setSluzbenikIme(String sluzbenikIme) {
+		this.sluzbenikIme = sluzbenikIme;
+	}
+
+	public TrebovanjeDTO(Long id, String nazivStavke, int kolicina, LocalDate datumTrebovanja, Long sluzbenikId) {
+		super();
+		this.id = id;
+		this.nazivStavke = nazivStavke;
+		this.kolicina = kolicina;
+		this.datumTrebovanja = datumTrebovanja;
+		this.sluzbenikId = sluzbenikId;
+	}
+
+	public TrebovanjeDTO() {}
+
+   
+
+	public Long getSluzbenikId() {
+		return sluzbenikId;
+	}
+
+	public void setSluzbenikId(Long sluzbenikId) {
+		this.sluzbenikId = sluzbenikId;
+	}
 
 	public Long getId() {
 		return id;
@@ -41,12 +63,12 @@ public class TrebovanjeDTO {
 		this.kolicina = kolicina;
 	}
 
-	public LocalDate getDatum() {
-		return datum;
+	public LocalDate getDatumTrebovanja() {
+	    return datumTrebovanja;
 	}
 
-	public void setDatum(LocalDate datum) {
-		this.datum = datum;
+	public void setDatumTrebovanja(LocalDate datumTrebovanja) {
+	    this.datumTrebovanja = datumTrebovanja;
 	}
     
 }

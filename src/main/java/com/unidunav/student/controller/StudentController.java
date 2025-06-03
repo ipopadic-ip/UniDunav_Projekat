@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/student")
 @CrossOrigin(origins = "*")
-@PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+@PreAuthorize("hasAnyRole('ADMIN', 'STUDENT','SLUZBENIK')")
 public class StudentController {
 
     @Autowired
@@ -34,6 +34,11 @@ public class StudentController {
     @PostMapping
     public StudentDTO create(@RequestBody StudentDTO dto) {
         return service.create(dto);
+    }
+    
+    @GetMapping("/pretraga")
+    public List<StudentDTO> pretraziPoIndeksu(@RequestParam String indeks) {
+        return service.findByBrojIndeksa(indeks);
     }
     
     @GetMapping("/{studentId}/obavestenja")

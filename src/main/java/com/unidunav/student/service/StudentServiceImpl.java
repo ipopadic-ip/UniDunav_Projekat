@@ -6,7 +6,6 @@ import com.unidunav.predmet.model.PohadjanjePredmeta;
 import com.unidunav.predmet.model.Predmet;
 import com.unidunav.predmet.repository.PohadjanjePredmetaRepository;
 import com.unidunav.student.dto.StudentDTO;
-import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,16 +16,17 @@ import com.unidunav.student.model.Student;
 import com.unidunav.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Transactional(readOnly = true)
 @Service
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository repository;
+    
     
     @Autowired
     private PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
@@ -60,6 +60,8 @@ public class StudentServiceImpl implements StudentService {
     private Student toEntity(StudentDTO dto) {
         Student student = new Student();
         student.setId(dto.getId());
+//        student.setIme(dto.getIme());
+//        student.setPrezime(dto.getPrezime());
         student.setBrojIndeksa(dto.getBrojIndeksa());
         student.setGodinaUpisa(dto.getGodinaUpisa());
         student.setProsecnaOcena(dto.getProsecnaOcena());
@@ -68,32 +70,6 @@ public class StudentServiceImpl implements StudentService {
      // u toEntity
         student.setSlikaPath(dto.getSlikaPath());
         return student;
-    }
-
-    @Override
-    public StudentDTO create(StudentDTO dto) {
-        return toDTO(repository.save(toEntity(dto)));
-    }
-
-    @Override
-    public List<StudentDTO> findAll() {
-        return repository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
-    }
-
-    @Override
-    public StudentDTO findById(Long id) {
-        return repository.findById(id).map(this::toDTO).orElse(null);
-    }
-
-    @Override
-    public StudentDTO update(Long id, StudentDTO dto) {
-        return repository.findById(id).map(existing -> {
-            existing.setBrojIndeksa(dto.getBrojIndeksa());
-            existing.setGodinaUpisa(dto.getGodinaUpisa());
-            existing.setProsecnaOcena(dto.getProsecnaOcena());
-            existing.setUkupnoEcts(dto.getUkupnoEcts());
-            return toDTO(repository.save(existing));
-        }).orElse(null);
     }
     
     @Autowired
@@ -116,6 +92,35 @@ public class StudentServiceImpl implements StudentService {
                     ))
             )
             .collect(Collectors.toList());
+    }
+    
+
+    @Override
+    public StudentDTO create(StudentDTO dto) {
+        return toDTO(repository.save(toEntity(dto)));
+    }
+
+    @Override
+    public List<StudentDTO> findAll() {
+        return repository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public StudentDTO findById(Long id) {
+        return repository.findById(id).map(this::toDTO).orElse(null);
+    }
+
+    @Override
+    public StudentDTO update(Long id, StudentDTO dto) {
+        return repository.findById(id).map(existing -> {
+//            existing.setIme(dto.getIme());
+//            existing.setPrezime(dto.getPrezime());
+            existing.setBrojIndeksa(dto.getBrojIndeksa());
+            existing.setGodinaUpisa(dto.getGodinaUpisa());
+            existing.setProsecnaOcena(dto.getProsecnaOcena());
+            existing.setUkupnoEcts(dto.getUkupnoEcts());
+            return toDTO(repository.save(existing));
+        }).orElse(null);
     }
 
     @Override
@@ -144,5 +149,15 @@ public class StudentServiceImpl implements StudentService {
         repository.save(student);
 
         return filePath.toString();
+    }
+    public List<StudentDTO> findByBrojIndeksa(String indeks) {
+        return repository.findByBrojIndeksaContainingIgnoreCase(indeks).stream().map(student -> {
+            StudentDTO dto = new StudentDTO();
+            dto.setId(student.getId());
+            dto.setIme(student.getUser().getIme());
+            dto.setPrezime(student.getUser().getPrezime());
+            dto.setBrojIndeksa(student.getBrojIndeksa());
+            return dto;
+        }).collect(Collectors.toList());
     }
 }
