@@ -1,0 +1,37 @@
+<h3>Trebovanje kancelarijskog materijala</h3>
+
+<form [formGroup]="form" (ngSubmit)="potvrdi()">
+  <div class="form-group">
+    <label for="nazivStavke">Naziv stavke:</label>
+    <input id="nazivStavke" type="text" class="form-control" formControlName="nazivStavke" />
+  </div>
+
+  <div class="form-group">
+    <label for="kolicina">Količina:</label>
+    <input id="kolicina" type="number" class="form-control" formControlName="kolicina" />
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-3">Potvrdi trebovanje</button>
+</form>
+
+<hr />
+
+<h5>Lista unetih trebovanja</h5>
+<table class="table table-striped mt-3">
+  <thead>
+    <tr>
+      <th>Naziv</th>
+      <th>Količina</th>
+      <th>Datum</th>
+      <th>Postavio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of trebovanja">
+      <td>{{ t.nazivStavke }}</td>
+      <td>{{ t.kolicina }}</td>
+      <td>{{ t.datumTrebovanja }}</td>
+      <td>{{ t.sluzbenikIme }}</td>
+    </tr>
+  </tbody>
+</table>

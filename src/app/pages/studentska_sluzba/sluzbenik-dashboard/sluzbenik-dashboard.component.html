@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-end p-2">
+  <button class="btn btn-danger" (click)="logout()">Logout</button>
+</div>
+
+<div class="dashboard-container">
+  <h2>Dobrodošli na panel studentske službe</h2>
+
+  <div class="dugmad">
+    <button routerLink="trebovanje">Trebovanje materijala</button>
+     <button routerLink="potvrde">Izdavanje potvrda</button>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

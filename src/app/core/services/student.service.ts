@@ -13,6 +13,10 @@ export class StudentService {
   getIstorijaStudiranja(studentId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${studentId}/istorija`);
   }
+   pretraziPoBrojuIndeksa(indeks: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/pretraga?indeks=${indeks}`);
+}
+
 
   // Možeš ovde dodavati i druge metode za studenta kasnije
 }

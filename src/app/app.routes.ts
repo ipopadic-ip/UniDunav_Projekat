@@ -30,9 +30,10 @@ export const routes: Routes = [
   canActivate: [RoleGuard(['STUDENT'])],
 },
   {
-    path: 'sluzbenik',
-    loadComponent: () => import('./pages/studentska_sluzba/sluzba-dashboard/sluzba-dashboard.component').then(m => m.SluzbaDashboardComponent),
-    canActivate: [RoleGuard(['SLUZBENIK'])],
-  },
+  path: 'sluzbenik',
+  loadChildren: () => import('./pages/studentska_sluzba/sluzbenik-routes')
+    .then(m => m.SLUZBENIK_ROUTES),
+  canActivate: [RoleGuard(['SLUZBENIK'])]
+}
 ];
 
