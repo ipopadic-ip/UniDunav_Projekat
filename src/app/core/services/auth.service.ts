@@ -77,11 +77,15 @@ export class AuthService {
 
   getLoggedInUserId(): number {
   const token = this.getToken();
-  if (!token) return 0;
+  if (!token) {
+    console.warn('❗ Token nije pronađen.');
+    return 0;
+  }
 
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.id || 0; // <- koristi tačno naziv "id"
+    console.log('🎯 JWT payload:', payload); // Dodaj log
+    return payload.id || 0;
   } catch (e) {
     console.error('Greška pri dekodiranju tokena', e);
     return 0;

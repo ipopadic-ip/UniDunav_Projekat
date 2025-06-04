@@ -1,0 +1,30 @@
+<h3>Upis studenta na predmete</h3>
+
+<form [formGroup]="pretragaForma" (ngSubmit)="pretraziStudenta()" class="mb-3">
+  <label for="indeks">Broj indeksa:</label>
+  <input type="text" id="indeks" class="form-control" formControlName="brojIndeksa" />
+  <button class="btn btn-primary mt-2" type="submit">Pretraži</button>
+</form>
+
+<div *ngIf="student">
+  <h5>Student: {{ student.ime }} {{ student.prezime }} ({{ student.brojIndeksa }})</h5>
+
+  <div class="mt-3">
+    <h6>Izaberi predmete:</h6>
+    <div *ngFor="let predmet of predmeti" class="form-check">
+      <input type="checkbox" class="form-check-input" [id]="'predmet_' + predmet.id"
+             (change)="togglePredmet(predmet.id)" />
+      <label class="form-check-label" [for]="'predmet_' + predmet.id">
+        {{ predmet.naziv }} – godina: {{ predmet.godinaStudija }}
+      </label>
+    </div>
+  </div>
+
+  <button class="btn btn-success mt-3" (click)="upisiStudenta()"
+  [disabled]="!student || izabraniPredmeti.size === 0">Upiši studenta</button>
+</div>
+
+<div *ngIf="pretragaPokusana && student === null">
+  <p class="text-danger">Student nije pronađen.</p>
+
+</div>

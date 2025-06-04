@@ -9,6 +9,7 @@ import { throwError } from 'rxjs';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const authToken = authService.getToken();
+console.log('Token u interseptoru:', authToken);
 
   let authReq = req;
   if (authToken) {

@@ -20,6 +20,12 @@ export const SLUZBENIK_ROUTES: Routes = [
   path: 'obavestenja',
   loadComponent: () => import('./opsta_obavestenja/opsta-obavestenja.component')
     .then(m => m.OpstaObavestenjaComponent)
+},
+
+{
+  path: 'upis',
+  loadComponent: () => import('./upis-studenta/upis-studenta.component')
+    .then(m => m.UpisStudentaComponent)
 }
     ]
   }
