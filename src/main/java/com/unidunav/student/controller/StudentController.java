@@ -24,7 +24,7 @@ public class StudentController {
     @Autowired
     private StudentService service;
     
-    
+    @PreAuthorize("permitAll()")
     @GetMapping("/{studentId}/predmeti")
     public ResponseEntity<List<PredmetDTO>> getPredmetiKojeStudentSlusa(@PathVariable Long studentId) {
         List<PredmetDTO> predmeti = service.getPredmetiKojeStudentSlusa(studentId);
@@ -35,7 +35,7 @@ public class StudentController {
     public StudentDTO create(@RequestBody StudentDTO dto) {
         return service.create(dto);
     }
-    
+    @PreAuthorize("permitAll()")
     @GetMapping("/pretraga")
     public List<StudentDTO> pretraziPoIndeksu(@RequestParam String indeks) {
         return service.findByBrojIndeksa(indeks);

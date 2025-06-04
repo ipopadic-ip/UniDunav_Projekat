@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.unidunav.predmet.model.PrijavaIspita;
 @Repository
 public interface PrijavaIspitaRepository extends JpaRepository<PrijavaIspita, Long> {
-	@Query("SELECT p FROM PrijavaIspita p WHERE p.status = false AND p.datumPrijave IS NULL AND p.pohadjanje.student.id = :studentId")
-	List<PrijavaIspita> findNeprijavljeneZaStudenta(@Param("studentId") Long studentId);
+	@Query("SELECT p FROM PrijavaIspita p " +
+		       "WHERE p.status = false " +
+		       "AND p.datumIspita > CURRENT_TIMESTAMP " +
+		       "AND p.pohadjanje.student.id = :studentId")
+		List<PrijavaIspita> findDostupnePrijave(@Param("studentId") Long studentId);
 }

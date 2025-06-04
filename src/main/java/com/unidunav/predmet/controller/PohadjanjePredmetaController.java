@@ -1,11 +1,15 @@
 package com.unidunav.predmet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
 import com.unidunav.predmet.service.pohadjanjePredmeta.PohadjanjePredmetaService;
+import com.unidunav.sluzbenik.dto.UpisRequestDTO;
+
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
@@ -22,6 +26,15 @@ public class PohadjanjePredmetaController {
     public PohadjanjePredmetaDTO create(@RequestBody PohadjanjePredmetaDTO dto) {
         return service.create(dto);
     }
+    
+    @PostMapping("/upisi")
+    @PermitAll
+    public ResponseEntity<Void> upisiStudenta(@RequestBody UpisRequestDTO zahtev) {
+        service.upisiStudenta(zahtev.getStudentId(), zahtev.getPredmetIds());
+        return ResponseEntity.ok().build();
+    }
+    
+    
 
     @GetMapping
     public List<PohadjanjePredmetaDTO> getAll() {

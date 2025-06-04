@@ -75,7 +75,7 @@ public class PrijavaIspitaServiceImpl implements PrijavaIspitaService {
     }
     @Override
     public List<PrijavaIspitaDTO> getDostupnePrijave(Long studentId) {
-        List<PrijavaIspita> prijave = prijavaRepo.findNeprijavljeneZaStudenta(studentId);
+        List<PrijavaIspita> prijave = prijavaRepo.findDostupnePrijave(studentId);
         return prijave.stream().map(this::toDto).collect(Collectors.toList());
     }
 
