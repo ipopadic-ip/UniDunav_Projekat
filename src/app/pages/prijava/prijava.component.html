@@ -1,6 +1,16 @@
+<div class="container mt-2">
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-secondary dugme-pocetna" (click)="goToHome()">Početna</button>
+  </div>
+</div>
+
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
   <div class="w-100" style="max-width: 400px;">
     <h2 class="text-center mb-4">Prijava</h2>
+
+
+    
+    
     <form (ngSubmit)="onLogin()" #loginForm="ngForm">
       <div class="mb-3">
         <label for="email" class="form-label">Email adresa</label>

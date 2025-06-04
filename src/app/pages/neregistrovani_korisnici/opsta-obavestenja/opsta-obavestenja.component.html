@@ -1,0 +1,18 @@
+<div class="obavestenja-container">
+  <h2>Opšta obaveštenja</h2>
+
+  <div *ngIf="obavestenja.length > 0; else prazno">
+    <div *ngFor="let o of obavestenja" class="obavestenje-kartica">
+      <h4>{{ o.naslov }}</h4>
+      <p>{{ o.tekst }}</p>
+      <div class="info">
+        <span>Datum: {{ o.datum }}</span>
+        <span *ngIf="o.autor?.ime">{{ o.autor.ime }} {{ o.autor.prezime }}</span>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #prazno>
+    <p>Trenutno nema dostupnih obaveštenja.</p>
+  </ng-template>
+</div>

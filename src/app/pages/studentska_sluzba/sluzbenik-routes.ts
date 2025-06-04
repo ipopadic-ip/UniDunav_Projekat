@@ -15,6 +15,11 @@ export const SLUZBENIK_ROUTES: Routes = [
   path: 'potvrde',
   loadComponent: () => import('./potvrde/potvrde.component')
     .then(m => m.PotvrdeComponent)
+},
+{
+  path: 'obavestenja',
+  loadComponent: () => import('./opsta_obavestenja/opsta-obavestenja.component')
+    .then(m => m.OpstaObavestenjaComponent)
 }
     ]
   }

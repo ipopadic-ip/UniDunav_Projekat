@@ -1,0 +1,30 @@
+<h2>Kreiraj opšte obaveštenje</h2>
+
+<form [formGroup]="forma" (ngSubmit)="kreiraj()" class="mb-4">
+  <div class="form-group">
+    <label>Naslov:</label>
+    <input type="text" formControlName="naslov" class="form-control">
+  </div>
+
+  <div class="form-group mt-2">
+    <label>Tekst:</label>
+    <textarea formControlName="tekst" class="form-control" rows="4"></textarea>
+  </div>
+
+  <button class="btn btn-primary mt-3" type="submit">Sačuvaj</button>
+</form>
+
+<hr>
+
+<h3>Postojeća obaveštenja</h3>
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center"
+      *ngFor="let o of obavestenja">
+    <div>
+      <strong>{{ o.naslov }}</strong>
+      <p class="mb-1">{{ o.tekst }}</p>
+      <small>{{ o.datum }}</small>
+    </div>
+    <button class="btn btn-danger btn-sm" (click)="obrisi(o.id)">Obriši</button>
+  </li>
+</ul>

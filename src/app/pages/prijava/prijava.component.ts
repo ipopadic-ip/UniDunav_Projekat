@@ -37,6 +37,12 @@ export class PrijavaComponent {
       error: () => {
         this.errorMessage = 'Pogrešan email ili lozinka.';
       }
+
+      
     });
+  }
+
+    goToHome() {
+    this.router.navigate(['/']);
   }
 }
