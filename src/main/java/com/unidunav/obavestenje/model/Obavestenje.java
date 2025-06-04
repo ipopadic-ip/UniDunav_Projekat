@@ -23,7 +23,8 @@ public class Obavestenje {
     private Predmet predmet;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id", nullable = false)
     private User autor;
 
     public Obavestenje() {}
