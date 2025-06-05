@@ -13,76 +13,81 @@ public class IznajmljivanjeKnjige {
     private Long id;
 
     @ManyToOne
-    private Knjiga knjiga;
+    private PrimerakKnjige primerakKnjige;
 
     @ManyToOne
     private User korisnik;
 
-    private int brojPrimeraka;
+    
     private LocalDate datum;
     
-    @Column(nullable = false)
-    private boolean vraceno = false;
+    
+    private LocalDate vraceno;
 
 
     public IznajmljivanjeKnjige() {}
 
-    public IznajmljivanjeKnjige(Knjiga knjiga, User korisnik, int brojPrimeraka, LocalDate datum) {
-        this.knjiga = knjiga;
-        this.korisnik = korisnik;
-        this.brojPrimeraka = brojPrimeraka;
-        this.datum = datum;
-        this.vraceno = false;
-    }
-    
 
-	public boolean isVraceno() {
-		return vraceno;
-	}
-
-	public void setVraceno(boolean vraceno) {
+	public IznajmljivanjeKnjige(Long id, PrimerakKnjige primerakKnjige, User korisnik, LocalDate datum,
+			LocalDate vraceno) {
+		super();
+		this.id = id;
+		this.primerakKnjige = primerakKnjige;
+		this.korisnik = korisnik;
+		this.datum = datum;
 		this.vraceno = vraceno;
 	}
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Knjiga getKnjiga() {
-		return knjiga;
+
+	public PrimerakKnjige getPrimerakKnjige() {
+		return primerakKnjige;
 	}
 
-	public void setKnjiga(Knjiga knjiga) {
-		this.knjiga = knjiga;
+
+	public void setPrimerakKnjige(PrimerakKnjige primerakKnjige) {
+		this.primerakKnjige = primerakKnjige;
 	}
+
 
 	public User getKorisnik() {
 		return korisnik;
 	}
 
+
 	public void setKorisnik(User korisnik) {
 		this.korisnik = korisnik;
 	}
 
-	public int getBrojPrimeraka() {
-		return brojPrimeraka;
-	}
-
-	public void setBrojPrimeraka(int brojPrimeraka) {
-		this.brojPrimeraka = brojPrimeraka;
-	}
 
 	public LocalDate getDatum() {
 		return datum;
 	}
 
+
 	public void setDatum(LocalDate datum) {
 		this.datum = datum;
 	}
 
-    
+
+	public LocalDate getVraceno() {
+		return vraceno;
+	}
+
+
+	public void setVraceno(LocalDate vraceno) {
+		this.vraceno = vraceno;
+	}
+
+
+	
 }
