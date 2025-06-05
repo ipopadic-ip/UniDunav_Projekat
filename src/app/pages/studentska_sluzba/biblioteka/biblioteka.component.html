@@ -1,0 +1,49 @@
+<div class="biblioteka-container">
+  <div class="tabs">
+    <button [class.active]="aktivnaKartica === 'izdavanje'" (click)="aktivnaKartica = 'izdavanje'; reset()">Izdavanje</button>
+    <button [class.active]="aktivnaKartica === 'vracanje'" (click)="aktivnaKartica = 'vracanje'; reset()">Vraćanje</button>
+  </div>
+
+  <div class="search">
+    <input [(ngModel)]="indeksInput" placeholder="Unesi broj indeksa" />
+    <button (click)="aktivnaKartica === 'izdavanje' ? pretraziZaIzdavanje() : pretraziZaVracanje()">Pretraži</button>
+  </div>
+
+  <div *ngIf="loading">Učitavanje...</div>
+
+  <!-- Izdavanje -->
+  <div *ngIf="aktivnaKartica === 'izdavanje' && studentPronadjen">
+  <h3>Dostupne knjige:</h3>
+  <table>
+    <tr *ngFor="let knjiga of dostupneKnjige">
+      <td>{{ knjiga.naziv }}</td>
+      <td>{{ knjiga.autor }}</td>
+      <td>
+        <button class="btn btn-primary"
+                [disabled]="knjiga.vecIznajmljena || !knjiga.dostupna"
+                (click)="iznajmi(knjiga.primerakId)">
+          {{ knjiga.vecIznajmljena ? 'Već iznajmljeno' : (knjiga.dostupna ? 'Iznajmi' : 'Nije dostupno') }}
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+  <!-- Vraćanje -->
+  <div *ngIf="aktivnaKartica === 'vracanje' && studentPronadjen">
+    <h3>Iznajmljene knjige:</h3>
+    <table>
+      <tr>
+        <th>Naziv</th>
+        <th>Datum iznajmljivanja</th>
+        <th>Akcija</th>
+      </tr>
+      <tr *ngFor="let knjiga of iznajmljeneKnjige">
+        <td>{{ knjiga.knjigaNaziv }}</td>
+        <td>{{ knjiga.datumIznajmljivanja }}</td>
+        <td><button (click)="vrati(knjiga.id)">Vrati knjigu</button></td>
+      </tr>
+    </table>
+  </div>
+</div>

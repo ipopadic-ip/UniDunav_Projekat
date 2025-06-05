@@ -1,0 +1,50 @@
+.biblioteka-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  background: #e0e0e0;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background: #007bff;
+  color: white;
+}
+
+.search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 6px;
+  flex: 1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+button {
+  cursor: pointer;
+}

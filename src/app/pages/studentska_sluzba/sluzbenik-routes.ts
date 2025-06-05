@@ -26,6 +26,10 @@ export const SLUZBENIK_ROUTES: Routes = [
   path: 'upis',
   loadComponent: () => import('./upis-studenta/upis-studenta.component')
     .then(m => m.UpisStudentaComponent)
+},{
+  path: 'biblioteka',
+  loadComponent: () => import('./biblioteka/biblioteka.component')
+    .then(m => m.BibliotekaComponent)
 }
     ]
   }
