@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="header">
+    <h2>Studenti</h2>
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Pretraga studenata" class="search-input" />
+  </div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Indeks</th>
+          <th>Ime</th>
+          <th>Prezime</th>
+          <th>Detalji</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of filtriraniStudenti">
+          <td>{{ s.brojIndeksa }}</td>
+          <td>{{ s.user.ime }}</td>
+          <td>{{ s.user.prezime }}</td>
+          <td>
+            <button class="btn-detalji" (click)="otvoriDetalje(s.id)">Detalji</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -18,10 +18,12 @@ export const routes: Routes = [
     canActivate: [RoleGuard(['ADMIN'])],
   },
   {
-    path: 'profesor',
-    loadComponent: () => import('./pages/nastavnici/nastavnik-dashboard/nastavnik-dashboard.component').then(m => m.NastavnikDashboardComponent),
-    canActivate: [RoleGuard(['PROFESOR'])],
-  },
+  path: 'profesor',
+  loadChildren: () => import('./pages/nastavnici/nastavnik.routes')
+    .then(m => m.profesorRoutes),
+  canActivate: [RoleGuard(['PROFESOR'])],
+}
+,
  {
   path: 'student',
   loadChildren: () =>
@@ -30,10 +32,10 @@ export const routes: Routes = [
   canActivate: [RoleGuard(['STUDENT'])],
 },
   {
-  path: 'sluzbenik',
-  loadChildren: () => import('./pages/studentska_sluzba/sluzbenik-routes')
-    .then(m => m.SLUZBENIK_ROUTES),
-  canActivate: [RoleGuard(['SLUZBENIK'])]
-}
+    path: 'sluzbenik',
+    loadComponent: () => import('./pages/studentska_sluzba/sluzba-dashboard/sluzba-dashboard.component').then(m => m.SluzbaDashboardComponent),
+    canActivate: [RoleGuard(['SLUZBENIK'])],
+  },
+  
 ];
 

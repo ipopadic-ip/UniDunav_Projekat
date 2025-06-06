@@ -24,7 +24,7 @@ export class PrijavaComponent {
 
         if (roles.includes('ADMIN')) {
           this.router.navigate(['/admin']);
-        } else if (roles.includes('PROFESSOR')) {
+        } else if (roles.includes('PROFESOR')) {
           this.router.navigate(['/profesor']);
         } else if (roles.includes('STUDENT')) {
           this.router.navigate(['/student']);
@@ -37,12 +37,6 @@ export class PrijavaComponent {
       error: () => {
         this.errorMessage = 'Pogrešan email ili lozinka.';
       }
-
-      
     });
-  }
-
-    goToHome() {
-    this.router.navigate(['/']);
   }
 }

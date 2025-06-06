@@ -10,9 +10,8 @@ export class PrijavaIspitaService {
   constructor(private http: HttpClient) {}
 
   getDostupnePrijave(studentId: number): Observable<PrijavaIspitaDTO[]> {
-  console.log('🛰 Pozivam GET /dostupne/' + studentId);
-  return this.http.get<PrijavaIspitaDTO[]>(`${this.API_URL}/dostupne/${studentId}`);
-}
+    return this.http.get<PrijavaIspitaDTO[]>(`${this.API_URL}/dostupne/${studentId}`);
+  }
 
   prijavi(prijavaId: number): Observable<any> {
     return this.http.post(`${this.API_URL}/prijavi/${prijavaId}`, {});

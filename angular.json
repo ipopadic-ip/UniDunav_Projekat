@@ -72,8 +72,7 @@
               "buildTarget": "UniDunav:build:production"
             },
             "development": {
-              "buildTarget": "UniDunav:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "buildTarget": "UniDunav:build:development"
             }
           },
           "defaultConfiguration": "development"

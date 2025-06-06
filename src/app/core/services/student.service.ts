@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Student } from '../model/student.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +15,9 @@ export class StudentService {
   getIstorijaStudiranja(studentId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${studentId}/istorija`);
   }
-   pretraziPoBrojuIndeksa(indeks: string): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}/pretraga?indeks=${indeks}`);
-}
 
+  getStudentiZaNastavnika(): Observable<Student[]> {
+    return this.http.get<Student[]>(`${this.apiUrl}/nastavnik/studenti`);
+  }
 
-  // Možeš ovde dodavati i druge metode za studenta kasnije
 }
