@@ -2,6 +2,8 @@ package com.unidunav.profesor.controller;
 
 import com.unidunav.profesor.dto.ProfesorDTO;
 import com.unidunav.profesor.service.ProfesorService;
+import com.unidunav.profesorPredmet.dto.ProfesorPredmetResponseDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,4 +58,13 @@ public class ProfesorController {
             return ResponseEntity.badRequest().body("Greška: " + e.getMessage());
         }
     }
+
+    @GetMapping("/profesori")
+    @PreAuthorize("hasRole('SLUZBENIK')")
+    public List<ProfesorDTO> getAllProfesori() {
+        return service.findAll();
+    }
+    
+    
+
 }

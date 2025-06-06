@@ -18,16 +18,13 @@ public class TerminNastave {
 
     private LocalDateTime terminZavrsetka;
     
-    @ManyToOne
-    private User autor;
+    
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "profesor_predmet_id", nullable = false)
     private ProfesorPredmet profesorPredmet;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "ishod_id")
-    private Ishod ishod;
+    private String ishod;
 
 	public TerminNastave() {
 		super();
@@ -36,15 +33,14 @@ public class TerminNastave {
 
 	
 
-	public User getAutor() {
-		return autor;
-	}
+	
 
 
 
-	public void setAutor(User autor) {
-		this.autor = autor;
-	}
+	
+
+
+
 
 
 
@@ -80,12 +76,63 @@ public class TerminNastave {
 		this.profesorPredmet = profesorPredmet;
 	}
 
-	public Ishod getIshod() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public TerminNastave(Long id, LocalDateTime terminPocetka, LocalDateTime terminZavrsetka,
+			ProfesorPredmet profesorPredmet, String ishod) {
+		super();
+		this.id = id;
+		this.terminPocetka = terminPocetka;
+		this.terminZavrsetka = terminZavrsetka;
+		this.profesorPredmet = profesorPredmet;
+		this.ishod = ishod;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public String getIshod() {
 		return ishod;
 	}
 
-	public void setIshod(Ishod ishod) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public void setIshod(String ishod) {
 		this.ishod = ishod;
 	}
+
+	
     
 }

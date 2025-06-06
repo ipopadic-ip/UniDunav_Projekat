@@ -91,6 +91,7 @@ public class ProfesorPredmetService {
         }
         repository.deleteById(id);
     }
+    
 
 }
 
