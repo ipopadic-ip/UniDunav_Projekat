@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <h3>Kreiranje termina nastave</h3>
+
+  <form [formGroup]="form" (ngSubmit)="sacuvaj()">
+    <!-- Pretraga profesora -->
+    <div class="form-group mt-3">
+      <label>Pretraga profesora</label>
+      <div class="d-flex gap-2">
+        <input type="text" class="form-control" [(ngModel)]="pretraga" name="pretraga" [ngModelOptions]="{ standalone: true }" placeholder="Unesi ime ili prezime">
+        <button type="button" class="btn btn-secondary" (click)="pretraziProfesore()">Pretraži</button>
+      </div>
+
+      <ul class="list-group mt-2" *ngIf="filtriraniProfesori.length > 0">
+        <li *ngFor="let profesor of filtriraniProfesori" class="list-group-item list-group-item-action"
+            (click)="odaberiProfesora(profesor)">
+          {{ profesor.ime }} {{ profesor.prezime }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Prikaz predmeta -->
+    <div class="form-group mt-3" *ngIf="predmeti.length > 0">
+      <label for="profesorPredmetId">Predmet</label>
+      <select class="form-control" formControlName="profesorPredmetId">
+        <option value="">-- Izaberi predmet --</option>
+        <option *ngFor="let pp of predmeti" [value]="pp.id">
+          {{ pp.predmetNaziv }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Ishod -->
+    <div class="form-group mt-3">
+      <label for="ishod">Ishod (tekstualno)</label>
+      <textarea class="form-control" formControlName="ishod" rows="3"></textarea>
+    </div>
+
+    <!-- Termini -->
+    <div class="form-group mt-3">
+      <label>Termin početka</label>
+      <input type="datetime-local" class="form-control" formControlName="terminPocetka">
+    </div>
+
+    <div class="form-group mt-3">
+      <label>Termin završetka</label>
+      <input type="datetime-local" class="form-control" formControlName="terminZavrsetka">
+    </div>
+
+    <button class="btn btn-success mt-4 w-100" type="submit" [disabled]="form.invalid">Sačuvaj termin</button>
+  </form>
+</div>

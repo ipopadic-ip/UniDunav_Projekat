@@ -30,7 +30,17 @@ export const SLUZBENIK_ROUTES: Routes = [
   path: 'biblioteka',
   loadComponent: () => import('./biblioteka/biblioteka.component')
     .then(m => m.BibliotekaComponent)
-}
+},
+{
+  path: 'termini-nastave',
+  loadComponent: () => import('./termin-nastave/termin-nastave.component')
+    .then(m => m.TerminiNastaveComponent)
+},
+  {
+        path: 'trebovanje-knjiga',
+        loadComponent: () => import('./trebovanje-knjiga/trebovanje-knjiga.component')
+          .then(m => m.TrebovanjeKnjigaComponent)
+      }
     ]
   }
 ];

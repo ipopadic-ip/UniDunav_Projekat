@@ -1,0 +1,16 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form label {
+  font-weight: 500;
+}
+
+form .form-control {
+  border-radius: 0.4rem;
+}
+
+button {
+  width: 100%;
+}
