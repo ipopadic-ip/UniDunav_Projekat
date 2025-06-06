@@ -1,6 +1,8 @@
 package com.unidunav.obavestenje.service;
 
 import com.unidunav.obavestenje.dto.ObavestenjeDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.unidunav.obavestenje.dto.ObavestenjeResponseDTO;
 import com.unidunav.obavestenje.model.Obavestenje;
 import com.unidunav.obavestenje.repository.ObavestenjeRepository;
@@ -10,13 +12,13 @@ import com.unidunav.predmet.repository.PohadjanjePredmetaRepository;
 import com.unidunav.predmet.repository.PredmetRepository;
 import com.unidunav.user.model.User;
 import com.unidunav.user.repository.UserRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.stream.Collectors;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class ObavestenjeService {
@@ -34,15 +36,18 @@ public class ObavestenjeService {
     public ObavestenjeResponseDTO kreirajObavestenje(ObavestenjeDTO dto) {
         // Dobavljanje ulogovanog korisnika
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User autor = userRepo.findByEmail(username)  // ili findByJmbg(username)
+        User autor = userRepo.findByEmail(username)
             .orElseThrow(() -> new RuntimeException("Ulogovani korisnik nije pronađen"));
 
         // Pronalaženje predmeta
         Predmet predmet = predmetRepo.findById(dto.getPredmetId())
             .orElseThrow(() -> new RuntimeException("Predmet nije pronađen"));
 
+        // Ako datum nije prosleđen – automatski ga postavljamo
+        LocalDate datumZaUpis = dto.getDatum() != null ? dto.getDatum() : LocalDate.now();
+
         // Kreiranje i čuvanje obaveštenja
-        Obavestenje obavestenje = new Obavestenje(dto.getTekst(), dto.getDatum(), predmet, autor);
+        Obavestenje obavestenje = new Obavestenje(dto.getTekst(), datumZaUpis, predmet, autor);
         Obavestenje sacuvano = obavestenjeRepo.save(obavestenje);
 
         // Mapiranje u DTO
@@ -57,12 +62,12 @@ public class ObavestenjeService {
 
         return response;
     }
+
     
     public ObavestenjeResponseDTO izmeniObavestenje(Long id, ObavestenjeDTO dto) {
         Obavestenje obavestenje = obavestenjeRepo.findById(id)
             .orElseThrow(() -> new RuntimeException("Obaveštenje nije pronađeno"));
 
-        // Provera autora (ulogovanog korisnika)
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User ulogovani = userRepo.findByEmail(username)
             .orElseThrow(() -> new RuntimeException("Ulogovani korisnik nije pronađen"));
@@ -72,14 +77,16 @@ public class ObavestenjeService {
         }
 
         obavestenje.setTekst(dto.getTekst());
-        obavestenje.setDatum(dto.getDatum());
 
-        // Po potrebi možeš dozvoliti i promenu predmeta:
-        if (!obavestenje.getPredmet().getId().equals(dto.getPredmetId())) {
-            Predmet noviPredmet = predmetRepo.findById(dto.getPredmetId())
-                .orElseThrow(() -> new RuntimeException("Predmet nije pronađen"));
-            obavestenje.setPredmet(noviPredmet);
-        }
+        // ✅ Postavi datum na trenutni, uvek prilikom izmene
+        obavestenje.setDatum(LocalDate.now());
+
+//        // (Opcionalno) Promena predmeta ako je drugačiji
+//        if (!obavestenje.getPredmet().getId().equals(dto.getPredmetId())) {
+//            Predmet noviPredmet = predmetRepo.findById(dto.getPredmetId())
+//                .orElseThrow(() -> new RuntimeException("Predmet nije pronađen"));
+//            obavestenje.setPredmet(noviPredmet);
+//        }
 
         Obavestenje sacuvano = obavestenjeRepo.save(obavestenje);
 
@@ -93,6 +100,7 @@ public class ObavestenjeService {
             sacuvano.getAutor().getIme() + " " + sacuvano.getAutor().getPrezime()
         );
     }
+
 
     public void obrisiObavestenje(Long id) {
         Obavestenje obavestenje = obavestenjeRepo.findById(id)
@@ -109,30 +117,25 @@ public class ObavestenjeService {
         obavestenjeRepo.delete(obavestenje);
     }
 
+    public List<ObavestenjeResponseDTO> findObavestenjaZaProfesora() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User profesor = userRepo.findByEmail(username)
+            .orElseThrow(() -> new RuntimeException("Ulogovani profesor nije pronađen"));
 
-//    public ObavestenjeResponseDTO kreirajObavestenje(ObavestenjeDTO dto) {
-//        Predmet predmet = predmetRepo.findById(dto.getPredmetId())
-//            .orElseThrow(() -> new RuntimeException("Predmet nije pronađen"));
-//
-//        User autor = userRepo.findById(dto.getAutorId())
-//            .orElseThrow(() -> new RuntimeException("Autor nije pronađen"));
-//
-//        Obavestenje obavestenje = new Obavestenje(dto.getTekst(), dto.getDatum(), predmet, autor);
-//        Obavestenje sacuvano = obavestenjeRepo.save(obavestenje);
-//
-//        // Mapiranje u response DTO
-//        ObavestenjeResponseDTO response = new ObavestenjeResponseDTO();
-//        response.setId(sacuvano.getId());
-//        response.setTekst(sacuvano.getTekst());
-//        response.setDatum(sacuvano.getDatum());
-//        response.setPredmetId(predmet.getId());
-//        response.setPredmetNaziv(predmet.getNaziv());
-//        response.setAutorId(autor.getId());
-//        response.setAutorIme(autor.getIme() + " " + autor.getPrezime());
-//
-//        return response;
-//    }
-    
+        return obavestenjeRepo.findByAutorId(profesor.getId()).stream()
+            .map(obavestenje -> new ObavestenjeResponseDTO(
+                obavestenje.getId(),
+                obavestenje.getTekst(),
+                obavestenje.getDatum(),
+                obavestenje.getPredmet().getId(),
+                obavestenje.getPredmet().getNaziv(),
+                obavestenje.getAutor().getId(),
+                obavestenje.getAutor().getIme() + " " + obavestenje.getAutor().getPrezime()
+            ))
+            .collect(Collectors.toList());
+    }
+
+
     @Autowired
     private PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
 
@@ -156,6 +159,21 @@ public class ObavestenjeService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    
+    public List<ObavestenjeResponseDTO> svaObavestenjaDTO() {
+        return obavestenjeRepo.findAll().stream()
+            .map(obavestenje -> new ObavestenjeResponseDTO(
+                obavestenje.getId(),
+                obavestenje.getTekst(),
+                obavestenje.getDatum(),
+                obavestenje.getPredmet().getId(),
+                obavestenje.getPredmet().getNaziv(),
+                obavestenje.getAutor().getId(),
+                obavestenje.getAutor().getIme() + " " + obavestenje.getAutor().getPrezime()
+            )).collect(Collectors.toList());
+    }
+
 
     public List<Obavestenje> svaObavestenja() {
         return obavestenjeRepo.findAll();

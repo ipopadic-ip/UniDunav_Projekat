@@ -1,8 +1,13 @@
 package com.unidunav.profesor.service;
 
+import com.unidunav.predmet.dto.PredmetDTO;
+import com.unidunav.predmet.model.Predmet;
+import com.unidunav.predmet.repository.PredmetRepository;
 import com.unidunav.profesor.dto.ProfesorDTO;
 import com.unidunav.profesor.model.Profesor;
 import com.unidunav.profesor.repository.ProfesorRepository;
+import com.unidunav.profesorPredmet.model.ProfesorPredmet;
+import com.unidunav.profesorPredmet.repository.ProfesorPredmetRepository;
 import com.unidunav.user.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +29,8 @@ public class ProfesorServiceImpl implements ProfesorService {
     @Autowired
     private ProfesorRepository repository;
     
+    @Autowired
+    private ProfesorPredmetRepository profesorPredmetRepository;
 
 
     public ProfesorDTO toDTO(Profesor profesor) {
@@ -105,5 +112,24 @@ public class ProfesorServiceImpl implements ProfesorService {
         repository.save(profesor);
 
         return filePath.toString();
+    }
+    
+    
+    @Override
+    public List<PredmetDTO> findPredmetiByProfesorId(Long profesorId) {
+        List<ProfesorPredmet> veze = profesorPredmetRepository.findByProfesorId(profesorId);
+
+        return veze.stream()
+            .map(veza -> {
+                Predmet predmet = veza.getPredmet();
+                return new PredmetDTO(
+                    predmet.getId(),
+                    predmet.getNaziv(),
+                    predmet.getEcts(),
+                    predmet.getInformacijeOPredmetu(),
+                    predmet.getGodinaStudija().getId()
+                );
+            })
+            .collect(Collectors.toList());
     }
 }

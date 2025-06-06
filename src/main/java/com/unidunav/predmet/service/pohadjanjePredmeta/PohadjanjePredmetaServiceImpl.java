@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.unidunav.predmet.dto.IstorijaStudiranjaDTO;
-import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
 import com.unidunav.predmet.dto.StudentIstorijaStudiranjaResponseDTO;
+import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
 import com.unidunav.predmet.model.PohadjanjePredmeta;
 import com.unidunav.predmet.model.Predmet;
 import com.unidunav.predmet.repository.PohadjanjePredmetaRepository;
@@ -13,7 +13,6 @@ import com.unidunav.predmet.repository.PredmetRepository;
 import com.unidunav.student.model.Student;
 import com.unidunav.student.repository.StudentRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -92,7 +91,6 @@ public class PohadjanjePredmetaServiceImpl implements PohadjanjePredmetaService 
         repository.deleteById(id);
     }
     
-
     public StudentIstorijaStudiranjaResponseDTO getIstorijaStudiranjaZaStudenta(Long studentId) {
         List<PohadjanjePredmeta> pohadjanja = repository.findByStudentId(studentId);
 
@@ -121,23 +119,4 @@ public class PohadjanjePredmetaServiceImpl implements PohadjanjePredmetaService 
 
         return new StudentIstorijaStudiranjaResponseDTO(predmetiDTO, prosecnaOcena, ukupnoECTS);
     }
-    
-    public void upisiStudenta(Long studentId, List<Long> predmetIds) {
-        Student student = studentRepo.findById(studentId)
-            .orElseThrow(() -> new RuntimeException("Student ne postoji"));
-
-        for (Long predmetId : predmetIds) {
-            Predmet predmet = predmetRepo.findById(predmetId)
-                .orElseThrow(() -> new RuntimeException("Predmet ne postoji"));
-
-            PohadjanjePredmeta p = new PohadjanjePredmeta();
-            p.setStudent(student);
-            p.setPredmet(predmet);
-            p.setAktivan(true);
-            p.setDatumPocetka(LocalDateTime.now());
-            p.setAktivan(true);
-            repository.save(p);
-        }
-    }
 }
-

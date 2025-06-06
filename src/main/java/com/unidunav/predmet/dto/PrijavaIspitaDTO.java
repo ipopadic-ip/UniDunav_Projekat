@@ -9,14 +9,15 @@ public class PrijavaIspitaDTO {
     private boolean status;
     private Long pohadjanjeId;
     private String predmetNaziv;
-
+    
     public String getPredmetNaziv() {
-		return predmetNaziv;
-	}
-	public void setPredmetNaziv(String predmetNaziv) {
-		this.predmetNaziv = predmetNaziv;
-	}
-	// Getteri i setteri
+  		return predmetNaziv;
+  	}
+  	public void setPredmetNaziv(String predmetNaziv) {
+  		this.predmetNaziv = predmetNaziv;
+  	}
+
+    // Getteri i setteri
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

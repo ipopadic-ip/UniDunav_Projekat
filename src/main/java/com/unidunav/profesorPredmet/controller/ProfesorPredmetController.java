@@ -42,7 +42,5 @@ public class ProfesorPredmetController {
         service.obrisi(id);
         return ResponseEntity.noContent().build();
     }
-    
-    
 
 }

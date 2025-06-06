@@ -1,5 +1,6 @@
 package com.unidunav.profesor.service;
 
+import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.profesor.dto.ProfesorDTO;
 
 import java.io.IOException;
@@ -21,5 +22,7 @@ public interface ProfesorService {
     Profesor toEntity(ProfesorDTO dto);
     
     String uploadSlika(Long profesorId, MultipartFile slika) throws IOException;
+
+    List<PredmetDTO> findPredmetiByProfesorId(Long profesorId);
 
 }

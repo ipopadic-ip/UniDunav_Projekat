@@ -6,10 +6,13 @@ import com.unidunav.obavestenje.model.Obavestenje;
 import com.unidunav.obavestenje.service.ObavestenjeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/obavestenja")
 public class ObavestenjeController {
@@ -23,8 +26,11 @@ public class ObavestenjeController {
     @PostMapping
     @PreAuthorize("hasAnyRole('PROFESOR', 'SLUZBENIK')")
     public ResponseEntity<ObavestenjeResponseDTO> kreiraj(@RequestBody ObavestenjeDTO dto) {
-        return ResponseEntity.ok(obavestenjeService.kreirajObavestenje(dto));
+        ObavestenjeResponseDTO responseDTO = obavestenjeService.kreirajObavestenje(dto);
+        return ResponseEntity.ok(responseDTO);
     }
+
+
 
 
     @GetMapping
@@ -35,6 +41,11 @@ public class ObavestenjeController {
     @GetMapping("/{id}")
     public ResponseEntity<Obavestenje> nadjiPoId(@PathVariable Long id) {
         return ResponseEntity.ok(obavestenjeService.nadjiPoId(id));
+    }
+    
+    @GetMapping("/dto")
+    public List<ObavestenjeResponseDTO> svaObavestenjaDTO() {
+        return obavestenjeService.svaObavestenjaDTO();
     }
     
     @PutMapping("/{id}")
@@ -55,5 +66,28 @@ public class ObavestenjeController {
         List<ObavestenjeResponseDTO> obavestenja = obavestenjeService.findObavestenjaZaStudenta(id);
         return ResponseEntity.ok(obavestenja);
     }
+    
+    @GetMapping("/profesor")
+    public ResponseEntity<List<ObavestenjeResponseDTO>> getObavestenjaZaProfesora() {
+        return ResponseEntity.ok(obavestenjeService.findObavestenjaZaProfesora());
+    }
+    
+    @GetMapping("/profesor/{id}")
+    @PreAuthorize("hasRole('PROFESOR')")
+    public ResponseEntity<ObavestenjeResponseDTO> nadjiPoIdZaProfesora(@PathVariable Long id) {
+        Obavestenje obavestenje = obavestenjeService.nadjiPoId(id);
+
+        ObavestenjeResponseDTO dto = new ObavestenjeResponseDTO();
+        dto.setId(obavestenje.getId());
+        dto.setTekst(obavestenje.getTekst());
+        dto.setDatum(obavestenje.getDatum());
+        dto.setPredmetId(obavestenje.getPredmet().getId());
+        dto.setPredmetNaziv(obavestenje.getPredmet().getNaziv());
+        dto.setAutorId(obavestenje.getAutor().getId());
+        dto.setAutorIme(obavestenje.getAutor().getIme() + " " + obavestenje.getAutor().getPrezime());
+
+        return ResponseEntity.ok(dto);
+    }
+
 
 }

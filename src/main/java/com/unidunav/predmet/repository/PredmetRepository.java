@@ -10,4 +10,6 @@ import com.unidunav.predmet.model.Predmet;
 @Repository
 public interface PredmetRepository extends JpaRepository<Predmet, Long> {
 	List<Predmet> findByGodinaStudijaId(Long godinaStudijaId);
+	List<Predmet> findByProfesoriProfesorId(Long profesorId);
+
 }

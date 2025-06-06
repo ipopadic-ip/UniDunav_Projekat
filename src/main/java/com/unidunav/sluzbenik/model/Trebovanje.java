@@ -3,8 +3,6 @@ package com.unidunav.sluzbenik.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
-import com.unidunav.user.model.User;
-
 @Entity
 public class Trebovanje {
 
@@ -19,15 +17,14 @@ public class Trebovanje {
     private int kolicina;
 
     @Column(nullable = false)
-    private LocalDate datumTrebovanja;
-    @ManyToOne
-    private User sluzbenik;
+    private LocalDate datum;
+
     public Trebovanje() {}
 
-    public Trebovanje(String nazivStavke, int kolicina, LocalDate datumTrebovanja) {
+    public Trebovanje(String nazivStavke, int kolicina, LocalDate datum) {
         this.nazivStavke = nazivStavke;
         this.kolicina = kolicina;
-        this.datumTrebovanja = datumTrebovanja;
+        this.datum = datum;
     }
 
     // Getteri i setteri
@@ -51,19 +48,11 @@ public class Trebovanje {
         this.kolicina = kolicina;
     }
 
-    public LocalDate getDatumTrebovanja() {
-        return datumTrebovanja;
+    public LocalDate getDatum() {
+        return datum;
     }
 
-    public void setDatumTrebovanja(LocalDate datumTrebovanja) {
-        this.datumTrebovanja = datumTrebovanja;
-    }
-    
-    public User getSluzbenik() {
-        return sluzbenik;
-    }
-
-    public void setSluzbenik(User sluzbenik) {
-        this.sluzbenik = sluzbenik;
+    public void setDatum(LocalDate datum) {
+        this.datum = datum;
     }
 }

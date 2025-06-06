@@ -8,5 +8,4 @@ import java.util.List;
 public interface ProfesorPredmetRepository extends JpaRepository<ProfesorPredmet, Long> {
     List<ProfesorPredmet> findByProfesorId(Long profesorId);
     List<ProfesorPredmet> findByPredmetId(Long predmetId);
-    
 }

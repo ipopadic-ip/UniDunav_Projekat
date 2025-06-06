@@ -13,81 +13,76 @@ public class IznajmljivanjeKnjige {
     private Long id;
 
     @ManyToOne
-    private PrimerakKnjige primerakKnjige;
+    private Knjiga knjiga;
 
     @ManyToOne
     private User korisnik;
 
-    
+    private int brojPrimeraka;
     private LocalDate datum;
     
-    
-    private LocalDate vraceno;
+    @Column(nullable = false)
+    private boolean vraceno = false;
 
 
     public IznajmljivanjeKnjige() {}
 
+    public IznajmljivanjeKnjige(Knjiga knjiga, User korisnik, int brojPrimeraka, LocalDate datum) {
+        this.knjiga = knjiga;
+        this.korisnik = korisnik;
+        this.brojPrimeraka = brojPrimeraka;
+        this.datum = datum;
+        this.vraceno = false;
+    }
+    
 
-	public IznajmljivanjeKnjige(Long id, PrimerakKnjige primerakKnjige, User korisnik, LocalDate datum,
-			LocalDate vraceno) {
-		super();
-		this.id = id;
-		this.primerakKnjige = primerakKnjige;
-		this.korisnik = korisnik;
-		this.datum = datum;
-		this.vraceno = vraceno;
+	public boolean isVraceno() {
+		return vraceno;
 	}
 
+	public void setVraceno(boolean vraceno) {
+		this.vraceno = vraceno;
+	}
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-	public PrimerakKnjige getPrimerakKnjige() {
-		return primerakKnjige;
+	public Knjiga getKnjiga() {
+		return knjiga;
 	}
 
-
-	public void setPrimerakKnjige(PrimerakKnjige primerakKnjige) {
-		this.primerakKnjige = primerakKnjige;
+	public void setKnjiga(Knjiga knjiga) {
+		this.knjiga = knjiga;
 	}
-
 
 	public User getKorisnik() {
 		return korisnik;
 	}
 
-
 	public void setKorisnik(User korisnik) {
 		this.korisnik = korisnik;
 	}
 
+	public int getBrojPrimeraka() {
+		return brojPrimeraka;
+	}
+
+	public void setBrojPrimeraka(int brojPrimeraka) {
+		this.brojPrimeraka = brojPrimeraka;
+	}
 
 	public LocalDate getDatum() {
 		return datum;
 	}
 
-
 	public void setDatum(LocalDate datum) {
 		this.datum = datum;
 	}
 
-
-	public LocalDate getVraceno() {
-		return vraceno;
-	}
-
-
-	public void setVraceno(LocalDate vraceno) {
-		this.vraceno = vraceno;
-	}
-
-
-	
+    
 }
