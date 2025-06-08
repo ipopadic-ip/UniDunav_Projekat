@@ -36,6 +36,16 @@ export const SLUZBENIK_ROUTES: Routes = [
   loadComponent: () => import('./termin-nastave/termin-nastave.component')
     .then(m => m.TerminiNastaveComponent)
 },
+{
+  path: 'kreiraj-evaluaciju',
+  loadComponent: () => import('./kreiraj-evaluaciju/kreiraj-evaluaciju.component')
+    .then(m => m.KreirajEvaluacijuComponent)
+},
+{
+  path: 'kreiraj-prijavu-ispita',
+  loadComponent: () => import('./kreiraj-prijavu-ispita/kreiraj-prijavu-ispita.component')
+    .then(m => m.KreirajPrijavuIspitaComponent)
+},
   {
         path: 'trebovanje-knjiga',
         loadComponent: () => import('./trebovanje-knjiga/trebovanje-knjiga.component')

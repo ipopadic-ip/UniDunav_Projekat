@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PrijavaIspitaDTO } from '../model/prijava-ispita.model';
+import { Predmet } from '../model/predmet.model';
 
 @Injectable({ providedIn: 'root' })
 export class PrijavaIspitaService {
@@ -17,4 +18,11 @@ export class PrijavaIspitaService {
   prijavi(prijavaId: number): Observable<any> {
     return this.http.post(`${this.API_URL}/prijavi/${prijavaId}`, {});
   }
+
+  kreirajPrijave(dto: { predmetId: number, datumIspita: string }): Observable<string> {
+  return this.http.post(`${this.API_URL}/kreiraj`, dto, { responseType: 'text' });
+}
+getSviPredmeti(): Observable<Predmet[]> {
+  return this.http.get<Predmet[]>('/api/predmeti');
+}
 }

@@ -24,4 +24,8 @@ export class PredmetService {
   getPredmetById(id: number): Observable<Predmet> {
   return this.http.get<Predmet>(`${this.apiUrl}/${id}`);
 ``}
+
+getSviPredmeti(): Observable<Predmet[]> {
+  return this.http.get<Predmet[]>('/api/predmeti');
+}
 }

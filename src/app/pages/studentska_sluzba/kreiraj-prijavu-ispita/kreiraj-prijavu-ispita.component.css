@@ -1,0 +1,8 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form .form-group label {
+  font-weight: bold;
+}

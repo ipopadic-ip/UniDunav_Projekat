@@ -1,0 +1,12 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form .form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+}

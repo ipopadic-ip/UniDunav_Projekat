@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <h2>Kreiranje prijava za ispit</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-4">
+    <div class="form-group">
+      <label>Izaberite predmet:</label>
+      <div *ngIf="predmeti.length > 0; else loading">
+        <div *ngFor="let p of predmeti" class="form-check">
+          <input type="radio" [value]="p.id" formControlName="predmetId" name="predmetId" class="form-check-input" />
+          <label class="form-check-label">{{ p.naziv }}</label>
+        </div>
+      </div>
+      <ng-template #loading>
+        <p>Učitavanje predmeta...</p>
+      </ng-template>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="datumIspita">Datum ispita</label>
+      <input type="datetime-local" id="datumIspita" class="form-control" formControlName="datumIspita" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4" [disabled]="form.invalid">Kreiraj prijave</button>
+  </form>
+
+  <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+</div>
