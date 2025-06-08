@@ -108,4 +108,20 @@ public class PrijavaIspitaServiceImpl implements PrijavaIspitaService {
         dto.setPredmetNaziv(entity.getPohadjanje().getPredmet().getNaziv());
         return dto;
     }
+    
+    @Override
+    public void kreirajPrijaveZaPredmet(Long predmetId, LocalDateTime datumIspita) {
+        List<PohadjanjePredmeta> pohadjanja = pohadjanjeRepo.findByPredmetId(predmetId);
+
+        for (PohadjanjePredmeta pohadjanje : pohadjanja) {
+            PrijavaIspita prijava = new PrijavaIspita();
+            prijava.setDatumIspita(datumIspita);
+            prijava.setDatumPrijave(null);
+            prijava.setStatus(false);
+            prijava.setPohadjanje(pohadjanje);
+            prijavaRepo.save(prijava);
+        }
+    }
+
+	
 }

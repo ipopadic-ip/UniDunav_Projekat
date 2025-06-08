@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.unidunav.predmet.dto.KreiranjeIspitaDTO;
 import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
 import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.predmet.dto.PrijavaIspitaDTO;
@@ -73,5 +74,11 @@ public class PrijavaIspitaController {
     @PostMapping("/prijavi/{prijavaId}")
     public ResponseEntity<PrijavaIspitaDTO> prijavi(@PathVariable Long prijavaId) {
         return ResponseEntity.ok(prijavaIspitaService.prijaviIspit(prijavaId));
+    }
+    
+    @PostMapping("/kreiraj")
+    public ResponseEntity<String> kreiraj(@RequestBody KreiranjeIspitaDTO dto) {
+    	prijavaIspitaService.kreirajPrijaveZaPredmet(dto.getPredmetId(), dto.getDatumIspita());
+        return ResponseEntity.ok("Ispit uspešno kreiran.");
     }
 }

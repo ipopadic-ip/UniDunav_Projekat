@@ -3,6 +3,7 @@ package com.unidunav.predmet.service.evaluacijaZnanja;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.unidunav.predmet.dto.EvaluacijaZnanjaCreateDTO;
 import com.unidunav.predmet.dto.EvaluacijaZnanjaDTO;
 import com.unidunav.predmet.model.EvaluacijaZnanja;
 import com.unidunav.predmet.model.PohadjanjePredmeta;
@@ -10,6 +11,8 @@ import com.unidunav.predmet.model.TipEvaluacije;
 import com.unidunav.predmet.repository.EvaluacijaZnanjaRepository;
 import com.unidunav.predmet.repository.PohadjanjePredmetaRepository;
 import com.unidunav.predmet.repository.TipEvaluacijeRepository;
+
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,4 +77,23 @@ public class EvaluacijaZnanjaServiceImpl implements EvaluacijaZnanjaService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+    
+
+@Override
+@Transactional
+public void kreirajEvaluacijeZaPredmet(EvaluacijaZnanjaCreateDTO dto) {
+    List<PohadjanjePredmeta> pohadjanja = pohRepo.findByPredmetId(dto.getPredmetId());
+
+    TipEvaluacije tip = tipRepo.findById(dto.getTipEvaluacijeId())
+    	    .orElseThrow(() -> new RuntimeException("Nepostojeći tip evaluacije"));
+
+    for (PohadjanjePredmeta poh : pohadjanja) {
+        EvaluacijaZnanja evaluacija = new EvaluacijaZnanja();
+        evaluacija.setVremePocetka(dto.getVremePocetka());
+        evaluacija.setTipEvaluacije(tip);
+        evaluacija.setPohadjanje(poh);
+        evaluacija.setBrojBodova(null); // još se ne zna
+        repository.save(evaluacija);
+    }
+}
 }

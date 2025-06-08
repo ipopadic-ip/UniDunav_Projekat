@@ -1,5 +1,6 @@
 package com.unidunav.predmet.service.prijavaIspita;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
@@ -18,5 +19,7 @@ public interface PrijavaIspitaService {
     
     List<PrijavaIspitaDTO> getDostupnePrijave(Long studentId);
     PrijavaIspitaDTO prijaviIspit(Long prijavaId);
+	void kreirajPrijaveZaPredmet(Long predmetId, LocalDateTime datumIspita);
+	
 
 }
