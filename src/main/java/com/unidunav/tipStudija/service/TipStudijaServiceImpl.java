@@ -42,13 +42,54 @@ public class TipStudijaServiceImpl implements TipStudijaService {
         return toDTO(entity);
     }
 
+//    @Override
+//    public List<TipStudijaDTO> findAll() {
+//        return tipStudijaRepository.findAll()
+//                .stream()
+//                .map(this::toDTO)
+//                .collect(Collectors.toList());
+//    }
+    
     @Override
     public List<TipStudijaDTO> findAll() {
-        return tipStudijaRepository.findAll()
+        return tipStudijaRepository.findByDeletedFalse()
                 .stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<TipStudijaDTO> findAllAdmin() {
+        return tipStudijaRepository.findAllByOrderByDeletedAsc()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(Long id) {
+        TipStudija entity = tipStudijaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Tip studija sa ID " + id + " nije pronađen."));
+        entity.setDeleted(true);
+        tipStudijaRepository.save(entity);
+    }
+
+    @Override
+    public void deaktiviraj(Long id) {
+        TipStudija entity = tipStudijaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Tip studija sa ID " + id + " nije pronađen."));
+        entity.setDeleted(true);
+        tipStudijaRepository.save(entity);
+    }
+
+    @Override
+    public void aktiviraj(Long id) {
+        TipStudija entity = tipStudijaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Tip studija sa ID " + id + " nije pronađen."));
+        entity.setDeleted(false);
+        tipStudijaRepository.save(entity);
+    }
+
 
     @Override
     public TipStudijaDTO findById(Long id) {
@@ -75,19 +116,20 @@ public class TipStudijaServiceImpl implements TipStudijaService {
         return toDTO(entity);
     }
 
-    @Override
-    public void delete(Long id) {
-        if (!tipStudijaRepository.existsById(id)) {
-            throw new EntityNotFoundException("Tip studija sa ID " + id + " ne postoji.");
-        }
-        tipStudijaRepository.deleteById(id);
-    }
+//    @Override
+//    public void delete(Long id) {
+//        if (!tipStudijaRepository.existsById(id)) {
+//            throw new EntityNotFoundException("Tip studija sa ID " + id + " ne postoji.");
+//        }
+//        tipStudijaRepository.deleteById(id);
+//    }
 
     private TipStudijaDTO toDTO(TipStudija entity) {
         TipStudijaDTO dto = new TipStudijaDTO();
 
         dto.setId(entity.getId());
         dto.setTip(entity.getTip());
+        dto.setDeleted(entity.isDeleted());
 
         if (entity.getKatedra() != null) {
             KatedraDTO katedraDto = katedraService.findById(entity.getKatedra().getId());

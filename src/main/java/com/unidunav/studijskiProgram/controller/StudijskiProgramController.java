@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.unidunav.predmet.dto.PredmetDTO;
+import com.unidunav.studijskiProgram.dto.GrupisaniProgramiDTO;
 import com.unidunav.studijskiProgram.dto.StudijskiProgramDTO;
 import com.unidunav.studijskiProgram.service.StudijskiProgramService;
 
@@ -26,16 +27,42 @@ public class StudijskiProgramController {
         return studijskiProgramService.getPredmetiPoGodinama(id);
     }
     
+//    @GetMapping("/katedra/{katedraId}/grupisani-po-tipu")
+//    public Map<String, List<StudijskiProgramDTO>> getByKatedraGrouped(@PathVariable Long katedraId) {
+//        return studijskiProgramService.findByKatedraGroupedByTipStudija(katedraId);
+//    }
+    
     @GetMapping("/katedra/{katedraId}/grupisani-po-tipu")
-    public Map<String, List<StudijskiProgramDTO>> getByKatedraGrouped(@PathVariable Long katedraId) {
+    public List<GrupisaniProgramiDTO> getByKatedraGrouped(@PathVariable Long katedraId) {
         return studijskiProgramService.findByKatedraGroupedByTipStudija(katedraId);
     }
 
-
+    
     @GetMapping
     public List<StudijskiProgramDTO> getAll() {
         return studijskiProgramService.findAll();
     }
+
+    @GetMapping("/admin")
+    public List<StudijskiProgramDTO> getAllAdmin() {
+        return studijskiProgramService.findAllGroupedByFakultetSortedByDeleted();
+    }
+    
+    @PatchMapping("/{id}/deaktiviraj")
+    public void deaktiviraj(@PathVariable Long id) {
+        studijskiProgramService.deaktiviraj(id);
+    }
+
+    @PatchMapping("/{id}/aktiviraj")
+    public void aktiviraj(@PathVariable Long id) {
+        studijskiProgramService.aktiviraj(id);
+    }
+
+
+//    @GetMapping
+//    public List<StudijskiProgramDTO> getAll() {
+//        return studijskiProgramService.findAll();
+//    }
 
     @GetMapping("/{id}")
     public StudijskiProgramDTO getById(@PathVariable Long id) {

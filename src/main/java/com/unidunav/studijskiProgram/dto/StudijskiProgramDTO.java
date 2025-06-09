@@ -16,10 +16,65 @@ public class StudijskiProgramDTO {
     private TipStudijaDTO tipStudija;
     private ProfesorDTO rukovodilac;
     
+//    private Long tipStudijaId;
+    private String tipStudijaUri;
+
+    
+    private Long rukovodilacId;
+
+    
     private Long katedraId;
+    
+    private boolean deleted;
+    
+    private String katedraNaziv; 
+    
+    
+    
+    
 
 
-    public StudijskiProgramDTO() {}
+    public String getTipStudijaUri() {
+		return tipStudijaUri;
+	}
+
+	public void setTipStudijaUri(String tipStudijaUri) {
+		this.tipStudijaUri = tipStudijaUri;
+	}
+
+//	public Long getTipStudijaId() {
+//		return tipStudijaId;
+//	}
+//
+//	public void setTipStudijaId(Long tipStudijaId) {
+//		this.tipStudijaId = tipStudijaId;
+//	}
+
+	public Long getRukovodilacId() {
+		return rukovodilacId;
+	}
+
+	public void setRukovodilacId(Long rukovodilacId) {
+		this.rukovodilacId = rukovodilacId;
+	}
+
+	public String getKatedraNaziv() {
+		return katedraNaziv;
+	}
+
+	public void setKatedraNaziv(String katedraNaziv) {
+		this.katedraNaziv = katedraNaziv;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public StudijskiProgramDTO() {}
 
     public StudijskiProgramDTO(Long id, String naziv, String opis,
                                 List<GodinaStudijaDTO> godineStudija,

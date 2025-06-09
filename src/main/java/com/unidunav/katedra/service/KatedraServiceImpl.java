@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.unidunav.katedra.dto.KatedraCreateUpdateDTO;
 import com.unidunav.katedra.dto.KatedraDTO;
 import com.unidunav.katedra.model.Katedra;
 import com.unidunav.katedra.Repository.KatedraRepository;
@@ -73,6 +74,77 @@ public class KatedraServiceImpl implements KatedraService {
                 .map(this::toDTO)
                 .toList();
     }
+    
+    @Override
+    public List<KatedraDTO> findAllAktivne() {
+        return katedraRepository.findByDeletedFalse()
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    @Override
+    public List<KatedraDTO> findAllAdmin() {
+        return katedraRepository.findAllSortiranoPoAktivnostiIFakultetu()
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    @Override
+    public List<KatedraDTO> findAktivneByDepartmanId(Long departmanId) {
+        return katedraRepository.findByDepartmanIdAndDeletedFalse(departmanId)
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    @Override
+    public void setDeleted(Long id, boolean deleted) {
+        Katedra entity = katedraRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Katedra nije pronađena"));
+        entity.setDeleted(deleted);
+        katedraRepository.save(entity);
+    }
+    
+    @Override
+    public KatedraDTO create(KatedraCreateUpdateDTO dto) {
+        Katedra katedra = new Katedra();
+        katedra.setNaziv(dto.getNaziv());
+        katedra.setOpis(dto.getOpis());
+        katedra.setDeleted(false);
+
+        Profesor sef = profesorRepository.findById(dto.getSefKatedreId())
+                .orElseThrow(() -> new EntityNotFoundException("Profesor nije pronađen"));
+        katedra.setSefKatedre(sef);
+
+        Departman departman = departmanRepository.findById(dto.getDepartmanId())
+                .orElseThrow(() -> new EntityNotFoundException("Departman nije pronađen"));
+        katedra.setDepartman(departman);
+
+        return toDTO(katedraRepository.save(katedra));
+    }
+
+    @Override
+    public KatedraDTO update(Long id, KatedraCreateUpdateDTO dto) {
+        Katedra katedra = katedraRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Katedra nije pronađena"));
+
+        katedra.setNaziv(dto.getNaziv());
+        katedra.setOpis(dto.getOpis());
+
+        Profesor sef = profesorRepository.findById(dto.getSefKatedreId())
+                .orElseThrow(() -> new EntityNotFoundException("Profesor nije pronađen"));
+        katedra.setSefKatedre(sef);
+
+        Departman departman = departmanRepository.findById(dto.getDepartmanId())
+                .orElseThrow(() -> new EntityNotFoundException("Departman nije pronađen"));
+        katedra.setDepartman(departman);
+
+        return toDTO(katedraRepository.save(katedra));
+    }
+
+
 
 
     @Override
@@ -109,18 +181,6 @@ public class KatedraServiceImpl implements KatedraService {
         } else {
             entity.setSefKatedre(null);
         }
-
-        // Update predmeta (ako treba da ih menjaš pri update-u)
-//        if (dto.getPredmeti() != null) {
-//            entity.getPredmeti().clear();
-//            for (var predmetDto : dto.getPredmeti()) {
-//                Predmet predmet = predmetService.toEntity(predmetDto);
-//                entity.getPredmeti().add(predmet);
-//            }
-//        } else {
-//            entity.getPredmeti().clear();
-//        }
-
         entity = katedraRepository.save(entity);
         return toDTO(entity);
     }
@@ -139,6 +199,7 @@ public class KatedraServiceImpl implements KatedraService {
         dto.setId(entity.getId());
         dto.setNaziv(entity.getNaziv());
         dto.setOpis(entity.getOpis());
+        dto.setDeleted(entity.isDeleted());
 
         // Departman
         if (entity.getDepartman() != null) {
@@ -149,37 +210,37 @@ public class KatedraServiceImpl implements KatedraService {
             dto.setDepartman(departmanDTO);
         }
 
-        // Tipovi studija
+        
+     // Tipovi studija – prikaz samo aktivnih
         if (entity.getTipoviStudija() != null) {
             List<com.unidunav.tipStudija.dto.TipStudijaDTO> tipDtoList = entity.getTipoviStudija().stream()
+                    .filter(t -> !t.isDeleted()) // <-- filtriramo samo aktivne
                     .map(t -> {
                         var tipDto = new com.unidunav.tipStudija.dto.TipStudijaDTO();
                         tipDto.setId(t.getId());
                         tipDto.setTip(t.getTip());
                         return tipDto;
-                    }).collect(Collectors.toList());
+                    })
+                    .collect(Collectors.toList());
             dto.setTipoviStudija(tipDtoList);
         }
+
+//        if (entity.getTipoviStudija() != null) {
+//            List<com.unidunav.tipStudija.dto.TipStudijaDTO> tipDtoList = entity.getTipoviStudija().stream()
+//                    .map(t -> {
+//                        var tipDto = new com.unidunav.tipStudija.dto.TipStudijaDTO();
+//                        tipDto.setId(t.getId());
+//                        tipDto.setTip(t.getTip());
+//                        return tipDto;
+//                    }).collect(Collectors.toList());
+//            dto.setTipoviStudija(tipDtoList);
+//        }
 
         // Šef katedre
         if (entity.getSefKatedre() != null) {
        	 dto.setSefKatedre(profesorService.toDTO(entity.getSefKatedre()));
        }
-//        if (entity.getSefKatedre() != null) {
-//            var sef = entity.getSefKatedre();
-//            var sefDto = new com.unidunav.profesor.dto.ProfesorDTO();
-//            sefDto.setId(sef.getId());
-//            dto.setSefKatedre(sefDto);
-//        }
-
-        // Predmeti
-//        if (entity.getPredmeti() != null) {
-//            List<com.unidunav.predmet.dto.PredmetDTO> predmetiDto = entity.getPredmeti().stream()
-//                    .map(predmetService::toDTO)
-//                    .collect(Collectors.toList());
-//            dto.setPredmeti(predmetiDto);
-//        }
-
+        
         return dto;
     }
 
@@ -189,6 +250,7 @@ public class KatedraServiceImpl implements KatedraService {
         entity.setId(dto.getId());
         entity.setNaziv(dto.getNaziv());
         entity.setOpis(dto.getOpis());
+        entity.setDeleted(dto.isDeleted());
 
         if (dto.getDepartman() != null && dto.getDepartman().getId() != null) {
             Departman departman = departmanRepository.findById(dto.getDepartman().getId())
@@ -210,14 +272,6 @@ public class KatedraServiceImpl implements KatedraService {
                     .orElseThrow(() -> new EntityNotFoundException("Profesor (šef katedre) sa ID " + dto.getSefKatedre().getId() + " nije pronađen."));
             entity.setSefKatedre(sef);
         }
-
-//        if (dto.getPredmeti() != null) {
-//            entity.getPredmeti().clear();
-//            for (var predmetDto : dto.getPredmeti()) {
-//                Predmet predmet = predmetService.toEntity(predmetDto);
-//                entity.getPredmeti().add(predmet);
-//            }
-//        }
 
         return entity;
     }

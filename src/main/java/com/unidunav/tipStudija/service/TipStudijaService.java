@@ -10,4 +10,9 @@ public interface TipStudijaService {
 	TipStudijaDTO findById(Long id);
 	TipStudijaDTO update(Long id, TipStudijaDTO dto);
 	void delete(Long id);
+	
+	List<TipStudijaDTO> findAllAdmin();
+	void deaktiviraj(Long id);
+	void aktiviraj(Long id);
+
 }

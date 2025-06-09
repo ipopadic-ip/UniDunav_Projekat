@@ -12,6 +12,7 @@ public interface PredmetService {
     PredmetDTO findById(Long id);
     PredmetDTO update(Long id, PredmetDTO dto);
     void delete(Long id);
+	List<PredmetDTO> findAllAktivni();
 }
 //public interface PredmetService {
 //	PredmetDTO create(PredmetDTO dto);

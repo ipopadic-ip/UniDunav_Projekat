@@ -21,5 +21,4 @@ public interface StudentService {
     List<PredmetDTO> getPredmetiKojeStudentSlusa(Long studentId);
     List<ObavestenjeStudentuDTO> getObavestenjaZaStudenta(Long studentId);
     List<StudentDTO> findByBrojIndeksa(String indeks);
-
 }

@@ -36,6 +36,9 @@ public class Predmet {
 
     @Column(name = "informacije_o_predmetu")
     private String informacijeOPredmetu;
+    
+    @Column(nullable = false)
+    private boolean deleted = false;
 
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProfesorPredmet> profesori;
@@ -55,6 +58,16 @@ public class Predmet {
     
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Obavestenje> obavestenja = new ArrayList<>();
+    
+    
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public Long getId() {
 		return id;

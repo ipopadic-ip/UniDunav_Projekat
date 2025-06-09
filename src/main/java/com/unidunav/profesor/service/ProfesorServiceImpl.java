@@ -61,8 +61,16 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     @Override
     public List<ProfesorDTO> findAll() {
-        return repository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+        return repository.findByUserDeletedFalse()
+                         .stream()
+                         .map(this::toDTO)
+                         .collect(Collectors.toList());
     }
+
+//    @Override
+//    public List<ProfesorDTO> findAll() {
+//        return repository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+//    }
 
     @Override
     public ProfesorDTO findById(Long id) {

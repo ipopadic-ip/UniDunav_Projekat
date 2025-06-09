@@ -52,17 +52,17 @@ public class StudentController {
     }
     
   
-        private final PohadjanjePredmetaServiceImpl pohadjanjeService;
+    private final PohadjanjePredmetaServiceImpl pohadjanjeService;
 
-        public StudentController(PohadjanjePredmetaServiceImpl pohadjanjeService) {
-            this.pohadjanjeService = pohadjanjeService;
-        }
+    public StudentController(PohadjanjePredmetaServiceImpl pohadjanjeService) {
+        this.pohadjanjeService = pohadjanjeService;
+    }
 
-        @GetMapping("/{studentId}/istorija")
-        public ResponseEntity<StudentIstorijaStudiranjaResponseDTO> getIstorijaStudiranja(@PathVariable Long studentId) {
-            StudentIstorijaStudiranjaResponseDTO dto = pohadjanjeService.getIstorijaStudiranjaZaStudenta(studentId);
-            return ResponseEntity.ok(dto);
-        }
+    @GetMapping("/{studentId}/istorija")
+    public ResponseEntity<StudentIstorijaStudiranjaResponseDTO> getIstorijaStudiranja(@PathVariable Long studentId) {
+        StudentIstorijaStudiranjaResponseDTO dto = pohadjanjeService.getIstorijaStudiranjaZaStudenta(studentId);
+        return ResponseEntity.ok(dto);
+    }
     
 
     @GetMapping("/{id}")

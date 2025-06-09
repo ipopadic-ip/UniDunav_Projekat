@@ -29,6 +29,9 @@ public class Departman {
     private String naziv;
 
     private String opis;
+    
+    @Column(nullable = false)
+    private boolean deleted = false;
 
     @OneToMany(mappedBy = "departman", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Katedra> katedre = new ArrayList<>();
@@ -46,6 +49,8 @@ public class Departman {
     public Departman(Long id) {
         this.id = id;
     }
+    
+    
 
 //    public Departman(Long id, String naziv, String opis, ArrayList<Katedra> katedre, Fakultet fakultet, Profesor sefDepartmana) {
 //        this.id = id;
@@ -60,7 +65,15 @@ public class Departman {
 
     // Getteri i setteri
 
-    public Long getId() {
+    public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Long getId() {
         return id;
     }
 

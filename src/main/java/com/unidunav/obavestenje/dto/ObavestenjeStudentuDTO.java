@@ -1,7 +1,5 @@
 package com.unidunav.obavestenje.dto;
 
-
-
 import java.time.LocalDate;
 
 public class ObavestenjeStudentuDTO {

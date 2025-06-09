@@ -10,5 +10,5 @@ public interface PohadjanjePredmetaService {
     PohadjanjePredmetaDTO findById(Long id);
     PohadjanjePredmetaDTO update(Long id, PohadjanjePredmetaDTO dto);
     void delete(Long id);
-	void upisiStudenta(Long studentId, List<Long> predmetIds);
+    void upisiStudenta(Long studentId, List<Long> predmetIds);
 }

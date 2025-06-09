@@ -59,6 +59,22 @@
 	    <version>0.11.5</version>
 	    <scope>runtime</scope>
 	</dependency>
+	
+	 <!-- Apache Jena RDF Core -->
+    <dependency>
+        <groupId>org.apache.jena</groupId>
+        <artifactId>apache-jena-libs</artifactId>
+        <version>4.10.0</version>
+        <type>pom</type>
+    </dependency>
 
   </dependencies>
+  
+  <repositories>
+    <repository>
+        <id>jena</id>
+        <url>https://repository.apache.org/content/repositories/releases/</url>
+    </repository>
+</repositories>
+
 </project>

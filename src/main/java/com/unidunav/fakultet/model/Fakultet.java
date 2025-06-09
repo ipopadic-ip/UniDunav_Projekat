@@ -34,6 +34,22 @@ public class Fakultet {
 	
 	private String brojTelefona;
 	
+	@Column(nullable = false)
+	private boolean deleted = false; // default vrednost
+	
+	
+
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	@ManyToOne 
     @JoinColumn(name = "univerzitet_id", nullable = false)
     private Univerzitet univerzitet;

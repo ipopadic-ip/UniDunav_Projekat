@@ -6,4 +6,3 @@ import com.unidunav.obavestenje.model.OpsteObavestenje;
 
 public interface OpsteObavestenjeRepository extends JpaRepository<OpsteObavestenje, Long> {
 }
-

@@ -6,6 +6,7 @@ import com.unidunav.student.model.Student;
 import com.unidunav.student.repository.StudentRepository;
 import com.unidunav.user.dto.CreateUserDTO;
 import com.unidunav.user.dto.UserDTO;
+import com.unidunav.user.dto.request.UserUpdateMeDTO;
 import com.unidunav.user.model.Role;
 import com.unidunav.user.model.User;
 import com.unidunav.user.repository.RoleRepository;
@@ -265,6 +266,17 @@ public class UserService {
         dto.setDeleted(user.isDeleted());
         return dto;
     }
+    
+    public void updateMe(UserUpdateMeDTO dto, User currentUser) {
+        User user = userRepository.findById(currentUser.getId())
+                .orElseThrow(() -> new RuntimeException("Korisnik nije pronađen."));
+
+        user.setIme(dto.getIme());
+        user.setPrezime(dto.getPrezime());
+
+        userRepository.save(user);
+    }
+
 
     
     public List<UserDTO> getAllAdmin() {

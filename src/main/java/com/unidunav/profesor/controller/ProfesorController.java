@@ -1,9 +1,8 @@
 package com.unidunav.profesor.controller;
 
 import com.unidunav.profesor.dto.ProfesorDTO;
-import com.unidunav.profesor.service.ProfesorService;
 import com.unidunav.profesorPredmet.dto.ProfesorPredmetResponseDTO;
-
+import com.unidunav.profesor.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/profesor")
 @CrossOrigin(origins = "*")
-@PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
+@PreAuthorize("hasAnyRole('ADMIN', 'PROFESOR')")
 public class ProfesorController {
 
     @Autowired
@@ -41,10 +40,10 @@ public class ProfesorController {
         return service.update(id, dto);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
-    }
+//    @DeleteMapping("/{id}")
+//    public void delete(@PathVariable Long id) {
+//        service.delete(id);
+//    }
 //    POST /api/profesor/{id}/slika
 //    Body: form-data
 //    Key: slika (type: file)
@@ -58,13 +57,10 @@ public class ProfesorController {
             return ResponseEntity.badRequest().body("Greška: " + e.getMessage());
         }
     }
-
+    
     @GetMapping("/profesori")
     @PreAuthorize("hasRole('SLUZBENIK')")
     public List<ProfesorDTO> getAllProfesori() {
         return service.findAll();
     }
-    
-    
-
 }

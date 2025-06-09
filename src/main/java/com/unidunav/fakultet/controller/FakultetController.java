@@ -40,6 +40,27 @@ public class FakultetController {
         return ResponseEntity.ok(fakultetService.findAllSimple());
     }
     
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<FakultetSimpleDTO>> findAllSimpleAdmin() {
+        return ResponseEntity.ok(fakultetService.findAllSimpleAdmin());
+    }
+
+    @PutMapping("/{id}/deactivate")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deactivate(@PathVariable Long id) {
+        fakultetService.setDeleted(id, true);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/activate")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> activate(@PathVariable Long id) {
+        fakultetService.setDeleted(id, false);
+        return ResponseEntity.noContent().build();
+    }
+
+    
     @GetMapping("/{id}")
     public ResponseEntity<FakultetSimpleDTO> findSimpleById(@PathVariable Long id) {
         return ResponseEntity.ok(fakultetService.findSimpleById(id));
@@ -56,17 +77,30 @@ public class FakultetController {
         return ResponseEntity.ok(fakultetService.findById(id));
     }
 
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @PostMapping
+//    public ResponseEntity<FakultetDTO> create(@RequestBody FakultetDTO dto) {
+//        return ResponseEntity.ok(fakultetService.create(dto));
+//    }
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
-    public ResponseEntity<FakultetDTO> create(@RequestBody FakultetDTO dto) {
-        return ResponseEntity.ok(fakultetService.create(dto));
+    @PostMapping("")
+    public ResponseEntity<FakultetSimpleDTO> createSimple(@RequestBody FakultetSimpleDTO dto) {
+        return ResponseEntity.ok(fakultetService.createSimple(dto));
     }
 
+
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/komplex")
     public ResponseEntity<FakultetDTO> update(@PathVariable Long id, @RequestBody FakultetDTO dto) {
         return ResponseEntity.ok(fakultetService.update(id, dto));
     }
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<FakultetSimpleDTO> updateSimple(@PathVariable Long id, @RequestBody FakultetSimpleDTO dto) {
+        return ResponseEntity.ok(fakultetService.updateSimple(id, dto));
+    }
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")

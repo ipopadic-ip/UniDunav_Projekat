@@ -27,8 +27,11 @@ public class StudijskiProgram {
     private Long id;
 
     private String naziv;
+    
+    @Column(nullable = false)
+    private boolean deleted = false;
 
-    @Column(length=3000)
+	@Column(length=3000)
     private String opis;
 
     @OneToMany(mappedBy = "studijskiProgram", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,6 +40,9 @@ public class StudijskiProgram {
     @ManyToOne
     @JoinColumn(name = "tipStudija_id")
     private TipStudija tipStudija;
+    
+    @Column(nullable = false)
+    private String tipStudijaUri;
 
     @OneToOne
     @JoinColumn(name = "rukovodilac_id", nullable = true)
@@ -64,7 +70,19 @@ public class StudijskiProgram {
     // === Getteri i setteri ===
     
 
-    public StudijskiProgram(Long id, String naziv, String opis, List<GodinaStudija> godineStudija,
+    public String getTipStudijaUri() {
+		return tipStudijaUri;
+	}
+
+
+
+	public void setTipStudijaUri(String tipStudijaUri) {
+		this.tipStudijaUri = tipStudijaUri;
+	}
+
+
+
+	public StudijskiProgram(Long id, String naziv, String opis, List<GodinaStudija> godineStudija,
 			TipStudija tipStudija, Profesor rukovodilac, Katedra katedra) {
 		super();
 		this.id = id;
@@ -75,6 +93,16 @@ public class StudijskiProgram {
 		this.rukovodilac = rukovodilac;
 		this.katedra = katedra;
 	}
+    
+    public boolean isDeleted() {
+  		return deleted;
+  	}
+
+
+
+  	public void setDeleted(boolean deleted) {
+  		this.deleted = deleted;
+  	}
 
 
 

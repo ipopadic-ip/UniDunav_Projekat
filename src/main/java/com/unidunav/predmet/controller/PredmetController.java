@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.predmet.service.PredmetService;
+import com.unidunav.predmet.service.PredmetServiceImpl;
 
 import java.util.List;
 
@@ -22,10 +23,29 @@ public class PredmetController {
         return service.create(dto);
     }
 
-    @GetMapping
+    @GetMapping("/admin")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESOR', 'SLUZBENIK')")
     public List<PredmetDTO> getAll() {
         return service.findAll();
     }
+    
+    @GetMapping
+    public List<PredmetDTO> getAktivni() {
+        return service.findAllAktivni();
+    }
+
+    @PutMapping("/{id}/aktiviraj")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SLUZBENIK')")
+    public PredmetDTO aktiviraj(@PathVariable Long id) {
+        return ((PredmetServiceImpl) service).aktiviraj(id);
+    }
+
+    @PutMapping("/{id}/deaktiviraj")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SLUZBENIK')")
+    public PredmetDTO deaktiviraj(@PathVariable Long id) {
+        return ((PredmetServiceImpl) service).deaktiviraj(id);
+    }
+
 
     @GetMapping("/{id}")
     public PredmetDTO getById(@PathVariable Long id) {

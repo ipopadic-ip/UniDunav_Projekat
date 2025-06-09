@@ -2,14 +2,16 @@ package com.unidunav.predmet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
+import com.unidunav.sluzbenik.dto.UpisRequestDTO;
+
+import jakarta.annotation.security.PermitAll;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
 import com.unidunav.predmet.service.pohadjanjePredmeta.PohadjanjePredmetaService;
-import com.unidunav.sluzbenik.dto.UpisRequestDTO;
-
-import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
@@ -33,8 +35,6 @@ public class PohadjanjePredmetaController {
         service.upisiStudenta(zahtev.getStudentId(), zahtev.getPredmetIds());
         return ResponseEntity.ok().build();
     }
-    
-    
 
     @GetMapping
     public List<PohadjanjePredmetaDTO> getAll() {

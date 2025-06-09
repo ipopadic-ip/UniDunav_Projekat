@@ -8,5 +8,11 @@ import com.unidunav.dapartman.model.Departman;
 
 public interface DepartmanRepository extends JpaRepository<Departman, Long>{
 	List<Departman> findByFakultetId(Long fakultetId);
+	
+	List<Departman> findByDeletedFalse();
+
+	List<Departman> findAllByOrderByDeletedAscFakultetNazivAsc();
+	
+	List<Departman> findByFakultetIdAndDeletedFalse(Long fakultetId);
 
 }

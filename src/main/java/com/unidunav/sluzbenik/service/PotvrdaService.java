@@ -7,6 +7,6 @@ public interface PotvrdaService {
     PotvrdaDTO izdajPotvrdu(PotvrdaDTO dto);
     List<PotvrdaDTO> svePotvrde();
     List<PotvrdaDTO> potvrdeZaStudenta(Long studentId);
-	List<PotvrdaDTO> getAllPotvrde();
+    List<PotvrdaDTO> getAllPotvrde();
 	PotvrdaDTO createPotvrda(PotvrdaDTO dto);
 }

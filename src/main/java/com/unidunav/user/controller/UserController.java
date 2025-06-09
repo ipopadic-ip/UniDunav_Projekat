@@ -7,6 +7,7 @@ import com.unidunav.user.model.User;
 import com.unidunav.student.model.Student;
 import com.unidunav.student.repository.StudentRepository;
 import com.unidunav.user.dto.request.UpdateRolesRequest;
+import com.unidunav.user.dto.request.UserUpdateMeDTO;
 import com.unidunav.user.dto.request.ChangePasswordRequest;
 
 import com.unidunav.user.dto.CreateUserDTO;
@@ -77,6 +78,15 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    
+    @PutMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> updateMe(@RequestBody UserUpdateMeDTO dto) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userService.updateMe(dto, currentUser);
+        return ResponseEntity.ok("Profil uspešno ažuriran.");
+    }
+
 
 
     @GetMapping("/by-email")

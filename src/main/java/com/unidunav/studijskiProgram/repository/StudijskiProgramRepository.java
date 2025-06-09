@@ -9,5 +9,8 @@ import com.unidunav.studijskiProgram.model.StudijskiProgram;
 @Repository
 public interface StudijskiProgramRepository extends JpaRepository<StudijskiProgram, Long>{
 	List<StudijskiProgram> findByKatedraId(Long katedraId);
+	
+	List<StudijskiProgram> findByDeletedFalse();
+	List<StudijskiProgram> findAllByOrderByDeletedAsc();
 
 }

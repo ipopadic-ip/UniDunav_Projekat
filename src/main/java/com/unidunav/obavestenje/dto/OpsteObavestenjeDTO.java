@@ -1,5 +1,4 @@
 package com.unidunav.obavestenje.dto;
-
 import java.time.LocalDate;
 
 import com.unidunav.user.model.User;
@@ -44,4 +43,3 @@ public class OpsteObavestenjeDTO {
 
     
 }
-

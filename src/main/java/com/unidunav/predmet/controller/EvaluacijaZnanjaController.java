@@ -1,11 +1,11 @@
 package com.unidunav.predmet.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import com.unidunav.predmet.dto.EvaluacijaZnanjaCreateDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.unidunav.predmet.dto.EvaluacijaZnanjaCreateDTO;
 import com.unidunav.predmet.dto.EvaluacijaZnanjaDTO;
 import com.unidunav.predmet.service.evaluacijaZnanja.EvaluacijaZnanjaService;
 
@@ -47,6 +47,7 @@ public class EvaluacijaZnanjaController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
+    
     @PostMapping("/kreiraj")
     public ResponseEntity<Void> kreirajEvaluacije(@RequestBody EvaluacijaZnanjaCreateDTO dto) {
         service.kreirajEvaluacijeZaPredmet(dto);

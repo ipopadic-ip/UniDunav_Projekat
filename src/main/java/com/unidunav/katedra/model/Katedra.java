@@ -33,6 +33,9 @@ public class Katedra {
     
     private String opis;
     
+    @Column(nullable = false)
+    private boolean deleted = false;
+    
     @ManyToOne
     @JoinColumn(name = "departman_id", nullable = true)
     private Departman departman;
@@ -50,6 +53,18 @@ public class Katedra {
     
     
     
+public boolean isDeleted() {
+		return deleted;
+	}
+
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+
+
 public Katedra(Long id, String naziv, String opis, Departman departman, List<TipStudija> tipoviStudija,
 			Profesor sefKatedre) {
 		super();

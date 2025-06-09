@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface TerminNastaveRepository extends JpaRepository<TerminNastave, Long> {
     List<TerminNastave> findByProfesorPredmetId(Long profesorPredmetId);
-   
     List<TerminNastave> findByProfesorPredmetProfesorId(Long profesorId);
 }

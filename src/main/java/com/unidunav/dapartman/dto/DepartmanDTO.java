@@ -15,8 +15,53 @@ public class DepartmanDTO {
     private FakultetDTO fakultet;
 //    private Long fakultetId; 
     private ProfesorDTO sefDepartmana;
+    private boolean deleted;
+    
+    private Long fakultetId;
+    private Long sefDepartmanaId;
+    
+    
 
-    public DepartmanDTO() {}
+    
+    
+
+    public Long getFakultetId() {
+		return fakultetId;
+	}
+
+
+
+	public void setFakultetId(Long fakultetId) {
+		this.fakultetId = fakultetId;
+	}
+
+
+
+	public Long getSefDepartmanaId() {
+		return sefDepartmanaId;
+	}
+
+
+
+	public void setSefDepartmanaId(Long sefDepartmanaId) {
+		this.sefDepartmanaId = sefDepartmanaId;
+	}
+
+
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+
+
+	public DepartmanDTO() {}
     
     
 

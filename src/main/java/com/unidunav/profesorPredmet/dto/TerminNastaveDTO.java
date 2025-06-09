@@ -3,7 +3,7 @@ package com.unidunav.profesorPredmet.dto;
 import java.time.LocalDateTime;
 
 public class TerminNastaveDTO {
-    private Long id;
+	private Long id;
     private Long profesorPredmetId;
     private String ishod;
     private LocalDateTime terminPocetka;
@@ -51,5 +51,5 @@ public class TerminNastaveDTO {
 	public void setTerminZavrsetka(LocalDateTime terminZavrsetka) {
 		this.terminZavrsetka = terminZavrsetka;
 	}
-	 
+	    
 }

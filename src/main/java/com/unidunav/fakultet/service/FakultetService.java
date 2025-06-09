@@ -11,6 +11,8 @@ public interface FakultetService {
 	List<FakultetDTO> findAll();
 	FakultetDTO findById(Long id);
 	FakultetDTO update(Long id, FakultetDTO dto);
+	FakultetSimpleDTO updateSimple(Long id, FakultetSimpleDTO dto);
+	FakultetSimpleDTO createSimple(FakultetSimpleDTO dto);
 	void delete(Long id);
 	
     FakultetDTO toDTO(Fakultet entity);
@@ -19,5 +21,9 @@ public interface FakultetService {
     List<FakultetSimpleDTO> findAllSimple();
     FakultetSimpleDTO findSimpleById(Long id);
     FakultetSimpleDTO toSimpleDTO(Fakultet entity);
+    
+    List<FakultetSimpleDTO> findAllSimpleAdmin();
+    void setDeleted(Long id, boolean deleted);
+
     
 }

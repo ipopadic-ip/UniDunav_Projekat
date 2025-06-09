@@ -24,6 +24,27 @@ public class TipStudijaController {
     public ResponseEntity<List<TipStudijaDTO>> getAll() {
         return ResponseEntity.ok(tipStudijaService.findAll());
     }
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin")
+    public ResponseEntity<List<TipStudijaDTO>> getAllAdmin() {
+        return ResponseEntity.ok(tipStudijaService.findAllAdmin());
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/{id}/deaktiviraj")
+    public ResponseEntity<Void> deaktiviraj(@PathVariable Long id) {
+        tipStudijaService.deaktiviraj(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/{id}/aktiviraj")
+    public ResponseEntity<Void> aktiviraj(@PathVariable Long id) {
+        tipStudijaService.aktiviraj(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<TipStudijaDTO> getById(@PathVariable Long id) {

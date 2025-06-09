@@ -7,6 +7,7 @@ import com.unidunav.predmet.model.Predmet;
 import com.unidunav.studijskiProgram.model.StudijskiProgram;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,9 @@ public class GodinaStudija {
     private Long id;
 	
 	private int godina;
+	
+	@Column(nullable = false)
+	private boolean deleted = false;
 	
 	@ManyToOne
 	@JoinColumn(name = "studijski_program_id")
@@ -39,6 +43,18 @@ public class GodinaStudija {
 	}
 	
 	
+
+public boolean isDeleted() {
+		return deleted;
+	}
+
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+
 
 public GodinaStudija(Long id, int godina, StudijskiProgram studijskiProgram, List<Predmet> predmeti) {
 	super();

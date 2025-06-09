@@ -48,17 +48,62 @@ public class ProfesorPredmetService {
         return res;
     }
 
+//    public List<ProfesorPredmetResponseDTO> sviZaProfesora(Long profesorId) {
+//        return repository.findByProfesorId(profesorId).stream().map(pp -> {
+//            ProfesorPredmetResponseDTO dto = new ProfesorPredmetResponseDTO();
+//            dto.setId(pp.getId());
+//            dto.setProfesorId(pp.getProfesor().getId());
+//            dto.setPredmetId(pp.getPredmet().getId());
+//            dto.setPredmetNaziv(pp.getPredmet().getNaziv());
+//            return dto;
+//        }).collect(Collectors.toList());
+//    }
+    
     public List<ProfesorPredmetResponseDTO> sviZaProfesora(Long profesorId) {
-        return repository.findByProfesorId(profesorId).stream().map(pp -> {
-            ProfesorPredmetResponseDTO dto = new ProfesorPredmetResponseDTO();
-            dto.setId(pp.getId());
-            dto.setProfesorId(pp.getProfesor().getId());
-//            dto.setProfesorIme(pp.getProfesor().getIme() + " " + pp.getProfesor().getPrezime());
-            dto.setPredmetId(pp.getPredmet().getId());
-            dto.setPredmetNaziv(pp.getPredmet().getNaziv());
-            return dto;
-        }).collect(Collectors.toList());
+        return repository.findByProfesorIdAndDeletedFalse(profesorId).stream()
+            .map(this::mapToResponseDTO)
+            .collect(Collectors.toList());
     }
+    
+    public ProfesorPredmetResponseDTO findById(Long id) {
+        ProfesorPredmet entity = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Veza profesor–predmet nije pronađena"));
+        return mapToResponseDTO(entity);
+    }
+
+    
+    public List<ProfesorPredmetResponseDTO> findAll() {
+        return repository.findAll().stream()
+            .map(this::mapToResponseDTO)
+            .collect(Collectors.toList());
+    }
+
+    public List<ProfesorPredmetResponseDTO> findAllAktivni() {
+        return repository.findByDeletedFalse().stream()
+            .map(this::mapToResponseDTO)
+            .collect(Collectors.toList());
+    }
+
+    public void setDeletedStatus(Long id, boolean deleted) {
+        ProfesorPredmet pp = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Veza nije pronađena"));
+        pp.setDeleted(deleted);
+        repository.save(pp);
+    }
+    
+    private ProfesorPredmetResponseDTO mapToResponseDTO(ProfesorPredmet pp) {
+        ProfesorPredmetResponseDTO dto = new ProfesorPredmetResponseDTO();
+        dto.setId(pp.getId());
+        dto.setProfesorId(pp.getProfesor().getId());
+        dto.setProfesorIme(pp.getProfesor().getUser().getIme() + " " + pp.getProfesor().getUser().getPrezime());
+        dto.setPredmetId(pp.getPredmet().getId());
+        dto.setPredmetNaziv(pp.getPredmet().getNaziv());
+        dto.setDeleted(pp.isDeleted());
+        return dto;
+    }
+
+
+
     
     public ProfesorPredmetResponseDTO izmeni(Long id, ProfesorPredmetDTO dto) {
         ProfesorPredmet pp = repository.findById(id)
@@ -91,7 +136,6 @@ public class ProfesorPredmetService {
         }
         repository.deleteById(id);
     }
-    
 
 }
 

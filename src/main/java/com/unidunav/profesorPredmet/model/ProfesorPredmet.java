@@ -23,6 +23,9 @@ public class ProfesorPredmet {
     @ManyToOne(optional = false)
     @JoinColumn(name = "predmet_id", nullable = false)
     private Predmet predmet;
+    
+    @Column(nullable = false)
+    private boolean deleted = false;
 
     @OneToMany(mappedBy = "profesorPredmet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TerminNastave> terminiNastave = new ArrayList<>();
@@ -35,6 +38,14 @@ public class ProfesorPredmet {
 		this.profesor = profesor;
 		this.predmet = predmet;
 		this.terminiNastave = terminiNastave;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Long getId() {

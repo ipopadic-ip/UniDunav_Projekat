@@ -20,7 +20,9 @@ public class EvaluacijaZnanja {
 
     private LocalDateTime vremePocetka;
 
+//    private int brojBodova;
     private Integer brojBodova;
+
 
     @ManyToOne
     @JoinColumn(name = "tip_evaluacije_id", nullable = false)
@@ -32,21 +34,14 @@ public class EvaluacijaZnanja {
 
     public EvaluacijaZnanja() {}
 
-  
+    public EvaluacijaZnanja(LocalDateTime vremePocetka, Integer brojBodova, TipEvaluacije tipEvaluacije, PohadjanjePredmeta pohadjanje) {
+        this.vremePocetka = vremePocetka;
+        this.brojBodova = brojBodova;
+        this.tipEvaluacije = tipEvaluacije;
+        this.pohadjanje = pohadjanje;
+    }
 
-    public EvaluacijaZnanja(Long id, LocalDateTime vremePocetka, Integer brojBodova, TipEvaluacije tipEvaluacije,
-			PohadjanjePredmeta pohadjanje) {
-		super();
-		this.id = id;
-		this.vremePocetka = vremePocetka;
-		this.brojBodova = brojBodova;
-		this.tipEvaluacije = tipEvaluacije;
-		this.pohadjanje = pohadjanje;
-	}
-
-
-
-	// Getteri i setteri
+    // Getteri i setteri
 
     public Long getId() {
         return id;
@@ -63,22 +58,26 @@ public class EvaluacijaZnanja {
     public void setVremePocetka(LocalDateTime vremePocetka) {
         this.vremePocetka = vremePocetka;
     }
-
-   
-
+    
     public Integer getBrojBodova() {
-		return brojBodova;
-	}
+  		return brojBodova;
+  	}
 
 
 
-	public void setBrojBodova(Integer brojBodova) {
-		this.brojBodova = brojBodova;
-	}
+  	public void setBrojBodova(Integer brojBodova) {
+  		this.brojBodova = brojBodova;
+  	}
 
+//    public int getBrojBodova() {
+//        return brojBodova;
+//    }
+//
+//    public void setBrojBodova(int brojBodova) {
+//        this.brojBodova = brojBodova;
+//    }
 
-
-	public TipEvaluacije getTipEvaluacije() {
+    public TipEvaluacije getTipEvaluacije() {
         return tipEvaluacije;
     }
 

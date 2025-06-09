@@ -30,6 +30,10 @@ public class PredmetServiceImpl implements PredmetService {
         dto.setEcts(p.getEcts());
         dto.setInformacijeOPredmetu(p.getInformacijeOPredmetu());
         dto.setGodinaStudijaId(p.getGodinaStudija().getId());
+        dto.setDeleted(p.isDeleted());
+        
+        // Dodaj godinaISmer string
+        dto.setGodinaISmer(p.getGodinaStudija().getGodina() + " - " + p.getGodinaStudija().getStudijskiProgram().getNaziv());
         return dto;
     }
 
@@ -49,9 +53,60 @@ public class PredmetServiceImpl implements PredmetService {
         return toDTO(predmetRepository.save(toEntity(dto)));
     }
 
+//    @Override
+//    public List<PredmetDTO> findAll() {
+//        return predmetRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+//    }
+    
     @Override
     public List<PredmetDTO> findAll() {
-        return predmetRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+        return predmetRepository.findAll()
+                .stream()
+                .filter(p -> p.getGodinaStudija() != null && !p.getGodinaStudija().isDeleted())
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+
+    public List<PredmetDTO> findAllAktivni() {
+        return predmetRepository.findByDeletedFalse()
+                .stream()
+                .filter(p -> p.getGodinaStudija() != null && !p.getGodinaStudija().isDeleted())
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+
+    public PredmetDTO aktiviraj(Long id) {
+        Predmet predmet = predmetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Predmet nije pronađen"));
+
+        predmet.setDeleted(false);
+        return mapToDTO(predmetRepository.save(predmet));
+    }
+
+    public PredmetDTO deaktiviraj(Long id) {
+        Predmet predmet = predmetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Predmet nije pronađen"));
+
+        predmet.setDeleted(true);
+        return mapToDTO(predmetRepository.save(predmet));
+    }
+
+    private PredmetDTO mapToDTO(Predmet p) {
+        PredmetDTO dto = new PredmetDTO();
+        dto.setId(p.getId());
+        dto.setNaziv(p.getNaziv());
+        dto.setEcts(p.getEcts());
+        dto.setInformacijeOPredmetu(p.getInformacijeOPredmetu());
+        dto.setGodinaStudijaId(p.getGodinaStudija().getId());
+        dto.setDeleted(p.isDeleted());
+
+        // dodatno za prikaz tipa "3 - Računarske nauke"
+        GodinaStudija g = p.getGodinaStudija();
+        dto.setGodinaISmer(g.getGodina() + " - " + g.getStudijskiProgram().getNaziv());
+
+        return dto;
     }
 
     @Override

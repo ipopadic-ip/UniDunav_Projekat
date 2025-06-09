@@ -25,6 +25,12 @@ public class TipStudija {
 	@Column(nullable=false)
     private String tip;
 	
+	@Column(nullable = false)
+    private boolean deleted = false;
+	
+	@Column(unique = true)
+    private String uri;
+	
 	@ManyToOne
     @JoinColumn(name = "katedra_id", nullable = true)
 	private Katedra katedra;
@@ -38,6 +44,30 @@ public class TipStudija {
 	}
 	
 	
+
+	public String getUri() {
+		return uri;
+	}
+
+
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+
 
 public TipStudija(Long id, String tip, Katedra katedra, List<StudijskiProgram> studijskiProgrami) {
 		super();

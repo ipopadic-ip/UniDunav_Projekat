@@ -7,7 +7,6 @@ import java.util.List;
 import com.unidunav.student.model.Student;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +23,8 @@ public class PohadjanjePredmeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = true)
+
+//    private int ocena;
     private Integer ocena;
     private int brojPolaganja;
     private boolean aktivan;
@@ -78,8 +78,6 @@ public class PohadjanjePredmeta {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	
 
 	public Integer getOcena() {
 		return ocena;

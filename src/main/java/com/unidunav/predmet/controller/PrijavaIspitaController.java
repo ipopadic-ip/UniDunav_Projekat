@@ -2,10 +2,12 @@ package com.unidunav.predmet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import com.unidunav.predmet.dto.KreiranjeIspitaDTO;
+
 import com.unidunav.predmet.dto.PohadjanjePredmetaDTO;
 import com.unidunav.predmet.dto.PredmetDTO;
 import com.unidunav.predmet.dto.PrijavaIspitaDTO;
@@ -81,4 +83,5 @@ public class PrijavaIspitaController {
     	prijavaIspitaService.kreirajPrijaveZaPredmet(dto.getPredmetId(), dto.getDatumIspita());
         return ResponseEntity.ok("Ispit uspešno kreiran.");
     }
+    
 }

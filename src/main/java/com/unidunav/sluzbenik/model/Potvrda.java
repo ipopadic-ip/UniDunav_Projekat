@@ -1,7 +1,7 @@
 package com.unidunav.sluzbenik.model;
 
-import com.unidunav.student.model.Student;
 import com.unidunav.user.model.User;
+import com.unidunav.student.model.Student;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -12,15 +12,18 @@ public class Potvrda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // npr. “Uverenje o statusu studenta”, “Potvrda o redovnom studiranju” …
     @Column(nullable = false)
     private String tip;
 
+    // Dodatni opis ili tekst potvrde (max 1000)
     @Column(nullable = false, length = 1000)
     private String tekst;
 
     @Column(nullable = false)
     private LocalDate datumIzdavanja;
 
+    // Student kome se izdaje potvrda
     @ManyToOne(optional = false)
     private Student student;
 
@@ -30,8 +33,9 @@ public class Potvrda {
             datumIzdavanja = LocalDate.now();
         }
     }
-
-	public Potvrda() {
+//    private User student;
+    
+    public Potvrda() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -84,5 +88,14 @@ public class Potvrda {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+
+//	public User getStudent() {
+//		return student;
+//	}
+//
+//	public void setStudent(User student) {
+//		this.student = student;
+//	}
+
     
 }

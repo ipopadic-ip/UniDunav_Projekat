@@ -16,13 +16,13 @@ import java.util.List;
 public class PotvrdaController {
 
     @Autowired
-    private PotvrdaService potvrdaService;
+    private PotvrdaService service;
 
     // 👉 izdavanje potvrde
     @PostMapping
     @PreAuthorize("hasRole('SLUZBENIK')")
     public ResponseEntity<PotvrdaDTO> izdaj(@RequestBody PotvrdaDTO dto) {
-        PotvrdaDTO kreirana = potvrdaService.izdajPotvrdu(dto);
+        PotvrdaDTO kreirana = service.izdajPotvrdu(dto);
         return new ResponseEntity<>(kreirana, HttpStatus.CREATED);
     }
 
@@ -30,14 +30,13 @@ public class PotvrdaController {
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN','SLUZBENIK')")
     public List<PotvrdaDTO> svePotvrde() {
-        return potvrdaService.svePotvrde();
+        return service.svePotvrde();
     }
 
     // 👉 student vidi svoje potvrde
     @GetMapping("/student/{id}")
     @PreAuthorize("#id == authentication.principal.id or hasAnyRole('ADMIN','SLUZBENIK')")
     public List<PotvrdaDTO> potvrdeZaStudenta(@PathVariable Long id) {
-        return potvrdaService.potvrdeZaStudenta(id);
+        return service.potvrdeZaStudenta(id);
     }
-    
 }

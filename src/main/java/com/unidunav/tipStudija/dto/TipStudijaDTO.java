@@ -11,8 +11,30 @@ public class TipStudijaDTO {
     private String tip;
     private KatedraDTO katedra;
     private List<StudijskiProgramDTO> studijskiProgrami;
+    private boolean deleted;
+    private String uri;
+    
+    
+    
+    
 
-    public TipStudijaDTO() {}
+    public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public TipStudijaDTO() {}
 
     public TipStudijaDTO(Long id, String tip, KatedraDTO katedra, List<StudijskiProgramDTO> studijskiProgrami) {
         this.id = id;

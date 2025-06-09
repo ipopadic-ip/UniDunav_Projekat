@@ -22,26 +22,31 @@ public class TerminNastaveController {
         this.service = service;
     }
 
-    // POST - kreiranje termina
     @PostMapping
     public ResponseEntity<TerminNastaveDTO> kreiraj(@RequestBody TerminNastaveDTO dto) {
         return ResponseEntity.ok(service.create(dto));
+//    @PreAuthorize("hasRole('SLUZBENIK')")
+//    public ResponseEntity<TerminNastaveResponseDTO> kreiraj(@RequestBody TerminNastaveDTO dto) {
+//        return ResponseEntity.ok(service.kreiraj(dto));
     }
-
-    // GET - svi termini za datog profesora
+    
     @GetMapping("/profesor/{profesorId}")
     public ResponseEntity<List<TerminNastaveDTO>> sviZaProfesora(@PathVariable Long profesorId) {
         return ResponseEntity.ok(service.findAllByProfesor(profesorId));
+
+//    @GetMapping("/profesor-predmet/{id}")
+//    public ResponseEntity<List<TerminNastaveResponseDTO>> sviZaProfesorPredmet(@PathVariable Long id) {
+//        return ResponseEntity.ok(service.sviZaProfesorPredmet(id));
     }
 
-    // PUT - ažuriranje termina
     @PutMapping("/{id}")
+//    @PreAuthorize("hasRole('SLUZBENIK')")
     public ResponseEntity<TerminNastaveDTO> azuriraj(@PathVariable Long id, @RequestBody TerminNastaveDTO dto) {
         return ResponseEntity.ok(service.azuriraj(id, dto));
     }
 
-    // DELETE - brisanje termina
     @DeleteMapping("/{id}")
+//    @PreAuthorize("hasRole('SLUZBENIK')")
     public ResponseEntity<Void> obrisi(@PathVariable Long id) {
         service.obrisi(id);
         return ResponseEntity.noContent().build();

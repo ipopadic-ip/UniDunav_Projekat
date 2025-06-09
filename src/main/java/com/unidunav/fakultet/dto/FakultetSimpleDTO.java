@@ -8,11 +8,28 @@ public class FakultetSimpleDTO {
     private String lokacija;
     private String brojTelefona;
 
+    private Long dekanId;
     private String dekanIme;
     private String dekanPrezime;
     private String dekanOpis;
     private String dekanSlika;
+    private boolean deleted;
     
+    
+    
+    
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public Long getDekanId() {
+		return dekanId;
+	}
+	public void setDekanId(Long dekanId) {
+		this.dekanId = dekanId;
+	}
 	public String getDekanSlika() {
 		return dekanSlika;
 	}

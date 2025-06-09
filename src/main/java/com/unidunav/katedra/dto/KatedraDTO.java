@@ -16,8 +16,19 @@ public class KatedraDTO {
     private DepartmanDTO departman;
     private List<TipStudijaDTO> tipoviStudija;
     private ProfesorDTO sefKatedre;
+    private boolean deleted;
+    
+    
 
-    public KatedraDTO() {}
+    public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public KatedraDTO() {}
 
     public KatedraDTO(Long id, String naziv, List<PredmetDTO> predmeti, String opis,
                       DepartmanDTO departman, List<TipStudijaDTO> tipoviStudija,
