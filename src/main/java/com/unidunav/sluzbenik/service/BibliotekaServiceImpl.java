@@ -1,16 +1,20 @@
 package com.unidunav.sluzbenik.service;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.unidunav.sluzbenik.dto.IznajmljivanjeKnjigeDTO;
 import com.unidunav.sluzbenik.dto.KnjigaDTO;
 import com.unidunav.sluzbenik.dto.KnjigaIzdavanjeDTO;
+import com.unidunav.sluzbenik.dto.PrimerakKnjigeDTO;
 import com.unidunav.sluzbenik.model.IznajmljivanjeKnjige;
 import com.unidunav.sluzbenik.model.Knjiga;
 import com.unidunav.sluzbenik.model.PrimerakKnjige;
@@ -22,7 +26,10 @@ import com.unidunav.student.repository.StudentRepository;
 import com.unidunav.user.model.User;
 import com.unidunav.user.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 
 @Service
@@ -178,4 +185,103 @@ public class BibliotekaServiceImpl implements BibliotekaService {
             );
         }).collect(Collectors.toList());
     }
+    @Override
+    public KnjigaDTO dodajKnjigu(KnjigaDTO dto) {
+        Knjiga knjiga = new Knjiga();
+        knjiga.setNaziv(dto.getNaziv());
+        knjiga.setAutor(dto.getAutor());
+        
+        knjiga.setZanr(dto.getZanr());
+        knjiga.setGodinaIzdavanja(dto.getGodinaIzdavanja());
+        knjiga.setIzdavac(dto.getIzdavac());
+
+        Knjiga sacuvana = knjigaRepository.save(knjiga);
+
+        KnjigaDTO response = new KnjigaDTO();
+        response.setId(sacuvana.getId());
+        response.setNaziv(sacuvana.getNaziv());
+        response.setAutor(sacuvana.getAutor());
+        response.setZanr(sacuvana.getZanr());
+        response.setIzdavac(sacuvana.getIzdavac());
+        response.setGodinaIzdavanja(sacuvana.getGodinaIzdavanja());
+        response.setBrojDostupnihPrimeraka(0); 
+        response.setPrimerakId(null); 
+
+        return response;
+    }
+    @Override
+    public List<KnjigaDTO> sveKnjige() {
+        List<Knjiga> knjige = knjigaRepository.findAll();
+
+        return knjige.stream().map(knjiga -> {
+            KnjigaDTO dto = new KnjigaDTO();
+            dto.setId(knjiga.getId());
+            dto.setNaziv(knjiga.getNaziv());
+            dto.setAutor(knjiga.getAutor());
+
+            long brojDostupnih = ((Collection<PrimerakKnjige>) knjiga.getPrimerci()).stream()
+                .filter(PrimerakKnjige::isDostupan)
+                .count();
+            dto.setBrojDostupnihPrimeraka((int) brojDostupnih);
+
+            if (!knjiga.getPrimerci().isEmpty()) {
+                dto.setPrimerakId(knjiga.getPrimerci().get(0).getId());
+            } else {
+                dto.setPrimerakId(null);
+            }
+
+            return dto;
+        }).collect(Collectors.toList());
+    }
+    @Override
+    public PrimerakKnjigeDTO dodajPrimerak(PrimerakKnjigeDTO dto) {
+        Knjiga knjiga = knjigaRepository.findById(dto.getKnjigaId())
+            .orElseThrow(() -> new RuntimeException("Knjiga ne postoji"));
+
+        PrimerakKnjige primerak = new PrimerakKnjige();
+        primerak.setDostupan(dto.isDostupan());
+        primerak.setIsbn(dto.getIsbn()); // dodaj ovo
+        primerak.setKnjiga(knjiga);
+
+        knjiga.setBrojPrimeraka(knjiga.getBrojPrimeraka() + 1);
+        knjigaRepository.save(knjiga);
+
+        PrimerakKnjige sacuvan = primerakRepository.save(primerak);
+
+        PrimerakKnjigeDTO response = new PrimerakKnjigeDTO();
+        response.setId(sacuvan.getId());
+        response.setDostupan(sacuvan.isDostupan());
+        response.setIsbn(sacuvan.getIsbn()); // dodaj ovo
+        response.setKnjigaId(knjiga.getId());
+
+        return response;
+    }
+    @Override
+    public List<PrimerakKnjigeDTO> getPrimerciZaKnjigu(Long knjigaId) {
+        return primerakRepository.findByKnjigaId(knjigaId).stream().map(p -> {
+            PrimerakKnjigeDTO dto = new PrimerakKnjigeDTO();
+            dto.setId(p.getId());
+            dto.setDostupan(p.isDostupan());
+            dto.setKnjigaId(p.getKnjiga().getId());
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+@Override
+@Transactional
+public void obrisiPrimerakPoIsbn(String isbn) {
+    PrimerakKnjige primerak = primerakRepository.findByIsbn(isbn)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Primerak sa datim ISBN-om ne postoji"));
+
+    Knjiga knjiga = primerak.getKnjiga();
+
+    // Uklanjanje primerka
+    primerakRepository.delete(primerak);
+
+    // Smanji broj primeraka u knjizi ako je > 0
+    if (knjiga.getBrojPrimeraka() > 0) {
+        knjiga.setBrojPrimeraka(knjiga.getBrojPrimeraka() - 1);
+        knjigaRepository.save(knjiga);
+    }
+}
 }

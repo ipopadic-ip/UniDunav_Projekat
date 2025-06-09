@@ -4,6 +4,9 @@ public class KnjigaDTO {
     private Long id;
     private String naziv;
     private String autor;
+    private String zanr;
+    private int godinaIzdavanja;
+    private String izdavac;
     private int brojDostupnihPrimeraka;
     private Long primerakId; 
 
@@ -11,16 +14,60 @@ public class KnjigaDTO {
         super();
     }
 
-    public KnjigaDTO(Long id, String naziv, String autor, int brojDostupnihPrimeraka, Long primerakId) {
-        super();
-        this.id = id;
-        this.naziv = naziv;
-        this.autor = autor;
-        this.brojDostupnihPrimeraka = brojDostupnihPrimeraka;
-        this.primerakId = primerakId;
-    }
+    
 
-    public Long getId() {
+    public String getZanr() {
+		return zanr;
+	}
+
+
+
+	public void setZanr(String zanr) {
+		this.zanr = zanr;
+	}
+
+
+
+	public int getGodinaIzdavanja() {
+		return godinaIzdavanja;
+	}
+
+
+
+	public void setGodinaIzdavanja(int godinaIzdavanja) {
+		this.godinaIzdavanja = godinaIzdavanja;
+	}
+
+
+
+	public String getIzdavac() {
+		return izdavac;
+	}
+
+
+
+	public void setIzdavac(String izdavac) {
+		this.izdavac = izdavac;
+	}
+
+
+
+	public KnjigaDTO(Long id, String naziv, String autor, String zanr, int godinaIzdavanja, String izdavac,
+			int brojDostupnihPrimeraka, Long primerakId) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.autor = autor;
+		this.zanr = zanr;
+		this.godinaIzdavanja = godinaIzdavanja;
+		this.izdavac = izdavac;
+		this.brojDostupnihPrimeraka = brojDostupnihPrimeraka;
+		this.primerakId = primerakId;
+	}
+
+
+
+	public Long getId() {
         return id;
     }
 

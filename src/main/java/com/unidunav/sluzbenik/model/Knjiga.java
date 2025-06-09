@@ -1,5 +1,11 @@
 package com.unidunav.sluzbenik.model;
 
+
+
+import java.util.List;
+import java.util.ArrayList;
+
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,13 +21,23 @@ public class Knjiga {
     private int godinaIzdavanja;
     private String izdavac;
     private int brojPrimeraka;
+    @OneToMany(mappedBy = "knjiga", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PrimerakKnjige> primerci = new ArrayList<>();
+
     
+	public List<PrimerakKnjige> getPrimerci() {
+		return primerci;
+	}
+	public void setPrimerci(List<PrimerakKnjige> primerci) {
+		this.primerci = primerci;
+	}
 	public Knjiga() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public Knjiga(Long id, String naziv, String autor, String zanr, int godinaIzdavanja, String izdavac,
-			int brojPrimeraka) {
+			int brojPrimeraka, List<PrimerakKnjige> primerci) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -30,6 +46,7 @@ public class Knjiga {
 		this.godinaIzdavanja = godinaIzdavanja;
 		this.izdavac = izdavac;
 		this.brojPrimeraka = brojPrimeraka;
+		this.primerci = primerci;
 	}
 	public Long getId() {
 		return id;
