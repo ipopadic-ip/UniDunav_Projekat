@@ -22,15 +22,40 @@ public class Trebovanje {
     private LocalDate datumTrebovanja;
     @ManyToOne
     private User sluzbenik;
+    
+    @Column(nullable = false)
+    private String status = "CEKANJE";
     public Trebovanje() {}
 
-    public Trebovanje(String nazivStavke, int kolicina, LocalDate datumTrebovanja) {
-        this.nazivStavke = nazivStavke;
-        this.kolicina = kolicina;
-        this.datumTrebovanja = datumTrebovanja;
-    }
 
-    // Getteri i setteri
+    public Trebovanje(Long id, String nazivStavke, int kolicina, LocalDate datumTrebovanja, User sluzbenik,
+			String status) {
+		super();
+		this.id = id;
+		this.nazivStavke = nazivStavke;
+		this.kolicina = kolicina;
+		this.datumTrebovanja = datumTrebovanja;
+		this.sluzbenik = sluzbenik;
+		this.status = status;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	// Getteri i setteri
     public Long getId() {
         return id;
     }

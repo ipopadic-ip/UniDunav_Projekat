@@ -47,4 +47,11 @@ public class TrebovanjeKnjigeService {
         t.setBrojPrimeraka(dto.getBrojPrimeraka());
         return repository.save(t);
     }
+    public void potvrdiTrebovanje(Long id) {
+        TrebovanjeKnjige trebovanje = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Trebovanje nije pronađeno"));
+        
+        trebovanje.setStatus("POTVRDJENO"); // ili true ako je boolean
+        repository.save(trebovanje);
+    }
 }

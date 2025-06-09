@@ -31,6 +31,7 @@ public class TrebovanjeService {
         trebovanje.setKolicina(dto.getKolicina());
         trebovanje.setDatumTrebovanja(LocalDate.now());
         trebovanje.setSluzbenik(sluzbenik);
+        trebovanje.setStatus("CEKANJE");
 
         Trebovanje saved = trebovanjeRepository.save(trebovanje);
 
@@ -53,6 +54,7 @@ public class TrebovanjeService {
             dto.setDatumTrebovanja(t.getDatumTrebovanja());
             dto.setSluzbenikId(t.getSluzbenik().getId());
             dto.setSluzbenikIme(t.getSluzbenik().getIme());
+            dto.setStatus(t.getStatus());
             return dto;
         }).collect(Collectors.toList());
     }
@@ -79,4 +81,12 @@ public class TrebovanjeService {
 
         return response;
     }
+    public void potvrdiTrebovanje(Long id) {
+        Trebovanje trebovanje = trebovanjeRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Trebovanje ne postoji"));
+
+        trebovanje.setStatus("POTVRDJENO");
+        trebovanjeRepository.save(trebovanje);
+    }
+
 }

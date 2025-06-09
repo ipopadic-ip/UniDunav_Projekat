@@ -1,5 +1,7 @@
 package com.unidunav.sluzbenik.dto;
 
+import java.time.LocalDate;
+
 public class TrebovanjeKnjigeDTO {
 
     private String naziv;
@@ -8,8 +10,16 @@ public class TrebovanjeKnjigeDTO {
     private int godinaIzdavanja;
     private String izdavac;
     private int brojPrimeraka;
+    private LocalDate datumTrebovanja;
+	
+	public LocalDate getDatumTrebovanja() {
+		return datumTrebovanja;
+	}
+	public void setDatumTrebovanja(LocalDate datumTrebovanja) {
+		this.datumTrebovanja = datumTrebovanja;
+	}
 	public TrebovanjeKnjigeDTO(String naziv, String autor, String zanr, int godinaIzdavanja, String izdavac,
-			int brojPrimeraka) {
+			int brojPrimeraka, LocalDate datumTrebovanja) {
 		super();
 		this.naziv = naziv;
 		this.autor = autor;
@@ -17,6 +27,7 @@ public class TrebovanjeKnjigeDTO {
 		this.godinaIzdavanja = godinaIzdavanja;
 		this.izdavac = izdavac;
 		this.brojPrimeraka = brojPrimeraka;
+		this.datumTrebovanja = datumTrebovanja;
 	}
 	public TrebovanjeKnjigeDTO() {
 		super();

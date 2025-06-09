@@ -9,6 +9,8 @@ public class TrebovanjeDTO {
     private LocalDate datumTrebovanja;
     private Long sluzbenikId;
     private String sluzbenikIme;
+    private String status;
+
 
     public String getSluzbenikIme() {
 		return sluzbenikIme;
@@ -18,13 +20,24 @@ public class TrebovanjeDTO {
 		this.sluzbenikIme = sluzbenikIme;
 	}
 
-	public TrebovanjeDTO(Long id, String nazivStavke, int kolicina, LocalDate datumTrebovanja, Long sluzbenikId) {
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public TrebovanjeDTO(Long id, String nazivStavke, int kolicina, LocalDate datumTrebovanja, Long sluzbenikId,
+			String sluzbenikIme, String status) {
 		super();
 		this.id = id;
 		this.nazivStavke = nazivStavke;
 		this.kolicina = kolicina;
 		this.datumTrebovanja = datumTrebovanja;
 		this.sluzbenikId = sluzbenikId;
+		this.sluzbenikIme = sluzbenikIme;
+		this.status = status;
 	}
 
 	public TrebovanjeDTO() {}
