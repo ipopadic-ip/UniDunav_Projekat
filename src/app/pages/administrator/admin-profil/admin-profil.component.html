@@ -1,0 +1,11 @@
+<div class="container mt-4">
+     <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+  <h2>Admin profil</h2>
+  
+  <app-korisnik-profil *ngIf="user" [user]="user" />
+</div>

@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista Predmeta</h2>
+    <button class="btn btn-primary" (click)="dodajPredmet()">Dodaj predmet</button>
+  </div>
+
+  <div *ngFor="let grupa of grupisaniPredmeti">
+  <h4 class="mt-4">{{ grupa.smer }}</h4>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Naziv</th>
+        <th>ECTS</th>
+        <th>Informacije</th>
+        <th>Godina studija</th>
+         <th *ngIf="grupa.smer === '🗑️ Izbrisani predmeti'">Godina i Studijski Program</th>
+        <th class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of grupa.predmeti; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ p.naziv }}</td>
+        <td>{{ p.ects }}</td>
+        <td>{{ p.informacijeOPredmetu }}</td>
+        <td>{{ p.godinaStudijaId }}</td>
+         <!-- Samo za obrisane predmete prikaži godinaISmer -->
+        <td *ngIf="grupa.smer === '🗑️ Izbrisani predmeti'">{{ p.godinaISmer }}</td>
+        
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-2" (click)="izmeniPredmet(p.id)">Izmeni</button>
+          <button *ngIf="!p.deleted" class="btn btn-sm btn-danger" (click)="deaktivirajPredmet(p.id)">Deaktiviraj</button>
+          <button *ngIf="p.deleted" class="btn btn-sm btn-success" (click)="aktivirajPredmet(p.id)">Aktiviraj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+  <!-- <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Naziv</th>
+        <th>ECTS</th>
+        <th>Informacije</th>
+        <th>Godina i Smer</th>
+        <th class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of predmeti; let i = index">
+        <td>{{ p.naziv }}</td>
+        <td>{{ p.ects }}</td>
+        <td>{{ p.informacijeOPredmetu }}</td>
+        <td>{{ p.godinaISmer }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-2" (click)="izmeniPredmet(p.id)">Izmeni</button>
+          <button *ngIf="!p.deleted" class="btn btn-sm btn-danger" (click)="deaktivirajPredmet(p.id)">Deaktiviraj</button>
+          <button *ngIf="p.deleted" class="btn btn-sm btn-success" (click)="aktivirajPredmet(p.id)">Aktiviraj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+</div>

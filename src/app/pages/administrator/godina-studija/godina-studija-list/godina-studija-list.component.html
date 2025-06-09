@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Godine studija</h2>
+    <button class="btn btn-primary" (click)="dodajGodinu()">Dodaj godinu</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <!-- <th>#</th> -->
+        <th>Godina</th>
+        <th>Studijski program</th>
+        <th class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let g of godineStudija; let i = index">
+        <!-- <td>{{ i + 1 }}</td> -->
+        <td>{{ g.godina }}</td>
+        <td>{{ g.studijskiProgramNaziv }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-2" (click)="izmeniGodinu(g.id)">Izmeni</button>
+          <button *ngIf="!g.deleted" class="btn btn-sm btn-danger" (click)="deaktiviraj(g.id)">Deaktiviraj</button>
+          <button *ngIf="g.deleted" class="btn btn-sm btn-success" (click)="aktiviraj(g.id)">Aktiviraj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -14,10 +14,10 @@ export const STUDENT_ROUTES: Routes = [
           .then(m => m.ObavestenjaComponent)
       },
       {
-    path: 'prijava',
-    loadComponent: () => import('./prijava_ispita/prijava-ispita.component')
-      .then(m => m.PrijavaIspitaComponent)
-    },
+        path: 'prijava',
+        loadComponent: () => import('./prijava_ispita/prijava-ispita.component')
+          .then(m => m.PrijavaIspitaComponent)
+      },
       {
         path: 'istorija',
         loadComponent: () => import('./istorija-studiranja/istorija-studiranja.component')

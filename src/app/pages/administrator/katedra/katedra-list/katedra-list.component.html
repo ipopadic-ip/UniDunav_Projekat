@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista Katedri</h2>
+    <button class="btn btn-primary" (click)="dodajKatedru()">Dodaj katedru</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Naziv</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Šef katedre</th>
+        <th scope="col">Departman</th>
+        <th scope="col" class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let k of katedre; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ k.naziv }}</td>
+        <td>{{ k.opis }}</td>
+        <td>{{ k.sefKatedre.ime }} {{ k.sefKatedre.prezime }}</td>
+        <td>{{ k.departman.naziv }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-2" (click)="izmeniKatedru(k.id)">Izmeni</button>
+          <button *ngIf="!k.deleted" class="btn btn-sm btn-danger" (click)="deaktivirajKatedru(k.id)">Deaktiviraj</button>
+          <button *ngIf="k.deleted" class="btn btn-sm btn-success" (click)="aktivirajKatedru(k.id)">Aktiviraj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -4,4 +4,6 @@ export interface Predmet {
   ects: number;
   informacijeOPredmetu: string;
   godinaStudijaId: number;
+  godinaISmer: string;
+  deleted: boolean;
 }

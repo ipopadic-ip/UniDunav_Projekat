@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+
+  <h2 class="text-center mb-4">{{ isEdit ? 'Izmeni Tip Studija' : 'Dodaj Tip Studija' }}</h2>
+
+  <form (ngSubmit)="sacuvaj()" #form="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Tip</label>
+      <input
+        class="form-control"
+        [(ngModel)]="tipStudija.tip"
+        name="tip"
+        required
+      />
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="otkazi()">Otkaži</button>
+      <button type="submit" class="btn btn-primary">Sačuvaj</button>
+    </div>
+  </form>
+</div>

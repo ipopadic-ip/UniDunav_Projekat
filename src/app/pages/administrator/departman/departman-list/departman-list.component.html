@@ -1,0 +1,39 @@
+<!-- departman-list.component.html -->
+<div class="container mt-4">
+    <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista Departmana</h2>
+    <button class="btn btn-primary" (click)="dodajDepartman()">Dodaj departman</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Naziv</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Fakultet</th>
+        <th scope="col" class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of departmani; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ d.naziv }}</td>
+        <td>{{ d.opis }}</td>
+        <td>{{ d.fakultet.naziv }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-2" (click)="izmeniDepartman(d.id)">Izmeni</button>
+           <button *ngIf="!d.deleted" class="btn btn-sm btn-danger" (click)="deaktivirajDepartman(d.id)">Deaktiviraj</button>
+            <button *ngIf="d.deleted" class="btn btn-sm btn-success" (click)="aktivirajDepartman(d.id)">Aktiviraj</button>
+          <!-- <button class="btn btn-sm btn-danger" (click)="deaktivirajDepartman(d.id)">Deaktiviraj</button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

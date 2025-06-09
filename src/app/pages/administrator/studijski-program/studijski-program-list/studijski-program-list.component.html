@@ -1,0 +1,43 @@
+<div class="container mt-4">
+  <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista Studijskih Programa</h2>
+    <button class="btn btn-primary" (click)="dodajStudijskiProgram()">Dodaj studijski program</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Naziv</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Rukovodilac</th>
+        <th scope="col">Tip studija</th>
+        <th scope="col">Katedra</th>
+        <th scope="col" class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sp of studijskiProgrami; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ sp.naziv }}</td>
+        <td>{{ sp.opis }}</td>
+        <td>{{ sp.rukovodilac.ime }} {{ sp.rukovodilac.prezime }}</td>
+        <!-- <td>{{ sp.tipStudija.tip }}</td> -->
+         <td>{{ sp.tipStudija?.tip || 'Nepoznato' }}</td>
+        <td>{{ sp.katedraNaziv }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-2" (click)="izmeniStudijskiProgram(sp.id)">Izmeni</button>
+          <button *ngIf="!sp.deleted" class="btn btn-sm btn-danger" (click)="deaktivirajStudijskiProgram(sp.id)">Deaktiviraj</button>
+          <button *ngIf="sp.deleted" class="btn btn-sm btn-success" (click)="aktivirajStudijskiProgram(sp.id)">Aktiviraj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -29,11 +29,11 @@ export const routes: Routes = [
       .then(m => m.STUDENT_ROUTES),
   canActivate: [RoleGuard(['STUDENT'])],
 },
-  {
-  path: 'sluzbenik',
+{
+   path: 'sluzbenik',
   loadChildren: () => import('./pages/studentska_sluzba/sluzbenik-routes')
     .then(m => m.SLUZBENIK_ROUTES),
   canActivate: [RoleGuard(['SLUZBENIK'])]
-}
+},
 ];
 

@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+
+  <h2 class="text-center mb-4">{{ isEdit ? 'Izmeni Departman' : 'Dodaj Departman' }}</h2>
+
+  <form (ngSubmit)="sacuvaj()" #form="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Naziv</label>
+      <input class="form-control" [(ngModel)]="departman.naziv" name="naziv" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Opis</label>
+      <textarea class="form-control" [(ngModel)]="departman.opis" name="opis" rows="4"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Šef departmana</label>
+      <select class="form-select" [(ngModel)]="profesorId" name="sefDepartmanaId" required>
+        <option *ngFor="let profesor of profesori" [value]="profesor.id">
+          {{ profesor.ime }} {{ profesor.prezime }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Fakultet</label>
+      <select class="form-select" [(ngModel)]="fakultetId" name="fakultetId" required>
+        <option *ngFor="let fakultet of fakulteti" [value]="fakultet.id">
+          {{ fakultet.naziv }}
+        </option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="otkazi()">Otkaži</button>
+      <button type="submit" class="btn btn-primary">Sačuvaj</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <button (click)="goBack()" class="btn btn-primary my-4">
+    🔙 Nazad
+  </button>
+
+  <h2 class="text-center mb-4">
+    {{ isEdit ? 'Izmeni Predmet' : 'Dodaj Predmet' }}
+  </h2>
+
+  <form (ngSubmit)="sacuvaj()" #form="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Naziv</label>
+      <input class="form-control" [(ngModel)]="predmet.naziv" name="naziv" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">ECTS</label>
+      <input type="number" class="form-control" [(ngModel)]="predmet.ects" name="ects" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Informacije o predmetu</label>
+      <textarea class="form-control" [(ngModel)]="predmet.informacijeOPredmetu" name="informacijeOPredmetu" rows="4"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Godina i smer</label>
+        <select
+            class="form-select"
+            [(ngModel)]="godinaStudijaId"
+            name="godinaStudijaId"
+            required
+            style="color: black; background-color: white;"
+        >
+            <option *ngFor="let godina of godineStudija" [value]="godina.id" style="color: black;">
+            {{ godina.godinaISmer }}
+            </option>
+        </select>
+        </div>
+
+
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="otkazi()">Otkaži</button>
+      <button type="submit" class="btn btn-primary">Sačuvaj</button>
+    </div>
+  </form>
+</div>

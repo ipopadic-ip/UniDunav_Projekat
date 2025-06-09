@@ -1,0 +1,67 @@
+<div class="container mt-4">
+  <h2>Profil korisnika</h2>
+
+  <form *ngIf="user" (ngSubmit)="sacuvaj()" #form="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Ime</label>
+      <input class="form-control" [(ngModel)]="user.ime" name="ime" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Prezime</label>
+      <input class="form-control" [(ngModel)]="user.prezime" name="prezime" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input class="form-control" [value]="user.email" readonly />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">JMBG</label>
+      <input class="form-control" [value]="user.jmbg" readonly />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Adresa</label>
+      <input class="form-control" [value]="user.adresa" readonly />
+    </div>
+
+    <div class="text-end">
+      <button type="submit" class="btn btn-primary">Sačuvaj</button>
+    </div>
+  </form>
+
+  <hr />
+
+<h4>Promena lozinke</h4>
+
+<form (ngSubmit)="promeniLozinku()" #passwordForm="ngForm">
+  <div class="mb-3">
+    <label class="form-label">Stara lozinka</label>
+    <input
+      type="password"
+      class="form-control"
+      [(ngModel)]="staraSifra"
+      name="staraSifra"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Nova lozinka</label>
+    <input
+      type="password"
+      class="form-control"
+      [(ngModel)]="novaSifra"
+      name="novaSifra"
+      required
+    />
+  </div>
+
+  <div class="text-end">
+    <button type="submit" class="btn btn-secondary">Promeni lozinku</button>
+  </div>
+</form>
+
+</div>

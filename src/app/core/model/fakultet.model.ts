@@ -24,8 +24,10 @@ export interface Fakultet {
   opis: string;
   brojTelefona: string;
 
+  dekanId:number;
   dekanIme: string;
   dekanPrezime: string;
   dekanOpis: string;
   dekanSlika: string;
+  deleted?: boolean;
 }

@@ -5,6 +5,7 @@ export interface Departman {
   katedre: any[]; // Ako kasnije definišeš model za Katedru, možeš umesto `any` staviti `Katedra[]`
   fakultet: Fakultet;
   sefDepartmana: Profesor; // možeš ga nazvati i Korisnik ako svi idu u isti model
+  deleted:boolean;
 }
 
 export interface Fakultet {

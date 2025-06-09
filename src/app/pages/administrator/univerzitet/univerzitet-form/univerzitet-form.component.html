@@ -1,0 +1,79 @@
+<div *ngIf="univerzitet" class="container mt-5">
+    <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+  <h2 class="text-center mb-5 display-5 fw-bold">Izmena podataka o univerzitetu</h2>
+
+  <form (ngSubmit)="sacuvajIzmene()" class="row g-3">
+    <div class="col-12">
+      <label class="form-label">Naziv</label>
+      <input [(ngModel)]="univerzitet.naziv" name="naziv" class="form-control" placeholder="Naziv" />
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Podnaslov</label>
+      <input [(ngModel)]="univerzitet.podnaslov" name="podnaslov" class="form-control" placeholder="Podnaslov" />
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Email</label>
+      <input [(ngModel)]="univerzitet.email" name="email" class="form-control" placeholder="Email" />
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Broj telefona</label>
+      <input [(ngModel)]="univerzitet.brojTelefona" name="brojTelefona" class="form-control" placeholder="Broj telefona" />
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Lokacija</label>
+      <input [(ngModel)]="univerzitet.lokacija" name="lokacija" class="form-control" placeholder="Lokacija" />
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Opis</label>
+      <textarea [(ngModel)]="univerzitet.opis" name="opis" rows="4" class="form-control" placeholder="Opis"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="rektor" class="form-label fw-bold">Rektor univerziteta</label>
+        <select
+            id="rektor"
+            name="rektor"
+            class="form-select"
+            [(ngModel)]="univerzitet.rektor.id">
+            <option *ngFor="let prof of profesori" [value]="prof.id">
+            {{ prof.ime }} {{ prof.prezime }}
+            </option>
+        </select>
+    </div>
+
+
+    <div class="col-12 text-center">
+      <button type="submit" class="btn btn-primary px-4">Sačuvaj izmene</button>
+    </div>
+  </form>
+
+  <hr class="my-5" />
+
+  <div class="text-center">
+    <h3 class="mb-4 fw-semibold">Trenutne slike</h3>
+    <div class="row justify-content-center g-4">
+      <div class="col-md-6 col-lg-4">
+        <img [src]="'http://localhost:8080/' + univerzitet.slika1Path" alt="Slika 1" class="img-fluid rounded border" />
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <img [src]="'http://localhost:8080/' + univerzitet.slika2Path" alt="Slika 2" class="img-fluid rounded border" />
+      </div>
+    </div>
+
+    <div class="my-4">
+      <label class="form-label">Odaberite slike (tačno 2):</label>
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" multiple class="form-control w-auto d-inline-block" />
+      <button (click)="sacuvajSlike()" class="btn btn-success ms-2">Sačuvaj slike</button>
+    </div>
+  </div>
+</div>

@@ -81,11 +81,11 @@ export class AuthService {
     console.warn('❗ Token nije pronađen.');
     return 0;
   }
+  // if (!token) return 0;
 
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
-    console.log('🎯 JWT payload:', payload); // Dodaj log
-    return payload.id || 0;
+    return payload.id || 0; // <- koristi tačno naziv "id"
   } catch (e) {
     console.error('Greška pri dekodiranju tokena', e);
     return 0;

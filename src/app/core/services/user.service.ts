@@ -44,6 +44,42 @@ updateUser(id: number, data: any): Observable<any> {
   });
 }
 
+getMe(): Observable<User> {
+  return this.http.get<User>(`${this.apiUrl}/me`);
+}
+
+updateMyProfile(dto: { ime: string; prezime: string }) {
+  return this.http.put(`${this.apiUrl}/me`, dto, {
+    responseType: 'text' as const
+  });
+}
+
+changePassword(oldPassword: string, newPassword: string) {
+  return this.http.put(`${this.apiUrl}/change-password`, {
+    oldPassword,
+    newPassword,
+  }, {
+    responseType: 'text' as const
+  });
+}
+
+
+// changePassword(oldPassword: string, newPassword: string) {
+//   return this.http.put(`${this.apiUrl}/change-password`, {
+//     oldPassword,
+//     newPassword,
+//   });
+// }
+
+
+
+// updateMe(data: Partial<User>): Observable<any> {
+//   return this.http.put(`${this.apiUrl}/me`, data, {
+//     responseType: 'text' as const
+//   });
+// }
+
+
 
 // updateUser(id: number, data: any): Observable<any> {
 //   return this.http.put(`${this.apiUrl}/${id}`, data);

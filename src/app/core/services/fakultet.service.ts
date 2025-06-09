@@ -18,4 +18,26 @@ export class FakultetService {
   getFakultetById(id: number): Observable<Fakultet> {
     return this.http.get<Fakultet>(`${this.apiUrl}/${id}`);
   }
+
+  createFakultet(fakultet: any): Observable<any> {
+    return this.http.post('http://localhost:8080/api/fakulteti', fakultet);
+  }
+
+  updateFakultet(id: number, fakultet: any): Observable<any> {
+    return this.http.put(`http://localhost:8080/api/fakulteti/${id}`, fakultet);
+  }
+
+  activateFakultet(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}/activate`, {});
+  }
+
+  deactivateFakultet(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}/deactivate`, {});
+  }
+
+  getFakultetiAdmin(): Observable<Fakultet[]> {
+    return this.http.get<Fakultet[]>(`${this.apiUrl}/admin`);
+  }
+
+
 }

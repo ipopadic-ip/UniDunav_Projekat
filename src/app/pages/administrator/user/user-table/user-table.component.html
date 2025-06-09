@@ -5,7 +5,26 @@
   >
     🔙 Nazad
   </button>
+
+  <div class="row mb-3">
+  <div class="col-md-4">
+    <label for="rolaSelect" class="form-label">Filtriraj po roli:</label>
+    <select id="rolaSelect" class="form-select" [(ngModel)]="selectedRole">
+      <option [ngValue]="null">-- Sve role --</option>
+      <option *ngFor="let rola of availableRoles" [value]="rola">{{ rola }}</option>
+    </select>
+  </div>
+  <div class="col-md-2 d-flex align-items-end">
+    <button class="btn btn-outline-primary" (click)="filterByRole()">Filtriraj po rolama</button>
+  </div>
+  <div class="col-md-2 d-flex align-items-end">
+    <button class="btn btn-outline-secondary" (click)="resetFilter()">Poništi filter</button>
+  </div>
+</div>
+
   <h2>Lista korisnika</h2>
+  
+
   <div class="d-flex justify-content-end p-3">
     <button class="btn btn-success" (click)="onAdd()">+ Dodaj novog korisnika</button>
   </div>

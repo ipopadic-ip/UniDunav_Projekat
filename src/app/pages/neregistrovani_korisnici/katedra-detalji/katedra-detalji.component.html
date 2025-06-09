@@ -11,7 +11,25 @@
     [slikaSrc]="sefKatedreData.slikaSrc"
   ></app-rector>
 
-  <div class="row" *ngFor="let tip of studijskiProgramiPoTipu | keyvalue">
+  <div class="row" *ngFor="let grupa of studijskiProgramiPoTipu">
+  <div class="col-12 mb-4">
+    <div class="card shadow-sm rounded-4">
+      <div class="card-body">
+        <h3 class="card-title text-primary">{{ grupa.tipStudija }}</h3>
+        <ul class="list-unstyled mt-3">
+          <li *ngFor="let program of grupa.programi">
+            <a [routerLink]="['/studijskiprogram', program.id]" class="text-decoration-none">
+              • {{ program.naziv }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- <div class="row" *ngFor="let tip of studijskiProgramiPoTipu | keyvalue">
   <div class="col-12 mb-4">
     <div class="card shadow-sm rounded-4">
       <div class="card-body">
@@ -26,6 +44,6 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 </div>

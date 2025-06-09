@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <button (click)="goBack()" class="btn btn-primary my-4">🔙 Nazad</button>
+
+  <h2 class="text-center mb-4">
+    {{ isEdit ? 'Izmeni vezu profesor-predmet' : 'Dodaj vezu profesor-predmet' }}
+  </h2>
+
+  <form (ngSubmit)="sacuvaj()" #form="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Profesor</label>
+      <select class="form-select" [(ngModel)]="profesorId" name="profesorId" required>
+        <option *ngFor="let profesor of profesori" [value]="profesor.id">
+          {{ profesor.ime }} {{ profesor.prezime }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Predmet</label>
+      <select class="form-select" [(ngModel)]="predmetId" name="predmetId" required>
+        <option *ngFor="let predmet of predmeti" [value]="predmet.id">
+          {{ predmet.naziv }}
+        </option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="otkazi()">Otkaži</button>
+      <button type="submit" class="btn btn-primary">Sačuvaj</button>
+    </div>
+  </form>
+</div>

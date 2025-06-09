@@ -26,8 +26,9 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { StudijskiProgram } from '../model/studijski-program.model';
+import { GrupisaniProgrami } from '../model/GrupisaniProgrami.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,10 +38,46 @@ export class StudijskiProgramService {
 
   constructor(private http: HttpClient) {}
 
-  // Ova metoda odgovara tvojoj fancy backend metodi
-  getStudijskiProgramiGroupedByTip(katedraId: number): Observable<Record<string, StudijskiProgram[]>> {
-    return this.http.get<Record<string, StudijskiProgram[]>>(`${this.baseUrl}/katedra/${katedraId}/grupisani-po-tipu`);
+   getAll(): Observable<StudijskiProgram[]> {
+    return this.http.get<StudijskiProgram[]>(`${this.baseUrl}`);
   }
+
+  getAllAdmin(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/admin`);
+  }
+
+  deaktiviraj(id: number): Observable<void> {
+    return this.http.patch<void>(`${this.baseUrl}/${id}/deaktiviraj`, {});
+  }
+
+  aktiviraj(id: number): Observable<void> {
+    return this.http.patch<void>(`${this.baseUrl}/${id}/aktiviraj`, {});
+  }
+
+  getById(id: number): Observable<StudijskiProgram> {
+    return this.http.get<StudijskiProgram>(`${this.baseUrl}/${id}`);
+  }
+
+  create(dto: Partial<StudijskiProgram>): Observable<StudijskiProgram> {
+    return this.http.post<StudijskiProgram>(`${this.baseUrl}`, dto);
+  }
+
+  update(id: number, dto: Partial<StudijskiProgram>): Observable<StudijskiProgram> {
+    return this.http.put<StudijskiProgram>(`${this.baseUrl}/${id}`, dto);
+  }
+
+  // Ova metoda odgovara tvojoj fancy backend metodi
+  // getStudijskiProgramiGroupedByTip(katedraId: number): Observable<Record<string, StudijskiProgram[]>> {
+  //   return this.http.get<Record<string, StudijskiProgram[]>>(`${this.baseUrl}/katedra/${katedraId}/grupisani-po-tipu`);
+  // }
+  // getStudijskiProgramiGroupedByTip(katedraId: number): Observable<Record<string, StudijskiProgram[]>> {
+  //   return this.http.get<Record<string, StudijskiProgram[]>>(`${this.baseUrl}/katedra/${katedraId}/grupisani-po-tipu`)
+  //     .pipe(tap(data => console.log('Grouped SP data', data)));
+  // }
+
+  getStudijskiProgramiGroupedByTip(katedraId: number): Observable<GrupisaniProgrami[]> {
+  return this.http.get<GrupisaniProgrami[]>(`${this.baseUrl}/katedra/${katedraId}/grupisani-po-tipu`);
+}
 
   getStudijskiProgramById(id: number): Observable<StudijskiProgram> {
   return this.http.get<StudijskiProgram>(`${this.baseUrl}/${id}`);

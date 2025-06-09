@@ -20,7 +20,8 @@
 //     predmeti: Predmet[];
 //   }
 
-import { TipStudija } from './tip-studija.model';
+// import { TipStudija } from './tip-studija.model';
+import { TipStudijaRDF } from './TipStudijaRDF.model';
 import { Profesor } from './profesor.model';
 
 export interface StudijskiProgram {
@@ -28,9 +29,17 @@ export interface StudijskiProgram {
   naziv: string;
   opis: string;
   godineStudija: number | null;
-  tipStudija: TipStudija;
+  // tipStudija: TipStudija;
+  // tipStudija:TipStudijaRDF;
+  // tipStudija: { tip: string; uri: string };
+  tipStudija: {
+    tip: string;
+    uri: string;
+    deleted?: boolean;
+  };
   rukovodilac: Profesor;
   katedraId: number;
+  deleted:boolean;
 }
 
   

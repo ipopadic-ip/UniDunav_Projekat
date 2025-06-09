@@ -1,0 +1,68 @@
+<div class="container mt-4">
+     <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button>
+  <h2 class="text-center mb-4">Lista fakulteta</h2>
+
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary" (click)="dodajFakultet()">Dodaj fakultet</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Naziv</th>
+          <th>Lokacija</th>
+          <th>Email</th>
+          <th>Telefon</th>
+          <th>Dekan</th>
+          <th>Aktivan</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let f of fakulteti">
+          <td>{{ f.naziv }}</td>
+          <td>{{ f.lokacija }}</td>
+          <td>{{ f.email }}</td>
+          <td>{{ f.brojTelefona }}</td>
+          <td>
+            <img
+              [src]="'http://localhost:8080/' + f.dekanSlika"
+              alt="Dekan"
+              class="img-thumbnail me-2"
+              width="50"
+              height="50"
+            />
+            <div>
+              <strong>{{ f.dekanIme }} {{ f.dekanPrezime }}</strong>
+              <div class="small fst-italic">{{ f.dekanOpis | slice:0:60 }}...</div>
+            </div>
+          </td>
+          <td>{{ f.deleted ? 'Neaktivan' : 'Aktivan' }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-2" (click)="izmeniFakultet(f.id)">Izmeni</button>
+            <!-- <button class="btn btn-sm btn-danger" (click)="deaktivirajFakultet(f.id)">Deaktiviraj</button> -->
+             <button 
+                *ngIf="!f.deleted" 
+                class="btn btn-sm btn-danger" 
+                (click)="deaktivirajFakultet(f.id)">
+                Deaktiviraj
+                </button>
+
+                <button 
+                *ngIf="f.deleted" 
+                class="btn btn-sm btn-success" 
+                (click)="aktivirajFakultet(f.id)">
+                Aktiviraj
+                </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

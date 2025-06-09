@@ -7,4 +7,5 @@ export interface Katedra {
   opis: string;
   sefKatedre: Profesor;
   departman: Departman;
+  deleted?: boolean;
 }

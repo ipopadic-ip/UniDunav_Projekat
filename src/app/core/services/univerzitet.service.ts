@@ -15,4 +15,9 @@ export class UniverzitetService {
     return this.http.get<Univerzitet>(this.apiUrl);
   }
   
+  updateUniverzitet(id: number, univerzitet: Univerzitet): Observable<Univerzitet> {
+  return this.http.put<Univerzitet>(`http://localhost:8080/api/univerziteti/${id}`, univerzitet);
+  }
+
+  
 }

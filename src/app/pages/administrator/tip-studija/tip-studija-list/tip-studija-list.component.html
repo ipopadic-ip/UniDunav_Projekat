@@ -1,0 +1,172 @@
+<div class="container mt-4">
+  <button (click)="goBack()" class="btn btn-primary my-4">
+    🔙 Nazad
+  </button>
+  <!-- <hr> -->
+
+  <!-- <h2>SPARQL Upit</h2> -->
+   <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Pretraži po nazivu tipa studija"
+      [formControl]="searchControl"
+    />
+  <!-- <input
+    type="text"
+    class="form-control"
+    placeholder="Pretraži po nazivu tipa studija"
+    [(ngModel)]="pretraga"
+    (ngModelChange)="pretraziSPARQL()"
+  /> -->
+  </div>
+
+  <div class="mb-3">
+  <label class="form-label mx-2">Filter po svojstvu deleted:</label>
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="deletedFilter"
+      [value]="'all'"
+      [(ngModel)]="pretragaDeleted"
+      (change)="pretraziSPARQLPoDeleted()"
+    />
+    <label class="form-check-label">Svi</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="deletedFilter"
+      [value]="'false'"
+      [(ngModel)]="pretragaDeleted"
+      (change)="pretraziSPARQLPoDeleted()"
+    />
+    <label class="form-check-label">Nisu obrisani</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="deletedFilter"
+      [value]="'true'"
+      [(ngModel)]="pretragaDeleted"
+      (change)="pretraziSPARQLPoDeleted()"
+    />
+    <label class="form-check-label">Obrisani</label>
+  </div>
+</div>
+
+
+  <!-- <div class="input-group mb-3">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Pretraži po statusu deleted (true/false)"
+    [(ngModel)]="pretragaDeleted"
+    (ngModelChange)="pretraziSPARQLPoDeleted()"
+  />
+</div> -->
+
+  <!-- <hr> -->
+
+  <!-- <div class="input-group mb-3">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Pretraži po nazivu tipa studija"
+    [(ngModel)]="pretraga"
+  />
+</div> -->
+
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista Tipova Studija</h2>
+    <button class="btn btn-primary" (click)="dodajTip()">Dodaj tip studija</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Naziv</th>
+        <th class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+        <!-- <tr *ngFor="let tip of tipoviStudija; let i = index"> -->
+        <!-- <tr *ngFor="let tip of filtriraniTipoviStudija; let i = index"> -->
+          <tr *ngFor="let tip of tipoviStudija; let i = index">
+
+            <td>{{ i + 1 }}</td>
+            <td>{{ tip.tip }}</td>
+            <td class="text-center">
+                <button class="btn btn-sm btn-warning me-2" (click)="izmeni(tip)">Izmeni</button>
+
+                <button
+                *ngIf="!tip.deleted"
+                class="btn btn-sm btn-danger me-1"
+                (click)="deaktiviraj(tip.tip)"
+                >
+                Deaktiviraj
+                </button>
+
+                <button
+                *ngIf="tip.deleted"
+                class="btn btn-sm btn-success"
+                (click)="aktiviraj(tip.tip)"
+                >
+                Aktiviraj
+                </button>
+            </td>
+            </tr>
+
+      <!-- <tr *ngFor="let tip of tipoviStudija; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ tip }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-2" (click)="izmeni(tip)">Izmeni</button>
+          <button class="btn btn-sm btn-danger me-1" (click)="deaktiviraj(tip)">Deaktiviraj</button>
+          <button class="btn btn-sm btn-success" (click)="aktiviraj(tip)">Aktiviraj</button>
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+</div>
+
+
+<!-- <div class="container mt-4">
+  <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center"
+  >
+    🔙 Nazad
+  </button>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista Tipova Studija</h2>
+    <button class="btn btn-primary" (click)="dodajTip()">Dodaj tip studija</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Naziv</th>
+        <th class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tip of tipoviStudija; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ tip.tip }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-2" (click)="izmeni(tip.id)">Izmeni</button>
+          <button *ngIf="!tip.deleted" class="btn btn-sm btn-danger" (click)="deaktiviraj(tip.id)">Deaktiviraj</button>
+          <button *ngIf="tip.deleted" class="btn btn-sm btn-success" (click)="aktiviraj(tip.id)">Aktiviraj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->

@@ -1,0 +1,10 @@
+.admin-dugme {
+  width: 90%;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .admin-dugme {
+    width: 50%;
+  }
+}

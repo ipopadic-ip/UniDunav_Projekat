@@ -1,5 +1,5 @@
-<div class="obavestenja-container">
-  <h2>Opšta obaveštenja</h2>
+<div class="obavestenja-container py-5">
+  <h2 class="text-center mb-5 display-4 text-primary">Opšta obaveštenja</h2>
 
   <div *ngIf="obavestenja.length > 0; else prazno">
     <div *ngFor="let o of obavestenja" class="obavestenje-kartica">

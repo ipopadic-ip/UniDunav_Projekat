@@ -18,6 +18,7 @@ export class AdminDashboardComponent {
   }
 
   dugmad = [
+    { label: 'Moj Profil', route: '/admin/moj-profil' },
     { label: 'Upravljanje Postojećim korisnicima', route: '/admin/get-user' },
     { label: 'Upravljanje Ulogama', route: '/admin/uloge' },
     { label: 'Univerzitet', route: '/admin/univerzitet' },
@@ -28,6 +29,7 @@ export class AdminDashboardComponent {
     { label: 'Studijski Program', route: '/admin/studijski-program' },
     { label: 'Godina Studija', route: '/admin/godina-studija' },
     { label: 'Predmet', route: '/admin/predmet' },
+    { label: 'Profesor predaje Predmet', route: '/admin/profesor-predmet' },
 
     // Dodaj dalje po potrebi...
   ];

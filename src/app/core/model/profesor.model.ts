@@ -3,5 +3,5 @@ export interface Profesor {
   ime: string;
   prezime: string;
   biografija: string;
-  slikaPath: string;
+  slikaPath?: string;
 }

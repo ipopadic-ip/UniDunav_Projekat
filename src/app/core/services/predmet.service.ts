@@ -28,4 +28,30 @@ export class PredmetService {
 getSviPredmeti(): Observable<Predmet[]> {
   return this.http.get<Predmet[]>('/api/predmeti');
 }
+
+getAll(): Observable<Predmet[]> {
+  return this.http.get<Predmet[]>(`${this.apiUrl}`);
+}
+
+getAllPredmetiAdmin(): Observable<Predmet[]> {
+  return this.http.get<Predmet[]>(`${this.apiUrl}/admin`);
+}
+
+aktivirajPredmet(id: number): Observable<Predmet> {
+  return this.http.put<Predmet>(`${this.apiUrl}/${id}/aktiviraj`, {});
+}
+
+deaktivirajPredmet(id: number): Observable<Predmet> {
+  return this.http.put<Predmet>(`${this.apiUrl}/${id}/deaktiviraj`, {});
+}
+
+createPredmet(predmet: Predmet): Observable<Predmet> {
+  return this.http.post<Predmet>(`${this.apiUrl}`, predmet);
+}
+
+updatePredmet(id: number, predmet: Predmet): Observable<Predmet> {
+  return this.http.put<Predmet>(`${this.apiUrl}/${id}`, predmet);
+}
+
+
 }

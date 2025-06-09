@@ -6,6 +6,7 @@ import { Katedra } from '../../../core/model/katedra.model';
 import { RectorComponent } from '../../../components/neregistrovani-korisnici/shared/rector/rector.component';
 import { StudijskiProgram } from '../../../core/model/studijski-program.model';
 import { StudijskiProgramService } from '../../../core/services/studijski-program.service';
+import { GrupisaniProgrami } from '../../../core/model/GrupisaniProgrami.model';
 
 @Component({
   selector: 'app-katedra-detalji',
@@ -16,7 +17,8 @@ import { StudijskiProgramService } from '../../../core/services/studijski-progra
 })
 export class KatedraDetaljiComponent implements OnInit {
   katedra?: Katedra;
-  studijskiProgramiPoTipu: Record<string, StudijskiProgram[]> = {};
+  // studijskiProgramiPoTipu: Record<string, StudijskiProgram[]> = {};
+  studijskiProgramiPoTipu: GrupisaniProgrami[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,25 +36,17 @@ export class KatedraDetaljiComponent implements OnInit {
       });
 
       this.studijskiProgramService.getStudijskiProgramiGroupedByTip(id).subscribe(data => {
+        console.log('Grupisani SP:', data);
         this.studijskiProgramiPoTipu = data;
       });
+
+
+      // this.studijskiProgramService.getStudijskiProgramiGroupedByTip(id).subscribe(data => {
+      //   this.studijskiProgramiPoTipu = data;
+      // });
+
     });
   }
-
-  // constructor(private route: ActivatedRoute,
-  //   private katedraService: KatedraService,
-  //   private studijskiProgramService: StudijskiProgramService) {
-
-  //   const id = Number(this.route.snapshot.paramMap.get('id'));
-  //   this.katedraService.getKatedraById(id).subscribe(k => {
-  //     this.katedra = k;
-  //   });
-
-  //    this.studijskiProgramService.getStudijskiProgramiGroupedByTip(id).subscribe(data => {
-  //     this.studijskiProgramiPoTipu = data;
-  //   });    
-  // }
-
   get sefKatedreData() {
     if (!this.katedra || !this.katedra.sefKatedre) return null;
     const sef = this.katedra.sefKatedre;

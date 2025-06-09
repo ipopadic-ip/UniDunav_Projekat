@@ -19,48 +19,29 @@
     ></app-rector>
 
     <!-- DEPARTMANI KARTICE -->
-     <div class="container my-5">
-  <div class="row">
-    <div class="col-12 mb-4 text-center">
-      <h2 class="text-primary">Departmani</h2>
-    </div>
-    <div
-      class="col-md-6 col-lg-4 mb-4"
-      *ngFor="let departman of departmani"
-    >
-      <div class="card h-100 shadow rounded-3">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title text-primary">{{ departman.naziv }}</h5>
-          <p class="card-text flex-grow-1">{{ departman.opis }}</p>
-          <a
-            [routerLink]="['/departmani', departman.id]"
-            class="btn btn-outline-primary mt-3"
-          >
-            Pročitajte više
-          </a>
+    <div class="container my-5">
+    <div class="row">
+      <div class="col-12 mb-4 text-center">
+        <h2 class="text-primary">Departmani</h2>
+      </div>
+
+      <div class="col-12 d-flex justify-content-center mb-4" *ngFor="let departman of departmani">
+        <div class="card katedra-card shadow rounded-3">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-primary">{{ departman.naziv }}</h5>
+            <p class="card-text">{{ departman.opis }}</p>
+            <div class="mt-auto text-end">
+              <a [routerLink]="['/departmani', departman.id]" class="btn btn-outline-primary mt-3">
+                Pročitajte više
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
   </div>
 </div>
 
-<!-- <div class="row mt-4">
-  <div class="col-12">
-    <h3 class="text-center text-primary mb-3">Departmani</h3>
-  </div>
-  <div class="col-md-6 col-lg-4 mb-4" *ngFor="let d of departmani">
-    <div class="card h-100 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">{{ d.naziv }}</h5>
-        <p class="card-text">{{ d.opis }}</p>
-        <p class="text-muted" *ngIf="d.sefDepartmana?.biografija">
-          <strong>Šef departmana:</strong><br />
-          {{ d.sefDepartmana.biografija }}
-        </p>
-      </div>
-    </div>
-  </div>
-</div> -->
 
   
     <app-contact *ngIf="kontaktData" [kontakt]="kontaktData"></app-contact>
