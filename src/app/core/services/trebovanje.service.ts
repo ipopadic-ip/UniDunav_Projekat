@@ -15,4 +15,7 @@ export class TrebovanjeService {
   create(data: any): Observable<any> {
     return this.http.post(this.baseUrl, data);
   }
+   potvrdiTrebovanje(id: number): Observable<void> {
+  return this.http.put<void>(`${this.baseUrl}/${id}/potvrdi`, {});
+}
 }

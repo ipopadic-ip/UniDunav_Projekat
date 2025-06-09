@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Trebovanja knjiga</h2>
+
+  <table class="table table-bordered mt-4">
+    <thead class="table-light">
+      <tr>
+        
+        <th>Naziv knjige</th>
+        <th>Količina</th>
+        <th>Status</th>
+        <th>Akcija</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of trebovanja">
+        
+        <td>{{ t.naziv }}</td>
+        <td>{{ t.brojPrimeraka }}</td>
+        <td>{{ jePotvrdjeno(t.id) || t.status === 'POTVRDJENO' ? 'Potvrđeno' : t.status }}</td>
+        <td>
+          <button class="btn btn-success"
+                  [disabled]="jePotvrdjeno(t.id) || t.status === 'POTVRDJENO'"
+                  (click)="potvrdi(t.id)">
+            Potvrdi trebovanje
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
