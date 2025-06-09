@@ -37,4 +37,21 @@ export class BibliotekaService {
  getDostupneKnjigeZaStudenta(indeks: string): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrl}/student/${indeks}/knjige`);
 }
+ 
+  dodajKnjigu(knjiga: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/knjige`, knjiga);
+  }
+
+  
+  dodajPrimerak(primerak: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/primerci`, primerak);
+  }
+
+  
+  getSveKnjige(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/knjige`);
+  }
+  obrisiPrimerak(isbn: string): Observable<any> {
+  return this.http.delete<any>(`${this.apiUrl}/primerak/${isbn}`);
+}
 }

@@ -10,6 +10,10 @@ export const KOMERCIJALISTA_ROUTES: Routes = [
         path: 'trebovanje',
         loadComponent: () => import('./trebovanje-prikaz/trebovanje-prikaz.component')
           .then(m => m.TrebovanjePrikazComponent)
+      },{
+    path: 'dodavanje-knjiga',
+      loadComponent: () => import('./dodavanje-knjiga/dodavanje-knjiga.component')
+    .then(m => m.DodavanjeKnjigaComponent)
       },
       {
         path: 'trebovanje-knjiga',

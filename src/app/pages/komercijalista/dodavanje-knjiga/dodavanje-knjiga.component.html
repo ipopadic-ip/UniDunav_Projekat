@@ -1,0 +1,99 @@
+<h3>Dodavanje u sistem</h3>
+
+<div class="kartice-dugmad mb-3">
+  <button class="btn"
+          [class.btn-primary]="aktivnaKartica === 'knjiga'"
+          [class.btn-outline-primary]="aktivnaKartica !== 'knjiga'"
+          (click)="prikaziKnjigu()">
+    Dodaj knjigu
+  </button>
+
+  <button class="btn"
+          [class.btn-primary]="aktivnaKartica === 'primerak'"
+          [class.btn-outline-primary]="aktivnaKartica !== 'primerak'"
+          (click)="prikaziPrimerak()">
+    Dodaj primerak knjige
+  </button>
+
+  <button class="btn"
+          [class.btn-primary]="aktivnaKartica === 'brisanje'"
+          [class.btn-outline-primary]="aktivnaKartica !== 'brisanje'"
+          (click)="prikaziBrisanje()">
+    Obriši primerak
+  </button>
+</div>
+
+<div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+<!-- Dodavanje knjige -->
+<div *ngIf="aktivnaKartica === 'knjiga'">
+  <form [formGroup]="knjigaForm" (ngSubmit)="onSubmitKnjiga()">
+    <div class="form-group">
+      <label>Naziv:</label>
+      <input type="text" formControlName="naziv" class="form-control" placeholder="Unesite naziv knjige">
+    </div>
+    <div class="form-group">
+      <label>Autor:</label>
+      <input type="text" formControlName="autor" class="form-control" placeholder="Unesite ime autora">
+    </div>
+    <div class="form-group">
+      <label>Žanr:</label>
+      <input type="text" formControlName="zanr" class="form-control" placeholder="Unesite žanr">
+    </div>
+    <div class="form-group">
+      <label>Godina izdanja:</label>
+      <input type="number" formControlName="godinaIzdavanja" class="form-control" placeholder="Unesite godinu izdanja">
+    </div>
+    <div class="form-group">
+      <label>Izdavač:</label>
+      <input type="text" formControlName="izdavac" class="form-control" placeholder="Unesite izdavača">
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Dodaj knjigu</button>
+  </form>
+</div>
+
+<!-- Dodavanje primerka -->
+<div *ngIf="aktivnaKartica === 'primerak'">
+  <form [formGroup]="primerakForm" (ngSubmit)="onSubmitPrimerak()">
+    <div class="form-group">
+      <label>Pretraži knjigu po nazivu:</label>
+      <input type="text" class="form-control" [(ngModel)]="pretragaNaziv"
+             (ngModelChange)="filtrirajKnjige()" name="pretragaNaziv"
+             [ngModelOptions]="{standalone: true}" placeholder="Unesi naziv knjige">
+
+      <ul *ngIf="filtriraneKnjige.length > 0" class="list-group mt-2">
+        <li *ngFor="let knjiga of filtriraneKnjige"
+            class="list-group-item list-group-item-action"
+            (click)="izaberiKnjigu(knjiga)">
+          {{ knjiga.naziv }} - {{ knjiga.autor }}
+        </li>
+      </ul>
+    </div>
+
+    <input type="hidden" formControlName="knjigaId">
+
+    <div class="form-group mt-2">
+      <label>ISBN:</label>
+      <input type="text" formControlName="isbn" class="form-control" placeholder="Unesite ISBN broja primerka">
+    </div>
+
+    <div class="form-check mt-2">
+      <input class="form-check-input" type="checkbox" formControlName="dostupan" id="dostupan">
+      <label class="form-check-label" for="dostupan">Dostupan</label>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Dodaj primerak</button>
+  </form>
+</div>
+
+<!-- Brisanje primerka -->
+<div *ngIf="aktivnaKartica === 'brisanje'">
+  <form [formGroup]="brisanjeForm" (ngSubmit)="onObrisiPrimerak()">
+    <div class="form-group">
+      <label>Unesi ISBN primerka za brisanje:</label>
+      <input type="text" formControlName="isbn" class="form-control" placeholder="Unesi ISBN">
+    </div>
+    <button type="submit" class="btn btn-danger mt-2">Obriši primerak</button>
+  </form>
+</div>
