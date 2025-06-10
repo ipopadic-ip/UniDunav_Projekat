@@ -22,7 +22,13 @@ export const STUDENT_ROUTES: Routes = [
         path: 'istorija',
         loadComponent: () => import('./istorija-studiranja/istorija-studiranja.component')
         .then(m => m.IstorijaStudiranjaComponent)
+      },
+      {
+        path: 'evaluacije',
+        loadComponent: () => import('./evaluacije/evaluacije.component')
+      .then(m => m.EvaluacijeComponent)
       }
+
     ]
   }
 ];

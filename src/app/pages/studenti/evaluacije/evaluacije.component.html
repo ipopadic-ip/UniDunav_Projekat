@@ -1,0 +1,22 @@
+<table class="evaluacije-table">
+  <thead>
+    <tr>
+      <th>Vreme početka</th>
+      <th>Predmet</th>
+      <th>Tip evaluacije</th>
+      <th>Broj bodova</th>
+      <th>Akcija</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let e of evaluacije">
+      <td>{{ e.vremePocetka | date:'dd.MM.yyyy HH:mm' }}</td>
+      <td>{{ e.predmetNaziv }}</td>
+      <td>{{ e.tipEvaluacijeNaziv }}</td>
+      <td>{{ e.brojBodova !== null ? e.brojBodova : '—' }}</td>
+      <td>
+        <button (click)="skiniPdf(e.id)" class="pdf-button">Skini PDF</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
