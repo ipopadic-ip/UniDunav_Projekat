@@ -8,8 +8,26 @@ public class EvaluacijaZnanjaDTO {
     private int brojBodova;
     private Long tipEvaluacijeId;
     private Long pohadjanjeId;
+    private String predmetNaziv;
+    private String tipEvaluacijeNaziv;
 
-    // Getteri i setteri
+    public String getPredmetNaziv() {
+		return predmetNaziv;
+	}
+
+	public void setPredmetNaziv(String predmetNaziv) {
+		this.predmetNaziv = predmetNaziv;
+	}
+
+	public String getTipEvaluacijeNaziv() {
+		return tipEvaluacijeNaziv;
+	}
+
+	public void setTipEvaluacijeNaziv(String tipEvaluacijeNaziv) {
+		this.tipEvaluacijeNaziv = tipEvaluacijeNaziv;
+	}
+
+	// Getteri i setteri
     public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
