@@ -5,7 +5,7 @@ import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-student-dashboard',
   standalone: true,
-  imports: [RouterModule], // OVO DODAJ
+  imports: [RouterModule], 
   templateUrl: './student-dashboard.component.html',
   styleUrls: ['./student-dashboard.component.css']
 })
