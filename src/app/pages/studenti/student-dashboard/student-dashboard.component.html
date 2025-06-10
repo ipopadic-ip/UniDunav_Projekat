@@ -1,17 +1,29 @@
-<div class="d-flex justify-content-end p-2">
-  <button class="btn btn-danger" (click)="logout()">Logout</button>
+<div class="header-container">
+  <div class="logo-header">
+    <img src="assets/logo.PNG" alt="Univerzitet Dunav Logo" class="logo">
+  </div>
+  
+  <div class="header-title">
+    <h2>Dobrodošli u Studentski servis UniDunav</h2>
+  </div>
+  
+  <div class="logout-container">
+    <button class="logout-button" (click)="logout()">Logout</button>
+  </div>
 </div>
 
-<div class="dashboard-container">
-  <h2>Dobrodošli na studentski panel</h2>
-
-  <div class="dugmad">
-    <button routerLink="predmeti">Pregled predmeta</button>
-    <button routerLink="obavestenja">Obaveštenja</button>
-    <button routerLink="prijava">Prijava predmeta</button>
-    <button routerLink="istorija">Istorija studiranja</button> 
+<!-- Layout: sidebar + sadržaj -->
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <button routerLink="predmeti" routerLinkActive="active">Pregled predmeta</button>
+    <button routerLink="obavestenja" routerLinkActive="active">Obaveštenja</button>
+    <button routerLink="prijava" routerLinkActive="active">Prijava predmeta</button>
+    <button routerLink="istorija" routerLinkActive="active">Istorija studiranja</button>
   </div>
 
-  <!-- Ovde se prikazuju child komponente -->
-  <router-outlet></router-outlet>
+  <!-- Glavni prikaz -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>

@@ -1,21 +1,34 @@
-<div class="d-flex justify-content-end p-2">
-  <button class="btn btn-danger" (click)="logout()">Logout</button>
+<!-- Header linija sa logom, naslovom i logout dugmetom -->
+<div class="header-container">
+  <div class="logo-header">
+    <img src="assets/logo.PNG" alt="Univerzitet Dunav Logo" class="logo">
+  </div>
+<div class="header-title">
+    <h2>Dobrodošli na panel studentske službe</h2>
+  </div>
+  
+  <div class="logout-container">
+    <button class="logout-button" (click)="logout()">Logout</button>
+  </div>
 </div>
 
-<div class="dashboard-container">
-  <h2>Dobrodošli na panel studentske službe</h2>
+<!-- Layout: sidebar + sadržaj -->
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <button routerLink="trebovanje" routerLinkActive="active">Trebovanje materijala</button>
+    <button routerLink="potvrde" routerLinkActive="active">Izdavanje potvrda</button>
+    <button routerLink="obavestenja" routerLinkActive="active">Kreiraj opšta obaveštenja</button>
+    <button routerLink="upis" routerLinkActive="active">Upis studenta</button>
+    <button routerLink="biblioteka" routerLinkActive="active">Izdavanje i vraćanje knjiga</button>
+    <button routerLink="trebovanje-knjiga" routerLinkActive="active">Trebovanje knjiga</button>
+    <button routerLink="termini-nastave" routerLinkActive="active">Kreiranje termina nastave</button>
+    <button routerLink="kreiraj-prijavu-ispita" routerLinkActive="active">Kreiraj prijavu ispita</button>
+    <button routerLink="kreiraj-evaluaciju" routerLinkActive="active">Kreiraj evaluaciju znanja</button>
+  </div>
 
-  <div class="dugmad">
-  <button routerLink="trebovanje">Trebovanje materijala</button>
-  <button routerLink="potvrde">Izdavanje potvrda</button>
-  <button routerLink="obavestenja">Kreiraj opšta obaveštenja</button>
-  <button routerLink="upis">Upis studenta</button>
-  <button routerLink="biblioteka">Izdavanje i vraćanje knjiga</button>
-  <button routerLink="trebovanje-knjiga">Trebovanje knjiga</button>
-  <button routerLink="termini-nastave">Kreiranje termina nastave</button>
-  <button routerLink="kreiraj-prijavu-ispita">Kreiraj prijavu ispita</button>
-  <button routerLink="kreiraj-evaluaciju">Kreiraj evaluaciju znanja</button>
-</div>
-
-  <router-outlet></router-outlet>
+  <!-- Glavni prikaz -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
