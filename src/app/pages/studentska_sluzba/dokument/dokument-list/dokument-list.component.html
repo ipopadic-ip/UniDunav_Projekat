@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <!-- <button
+    (click)="goBack()"
+    class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+  >
+    🔙 Nazad
+  </button> -->
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista Dokumenata</h2>
+    <button class="btn btn-primary" (click)="dodaj()">Dodaj dokument</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Naziv</th>
+        <th>Opis</th>
+        <th class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of dokumenti; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ d.naziv }}</td>
+        <td>{{ d.opis }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-2" (click)="izmeni(d.id)">Izmeni</button>
+          <button *ngIf="!d.deleted" class="btn btn-sm btn-danger" (click)="deaktiviraj(d.id)">Deaktiviraj</button>
+          <button *ngIf="d.deleted" class="btn btn-sm btn-success" (click)="aktiviraj(d.id)">Aktiviraj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

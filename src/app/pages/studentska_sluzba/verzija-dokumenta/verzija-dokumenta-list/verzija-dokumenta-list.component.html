@@ -1,0 +1,38 @@
+<!-- verzija-dokumenta-list.component.html -->
+<div class="container mt-4">
+
+  <h2 class="mb-4">Lista Verzija Dokumenata</h2>
+
+  <button class="btn btn-success me-2" (click)="dodajVerziju()">Dodaj verziju</button>
+
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Dokument</th>
+        <th>Broj Verzije</th>
+        <th>Autor</th>
+        <th>Datum</th>
+        <th>Putanja</th>
+        <th class="text-center">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of verzije; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ v.dokument.naziv }}</td>
+         <!-- <td>{{ v.dokument?.naziv || '-' }}</td> -->
+
+        <td>{{ v.brojVerzije }}</td>
+        <td>{{ v.autor }}</td>
+        <td>{{ v.datumKreiranja | date:'short' }}</td>
+        <td>{{ v.putanjaDoFajla || '-' }}</td>
+        <td class="text-center">
+          <button *ngIf="!v.deleted" class="btn btn-sm btn-danger" (click)="deaktiviraj(v.id)">Deaktiviraj</button>
+          <button *ngIf="v.deleted" class="btn btn-sm btn-success" (click)="aktiviraj(v.id)">Aktiviraj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

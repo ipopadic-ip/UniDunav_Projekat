@@ -30,7 +30,7 @@ export class AdminDashboardComponent {
     { label: 'Godina Studija', route: '/admin/godina-studija' },
     { label: 'Predmet', route: '/admin/predmet' },
     { label: 'Profesor predaje Predmet', route: '/admin/profesor-predmet' },
-
+    { label: 'Dodaj Dokument', route: '/admin/dodaj-dokument' },
     // Dodaj dalje po potrebi...
   ];
 }

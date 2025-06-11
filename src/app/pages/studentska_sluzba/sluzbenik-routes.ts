@@ -113,7 +113,37 @@ export const SLUZBENIK_ROUTES: Routes = [
               path: 'trebovanje-knjiga',
               loadComponent: () => import('./trebovanje-knjiga/trebovanje-knjiga.component')
                 .then(m => m.TrebovanjeKnjigaComponent)
-      }
+      },
+      {
+              path: 'dokument',
+              loadComponent: () => import('./dokument/dokument-list/dokument-list.component')
+                .then(m => m.DokumentListComponent)
+      },
+      {
+              path: 'dokument/add',
+              loadComponent: () => import('./dokument/dokument-form/dokument-form.component')
+                .then(m => m.DokumentFormComponent)
+      },
+      {
+              path: 'dokument/edit/:id',
+              loadComponent: () => import('./dokument/dokument-form/dokument-form.component')
+                .then(m => m.DokumentFormComponent)
+      },
+      {
+              path: 'verzije',
+              loadComponent: () => import('./verzija-dokumenta/verzija-dokumenta-list/verzija-dokumenta-list.component')
+                .then(m => m.VerzijaDokumentaListComponent)
+      },
+      {
+              path: 'verzije/edit/:id',
+              loadComponent: () => import('./verzija-dokumenta/verzija-dokumenta-form/verzija-dokumenta-form.component')
+                .then(m => m.VerzijaDokumentaFormComponent)
+      },
+      {
+              path: 'verzije/add',
+              loadComponent: () => import('./verzija-dokumenta/verzija-dokumenta-form/verzija-dokumenta-form.component')
+                .then(m => m.VerzijaDokumentaFormComponent)
+      },
     ]
   }
 ];
