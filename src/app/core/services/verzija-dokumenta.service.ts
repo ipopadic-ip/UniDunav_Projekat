@@ -39,4 +39,7 @@ export class VerzijaDokumentaService {
   reaktiviraj(id: number): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${id}/reaktiviraj`, {});
   }
+  getPoslednjaVerzija(dokumentId: number): Observable<VerzijaDokumenta> {
+  return this.http.get<VerzijaDokumenta>(`/api/verzije/poslednja/${dokumentId}`);
+}
 }

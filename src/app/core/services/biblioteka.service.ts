@@ -37,8 +37,8 @@ export class BibliotekaService {
  getDostupneKnjigeZaStudenta(indeks: string): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrl}/student/${indeks}/knjige`);
 }
-
- dodajKnjigu(knjiga: any): Observable<any> {
+ 
+  dodajKnjigu(knjiga: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/knjige`, knjiga);
   }
 

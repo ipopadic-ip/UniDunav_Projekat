@@ -34,8 +34,7 @@ export const routes: Routes = [
   loadChildren: () => import('./pages/studentska_sluzba/sluzbenik-routes')
     .then(m => m.SLUZBENIK_ROUTES),
   canActivate: [RoleGuard(['SLUZBENIK'])]
-},
-{
+},{
   path: 'komercijalista',
   loadChildren: () => import('./pages/komercijalista/komercijalista-routes')
     .then(m => m.KOMERCIJALISTA_ROUTES),

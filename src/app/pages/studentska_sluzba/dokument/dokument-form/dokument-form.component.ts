@@ -19,16 +19,30 @@ export class DokumentFormComponent {
   dokument: Partial<Dokument> = {};
   isEdit = false;
 
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.isEdit = true;
-      this.dokumentService.getDokumentById(+id).subscribe({
-        next: (data) => (this.dokument = data),
-        error: (err) => console.error('Greška pri učitavanju dokumenta', err),
-      });
-    }
+  nngOnInit() {
+  const id = this.route.snapshot.paramMap.get('id');
+  if (id) {
+    this.isEdit = true;
+    this.dokumentService.getAktivniDokumentById(+id).subscribe({
+      next: (data) => {
+        if (data) {
+          this.dokument = data;
+        } else {
+          alert('Dokument nije pronađen.');
+          this.router.navigate(['/sluzbenik/dokument']);
+        }
+      },
+      error: err => {
+        console.error('Greška pri učitavanju dokumenata:');
+        console.error('Status:', err.status);
+        console.error('Poruka:', err.message);
+        console.error('Detalji:', err.error);
+        alert('Greška pri učitavanju dokumenta.');
+        this.router.navigate(['/sluzbenik/dokument']);
+      }
+    });
   }
+}
 
   sacuvaj() {
     if (!this.dokument.naziv) {

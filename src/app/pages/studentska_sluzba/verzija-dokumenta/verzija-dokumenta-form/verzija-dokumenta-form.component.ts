@@ -74,6 +74,19 @@ export class VerzijaDokumentaFormComponent {
     });
   }
 
+  onDokumentChange(dokumentId: number) {
+    this.selectedDokumentId = dokumentId;
+    this.verzijaService.getPoslednjaVerzija(dokumentId).subscribe({
+      next: verzija => {
+        this.sadrzaj = verzija?.sadrzaj || '';
+      },
+      error: () => {
+        this.sadrzaj = '';
+        console.error('Greška pri učitavanju poslednje verzije.');
+      }
+    });
+  }
+
   otkazi() {
     this.router.navigate(['/sluzbenik/verzije']);
   }

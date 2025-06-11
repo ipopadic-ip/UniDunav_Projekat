@@ -30,6 +30,14 @@ export class DokumentService {
 updateDokument(id: number, dokument: Partial<Dokument>) {
   return this.http.put<Dokument>(`${this.apiUrl}/${id}`, dokument);
 }
+getAllAktivni(): Observable<Dokument[]> {
+  return this.http.get<Dokument[]>(this.apiUrl); // /api/dokumenti
+}
+getAktivniDokumentById(id: number): Observable<Dokument | undefined> {
+  return this.getAllAktivni().pipe(
+    map((dokumenti) => dokumenti.find((d) => d.id === id))
+  );
+}
 
 getDokumentById(id: number) {
   return this.http.get<Dokument[]>(`${this.apiUrl}/admin`).pipe(

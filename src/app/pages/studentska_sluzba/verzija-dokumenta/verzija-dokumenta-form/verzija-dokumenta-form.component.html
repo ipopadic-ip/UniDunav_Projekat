@@ -4,7 +4,7 @@
 
   <div class="mb-3">
     <label class="form-label">Izaberi dokument</label>
-    <select class="form-control" [(ngModel)]="selectedDokumentId" name="dokumentId" required>
+    <select class="form-control" [ngModel]="selectedDokumentId" (ngModelChange)="onDokumentChange($event)" name="dokumentId" required>
       <option [value]="null" disabled selected>-- Izaberi --</option>
       <option *ngFor="let d of dokumenti" [value]="d.id">{{ d.naziv }}</option>
     </select>
@@ -12,10 +12,10 @@
 
   <div class="mb-3">
     <label class="form-label">Sadržaj tekstualne verzije</label>
-    <textarea class="form-control" [(ngModel)]="sadrzaj" name="sadrzaj" rows="4"></textarea>
+    <textarea class="form-control" [(ngModel)]="sadrzaj" name="sadrzaj" rows="6"></textarea>
   </div>
 
-  <div class="d-flex gap-3">
+  <div class="d-flex gap-3 flex-wrap">
     <button class="btn btn-success" (click)="sacuvajTekstualnuVerziju()">➕ Dodaj tekstualnu verziju</button>
     <input type="file" (change)="onFileChange($event)" />
     <button class="btn btn-primary" (click)="uploadVerzija()">📤 Upload verzije</button>

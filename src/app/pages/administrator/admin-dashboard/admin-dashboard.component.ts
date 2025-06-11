@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { RouterModule } from '@angular/router';
-// import { AdminPanelDugmeComponent } from '../../../components/administrator/admin-panel-dugme/admin-panel-dugme.component';
+
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -30,7 +30,7 @@ export class AdminDashboardComponent {
     { label: 'Godina Studija', route: '/admin/godina-studija' },
     { label: 'Predmet', route: '/admin/predmet' },
     { label: 'Profesor predaje Predmet', route: '/admin/profesor-predmet' },
-    { label: 'Dodaj Dokument', route: '/admin/dodaj-dokument' },
+
     // Dodaj dalje po potrebi...
   ];
 }
