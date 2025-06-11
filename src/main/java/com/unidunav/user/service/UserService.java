@@ -184,8 +184,8 @@ public class UserService {
         user = userRepository.save(user);
 
         // 4. Dodaj u odgovarajuću tabelu po ulozi
-
-         Set<String> specijalneRole = Set.of("STUDENT", "PROFESOR");
+        
+        Set<String> specijalneRole = Set.of("STUDENT", "PROFESOR");
 
         for (Role role : persistedRoles) {
             String roleName = role.getNaziv().toUpperCase();
@@ -210,29 +210,30 @@ public class UserService {
                 System.out.println("Rola '" + roleName + "' nema dodatnu tabelu, samo je dodeljena korisniku.");
             }
         }
+
         
-        // for (Role role : persistedRoles) {
-        //     switch (role.getNaziv().toUpperCase()) {
-        //         case "STUDENT" -> {
-        //             Student s = new Student();
-        //             s.setUser(user);
-        //             int godinaUpisa = LocalDate.now().getYear();
-        //             s.setGodinaUpisa(godinaUpisa);
-        //             s.setBrojIndeksa("BR-" + godinaUpisa + "-" + user.getId());
-        //             studentRepository.save(s);
-        //         }
-        //         case "PROFESOR" -> {
-        //             Profesor p = new Profesor();
-        //             p.setUser(user);
-        //             profesorRepository.save(p);
-        //         }
-        //         // ADMIN i SLUZBENIK nemaju posebne entitete, ništa dodatno se ne radi
-        //         case "ADMIN", "SLUZBENIK" -> {
-        //             // Nema entiteta, samo se dodaje rola u User
-        //         }
-        //         default -> throw new IllegalArgumentException("Nepoznata rola: " + role.getNaziv());
-        //     }
-        // }
+//        for (Role role : persistedRoles) {
+//            switch (role.getNaziv().toUpperCase()) {
+//                case "STUDENT" -> {
+//                    Student s = new Student();
+//                    s.setUser(user);
+//                    int godinaUpisa = LocalDate.now().getYear();
+//                    s.setGodinaUpisa(godinaUpisa);
+//                    s.setBrojIndeksa("BR-" + godinaUpisa + "-" + user.getId());
+//                    studentRepository.save(s);
+//                }
+//                case "PROFESOR" -> {
+//                    Profesor p = new Profesor();
+//                    p.setUser(user);
+//                    profesorRepository.save(p);
+//                }
+//                case "ADMIN", "SLUZBENIK" -> {
+//                }
+//                default -> throw new IllegalArgumentException("Nepoznata rola: " + role.getNaziv());
+//            }
+//        }
+        
+        
     }
 
     
@@ -246,26 +247,7 @@ public class UserService {
         return mapToDTO(saved);
     }
     
-//    public User createUserWithRole(CreateUserDTO dto) {
-//        User user = new User();
-//        user.setEmail(dto.getEmail());
-//        user.setPassword(passwordEncoder.encode(dto.getPassword()));
-//        user.setRoles(dto.getRoles());
-//        user.setIme(dto.getIme());
-//        user.setPrezime(dto.getPrezime());
-//        user.setAdresa(dto.getAdresa());
-//        user.setJmbg(dto.getJmbg());
-//        return userRepository.save(user);
-//    }
-
     
-//    public User createUser1(CreateUserDTO dto) {
-//        User user = new User();
-//        user.setEmail(dto.getEmail());
-//        user.setPassword(passwordEncoder.encode(dto.getPassword()));
-//        user.setRoles(dto.getRoles());
-//        return userRepository.save(user); // VRATI sačuvanog user-a sa ID-jem
-//    }
     
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
