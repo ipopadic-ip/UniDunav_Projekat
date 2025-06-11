@@ -18,8 +18,8 @@ public interface BibliotekaService {
     void vratiKnjigu(Long iznajmljivanjeId);
 
     List<KnjigaIzdavanjeDTO> pretraziDostupneKnjigeZaStudenta(String indeks);
-
-	KnjigaDTO dodajKnjigu(KnjigaDTO dto);
+    
+    KnjigaDTO dodajKnjigu(KnjigaDTO dto);
 
 	List<KnjigaDTO> sveKnjige();
 

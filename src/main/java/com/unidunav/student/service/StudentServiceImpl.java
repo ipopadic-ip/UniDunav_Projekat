@@ -150,8 +150,9 @@ public class StudentServiceImpl implements StudentService {
 
         return filePath.toString();
     }
+    
     public List<StudentDTO> findByBrojIndeksa(String indeks) {
-        return repository.findByBrojIndeksaContainingIgnoreCase(indeks).stream().map(student -> {
+        return repository.findByBrojIndeksaContainingIgnoreCaseAndUserNotDeleted(indeks).stream().map(student -> {
             StudentDTO dto = new StudentDTO();
             dto.setId(student.getId());
             dto.setIme(student.getUser().getIme());
@@ -160,4 +161,15 @@ public class StudentServiceImpl implements StudentService {
             return dto;
         }).collect(Collectors.toList());
     }
+
+//    public List<StudentDTO> findByBrojIndeksa(String indeks) {
+//        return repository.findByBrojIndeksaContainingIgnoreCase(indeks).stream().map(student -> {
+//            StudentDTO dto = new StudentDTO();
+//            dto.setId(student.getId());
+//            dto.setIme(student.getUser().getIme());
+//            dto.setPrezime(student.getUser().getPrezime());
+//            dto.setBrojIndeksa(student.getBrojIndeksa());
+//            return dto;
+//        }).collect(Collectors.toList());
+//    }
 }

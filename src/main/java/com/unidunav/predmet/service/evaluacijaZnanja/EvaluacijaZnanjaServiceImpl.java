@@ -29,10 +29,9 @@ public class EvaluacijaZnanjaServiceImpl implements EvaluacijaZnanjaService {
         dto.setId(ez.getId());
         dto.setVremePocetka(ez.getVremePocetka());
         dto.setBrojBodova(ez.getBrojBodova() != null ? ez.getBrojBodova() : 0);
+//        dto.setBrojBodova(ez.getBrojBodova());
         dto.setTipEvaluacijeId(ez.getTipEvaluacije().getId());
         dto.setPohadjanjeId(ez.getPohadjanje().getId());
-
-        // 🔽 OVDE DODAJEŠ:
         if (ez.getTipEvaluacije() != null) {
             dto.setTipEvaluacijeNaziv(ez.getTipEvaluacije().getTip());
         }
@@ -40,10 +39,8 @@ public class EvaluacijaZnanjaServiceImpl implements EvaluacijaZnanjaService {
         if (ez.getPohadjanje() != null && ez.getPohadjanje().getPredmet() != null) {
             dto.setPredmetNaziv(ez.getPohadjanje().getPredmet().getNaziv());
         }
-
         return dto;
     }
-
 
     private EvaluacijaZnanja toEntity(EvaluacijaZnanjaDTO dto) {
         TipEvaluacije tip = tipRepo.findById(dto.getTipEvaluacijeId()).orElseThrow();
@@ -88,6 +85,7 @@ public class EvaluacijaZnanjaServiceImpl implements EvaluacijaZnanjaService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+    
     @Override
     public List<EvaluacijaZnanjaDTO> getEvaluacijeForStudent(Long studentId) {
         List<PohadjanjePredmeta> pohadjanja = pohRepo.findByStudentId(studentId);

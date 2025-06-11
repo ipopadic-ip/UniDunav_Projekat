@@ -44,6 +44,7 @@ public class TrebovanjeController {
     public ResponseEntity<TrebovanjeDTO> update(@PathVariable Long id, @RequestBody TrebovanjeDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
+    
     @PutMapping("/{id}/potvrdi")
     public ResponseEntity<Void> potvrdiTrebovanje(@PathVariable Long id) {
         service.potvrdiTrebovanje(id);

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,11 +76,13 @@ public class PohadjanjePredmetaServiceImpl implements PohadjanjePredmetaService 
     public PohadjanjePredmetaDTO findById(Long id) {
         return repository.findById(id).map(this::toDTO).orElse(null);
     }
+    
     @Override
     public PohadjanjePredmeta findById2(Long id) {
         return repository.findById(id)
         		.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pohadjanje sa ID " + id + " nije pronađeno."));
     }
+
     @Override
     public PohadjanjePredmetaDTO update(Long id, PohadjanjePredmetaDTO dto) {
         return repository.findById(id).map(existing -> {

@@ -7,13 +7,14 @@ import com.unidunav.sluzbenik.dto.IzdavanjeKnjigeRequestDTO;
 import com.unidunav.sluzbenik.dto.IznajmljivanjeKnjigeDTO;
 import com.unidunav.sluzbenik.dto.KnjigaDTO;
 import com.unidunav.sluzbenik.dto.KnjigaIzdavanjeDTO;
-import com.unidunav.sluzbenik.dto.PrimerakKnjigeDTO;
 import com.unidunav.sluzbenik.dto.VracanjeKnjigeRequestDTO;
 import com.unidunav.sluzbenik.service.BibliotekaService;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
+
+import com.unidunav.sluzbenik.dto.PrimerakKnjigeDTO;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class BibliotekaController {
 
     // 2. Izdavanje primerka knjige studentu
     @PostMapping("/izdaj")
+    @PreAuthorize("hasRole('SLUZBENIK')")
     public ResponseEntity<Void> izdajKnjigu(@RequestBody IzdavanjeKnjigeRequestDTO dto) {
         bibliotekaService.izdajKnjigu(dto.getPrimerakId(), dto.getBrojIndeksa());
         return ResponseEntity.ok().build();
@@ -48,6 +50,7 @@ public class BibliotekaController {
 
     // 4. Vraćanje iznajmljene knjige
     @PostMapping("/vrati")
+    @PreAuthorize("hasRole('SLUZBENIK')")
     public ResponseEntity<Void> vratiKnjigu(@RequestBody VracanjeKnjigeRequestDTO dto) {
         bibliotekaService.vratiKnjigu(dto.getIznajmljivanjeId());
         return ResponseEntity.ok().build();
@@ -57,6 +60,7 @@ public class BibliotekaController {
     public ResponseEntity<List<KnjigaIzdavanjeDTO>> dostupneKnjigeZaStudenta(@PathVariable String indeks) {
         return ResponseEntity.ok(bibliotekaService.pretraziDostupneKnjigeZaStudenta(indeks));
     }
+    
     @PostMapping("/knjige")
     @PreAuthorize("hasRole('KOMERCIJALISTA')")
     public ResponseEntity<KnjigaDTO> dodajKnjigu(@RequestBody KnjigaDTO dto) {

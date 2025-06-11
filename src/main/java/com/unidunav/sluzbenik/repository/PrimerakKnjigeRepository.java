@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.unidunav.sluzbenik.model.PrimerakKnjige;
 
 import java.util.List;
+
 import java.util.Optional;
 
 public interface PrimerakKnjigeRepository extends JpaRepository<PrimerakKnjige, Long> {

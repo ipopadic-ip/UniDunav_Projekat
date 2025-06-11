@@ -12,12 +12,12 @@ import com.unidunav.predmet.dto.EvaluacijaZnanjaDTO;
 import com.unidunav.predmet.model.PohadjanjePredmeta;
 import com.unidunav.predmet.model.TipEvaluacije;
 import com.unidunav.predmet.repository.TipEvaluacijeRepository;
-import com.unidunav.predmet.service.evaluacijaZnanja.EvaluacijaZnanjaService;
 import com.unidunav.predmet.service.pohadjanjePredmeta.PohadjanjePredmetaService;
 import com.unidunav.student.model.Student;
 import com.unidunav.utils.PdfGeneratorUtil;
-
 import java.io.ByteArrayInputStream;
+import com.unidunav.predmet.service.evaluacijaZnanja.EvaluacijaZnanjaService;
+
 import java.util.List;
 
 @RestController

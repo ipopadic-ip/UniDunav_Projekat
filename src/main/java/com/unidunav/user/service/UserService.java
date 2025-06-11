@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -81,6 +82,35 @@ public class UserService {
                     .collect(Collectors.toSet());
 
                 user.setRoles(noveRole);
+                
+             // 📌 Sinhronizacija entiteta na osnovu novih rola
+                boolean imaRoluStudent = noveRole.stream().anyMatch(r -> r.getNaziv().equalsIgnoreCase("STUDENT"));
+                boolean imaRoluProfesor = noveRole.stream().anyMatch(r -> r.getNaziv().equalsIgnoreCase("PROFESOR"));
+                boolean imaRoluSluzbenik = noveRole.stream().anyMatch(r -> r.getNaziv().equalsIgnoreCase("SLUZBENIK"));
+
+                // STUDENT
+                if (imaRoluStudent && !studentRepository.existsById(user.getId())) {
+                    Student s = new Student();
+                    s.setUser(user);
+                    int godinaUpisa = LocalDate.now().getYear();
+                    s.setGodinaUpisa(godinaUpisa);
+                    s.setBrojIndeksa("BR-" + godinaUpisa + "-" + user.getId());
+//                    s.setBrojIndeksa("BR-" + user.getId()); 
+//                    s.setGodinaUpisa(LocalDate.now().getYear());
+                    studentRepository.save(s);
+                } else if (!imaRoluStudent && studentRepository.existsById(user.getId())) {
+                    studentRepository.deleteById(user.getId());
+                }
+
+                // PROFESOR
+                if (imaRoluProfesor && !profesorRepository.existsById(user.getId())) {
+                    Profesor p = new Profesor();
+                    p.setUser(user);
+                    profesorRepository.save(p);
+                } else if (!imaRoluProfesor && profesorRepository.existsById(user.getId())) {
+                    profesorRepository.deleteById(user.getId());
+                }
+                
             }
 
             
@@ -160,6 +190,9 @@ public class UserService {
                 case "STUDENT" -> {
                     Student s = new Student();
                     s.setUser(user);
+                    int godinaUpisa = LocalDate.now().getYear();
+                    s.setGodinaUpisa(godinaUpisa);
+                    s.setBrojIndeksa("BR-" + godinaUpisa + "-" + user.getId());
                     studentRepository.save(s);
                 }
                 case "PROFESOR" -> {

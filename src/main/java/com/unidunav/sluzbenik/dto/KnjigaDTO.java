@@ -13,61 +13,66 @@ public class KnjigaDTO {
     public KnjigaDTO() {
         super();
     }
-
     
-
     public String getZanr() {
-		return zanr;
-	}
+  		return zanr;
+  	}
 
 
 
-	public void setZanr(String zanr) {
-		this.zanr = zanr;
-	}
+  	public void setZanr(String zanr) {
+  		this.zanr = zanr;
+  	}
 
 
 
-	public int getGodinaIzdavanja() {
-		return godinaIzdavanja;
-	}
+  	public int getGodinaIzdavanja() {
+  		return godinaIzdavanja;
+  	}
 
 
 
-	public void setGodinaIzdavanja(int godinaIzdavanja) {
-		this.godinaIzdavanja = godinaIzdavanja;
-	}
+  	public void setGodinaIzdavanja(int godinaIzdavanja) {
+  		this.godinaIzdavanja = godinaIzdavanja;
+  	}
 
 
 
-	public String getIzdavac() {
-		return izdavac;
-	}
+  	public String getIzdavac() {
+  		return izdavac;
+  	}
 
 
 
-	public void setIzdavac(String izdavac) {
-		this.izdavac = izdavac;
-	}
+  	public void setIzdavac(String izdavac) {
+  		this.izdavac = izdavac;
+  	}
 
 
 
-	public KnjigaDTO(Long id, String naziv, String autor, String zanr, int godinaIzdavanja, String izdavac,
-			int brojDostupnihPrimeraka, Long primerakId) {
-		super();
-		this.id = id;
-		this.naziv = naziv;
-		this.autor = autor;
-		this.zanr = zanr;
-		this.godinaIzdavanja = godinaIzdavanja;
-		this.izdavac = izdavac;
-		this.brojDostupnihPrimeraka = brojDostupnihPrimeraka;
-		this.primerakId = primerakId;
-	}
+  	public KnjigaDTO(Long id, String naziv, String autor, String zanr, int godinaIzdavanja, String izdavac,
+  			int brojDostupnihPrimeraka, Long primerakId) {
+  		super();
+  		this.id = id;
+  		this.naziv = naziv;
+  		this.autor = autor;
+  		this.zanr = zanr;
+  		this.godinaIzdavanja = godinaIzdavanja;
+  		this.izdavac = izdavac;
+  		this.brojDostupnihPrimeraka = brojDostupnihPrimeraka;
+  		this.primerakId = primerakId;
+  	}
 
+//    public KnjigaDTO(Long id, String naziv, String autor, int brojDostupnihPrimeraka, Long primerakId) {
+//        super();
+//        this.id = id;
+//        this.naziv = naziv;
+//        this.autor = autor;
+//        this.brojDostupnihPrimeraka = brojDostupnihPrimeraka;
+//        this.primerakId = primerakId;
+//    }
 
-
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 

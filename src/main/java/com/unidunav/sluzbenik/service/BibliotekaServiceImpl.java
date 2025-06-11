@@ -6,15 +6,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-
-import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-
+import com.unidunav.sluzbenik.dto.PrimerakKnjigeDTO;
+import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
 import com.unidunav.sluzbenik.dto.IznajmljivanjeKnjigeDTO;
 import com.unidunav.sluzbenik.dto.KnjigaDTO;
 import com.unidunav.sluzbenik.dto.KnjigaIzdavanjeDTO;
-import com.unidunav.sluzbenik.dto.PrimerakKnjigeDTO;
 import com.unidunav.sluzbenik.model.IznajmljivanjeKnjige;
 import com.unidunav.sluzbenik.model.Knjiga;
 import com.unidunav.sluzbenik.model.PrimerakKnjige;
@@ -26,10 +25,7 @@ import com.unidunav.student.repository.StudentRepository;
 import com.unidunav.user.model.User;
 import com.unidunav.user.repository.UserRepository;
 
-import jakarta.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 
 
 @Service
@@ -149,7 +145,7 @@ public class BibliotekaServiceImpl implements BibliotekaService {
     }
 
     private Student pronadjiStudentaPoIndeksu(String indeks) {
-        List<Student> studenti = studentRepository.findByBrojIndeksaContainingIgnoreCase(indeks);
+        List<Student> studenti = studentRepository.findByBrojIndeksaContainingIgnoreCaseAndUserNotDeleted(indeks);
         if (studenti.isEmpty()) {
             throw new IllegalArgumentException("Student sa datim indeksom ne postoji.");
         }
@@ -185,6 +181,7 @@ public class BibliotekaServiceImpl implements BibliotekaService {
             );
         }).collect(Collectors.toList());
     }
+    
     @Override
     public KnjigaDTO dodajKnjigu(KnjigaDTO dto) {
         Knjiga knjiga = new Knjiga();
@@ -284,4 +281,5 @@ public void obrisiPrimerakPoIsbn(String isbn) {
         knjigaRepository.save(knjiga);
     }
 }
+    
 }

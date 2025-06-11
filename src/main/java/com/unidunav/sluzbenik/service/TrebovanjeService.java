@@ -81,6 +81,7 @@ public class TrebovanjeService {
 
         return response;
     }
+    
     public void potvrdiTrebovanje(Long id) {
         Trebovanje trebovanje = trebovanjeRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Trebovanje ne postoji"));
@@ -88,5 +89,5 @@ public class TrebovanjeService {
         trebovanje.setStatus("POTVRDJENO");
         trebovanjeRepository.save(trebovanje);
     }
-
+    
 }

@@ -12,5 +12,5 @@ public interface EvaluacijaZnanjaService {
     EvaluacijaZnanjaDTO update(Long id, EvaluacijaZnanjaDTO dto);
     void delete(Long id);
     void kreirajEvaluacijeZaPredmet(EvaluacijaZnanjaCreateDTO dto);
-	List<EvaluacijaZnanjaDTO> getEvaluacijeForStudent(Long studentId);
+    List<EvaluacijaZnanjaDTO> getEvaluacijeForStudent(Long studentId);
 }
