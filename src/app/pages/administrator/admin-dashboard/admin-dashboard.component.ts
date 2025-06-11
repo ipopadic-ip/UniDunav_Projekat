@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { RouterModule } from '@angular/router';
-
+// import { AdminPanelDugmeComponent } from '../../../components/administrator/admin-panel-dugme/admin-panel-dugme.component';
 
 @Component({
   selector: 'app-admin-dashboard',

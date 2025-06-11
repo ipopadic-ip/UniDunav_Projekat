@@ -28,7 +28,7 @@ export class PrijavaComponent {
           this.router.navigate(['/profesor']);
         } else if (roles.includes('STUDENT')) {
           this.router.navigate(['/student']);
-        }else if (roles.includes('KOMERCIJALISTA')) {
+        } else if (roles.includes('KOMERCIJALISTA')) {
           this.router.navigate(['/komercijalista']);
         } else if (roles.includes('SLUZBENIK')) {
           this.router.navigate(['/sluzbenik']);

@@ -1,0 +1,15 @@
+<div class="row py-5 justify-content-center">
+  <h1 class="text-center mb-5 display-4 text-primary">Eksport to PDF/XML</h1>
+  <div class="col-12 col-md-6 d-flex flex-column align-items-center gap-3">
+    <button class="btn btn-primary w-100 w-md-50" (click)="download('pdf')">Preuzmi PDF za Studente</button>
+    <button class="btn btn-secondary w-100 w-md-50" (click)="download('xml')">Preuzmi XML za Studente</button>
+    <button class="btn btn-primary w-100 w-md-50" (click)="downloadProfesor('pdf')">Preuzmi PDF za Profesore</button>
+    <button class="btn btn-secondary w-100 w-md-50" (click)="downloadProfesor('xml')">Preuzmi XML za Profesore</button>
+    <button
+        (click)="goBack()"
+        class="btn btn-primary my-4 flex items-center text-blue-600 hover:text-blue-800 font-medium"
+    >
+        🔙 Nazad
+    </button>  
+</div>
+</div>

@@ -9,6 +9,11 @@ export const STUDENT_ROUTES: Routes = [
     children: [
       { path: 'predmeti', component: PregledPredmetaComponent },
       {
+        path: 'moj-profil',
+        loadComponent: () => import('./student-profil/student-profil.component')
+          .then(m => m.StudentProfilComponent)
+      },
+      {
         path: 'obavestenja',
         loadComponent: () => import('./obavestenja/obavestenja.component')
           .then(m => m.ObavestenjaComponent)
@@ -26,9 +31,8 @@ export const STUDENT_ROUTES: Routes = [
       {
         path: 'evaluacije',
         loadComponent: () => import('./evaluacije/evaluacije.component')
-      .then(m => m.EvaluacijeComponent)
+        .then(m => m.EvaluacijeComponent)
       }
-
     ]
   }
 ];

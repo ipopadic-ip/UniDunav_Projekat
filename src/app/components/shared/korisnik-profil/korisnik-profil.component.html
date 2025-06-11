@@ -4,12 +4,12 @@
   <form *ngIf="user" (ngSubmit)="sacuvaj()" #form="ngForm">
     <div class="mb-3">
       <label class="form-label">Ime</label>
-      <input class="form-control" [(ngModel)]="user.ime" name="ime" required />
+      <input class="form-control" [(ngModel)]="user.ime" name="ime"  [readonly]="readonly" required />
     </div>
 
     <div class="mb-3">
       <label class="form-label">Prezime</label>
-      <input class="form-control" [(ngModel)]="user.prezime" name="prezime" required />
+      <input class="form-control" [(ngModel)]="user.prezime" name="prezime" [readonly]="readonly" required />
     </div>
 
     <div class="mb-3">

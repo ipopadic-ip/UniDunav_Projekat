@@ -1,0 +1,12 @@
+button {
+  width: 90%;
+  max-width: 400px;
+  margin: 0.5rem auto;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  button {
+    width: 50%;
+  }
+}

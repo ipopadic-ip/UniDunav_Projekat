@@ -106,6 +106,10 @@ export class UserTableComponent {
     this.router.navigate(['/admin']);
   }
 
+  eksport(): void {
+    this.router.navigate(['/admin/eksport']);
+  }
+
 
   onEdit(userId: number): void {
     // idi na stranicu za izmenu
