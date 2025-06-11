@@ -184,52 +184,55 @@ public class UserService {
         user = userRepository.save(user);
 
         // 4. Dodaj u odgovarajuću tabelu po ulozi
-        
+
+         Set<String> specijalneRole = Set.of("STUDENT", "PROFESOR");
+
         for (Role role : persistedRoles) {
-            switch (role.getNaziv().toUpperCase()) {
-                case "STUDENT" -> {
-                    Student s = new Student();
-                    s.setUser(user);
-                    int godinaUpisa = LocalDate.now().getYear();
-                    s.setGodinaUpisa(godinaUpisa);
-                    s.setBrojIndeksa("BR-" + godinaUpisa + "-" + user.getId());
-                    studentRepository.save(s);
+            String roleName = role.getNaziv().toUpperCase();
+
+            if (specijalneRole.contains(roleName)) {
+                switch (roleName) {
+                    case "STUDENT" -> {
+                        Student s = new Student();
+                        s.setUser(user);
+                        int godinaUpisa = LocalDate.now().getYear();
+                        s.setGodinaUpisa(godinaUpisa);
+                        s.setBrojIndeksa("BR-" + godinaUpisa + "-" + user.getId());
+                        studentRepository.save(s);
+                    }
+                    case "PROFESOR" -> {
+                        Profesor p = new Profesor();
+                        p.setUser(user);
+                        profesorRepository.save(p);
+                    }
                 }
-                case "PROFESOR" -> {
-                    Profesor p = new Profesor();
-                    p.setUser(user);
-                    profesorRepository.save(p);
-                }
-                // ADMIN i SLUZBENIK nemaju posebne entitete, ništa dodatno se ne radi
-                case "ADMIN", "SLUZBENIK" -> {
-                    // Nema entiteta, samo se dodaje rola u User
-                }
-                default -> throw new IllegalArgumentException("Nepoznata rola: " + role.getNaziv());
+            } else {
+                System.out.println("Rola '" + roleName + "' nema dodatnu tabelu, samo je dodeljena korisniku.");
             }
         }
         
-//        for (Role role : persistedRoles) {
-//            switch (role.getNaziv().toUpperCase()) {
-//                case "STUDENT":
-//                    Student s = new Student();
-//                    s.setUser(user);
-//
-//                    studentRepository.save(s);
-//                    break;
-//                case "PROFESOR":
-//                    Profesor p = new Profesor();
-//                    p.setUser(user);
-//                    profesorRepository.save(p);
-//                    break;
-//                case "SLUZBENIK":
-//                	break;
-//                case "ADMIN":
-//                    break;
-//                default:
-//                    throw new IllegalArgumentException("Nepoznata rola: " + role.getNaziv());
-//            }
-//        }
-        
+        // for (Role role : persistedRoles) {
+        //     switch (role.getNaziv().toUpperCase()) {
+        //         case "STUDENT" -> {
+        //             Student s = new Student();
+        //             s.setUser(user);
+        //             int godinaUpisa = LocalDate.now().getYear();
+        //             s.setGodinaUpisa(godinaUpisa);
+        //             s.setBrojIndeksa("BR-" + godinaUpisa + "-" + user.getId());
+        //             studentRepository.save(s);
+        //         }
+        //         case "PROFESOR" -> {
+        //             Profesor p = new Profesor();
+        //             p.setUser(user);
+        //             profesorRepository.save(p);
+        //         }
+        //         // ADMIN i SLUZBENIK nemaju posebne entitete, ništa dodatno se ne radi
+        //         case "ADMIN", "SLUZBENIK" -> {
+        //             // Nema entiteta, samo se dodaje rola u User
+        //         }
+        //         default -> throw new IllegalArgumentException("Nepoznata rola: " + role.getNaziv());
+        //     }
+        // }
     }
 
     
