@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,6 +152,20 @@ public class VerzijaDokumentaService {
             dto.setDokument(dokumentDTO);
         }
 
+        return dto;
+    }
+    public Optional<VerzijaDokumenta> findLatestByDokumentId(Long dokumentId) {
+        return verzijaRepo.findByDokumentIdOrderByBrojVerzijeDesc(dokumentId)
+                          .stream().findFirst(); 
+    }
+    public VerzijaDokumentaDTO mapToDto2(VerzijaDokumenta v) {
+        VerzijaDokumentaDTO dto = new VerzijaDokumentaDTO();
+        dto.setId(v.getId());
+        dto.setBrojVerzije(v.getBrojVerzije());
+        dto.setDatumKreiranja(v.getDatumKreiranja());
+        dto.setAutor(v.getAutor().getEmail());
+        dto.setPutanjaDoFajla(v.getPutanjaDoFajla());
+        dto.setSadrzaj(v.getSadrzaj()); // VAŽNO
         return dto;
     }
 

@@ -51,8 +51,12 @@ public class DokumentController {
     // GET: svi dokumenti (admin)
     @GetMapping("/admin")
     @PreAuthorize("hasRole('SLUZBENIK')")
-    public ResponseEntity<List<Dokument>> sviZaAdmina() {
-        return ResponseEntity.ok(dokumentService.sviDokumentiZaAdmina());
+    public ResponseEntity<List<DokumentDTO>> sviZaAdmina() {
+        List<Dokument> dokumenti = dokumentService.sviDokumentiZaAdmina();
+        List<DokumentDTO> dtoList = dokumenti.stream()
+            .map(dokumentService::toDto)
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(dtoList);
     }
     
     @PutMapping("/{id}")

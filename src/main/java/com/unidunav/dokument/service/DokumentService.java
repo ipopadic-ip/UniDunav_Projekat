@@ -46,7 +46,7 @@ public class DokumentService {
     }
 
     public Dokument dodajDokument(Dokument dokument) {
-        dokument.setDeleted(false); // obavezno inicijalizuj
+    	dokument.setDeleted(false); 
         return dokumentRepo.save(dokument);
     }
 

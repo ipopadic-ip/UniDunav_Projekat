@@ -2,6 +2,7 @@ package com.unidunav.dokument.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -99,5 +100,13 @@ public class VerzijaDokumentaController {
     public ResponseEntity<Void> reaktiviraj(@PathVariable Long id) {
         verzijaService.reaktivirajVerziju(id);
         return ResponseEntity.ok().build();
+    }
+    @GetMapping("/poslednja/{dokumentId}")
+    @PreAuthorize("hasRole('SLUZBENIK')")
+    public ResponseEntity<VerzijaDokumentaDTO> poslednjaVerzija(@PathVariable Long dokumentId) {
+        Optional<VerzijaDokumenta> poslednja = verzijaService.findLatestByDokumentId(dokumentId);
+        return poslednja.map(v ->
+            ResponseEntity.ok(verzijaService.mapToDto2(v))
+        ).orElse(ResponseEntity.noContent().build());
     }
 }
