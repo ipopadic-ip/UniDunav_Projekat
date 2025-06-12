@@ -168,6 +168,16 @@ public class VerzijaDokumentaService {
         dto.setSadrzaj(v.getSadrzaj()); // VAŽNO
         return dto;
     }
+    public List<VerzijaDokumentaDTO> getSvePoslednjeVerzijeJavno() {
+        List<Object[]> poslednjeVerzije = verzijaRepo.findPoslednjeVerzijePoDokumentima();
+
+        return poslednjeVerzije.stream()
+                .map(result -> {
+                    VerzijaDokumenta v = (VerzijaDokumenta) result[0];
+                    return mapToDTO(v);
+                })
+                .collect(Collectors.toList());
+    }
 
 
 
