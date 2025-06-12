@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Pregled dokumenata</h2>
+
+  <div *ngIf="loading" class="text-center">
+    <p>Učitavanje...</p>
+  </div>
+
+  <div *ngIf="!loading && verzije.length === 0" class="alert alert-info">
+    Trenutno nema dostupnih dokumenata za prikaz.
+  </div>
+
+  <div *ngIf="!loading && verzije.length > 0">
+    <div *ngFor="let verzija of verzije" class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ verzija.dokument.naziv }}</h5>
+        <p class="card-text">
+          
+          <strong>Autor:</strong> {{ verzija.autor }} <br>
+          <strong>Datum:</strong> {{ verzija.datumKreiranja | date:'short' }}
+        </p>
+
+        <div *ngIf="verzija.sadrzaj">
+          <p class="card-text"><strong>Sadržaj:</strong></p>
+          <pre class="content-box">{{ verzija.sadrzaj }}</pre>
+        </div>
+
+        <div *ngIf="verzija.urlFajl">
+          <a [href]="verzija.urlFajl" target="_blank" class="btn btn-outline-primary btn-sm">
+            📥 Preuzmi fajl
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

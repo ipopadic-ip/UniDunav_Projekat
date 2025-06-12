@@ -43,6 +43,10 @@ export const administratorRoutes: Routes = [
   { path: 'profesor-predmet', loadComponent: () => import('./profesor-predmet/profesor-predmet-list/profesor-predmet-list.component').then(m => m.ProfesorPredmetListComponent) },
   { path: 'profesor-predmet/edit/:id', loadComponent: () => import('./profesor-predmet/profesor-predmet-form/profesor-predmet-form.component').then(m => m.ProfesorPredmetFormComponent) },
   { path: 'profesor-predmet/add', loadComponent: () => import('./profesor-predmet/profesor-predmet-form/profesor-predmet-form.component').then(m => m.ProfesorPredmetFormComponent) },
-  { path: 'moj-profil', loadComponent: () => import('./admin-profil/admin-profil.component').then(m => m.AdminProfilComponent) },
+  {
+  path: 'profil',
+  loadComponent: () => import('./admin-profil/admin-profil.component')
+    .then(m => m.AdminProfilComponent)
+}
 
 ];

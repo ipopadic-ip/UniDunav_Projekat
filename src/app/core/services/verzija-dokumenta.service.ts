@@ -42,4 +42,10 @@ export class VerzijaDokumentaService {
   getPoslednjaVerzija(dokumentId: number): Observable<VerzijaDokumenta> {
   return this.http.get<VerzijaDokumenta>(`/api/verzije/poslednja/${dokumentId}`);
 }
+getVerzije(dokumentId: number): Observable<any[]> {
+  return this.http.get<any[]>(`/api/verzije/dokument/${dokumentId}`);
+}
+ getPoslednjeVerzije(): Observable<VerzijaDokumenta[]> {
+    return this.http.get<VerzijaDokumenta[]>(`${this.apiUrl}`);
+  }
 }

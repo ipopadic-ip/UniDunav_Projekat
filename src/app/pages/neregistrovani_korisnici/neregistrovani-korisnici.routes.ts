@@ -8,7 +8,10 @@ export const neregistrovaniKorisniciRoutes: Routes = [
   {path: 'departmani/:id', loadComponent: () => import('./departman-detalji/departman-detalji.component').then(m => m.DepartmanDetaljiComponent)},
   { path: 'katedre/:id', loadComponent: () => import('./katedra-detalji/katedra-detalji.component').then(m => m.KatedraDetaljiComponent)},
   { path: 'predmeti/:id', loadComponent: () => import('./predmet-detalji/predmet-detalji.component').then(m => m.PredmetDetaljiComponent)},
-  {path: 'opsta-obavestenja',loadComponent: () =>import('./opsta-obavestenja/opsta-obavestenja.component').then(m => m.OpstaObavestenjaComponent)}
+  {path: 'opsta-obavestenja',loadComponent: () =>import('./opsta-obavestenja/opsta-obavestenja.component').then(m => m.OpstaObavestenjaComponent)},
+  { path: 'dokumenta', 
+  loadComponent: () => import('./dokumenta-pregled/dokumenta-pregled.component').then(m => m.DokumentaPregledComponent) 
+},
 
 
 ];

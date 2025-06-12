@@ -18,7 +18,7 @@ export class AdminDashboardComponent {
   }
 
   dugmad = [
-    { label: 'Moj Profil', route: '/admin/moj-profil' },
+    
     { label: 'Upravljanje Postojećim korisnicima', route: '/admin/get-user' },
     { label: 'Upravljanje Ulogama', route: '/admin/uloge' },
     { label: 'Univerzitet', route: '/admin/univerzitet' },

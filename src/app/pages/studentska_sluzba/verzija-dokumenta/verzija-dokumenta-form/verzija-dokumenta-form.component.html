@@ -15,10 +15,36 @@
     <textarea class="form-control" [(ngModel)]="sadrzaj" name="sadrzaj" rows="6"></textarea>
   </div>
 
-  <div class="d-flex gap-3 flex-wrap">
+  <div class="d-flex gap-3 flex-wrap mb-4">
     <button class="btn btn-success" (click)="sacuvajTekstualnuVerziju()">➕ Dodaj tekstualnu verziju</button>
     <input type="file" (change)="onFileChange($event)" />
     <button class="btn btn-primary" (click)="uploadVerzija()">📤 Upload verzije</button>
     <button class="btn btn-secondary" (click)="otkazi()">Otkaži</button>
+    <button class="btn btn-warning ms-auto" (click)="prikaziUporedjivanje()">📝 Uporedi verzije</button>
+  </div>
+
+  <div *ngIf="prikaziUporedi">
+    <h3>Uporedi dve verzije dokumenta</h3>
+
+    <label>Dokument:</label>
+   <select class="form-control mb-2" [(ngModel)]="dokumentZaUporediId" (change)="ucitajVerzijeZaUporedi()">
+    <option *ngFor="let d of dokumenti" [value]="d.id">{{ d.naziv }}</option>
+  </select>
+
+    <div *ngIf="verzije.length > 0">
+      <p>Izaberi 2 verzije:</p>
+      <div *ngFor="let v of verzije" class="form-check">
+        <input type="checkbox" class="form-check-input" [checked]="izabraneVerzije.includes(v)" (change)="toggleVerzija(v)" />
+        <label class="form-check-label">
+          Verzija {{ v.brojVerzije }} - {{ v.datumKreiranja | date:'short' }}
+        </label>
+      </div>
+      <button class="btn btn-outline-dark mt-2" [disabled]="izabraneVerzije.length !== 2" (click)="uporedi()">🔍 Uporedi</button>
+    </div>
+
+    <div *ngIf="diffHtml" class="mt-4">
+      <h4>Rezultat:</h4>
+      <div [innerHTML]="diffHtml"></div>
+    </div>
   </div>
 </div>

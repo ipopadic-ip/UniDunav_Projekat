@@ -32,9 +32,11 @@
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "@angular/material/prebuilt-themes/azure-blue.css",
+              "node_modules/diff2html/bundles/css/diff2html.min.css",
+
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [ "node_modules/diff2html/bundles/js/diff2html.min.js"],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {

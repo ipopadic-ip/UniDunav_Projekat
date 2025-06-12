@@ -1,14 +1,15 @@
-<!-- Header linija sa logom, naslovom i logout dugmetom -->
+
 <div class="header-container">
   <div class="logo-header">
     <img src="assets/logo.PNG" alt="Univerzitet Dunav Logo" class="logo">
   </div>
-
+  
   <div class="header-title">
     <h2>Dobrodošli na panel administratora</h2>
   </div>
-
+  
   <div class="logout-container">
+    <button class="profil-button" routerLink="profil">Administrator profil</button>
     <button class="logout-button" (click)="logout()">Logout</button>
   </div>
 </div>
