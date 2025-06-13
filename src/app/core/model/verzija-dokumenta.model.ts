@@ -9,5 +9,5 @@ export interface VerzijaDokumenta {
   deleted: boolean;
   dokumentId: number;
   dokument: Dokument;
-  urlFajl?: string; // povezan dokument
+  urlFajl?: string;
 }

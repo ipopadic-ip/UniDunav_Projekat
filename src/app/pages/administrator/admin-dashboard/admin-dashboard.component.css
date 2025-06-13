@@ -1,3 +1,4 @@
+/* Header */
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -28,9 +29,9 @@
 
 /* Logout sekcija */
 .logout-container {
+  width: 180px;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  justify-content: flex-end;
 }
 
 .logout-button {
@@ -45,20 +46,6 @@
 
 .logout-button:hover {
   background-color: #c82333;
-}
-
-.profil-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.profil-button:hover {
-  background-color: #0056b3;
 }
 
 /* Layout: sidebar + sadržaj */

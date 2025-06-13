@@ -144,11 +144,6 @@ export const SLUZBENIK_ROUTES: Routes = [
               loadComponent: () => import('./verzija-dokumenta/verzija-dokumenta-form/verzija-dokumenta-form.component')
                 .then(m => m.VerzijaDokumentaFormComponent)
       },
-      {
-  path: 'profil',
-  loadComponent: () => import('./sluzbenik-profil/sluzbenik-profil.component')
-    .then(m => m.SluzbenikProfilComponent)
-}
     ]
   }
 ];

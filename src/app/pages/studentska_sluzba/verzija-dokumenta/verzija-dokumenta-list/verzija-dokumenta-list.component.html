@@ -3,7 +3,7 @@
 
   <h2 class="mb-4">Lista Verzija Dokumenata</h2>
 
-  <button class="btn btn-success me-2" (click)="dodajVerziju()">Dodaj verziju</button>
+  <button class="btn btn-success me-2 my-4" (click)="dodajVerziju()">Dodaj verziju</button>
 
 
   <table class="table table-bordered table-striped">
@@ -29,6 +29,7 @@
         <td>{{ v.datumKreiranja | date:'short' }}</td>
         <td>{{ v.putanjaDoFajla || '-' }}</td>
         <td class="text-center">
+          <button *ngIf="!v.deleted" class="btn btn-sm btn-warning mx-2" (click)="izmeniVerziju(v.id)"> Izmeni</button>
           <button *ngIf="!v.deleted" class="btn btn-sm btn-danger" (click)="deaktiviraj(v.id)">Deaktiviraj</button>
           <button *ngIf="v.deleted" class="btn btn-sm btn-success" (click)="aktiviraj(v.id)">Aktiviraj</button>
         </td>

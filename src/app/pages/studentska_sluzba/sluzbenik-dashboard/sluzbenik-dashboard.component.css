@@ -1,3 +1,20 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-layout {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -62,6 +79,10 @@
   flex-direction: column;
   gap: 15px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+  /* 👇 Dodato za skrol */
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
 }
 
 /* Sidebar dugmad */

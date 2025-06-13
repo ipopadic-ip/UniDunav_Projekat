@@ -17,7 +17,7 @@ export class NeregistrovaniKorisniciComponent {
         { label: 'Početna', path: '/' },
         { label: 'Fakulteti', path: '/fakulteti' },
         { label: 'Opšta obaveštenja', path: '/opsta-obavestenja' },
-          { label: 'Dokumenta', path: '/dokumenta' },
+        { label: 'Dokumenta', path: '/dokumenta' },
         { label: 'Prijava', path: '/prijava' }
       ];
 }

@@ -16,9 +16,10 @@ export class KorisnikProfilComponent implements OnInit {
   staraSifra: string = '';
   novaSifra: string = '';
 
+  @Input() readonly: boolean = false;
+
 
   @Input() user?: User;
-  @Input() readOnly: boolean = false;
 
   ngOnInit(): void {
     if (!this.user) {
@@ -29,7 +30,8 @@ export class KorisnikProfilComponent implements OnInit {
   }
 
   sacuvaj() {
-    if (!this.user) return;
+    // if (!this.user) return;
+    if (this.readonly || !this.user) return;
 
     const dto = {
       ime: this.user.ime,

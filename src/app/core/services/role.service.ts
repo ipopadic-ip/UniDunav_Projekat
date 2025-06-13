@@ -20,9 +20,10 @@ export class RoleService {
 
     // Sve aktivne role osim STUDENT
     getAssignableRoles(): Observable<Role[]> {
-        return this.getAllRoles().pipe(
-        map(roles => roles.filter(role => role.naziv !== 'STUDENT'))
-        );
+        return this.getAllRoles();
+        // return this.getAllRoles().pipe(
+        // map(roles => roles.filter(role => role.naziv !== 'STUDENT'))
+        // );
     }
 
     // dohvatanje svih rola sortirano (aktivne prve)

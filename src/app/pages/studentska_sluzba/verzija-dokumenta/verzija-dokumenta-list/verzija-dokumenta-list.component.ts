@@ -37,6 +37,11 @@ export class VerzijaDokumentaListComponent implements OnInit {
     });
   }
 
+  izmeniVerziju(id: number) {
+  this.router.navigate(['/sluzbenik/verzije/edit', id]);
+}
+
+
   dodajVerziju() {
   this.router.navigate(['/sluzbenik/verzije/add']);
 }

@@ -12,7 +12,8 @@
   "files": [
     "src/main.ts",
     "src/main.server.ts",
-    "src/server.ts"
+    "src/server.ts",
+    "src/polyfills.ts"
   ],
   "include": [
     "src/**/*.d.ts"
