@@ -101,11 +101,7 @@ public class VerzijaDokumentaController {
         verzijaService.reaktivirajVerziju(id);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/dokument/{dokumentId}")
-    @PreAuthorize("hasRole('SLUZBENIK')")
-    public List<VerzijaDokumentaDTO> getVerzijeZaDokument(@PathVariable Long dokumentId) {
-        return verzijaService.getSveVerzijeAdmin(dokumentId);
-    }
+    
     @GetMapping("/poslednja/{dokumentId}")
     @PreAuthorize("hasRole('SLUZBENIK')")
     public ResponseEntity<VerzijaDokumentaDTO> poslednjaVerzija(@PathVariable Long dokumentId) {
@@ -114,6 +110,13 @@ public class VerzijaDokumentaController {
             ResponseEntity.ok(verzijaService.mapToDto2(v))
         ).orElse(ResponseEntity.noContent().build());
     }
+    
+    @GetMapping("/dokument/{dokumentId}")
+    @PreAuthorize("hasRole('SLUZBENIK')")
+    public List<VerzijaDokumentaDTO> getVerzijeZaDokument(@PathVariable Long dokumentId) {
+        return verzijaService.getSveVerzijeAdmin(dokumentId);
+    }
+    
     @GetMapping
     public List<VerzijaDokumentaDTO> getPoslednjeVerzijeZaJavniPrikaz() {
         return verzijaService.getSvePoslednjeVerzijeJavno();

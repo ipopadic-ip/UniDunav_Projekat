@@ -8,7 +8,6 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ import com.unidunav.dokument.repository.DokumentRepository;
 import com.unidunav.dokument.repository.VerzijaDokumentaRepository;
 import com.unidunav.user.model.User;
 import com.unidunav.user.repository.UserRepository;
+import java.util.Optional;
 
 @Service
 public class VerzijaDokumentaService {
@@ -154,6 +154,7 @@ public class VerzijaDokumentaService {
 
         return dto;
     }
+    
     public Optional<VerzijaDokumenta> findLatestByDokumentId(Long dokumentId) {
         return verzijaRepo.findByDokumentIdOrderByBrojVerzijeDesc(dokumentId)
                           .stream().findFirst(); 
@@ -165,9 +166,10 @@ public class VerzijaDokumentaService {
         dto.setDatumKreiranja(v.getDatumKreiranja());
         dto.setAutor(v.getAutor().getEmail());
         dto.setPutanjaDoFajla(v.getPutanjaDoFajla());
-        dto.setSadrzaj(v.getSadrzaj()); // VAŽNO
+        dto.setSadrzaj(v.getSadrzaj());
         return dto;
     }
+    
     public List<VerzijaDokumentaDTO> getSvePoslednjeVerzijeJavno() {
         List<Object[]> poslednjeVerzije = verzijaRepo.findPoslednjeVerzijePoDokumentima();
 
